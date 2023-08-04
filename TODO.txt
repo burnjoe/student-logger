@@ -1,3 +1,6 @@
 TO DO:
 
-1.
+1. Create a static pages for the system based on the mockup. (frontend)
+2. After creating the static pages, migrate static pages into blade template. (frontend)
+3. Create a login functionality considering different user type. (backend)
+4. Create functionalities for admin role (requirements are to be added). 

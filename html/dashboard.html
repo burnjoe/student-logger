@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- TAILWIND CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: 'rgb(25,134,85)',
+            orange: 'rgb(250,99,65)',
+            red: 'rgb(244,55,92)',
+            lightGray: 'rgb(243,244,246)',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- GOOGLE FONTS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800">
+  <!-- CUSTOM STYLESHEET -->
+  <style>
+    body {
+      font-family: "Nunito Sans",sans-serif;
+    }
+
+    .custom-transform-x-full {
+      transform: translateX(-100%);
+    }
+  </style>
+
+  <link rel="icon" type="image/x-icon" href="../public/img/favicon.ico">
+  <title>iStudentTrack</title>
+</head>
+<body>
+
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="flex-col bg-white drop-shadow-lg p-4 overflow-y-auto transition-all w-64">
+      <div>
+        iStudentTrack
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col p-0">
+      <!-- Header -->
+      <header class="bg-green py-4 px-8 z-10">
+        <div class="flex items-center justify-between space-x-8">
+          <div class="text-white space-x-8">
+            <button id="sidebar-btn" class="focus:outline-none">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <span class="space-x-3">
+              <i class="fa-solid fa-chart-simple"></i><span class="font-bold">Dashboard</span>
+            </span>
+          </div>
+
+          <div class="text-white space-x-8">
+            <button class="focus:outline-none">
+              <i class="fa-regular fa-bell"></i>
+            </button>
+            <button class="focus:outline-none">
+              <i class="fa-regular fa-user"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Main -->
+      <main class="flex-1 bg-lightGray p-8 overflow-y-auto">
+        
+        <!-- Variable content here -->
+        
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('sidebar-btn').addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+
+      sidebar.classList.toggle('custom-transform-x-full');
+    });
+  </script>
+</body>
+</html>

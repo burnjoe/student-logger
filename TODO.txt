@@ -1,6 +1,6 @@
 TO DO:
 
-1. Create a static pages for the system based on the mockup. (frontend)
-2. After creating the static pages, migrate static pages into blade template. (frontend)
+1. Make header, sidebar, and footer a component + make the dashboard a layout
+2. Fix sidebar responsiveness (menu, viewport)
 3. Create a login functionality considering different user type. (backend)
 4. Create functionalities for admin role (requirements are to be added). 

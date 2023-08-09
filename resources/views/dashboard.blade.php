@@ -10,53 +10,54 @@
 
   <div class="flex h-screen">
     <!-- Sidebar -->
-    <aside id="sidebar" class="flex-col bg-white drop-shadow-lg  overflow-x-hidden overflow-y-auto transition-all w-0 lg:w-60">
-      <div class="mt-5 mx-6 w-40">
-        <img class="w-full mt-1 mb-14" src="{{asset('img/ist_logo.png')}}" alt="">
+    <aside id="sidebar" class="flex-col bg-white drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all w-16 lg:w-60">
+      <div class="sticky top-0 pt-1 pb-14 bg-white">
+        <div class="mt-5 mx-6 w-40">
+          <a href="#dashboard"><img class="w-full" src="{{asset('img/ist_logo.png')}}" alt=""></a>
+        </div>
       </div>
 
-      <div class="bg-darkGray px-6 py-3 mb-4 text-white flex flex-col space-y-2">
+      <div id="subheader" class="bg-darkGray px-6 py-3 mb-2 text-white flex flex-col space-y-2">
         <div>
-          <span class="text-sm bg-red rounded-md py-1 px-3">Admin</span>
+          <span class="text-sm text-darkGray bg-lightGray rounded-md py-1 px-3">Admin</span>
         </div>
         <span class="text-md">Dela Cruz, Juan M.</span>
       </div>
 
       <nav>
         <ul class="mx-2 text-darkGray">
-          <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
+          <li class="py-3 px-4 w-full rounded-lg cursor-pointer transition-all hover:bg-lightGray">
             <a href="#dashboard" class="block w-full h-full space-x-2">
               <i class="fa-solid fa-chart-simple"></i>
-              <span class="text-sm">Dashboard</span>
+              <span class="text-md">Dashboard</span>
             </a>
           </li>
           <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
-              <span class="text-sm">Menu 1</span>
+              <span class="text-md">Menu 1</span>
             </a>
           </li>
           <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
-              <span class="text-sm">Menu 2</span>
+              <span class="text-md">Menu 2</span>
             </a>
           </li>
           <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
-              <span class="text-sm">Menu 3</span>
+              <span class="text-md">Menu 3</span>
             </a>
           </li>
           <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
-              <span class="text-sm">Menu 4</span>
+              <span class="text-md">Menu 4</span>
             </a>
           </li>
         </ul>
       </nav>
-      
     </aside>
 
     <div class="flex-1 flex flex-col p-0">
@@ -83,27 +84,17 @@
         </div>
       </header>
       
-      <!-- Main -->
-      <main class="flex-1 bg-lightGray p-8 overflow-y-auto">
-        
-        <!-- Variable content here -->
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
-        
-        <footer class="flex flex-col justify-center items-center mt-24 lg:items-start lg:flex-row lg:justify-between">
+      <div class="flex flex-col bg-lightGray h-full overflow-y-auto">
+        <!-- Main -->
+        <main class="flex-1 bg-lightGray p-8">
+          
+          <!-- Variable content here -->
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat quae animi, non eaque, obcaecati impedit dolore accusantium nesciunt error hic veniam consequuntur necessitatibus iste sequi minus ipsa corrupti qui alias.
+          
+        </main>
+
+        {{-- Footer --}}
+        <footer class="flex flex-col justify-center items-center bg-lightGray px-8 pb-12 mt-24 lg:items-start lg:flex-row lg:justify-between">
           <div class="w-40 lg:w-48">
             <img class="w-full mt-2" src="{{asset('img/ist_logo.png')}}" alt="">
           </div>
@@ -112,10 +103,8 @@
             <img class="w-full" src="{{asset('img/pnc_header.png')}}" alt="">
             <span class="text-xs">Student Attendance Management System</span>
           </div>
-          
         </footer>
-      </main>
-
+      </div>
     </div>
   </div>
 
@@ -123,8 +112,10 @@
   <script>
     document.getElementById('sidebar-btn').addEventListener('click', () => {
       const sidebar = document.getElementById('sidebar');
+      const subheader = document.getElementById('subheader');
 
       sidebar.classList.toggle('lg:w-60');
+      subheader.classList.toggle('hidden');
     });
   </script>
 </body>

@@ -24,31 +24,31 @@
 
       <nav>
         <ul class="mx-2 text-darkGray">
-          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
-            <a href="#" class="block w-full space-x-2">
+          <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
+            <a href="#dashboard" class="block w-full h-full space-x-2">
               <i class="fa-solid fa-chart-simple"></i>
               <span class="text-sm">Dashboard</span>
             </a>
           </li>
-          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+          <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
               <span class="text-sm">Menu 1</span>
             </a>
           </li>
-          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+          <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
               <span class="text-sm">Menu 2</span>
             </a>
           </li>
-          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+          <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
               <span class="text-sm">Menu 3</span>
             </a>
           </li>
-          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+          <li class="py-3 px-4 w-full rounded-lg cursor-pointer hover:bg-lightGray">
             <a href="#" class="block w-full space-x-2">
               <i class="fa-solid fa-question"></i>
               <span class="text-sm">Menu 4</span>

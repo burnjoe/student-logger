@@ -13,6 +13,7 @@ export default {
         red: 'rgb(244,55,92)',
         gray: 'rgb(198,199,198)',
         lightGray: 'rgb(243,244,246)',
+        darkGray: 'rgb(109,117,124)',
       }
     },
   },

@@ -10,11 +10,52 @@
 
   <div class="flex h-screen">
     <!-- Sidebar -->
-    <aside id="sidebar" class="flex-col bg-white drop-shadow-lg p-0 p-4 px-8 overflow-x-hidden overflow-y-auto transition-all w-0 lg:w-64">
-      <div class="flex items-center space-x-4">
-        <img class="h-8 w-8" src="{{asset('img/pnc_logo.png')}}" alt="">
-        <span>iStudentTrack</span>
+    <aside id="sidebar" class="flex-col bg-white drop-shadow-lg  overflow-x-hidden overflow-y-auto transition-all w-0 lg:w-60">
+      <div class="mt-5 mx-6 w-40">
+        <img class="w-full mt-1 mb-14" src="{{asset('img/ist_logo.png')}}" alt="">
       </div>
+
+      <div class="bg-darkGray px-6 py-3 mb-4 text-white flex flex-col space-y-2">
+        <div>
+          <span class="text-sm bg-red rounded-md py-1 px-3">Admin</span>
+        </div>
+        <span class="text-md">Dela Cruz, Juan M.</span>
+      </div>
+
+      <nav>
+        <ul class="mx-2 text-darkGray">
+          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+            <a href="#" class="block w-full space-x-2">
+              <i class="fa-solid fa-chart-simple"></i>
+              <span class="text-sm">Dashboard</span>
+            </a>
+          </li>
+          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+            <a href="#" class="block w-full space-x-2">
+              <i class="fa-solid fa-question"></i>
+              <span class="text-sm">Menu 1</span>
+            </a>
+          </li>
+          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+            <a href="#" class="block w-full space-x-2">
+              <i class="fa-solid fa-question"></i>
+              <span class="text-sm">Menu 2</span>
+            </a>
+          </li>
+          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+            <a href="#" class="block w-full space-x-2">
+              <i class="fa-solid fa-question"></i>
+              <span class="text-sm">Menu 3</span>
+            </a>
+          </li>
+          <li class="py-3 px-4 w-full rounded-lg hover:bg-lightGray">
+            <a href="#" class="block w-full space-x-2">
+              <i class="fa-solid fa-question"></i>
+              <span class="text-sm">Menu 4</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
       
     </aside>
 
@@ -51,9 +92,27 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam explicabo voluptates tempora, adipisci ratione expedita quo id optio. Voluptate enim reiciendis, tenetur incidunt voluptates reprehenderit distinctio omnis ea magnam error? <br>
         
-        <footer class="flex justify-center pt-24">
-          Here is footer
+        <footer class="flex flex-col justify-center items-center mt-24 lg:items-start lg:flex-row lg:justify-between">
+          <div class="w-40 lg:w-48">
+            <img class="w-full mt-2" src="{{asset('img/ist_logo.png')}}" alt="">
+          </div>
+
+          <div class="flex flex-col w-64 mt-10 justify-center items-center lg:items-end lg:mt-0">
+            <img class="w-full" src="{{asset('img/pnc_header.png')}}" alt="">
+            <span class="text-xs">Student Attendance Management System</span>
+          </div>
+          
         </footer>
       </main>
 
@@ -65,9 +124,7 @@
     document.getElementById('sidebar-btn').addEventListener('click', () => {
       const sidebar = document.getElementById('sidebar');
 
-      sidebar.classList.toggle('lg:w-64');
-      sidebar.classList.toggle('p-4');
-      sidebar.classList.toggle('px-8');
+      sidebar.classList.toggle('lg:w-60');
     });
   </script>
 </body>

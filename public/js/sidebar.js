@@ -7,6 +7,7 @@ document.getElementById('sidebar-btn').addEventListener('click', () => {
   const navItemTitles = document.getElementsByClassName("navitem-title");
 
   sidebar.classList.toggle('lg:w-60');
+  sidebar.classList.toggle('w-16');
   header.classList.toggle('pb-14');
   header.classList.toggle('pb-11');
   subheader.classList.toggle('hidden');

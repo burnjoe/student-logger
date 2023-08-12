@@ -10,16 +10,12 @@
     </div>
 
     <div class="flex text-white space-x-8">
-      {{-- <button id="notification-btn" class="transition-all focus:outline-none hover:text-gray">
-        <i class="fa-regular fa-bell"></i>
-      </button> --}}
-
       <x-dropdown>
         <x-dropdown-toggle class="hover:text-gray">
           <i class="fa-regular fa-bell"></i>
         </x-dropdown-toggle>
 
-        <x-dropdown-menu class="right-0">
+        <x-dropdown-menu class="right-0 hidden">
           <x-dropdown-item>
             <x-slot name="link">#</x-slot>
             <x-slot name="icon">
@@ -52,7 +48,6 @@
           </x-dropdown-item>
         </x-dropdown-menu>
       </x-dropdown>
-      
     </div>
   </div>
 </header>

@@ -21,7 +21,7 @@
           <div class="px-12 pt-5">
             <img class="max-w-full" src="{{asset('img/ist_logo.png')}}" alt="">
           </div>
-          <span class="text-sm text-center font-bold text-green pt-2">Student Attendance Management System</span>
+          <span class="text-sm text-center font-bold text-green pt-2">Student Centralized Logging System</span>
         </x-card.card-section>
   
         <x-card.card-section class="flex flex-col ps-14 pe-14 pt-2 space-y-4">

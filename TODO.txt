@@ -1,8 +1,20 @@
 TO DO:
 
-1. Fix sidebar responsiveness (menu, viewport) - Make sidebar offcanvas in mobile view
+1. Fix sidebar responsiveness (in toggle and window resize) - issues with width + add backdrop in offcanvas
 2. Create component for notification - dropdown-menu with header and footer
 3. Use Laravel Mix to to copy, compile, and version assets automatically.
 4. Create a login functionality considering different user type. (backend)
 5. Create functionalities for admin role (requirements are to be added). 
 6. Use Livewire
+
+
+if screen == large {
+  w-60 --> default width
+  w-16 --> when toggled
+}
+
+if screen == small {
+  w-0 --> default width
+  w-60 --> when toggled
+}
+

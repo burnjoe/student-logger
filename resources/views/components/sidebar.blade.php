@@ -1,10 +1,16 @@
-<aside id="sidebar" class="flex-col bg-white drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all w-0 lg:w-60">
-  <div id="sidebar-header" class="sticky top-0 pt-1 pb-14 bg-white">
-    <div class="mt-2 mx-3 w-40 hidden-logo hidden">
-      <a href="/dashboard"><img class="h-10 w-10 " src="{{asset('img/pnc_logo.png')}}" alt=""></a>
+<aside id="sidebar" class="absolute flex-col bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-10 w-0 lg:w-60 md:relative">
+  <div id="sidebar-header" class="sticky top-0 bg-white pt-1 pb-11 pb-14 -z-10">
+    <div class="hidden-logo mt-2 mx-3 w-40 hidden">
+      <a href="/dashboard"><img class="h-10 w-10" src="{{asset('img/pnc_logo.png')}}" alt=""></a>
     </div>
-    <div class="mt-5 mx-6 w-40 hidden-logo">
-      <a href="/dashboard"><img class="w-full hidden-logo" src="{{asset('img/ist_logo.png')}}" alt=""></a>
+    <div class="flex flex-row justify-between">
+      <div class="hidden-logo mt-5 mx-6 w-40">
+        <a href="/dashboard"><img class="w-full hidden-logo" src="{{asset('img/ist_logo.png')}}" alt=""></a>
+      </div>
+      {{-- close button --}}
+      <button class="mt-4 mx-6 lg:hidden">
+        <i class="fa-solid fa-x"></i>
+      </button>
     </div>
   </div>  
 

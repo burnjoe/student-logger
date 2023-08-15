@@ -5,6 +5,6 @@
 
   <div class="flex flex-col w-64 mt-10 justify-center items-center lg:items-end lg:mt-0">
     <img class="w-full" src="{{asset('img/pnc_header.png')}}" alt="">
-    <span class="text-xs">Student Attendance Management System</span>
+    <span class="text-sm text-green font-bold">Student Centralized Logging System</span>
   </div>
 </footer>

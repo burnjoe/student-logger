@@ -22,40 +22,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // Roles
-        $parent = Role::factory()->create([
-            'name' => 'Parent'
-        ]);
-
-        $admin = Role::factory()->create([
-            'name' => 'Admin'
-        ]);
-
-        $guard = Role::factory()->create([
-            'name' => 'Guard'
-        ]);
-
-        $librarian = Role::factory()->create([
-            'name' => 'Librarian'
-        ]);
-
-        $nurse = Role::factory()->create([
-            'name' => 'Nurse'
-        ]);
-
-        // Users
-        User::factory()->create([
-            'name' => 'Joy Sabana',
-            'email' => 'joysabana@gmail.com',
-            'role_id' => $parent->id,
-            'password' => bcrypt('burnjoe')
-        ]);
-
         User::factory()->create([
             'name' => 'Jholo Sabana',
             'email' => 'sabanajholo@gmail.com',
-            'role_id' => $admin->id,
-            'password' => bcrypt('burnjoe')
+            'password' => bcrypt('password')
         ]);
 
     }

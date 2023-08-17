@@ -62,6 +62,10 @@
         </x-card.card-section>
       </x-card>
     </div>
+
+    <x-toast class="hidden" bgColor="bg-orange">
+      Invalid Login Credentials!
+    </x-toast>
   </div>
 
 </body>

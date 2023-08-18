@@ -15,7 +15,7 @@
           <i class="fa-regular fa-bell"></i>
         </x-dropdown.dropdown-toggle>
 
-        <x-dropdown.dropdown-menu class="right-0 hidden">
+        {{-- <x-dropdown.dropdown-menu class="right-0 hidden">
           <x-dropdown.dropdown-item href="#">
             <x-slot name="icon">
               <i class="fa-solid fa-check"></i>
@@ -28,7 +28,7 @@
             </x-slot>
             <x-slot name="title">Notification 2</x-slot>
           </x-dropdown.dropdown-item>
-        </x-dropdown.dropdown-menu>
+        </x-dropdown.dropdown-menu> --}}
       </x-dropdown>
       
       <x-dropdown>
@@ -37,24 +37,27 @@
         </x-dropdown.dropdown-toggle>
 
         <x-dropdown.dropdown-menu class="right-0 w-44">
-          <x-dropdown.dropdown-item href="#">
+          <x-dropdown.dropdown-item>
             <x-slot name="icon">
               <i class="fa-solid fa-user"></i>
             </x-slot>
             <x-slot name="title">My Profile</x-slot>
           </x-dropdown.dropdown-item>
-          <x-dropdown.dropdown-item href="#">
+          <x-dropdown.dropdown-item>
             <x-slot name="icon">
               <i class="fa-solid fa-unlock"></i>
             </x-slot>
             <x-slot name="title">Change Password</x-slot>
           </x-dropdown.dropdown-item>
-          <x-dropdown.dropdown-item href="#">
+          <x-dropdown.dropdown-item>
             <x-slot name="icon">
               <i class="fa-solid fa-right-from-bracket"></i>
             </x-slot>
             <x-slot name="title">Logout</x-slot>
           </x-dropdown.dropdown-item>
+          <form id="form-logout" action="{{ route('logout') }}" method="POST">
+            @csrf
+          </form>
         </x-dropdown.dropdown-menu>
       </x-dropdown>
     </div>

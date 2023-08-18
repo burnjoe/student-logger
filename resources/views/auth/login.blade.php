@@ -31,10 +31,10 @@
             </x-card.card-section>
           </x-card>
 
-          <form action="#" method="" class="flex flex-col space-y-4">
+          <form action="{{ route('parent-guardian.authenticate') }}" method="POST" class="flex flex-col space-y-4">
             @csrf
             <x-input-group>
-              <x-input type="text" placeholder="Username">
+              <x-input type="text" placeholder="Email" name="email" value="{{ old('email') }}">
                 <x-slot name="leftIcon">
                   <i class="fa-solid fa-user"></i>
                 </x-slot>
@@ -42,7 +42,7 @@
             </x-input-group>
   
             <x-input-group>
-              <x-input type="password" placeholder="Password">
+              <x-input type="password" placeholder="Password" name="password">
                 <x-slot name="leftIcon">
                   <i class="fa-solid fa-lock"></i>
                 </x-slot>
@@ -54,7 +54,7 @@
             </span>
   
             <div class="flex justify-center pb-5">
-              <x-button>
+              <x-button type="submit">
                 LOGIN
               </x-button>
             </div>
@@ -63,9 +63,11 @@
       </x-card>
     </div>
 
-    <x-toast class="hidden" bgColor="bg-orange">
-      Invalid Login Credentials!
-    </x-toast>
+    @error('email')
+      <x-toast bgColor="bg-orange">
+        {{ $message }}
+      </x-toast>
+    @enderror
   </div>
 
 </body>

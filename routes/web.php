@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() { return redirect()->route('parent_guardian.login'); })->name('root');
 
-Route::get('/university/login', function() { return view('login'); })->name('university.login');
 
-Route::get('/parentguardian/login', function() { return view('login'); })->name('parent_guardian.login');
+// Route::get('/university/login', function() { return view('login'); })->name('university.login');
 
-Route::get('/dashboard', function() { return view('dashboard'); })->name('dashboard');  
+Route::get('/dashboard', function() { return view('dashboard'); })->middleware('auth')->name('dashboard');  
+
+
+Route::get('/', function() { return redirect()->route('parent-guardian.login'); })->name('root');
+
+Route::get('/parent-guardian/login', [UserController::class, 'login'])->middleware('guest')->name('parent-guardian.login');
+
+Route::post('/parent-guardian/authenticate', [UserController::class, 'authenticate'])->middleware('guest')->name('parent-guardian.authenticate');
+
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth')->name('logout');

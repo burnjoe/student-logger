@@ -2,46 +2,55 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <x-card.card-section class="flex flex-col items-center">
+        <div class="px-12 pt-5">
+            <img class="max-w-full" src="{{asset('img/ist_logo.png')}}" alt="">
         </div>
+        <span class="text-sm text-center font-bold text-green pt-2">Student Centralized Logging System</span>
+    </x-card.card-section>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <x-card.card-section class="flex flex-col ps-14 pe-14 pt-2 space-y-4">
+        <x-card shadow="shadow-none" rounded="rounded-sm">
+            <x-card.card-section class="flex flex-col items-center" bgColor="bg-veryLightGreen">
+                <span class="text-sm text-center text-darkGreen font-bold">PARENT & GUARDIAN LOGIN</span>
+            </x-card.card-section>
+        </x-card>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+        <form method="POST" action="{{ route('login') }}" class="flex flex-col space-y-4">
+            @csrf
+    
+            {{-- Email Address --}}
+            <div>
+                <x-input-group>
+                    <x-input type="email" name="email" :value="old('email')" required placeholder="Username" alignIcon="left">
+                        <i class="fa-solid fa-user"></i>
+                    </x-input>
+                </x-input-group>
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+            
+            {{-- Password --}}
+            <div>
+                <x-input-group>
+                    <x-input type="password" name="password" required placeholder="Password" alignIcon="left">
+                        <i class="fa-solid fa-lock"></i>
+                    </x-input>
+                </x-input-group>
+                <x-input-error :messages="$errors->get('password')" />
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <span class="flex justify-end font-bold text-green text-sm transition-all hover:text-darkGreen">
+                {{-- if this current route has ability to request for password change --}}
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}"> {{__('Forgot Password?')}} </a>
+                @endif
+            </span>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+            <div class="flex justify-center pb-5">
+                <x-button type="submit">
+                  LOGIN
+                </x-button>
+            </div>
+        </form>
+    </x-card.card-section>
 </x-guest-layout>

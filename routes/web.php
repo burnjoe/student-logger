@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', function() { 
+    return redirect()->route('login'); 
+})->name('root');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+// includes the auth.php in routes
 require __DIR__.'/auth.php';

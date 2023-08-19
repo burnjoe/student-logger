@@ -2,18 +2,18 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <x-card.card-section class="flex flex-col items-center">
+    <div class="flex flex-col items-center">
         <div class="px-12 pt-5">
             <img class="max-w-full" src="{{asset('img/ist_logo.png')}}" alt="">
         </div>
         <span class="text-sm text-center font-bold text-green pt-2">Student Centralized Logging System</span>
-    </x-card.card-section>
+    </div>
 
-    <x-card.card-section class="flex flex-col ps-14 pe-14 pt-2 space-y-4">
-        <x-card shadow="shadow-none" rounded="rounded-sm">
-            <x-card.card-section class="flex flex-col items-center" bgColor="bg-veryLightGreen">
+    <div class="flex flex-col mx-8 my-6">
+        <x-card shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightGreen">
+            <div class="flex flex-col items-center">
                 <span class="text-sm text-center text-darkGreen font-bold">PARENT & GUARDIAN LOGIN</span>
-            </x-card.card-section>
+            </div>
         </x-card>
 
         <form method="POST" action="{{ route('login') }}" class="flex flex-col space-y-4">
@@ -22,9 +22,9 @@
             {{-- Email Address --}}
             <div>
                 <x-input-group>
-                    <x-input type="email" name="email" :value="old('email')" required placeholder="Username" alignIcon="left">
+                    <x-input-text type="email" name="email" :value="old('email')" required placeholder="Username" alignIcon="left">
                         <i class="fa-solid fa-user"></i>
-                    </x-input>
+                    </x-input-text>
                 </x-input-group>
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
@@ -32,9 +32,9 @@
             {{-- Password --}}
             <div>
                 <x-input-group>
-                    <x-input type="password" name="password" required placeholder="Password" alignIcon="left">
+                    <x-input-text type="password" name="password" required placeholder="Password" alignIcon="left">
                         <i class="fa-solid fa-lock"></i>
-                    </x-input>
+                    </x-input-text>
                 </x-input-group>
                 <x-input-error :messages="$errors->get('password')" />
             </div>
@@ -46,11 +46,11 @@
                 @endif
             </span>
 
-            <div class="flex justify-center pb-5">
+            <div class="flex justify-center">
                 <x-button type="submit">
-                  LOGIN
+                  <span class="text-md">LOGIN</span>
                 </x-button>
             </div>
         </form>
-    </x-card.card-section>
+    </div>
 </x-guest-layout>

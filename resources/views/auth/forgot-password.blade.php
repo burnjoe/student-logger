@@ -1,25 +1,42 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
-
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <div class="my-2">
+        <div class="flex justify-center text-md mb-2 font-semibold">
+            {{__('Request Password Reset Link')}}
+        </div>
+
+        <div class="text-justify mb-4 text-sm text-gray-600">
+            {{ __('Let us know your email address and we will send you a password reset link that will allow you to change your password.') }}
+        </div>
+    
+        <form method="POST" action="{{ route('password.email') }}">
+            @csrf
+    
+            <!-- Email Address -->
+            <div>
+                <x-input-group>
+                    <x-input-text type="email" name="email" :value="old('email')" required placeholder="Email" alignIcon="left">
+                        <i class="fa-solid fa-envelope"></i>
+                    </x-input-text>
+                </x-input-group>
+                <x-input-error :messages="$errors->get('email')" class="mt-2 text-red text-xs" />
+            </div>
+    
+            <div class="flex justify-center mt-4">
+                <x-button type="submit">
+                    Send Request
+                </x-button>
+            </div>
+        </form>
+    </div>
+
+
+    <form method="GET" action="{{ route('root') }}">
         @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+        <x-button class="absolute top-8 left-8" type="submit" rounded="rounded-md" bgColor="bg-darkGray" onHover="hover:bg-gray">
+            <i class="fa-solid fa-arrow-left"></i>
+        </x-button>
     </form>
 </x-guest-layout>

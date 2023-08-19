@@ -1,5 +1,6 @@
 @props([
     'shadow' => 'shadow-none',
+    'textColor' => 'text-white',
     'bgColor' => 'bg-blue',
     'align' => 'bottom-8 right-8'
 ])
@@ -22,6 +23,6 @@
   }
 @endphp
 
-<x-card {{ $attributes->merge(['class' => 'absolute px-6 py-4 ' .$alignmentClasses ]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}">
+<x-card {{ $attributes->merge(['class' => 'absolute ' .$textColor. ' px-6 py-4 ' .$alignmentClasses ]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}">
   {{ $slot }}
 </x-card>

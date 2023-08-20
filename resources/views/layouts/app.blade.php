@@ -11,13 +11,24 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+        <div class="flex h-screen">
+            {{-- Side Nav --}}
+            @include('layouts.sidebar')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <div class="flex-1 flex flex-col p-0">
+                {{-- Top Nav --}}
+                @include('layouts.navigation')
+
+                <div class="flex flex-col h-full overflow-y-auto">
+                    {{-- Page Content --}}
+                    <main class="flex-1 bg-lightGray p-8">
+                        {{ $slot }}
+                    </main>
+
+                    {{-- Footer --}}
+                    @include('layouts.footer')
+                </div>
+            </div>
         </div>
     </body>
 </html>

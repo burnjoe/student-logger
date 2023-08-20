@@ -11,7 +11,7 @@
         </div>
         
         <div class="flex text-white space-x-8">
-            <!-- Notification Dropdown -->
+            {{-- <!-- Notification Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" menuWidth="44">
                     <x-slot name="trigger">
@@ -36,7 +36,7 @@
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
-            </div>
+            </div> --}}
 
             <!-- Profile Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

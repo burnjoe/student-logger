@@ -25,4 +25,4 @@ switch ($alignIcon) {
     {{ $slot }}
   </span>
 @endif
-  <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-sm border-gray rounded-md ' .$inputPadding ]) }} />
+  <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-md border-gray rounded-md ' .$inputPadding ]) }} />

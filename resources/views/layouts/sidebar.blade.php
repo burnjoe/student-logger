@@ -1,5 +1,5 @@
-<aside :class="{'w-0 lg:w-16': !sidebarOpen, 'w-60': sidebarOpen}" class="absolute flex-col bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-10 md:relative">
-    <div :class="{'pb-8': !sidebarOpen, 'pb-12': sidebarOpen}" class="sticky top-0 bg-white pt-1 z-10">
+<aside :class="{'w-0 lg:w-16': !sidebarOpen, 'w-60': sidebarOpen}" class="absolute flex-col bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-10 lg:relative">
+    <div :class="{'pb-8': !sidebarOpen}" class="sticky top-0 bg-white pt-1 pb-12 z-10">
         <div x-show="sidebarOpen" class="flex flex-row justify-between">
             <div class="mt-5 mx-6 w-40">
                 <a href="{{ route('root') }}"><img class="w-full" src="{{asset('img/ist_logo.png')}}" alt=""></a>
@@ -11,7 +11,7 @@
             </button>
         </div>
 
-        <div x-show="!sidebarOpen" class="mt-2 mx-3 w-40">
+        <div x-cloak x-show="!sidebarOpen" class="mt-2 mx-3 w-40">
             <a href="{{ route('root') }}"><img class="h-10 w-10" src="{{asset('img/pnc_logo.png')}}" alt=""></a>
         </div>
     </div>  

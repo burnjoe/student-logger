@@ -1,7 +1,11 @@
-@extends('layouts/main-layout')
+<x-app-layout>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 text-darkGray">
+            {{ 'Welcome, ' . Auth::user()->name . '!'}}
 
-@section('content')
-    
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab quod facere magnam deserunt molestiae tempora fugit voluptatum necessitatibus tenetur itaque quas aperiam pariatur repellat numquam, laudantium, est cupiditate architecto harum.
-
-@endsection
+            <x-toast bgColor="bg-green" class="text-sm">
+                Welcome, {{ Auth::user()->name }}!
+            </x-toast>
+        </div>
+    </div>
+</x-app-layout>

@@ -11,7 +11,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <div class="flex h-screen">
+        <div x-data="{ sidebarOpen: true }" class="flex h-screen">
             {{-- Side Nav --}}
             @include('layouts.sidebar')
 

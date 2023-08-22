@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="flex justify-between space-x-8">
         <div class="text-white space-x-8">
-            <button class="transition-all focus:outline-none hover:text-gray">
+            <button @click="sidebarOpen = !sidebarOpen" class="transition-all focus:outline-none hover:text-gray">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="space-x-3">

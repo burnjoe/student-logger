@@ -24,6 +24,13 @@
                     {{ $slot }}
                 </x-card>
             </div>
+
+             <!-- Session Status -->
+            @if (session('status'))
+                <x-toast bgColor="bg-green">
+                    <x-auth-session-status class="mb-4" :status="session('status')" />
+                </x-toast>
+            @endif
         </div>
 
         {{-- <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">

@@ -1,6 +1,4 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <div class="flex flex-col items-center">
         <div class="px-12 pt-5">
@@ -26,7 +24,7 @@
                         <i class="fa-solid fa-user"></i>
                     </x-input-text>
                 </x-input-group>
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs text-red" />
             </div>
             
             {{-- Password --}}
@@ -36,7 +34,7 @@
                         <i class="fa-solid fa-lock"></i>
                     </x-input-text>
                 </x-input-group>
-                <x-input-error :messages="$errors->get('password')" />
+                <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red" />
             </div>
 
             <span class="flex justify-end font-bold text-green text-sm transition-all hover:text-darkGreen">

@@ -1,8 +1,6 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <div class="my-2">
+ 
+    <div class="mx-2 my-4">
         <div class="flex justify-center text-md mb-2 font-semibold">
             {{__('Request Password Reset Link')}}
         </div>

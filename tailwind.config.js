@@ -27,7 +27,11 @@ export default {
                 lightGray: 'rgb(243,244,246)',
                 darkGray: 'rgb(109,117,124)',
                 veryDarkGray: 'rgb(73,81,86)',
-              },
+            },
+
+            screens: {
+                'xs': '0px',    
+            },
         },
     },
 

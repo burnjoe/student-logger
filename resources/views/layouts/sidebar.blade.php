@@ -1,4 +1,4 @@
-<aside :class="{'w-0 lg:w-16': !sidebarOpen, 'w-60': sidebarOpen}" class="absolute flex-col bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-10 lg:relative">
+<aside :class="{'xs:w-0 lg:w-16': !sidebarOpen}" class="absolute w-60 flex-col bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-10 lg:relative">
     <div :class="{'pb-8': !sidebarOpen}" class="sticky top-0 bg-white pt-1 pb-12 z-10">
         <div x-show="sidebarOpen" class="flex flex-row justify-between">
             <div class="mt-5 mx-6 w-40">
@@ -6,7 +6,7 @@
             </div>
         
             {{-- close button --}}
-            <button x-show="sidebarOpen" @click="sidebarOpen = !sidebarOpen" class="mt-4 mx-6 lg:hidden">
+            <button x-cloak x-show="sidebarOpen" @click="sidebarOpen = !sidebarOpen" class="mt-4 mx-6 lg:hidden">
                 <i class="fa-solid fa-x"></i>
             </button>
         </div>

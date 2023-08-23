@@ -3,12 +3,15 @@ TO DO:
 Minor:
  - Sidebar responsiveness in viewport size
  - Add backdrop in sidebar (Mobile)
+ - Minor bug: PNC logo shows in sidebar at load 
  - Create customized dropdown menu for notification
+ - Fully working toast (stacking of toast)
 
 
 Major:
  - Create Multiple Role-based Authentication
  - CRUD operation for student information
+ - Pagination
 
 
 

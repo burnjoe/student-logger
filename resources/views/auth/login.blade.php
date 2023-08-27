@@ -10,11 +10,11 @@
     <div class="flex flex-col mx-8 my-6">
         <x-card shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightGreen">
             <div class="flex flex-col items-center">
-                <span class="text-sm text-center text-darkGreen font-bold">PARENT & GUARDIAN LOGIN</span>
+                <span class="text-sm text-center text-darkGreen font-bold">{{ $title }}</span>
             </div>
         </x-card>
 
-        <form method="POST" action="{{ route('login') }}" class="flex flex-col space-y-4">
+        <form method="POST" action="{{ route('login', ['portal' => $portal]) }}" class="flex flex-col space-y-4">
             @csrf
     
             {{-- Email Address --}}

@@ -17,6 +17,9 @@ export default {
 
             colors: {
                 blue: 'rgb(0,123,255)',
+                lightBlue: 'rgb(71, 160, 255)',
+                veryLightBlue: 'rgb(205,228,255)',
+                darkBlue: 'rgb(0,64,133)',
                 green: 'rgb(25,134,85)',
                 lightGreen: 'rgb(32,176,111)',
                 veryLightGreen: 'rgb(213,237,219)',

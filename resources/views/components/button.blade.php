@@ -1,10 +1,31 @@
 @props([
     'textColor' => 'text-white',
-    'bgColor' => 'bg-green',
-    'onHover' => 'hover:bg-lightGreen',
     'rounded' => 'rounded-full',
+    'element' => 'button',
+    'btnType' => 'primary',
 ])
 
-<button {{ $attributes->merge(['class' => 'px-6 py-2 ' .$rounded. ' transition-all ' . $textColor . ' ' . $bgColor . ' ' . $onHover]) }}>
-  {{ $slot }}
-</button>
+@php 
+  switch ($btnType) {
+    case 'secondary':
+      $bgClasses = 'bg-darkGray hover:bg-gray';
+      break;
+    case 'success':
+      $bgClasses = 'bg-green hover:bg-lightGreen';
+      break;
+    case 'primary':
+    default:
+      $bgClasses = 'bg-blue hover:bg-lightBlue';
+      break;
+  }
+@endphp
+
+@if($element == 'a')
+  <a {{ $attributes->merge(['class' => 'px-6 py-2 ' .$rounded. ' transition-all ' .$textColor. ' ' .$bgClasses]) }}>
+    {{ $slot }}
+  </a>
+@else
+  <button {{ $attributes->merge(['class' => 'px-6 py-2 ' .$rounded. ' transition-all ' .$textColor. ' ' .$bgClasses]) }}>
+    {{ $slot }}
+  </button>
+@endif

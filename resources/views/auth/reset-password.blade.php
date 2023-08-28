@@ -46,7 +46,7 @@
 
             <!-- Reset Password Button -->
             <div class="flex justify-center mt-4">
-                <x-button type="submit">
+                <x-button btnType="success" type="submit">
                     Reset Password
                 </x-button>
             </div>
@@ -55,7 +55,7 @@
 
     <form method="GET" action="{{ route('root') }}">
         @csrf
-        <x-button class="absolute top-8 left-8" type="submit" rounded="rounded-md" bgColor="bg-darkGray" onHover="hover:bg-gray">
+        <x-button btnType="secondary" element="a" class="absolute top-8 left-8" type="submit" rounded="rounded-md">
             <i class="fa-solid fa-arrow-left"></i>
         </x-button>
     </form>

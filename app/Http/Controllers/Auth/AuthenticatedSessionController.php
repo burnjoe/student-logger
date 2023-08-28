@@ -17,15 +17,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function create($portal): View
     {
+        // Checks if the route/portal is for parent/guardian or faculty 
         if($portal === 'parent-guardian') {
+            session(['portal' => $portal]);
             return view('auth.login')->with([
-                'portal' => 'parent-guardian',
                 'title' => 'PARENT & GUARDIAN LOGIN'
             ]);
         } else if($portal === 'university') {
-            // FIND A WAY TO ADD MIDDLEWARE FOR IPFILTER
+            session(['portal' => $portal]);
             return view('auth.login')->with([
-                'portal' => 'university',
                 'title' => 'UNIVERSITY LOGIN'
             ]);
         }
@@ -41,8 +41,6 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        session(['portal' => $portal]);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

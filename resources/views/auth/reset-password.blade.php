@@ -53,10 +53,8 @@
         </form>
     </div>
 
-    <form method="GET" action="{{ route('root') }}">
-        @csrf
-        <x-button btnType="secondary" element="a" class="absolute top-8 left-8" type="submit" rounded="rounded-md">
-            <i class="fa-solid fa-arrow-left"></i>
-        </x-button>
-    </form>
+    {{-- Back Button --}}
+    <x-button btnType="secondary" element="a" :href="route('login', ['portal' => session('portal')])" class="absolute top-8 left-8" rounded="rounded-md">
+        <i class="fa-solid fa-arrow-left"></i>
+    </x-button>
 </x-guest-layout>

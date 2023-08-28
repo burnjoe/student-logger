@@ -23,18 +23,15 @@
             </div>
     
             <div class="flex justify-center mt-4">
-                <x-button type="submit">
+                <x-button btnType="success" type="submit">
                     Send Request
                 </x-button>
             </div>
         </form>
     </div>
 
-
-    <form method="GET" action="{{ route('root') }}">
-        @csrf
-        <x-button class="absolute top-8 left-8" type="submit" rounded="rounded-md" bgColor="bg-darkGray" onHover="hover:bg-gray">
-            <i class="fa-solid fa-arrow-left"></i>
-        </x-button>
-    </form>
+    {{-- Back Button --}}
+    <x-button btnType="secondary" element="a" :href="route('login', ['portal' => session('portal')])" class="absolute top-8 left-8" rounded="rounded-md">
+        <i class="fa-solid fa-arrow-left"></i>
+    </x-button>
 </x-guest-layout>

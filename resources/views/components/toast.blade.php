@@ -1,8 +1,7 @@
 @props([
     'shadow' => 'shadow-none',
-    'textColor' => 'text-white',
-    'bgColor' => 'bg-blue',
-    'align' => 'bottom-8 right-8'
+    'align' => 'bottom-right',
+    'status' => 'info',
 ])
 
 @php 
@@ -19,10 +18,45 @@
     case 'bottom-right':
     default:
       $alignmentClasses = "bottom-8 right-8";
+  }
+
+  switch ($status) {
+    case 'success':
+      $bgColor = "bg-green";
       break;
+    case 'warning':
+      $bgColor = "bg-orange";
+      break;
+    case 'danger':
+      $bgColor = "bg-red";
+      break;
+    case 'info':
+    default:
+      $bgColor = "bg-blue";
   }
 @endphp
 
-<x-card {{ $attributes->merge(['class' => 'absolute ' .$textColor. ' px-6 py-4 ' .$alignmentClasses ]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}">
-  {{ $slot }}
+<x-card x-data="{ open: true }" x-show="open" x-init="setTimeout(() => open = false, 5000)" {{ $attributes->merge(['class' => 'absolute flex flex-row space-x-4 text-white ' .$alignmentClasses]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}" padding="px-5 py-4">
+  <div class="flex justify-center items-center text-2xl">
+    @switch($status)
+      @case('success')
+        <i class="fa-solid fa-circle-check"></i>
+        @break
+      @case('warning')
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        @break
+      @case('danger')
+        <i class="fa-solid fa-circle-xmark"></i>
+        @break
+      @case('info')
+      @default
+        <i class="fa-solid fa-circle-info"></i>
+    @endswitch
+  </div>
+  <div class="flex justify-center items-center text-sm">
+    {{ $slot }}
+  </div>
+  <button @click="open = false" class="flex justify-center items-center transition-all focus:outline-none hover:text-gray">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
 </x-card>

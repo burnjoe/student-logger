@@ -1,5 +1,8 @@
 <x-guest-layout>
- 
+    @php
+        $portal = session('portal') ?? 'parent-guardian';
+    @endphp
+
     <div class="mx-2 my-4">
         <div class="flex justify-center text-md mb-2 font-semibold">
             {{__('Request Password Reset Link')}}
@@ -31,7 +34,7 @@
     </div>
 
     {{-- Back Button --}}
-    <x-button btnType="secondary" element="a" :href="route('login', ['portal' => session('portal')])" class="absolute top-8 left-8" rounded="rounded-md">
+    <x-button btnType="secondary" element="a" :href="route('login', ['portal' => $portal])" class="absolute top-8 left-8" rounded="rounded-md">
         <i class="fa-solid fa-arrow-left"></i>
     </x-button>
 </x-guest-layout>

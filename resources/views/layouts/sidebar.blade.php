@@ -18,7 +18,7 @@
 
     <div x-show="sidebarOpen" class="bg-darkGray px-6 py-3 text-white flex flex-col space-y-2">
         <span>
-            <x-badge>Admin</x-badge>
+            <x-badge>{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
         </span>
         <span class="text-sm">{{ auth()->user()->name }}</span>
     </div>
@@ -60,7 +60,7 @@
                     <i class="fa-solid fa-user-large fa-sm"></i>
                 </span>
                 <span x-show="sidebarOpen" class="flex items-center">
-                    <span class="text-sm">Users</span>
+                    <span class="text-sm">Accounts</span>
                 </span>
             </div>
         </a>

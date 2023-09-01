@@ -1,4 +1,7 @@
 <x-guest-layout>
+    @php
+        $portal = session('portal') ?? 'parent-guardian';
+    @endphp
 
     <div class="flex flex-col items-center">
         <div class="px-12 pt-5">
@@ -8,13 +11,13 @@
     </div>
 
     <div class="flex flex-col mx-8 my-6">
-        @if(session('portal') === 'parent-guardian')
+        @if($portal === 'parent-guardian')
             <x-card shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightGreen">
                 <div class="flex flex-col items-center">
                     <span class="text-sm text-center text-darkGreen font-bold">{{ $title }}</span>
                 </div>
             </x-card>
-        @elseif(session('portal') === 'university')
+        @elseif($portal === 'university')
             <x-card shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightBlue">
                 <div class="flex flex-col items-center">
                     <span class="text-sm text-center text-darkBlue font-bold">{{ $title }}</span>
@@ -22,7 +25,7 @@
             </x-card>
         @endif
 
-        <form method="POST" action="{{ route('login', ['portal' => session('portal')]) }}" class="flex flex-col space-y-4">
+        <form method="POST" action="{{ route('login', ['portal' => $portal]) }}" class="flex flex-col space-y-4">
             @csrf
     
             {{-- Email Address --}}
@@ -45,14 +48,14 @@
                 <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red" />
             </div>
 
-            @if(session('portal') === 'parent-guardian')
+            @if($portal === 'parent-guardian')
                 <span class="flex justify-end font-bold text-green text-sm transition-all hover:text-darkGreen">
                     {{-- if this current route has ability to request for password change --}}
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}"> {{__('Forgot Password?')}} </a>
+                        <a href="{{ route('password.request')}}"> {{__('Forgot Password?')}} </a>
                     @endif
                 </span>
-            @elseif(session('portal') === 'university')
+            @elseif($portal === 'university')
                 <span class="flex justify-end font-bold text-blue text-sm transition-all hover:text-darkBlue">
                     {{-- if this current route has ability to request for password change --}}
                     @if (Route::has('password.request'))
@@ -62,11 +65,11 @@
             @endif
 
             <div class="flex justify-center">
-                @if(session('portal') === 'parent-guardian')
+                @if($portal === 'parent-guardian')
                     <x-button btnType="success" type="submit">
                         <span class="text-md">LOGIN</span>
                     </x-button>
-                @elseif(session('portal') === 'university')
+                @elseif($portal === 'university')
                     <x-button btnType="primary" type="submit">
                         <span class="text-md">LOGIN</span>
                     </x-button>

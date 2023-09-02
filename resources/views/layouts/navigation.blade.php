@@ -39,7 +39,7 @@
             </div> --}}
 
             <!-- Profile Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="flex items-center ml-6">
                 <x-dropdown align="right" menuWidth="44">
                     <x-slot name="trigger">
                         <button class="transition-all focus:outline-none hover:text-gray">

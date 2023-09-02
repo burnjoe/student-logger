@@ -5,18 +5,15 @@ Minor:
  - Add backdrop in sidebar (Mobile)
  - Minor bug: PNC logo and icons are showing on sidebar collapse then disappears (Mobile)
  - Create customized dropdown menu for notification
- - Fully working toast (stacking of toast)
- - (multi-role-auth) Fix Session in Back Button in /forgot-password and /reset-password/{token}
+ - Fix Session in Back Button in /forgot-password and /reset-password/{token}
+ - Fix session expires throws 419 after clicking login and logout button
 
 
 Major:
- - Create Multiple Role-based Authentication - done
  - CRUD operation for student information
  - Pagination
  - Create a middleware for not allowing to go back to the login page after validation (Browser's Back Button)
- - (multi-role-auth): create a system to deny non-university account in parent-guardian login, vice versa
- - (multi-role-auth): create a middleware for validating IP address from requests
- - (multi-role-auth) Fix session expires throws 419 after clicking login and logout button
+ - Create a middleware for validating IP address from requests
 
 
 
@@ -28,10 +25,10 @@ Notes:
 
 
 Common Resource Routes:
-index  - show all
-show   - show single
-create - show form to create new (show form for input)
-store  - store new (form with inputs)
-edit   - show form to edit (show form for modifying input)
-update - update (submit for with changes to inputs)
-destroy- delete (delete)
+index   - show all
+show    - show single
+create  - show form to create new (show form for input)
+store   - store new (form with inputs)
+edit    - show form to edit (show form for modifying input)
+update  - update (submit for with changes to inputs)
+destroy - delete (delete)

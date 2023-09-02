@@ -20,9 +20,11 @@ switch ($alignIcon) {
 }
 @endphp
 
-@if (isset($slot) && $alignIcon !== 'none')
-  <span class="flex absolute inset-y-0 items-center {{ $alignmentClasses }}">
-    {{ $slot }}
-  </span>
-@endif
-  <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-md border-gray rounded-md ' .$inputPadding ]) }} />
+<div class="relative text-sm text-veryDarkGray">
+  @if (isset($slot) && $alignIcon !== 'none')
+    <span class="flex absolute inset-y-0 items-center {{ $alignmentClasses }}">
+      {{ $slot }}
+    </span>
+  @endif
+    <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-md border-gray rounded-md ' .$inputPadding ]) }} />
+</div>

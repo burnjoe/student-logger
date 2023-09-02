@@ -30,21 +30,17 @@
     
             {{-- Email Address --}}
             <div>
-                <x-input-group>
-                    <x-input-text type="email" name="email" :value="old('email')" required placeholder="Username" alignIcon="left">
-                        <i class="fa-solid fa-user"></i>
-                    </x-input-text>
-                </x-input-group>
+                <x-input-text type="email" name="email" :value="old('email')" required placeholder="Username" alignIcon="left">
+                    <i class="fa-solid fa-user"></i>
+                </x-input-text>
                 {{-- <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs text-red" /> --}}
             </div>
             
             {{-- Password --}}
             <div>
-                <x-input-group>
-                    <x-input-text type="password" name="password" required placeholder="Password" alignIcon="left">
-                        <i class="fa-solid fa-lock"></i>
-                    </x-input-text>
-                </x-input-group>
+                <x-input-text type="password" name="password" required placeholder="Password" alignIcon="left">
+                    <i class="fa-solid fa-lock"></i>
+                </x-input-text>
                 {{-- <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red" /> --}}
             </div>
 

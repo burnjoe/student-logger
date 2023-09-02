@@ -16,40 +16,34 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
-                <x-input-group class="mt-1">
-                    <x-input-text id="email" type="email" name="email" :value="old('email', $request->email)" required placeholder="Email" alignIcon="left">
-                        <i class="fa-solid fa-envelope"></i>
-                    </x-input-text>
-                </x-input-group>
+                <x-input-label class="mb-1" for="email" :value="__('Email')" />
+                <x-input-text id="email" type="email" name="email" :value="old('email', $request->email)" required placeholder="Email" alignIcon="left">
+                    <i class="fa-solid fa-envelope"></i>
+                </x-input-text>
                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs text-red" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-input-label for="password" :value="__('New Password')" />
-                <x-input-group class="mt-1">
-                    <x-input-text id="password" type="password" name="password" required alignIcon="left" autocomplete="new-password" placeholder="New Password">
-                        <i class="fa-solid fa-lock"></i>
-                    </x-input-text>
-                </x-input-group>
+                <x-input-label class="mb-1" for="password" :value="__('New Password')" />
+                <x-input-text id="password" type="password" name="password" required alignIcon="left" autocomplete="new-password" placeholder="New Password">
+                    <i class="fa-solid fa-lock"></i>
+                </x-input-text>
                 <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red" />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-input-label for="password_confirmation" :value="__('Confirm New Password')" />
-                <x-input-group class="mt-1">
-                    <x-input-text id="password_confirmation" type="password" name="password_confirmation" required  alignIcon="left" autocomplete="new-password" placeholder="Confirm New Password">
-                        <i class="fa-solid fa-lock"></i>
-                    </x-input-text>
-                </x-input-group>
+                <x-input-label class="mb-1" for="password_confirmation" :value="__('Confirm New Password')" />
+                <x-input-text id="password_confirmation" type="password" name="password_confirmation" required  alignIcon="left" autocomplete="new-password" placeholder="Confirm New Password">
+                    <i class="fa-solid fa-lock"></i>
+                </x-input-text>
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-xs text-red" />
             </div>
 
             <!-- Reset Password Button -->
             <div class="flex justify-center mt-4">
-                <x-button btnType="success" type="submit">
+            <x-button btnType="success" type="submit">
                     Reset Password
                 </x-button>
             </div>

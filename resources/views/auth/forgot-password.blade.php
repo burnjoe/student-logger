@@ -17,12 +17,10 @@
     
             <!-- Email Address -->
             <div>
-                <x-input-group>
-                    <x-input-text type="email" name="email" :value="old('email')" required placeholder="Email" alignIcon="left">
-                        <i class="fa-solid fa-envelope"></i>
-                    </x-input-text>
-                </x-input-group>
-                <x-input-error :messages="$errors->get('email')" class="mt-2 text-red text-xs" />
+                <x-input-text type="email" name="email" :value="old('email')" required placeholder="Email" alignIcon="left">
+                    <i class="fa-solid fa-envelope"></i>
+                </x-input-text>
+                {{-- <x-input-error :messages="$errors->get('email')" class="mt-2 text-red text-xs" /> --}}
             </div>
     
             <div class="flex justify-center mt-4">

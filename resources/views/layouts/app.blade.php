@@ -30,5 +30,11 @@
                 </div>
             </div>
         </div>
+
+        @if(session('message'))
+            <x-toast alert="success">
+                {{ session('message') }}
+            </x-toast>
+        @endif
     </body>
 </html>

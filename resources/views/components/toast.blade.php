@@ -1,7 +1,7 @@
 @props([
     'shadow' => 'shadow-none',
     'align' => 'bottom-right',
-    'status' => 'info',
+    'alert' => 'info',
 ])
 
 @php 
@@ -20,7 +20,7 @@
       $alignmentClasses = "bottom-8 right-8";
   }
 
-  switch ($status) {
+  switch ($alert) {
     case 'success':
       $bgColor = "bg-green";
       break;
@@ -36,9 +36,9 @@
   }
 @endphp
 
-<x-card x-data="{ open: true }" x-show="open" x-init="setTimeout(() => open = false, 5000)" {{ $attributes->merge(['class' => 'absolute flex flex-row space-x-4 text-white ' .$alignmentClasses]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}" padding="px-5 py-4">
+<x-card x-data="{ open: true }" x-show="open" x-init="setTimeout(() => open = false, 5000)" {{ $attributes->merge(['class' => 'absolute fixed flex flex-row space-x-4 text-white ' .$alignmentClasses]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}" padding="px-5 py-4">
   <div class="flex justify-center items-center text-2xl">
-    @switch($status)
+    @switch($alert)
       @case('success')
         <i class="fa-solid fa-circle-check"></i>
         @break

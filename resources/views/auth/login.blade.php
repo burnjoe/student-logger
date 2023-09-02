@@ -35,7 +35,7 @@
                         <i class="fa-solid fa-user"></i>
                     </x-input-text>
                 </x-input-group>
-                <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs text-red" />
+                {{-- <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs text-red" /> --}}
             </div>
             
             {{-- Password --}}
@@ -45,7 +45,7 @@
                         <i class="fa-solid fa-lock"></i>
                     </x-input-text>
                 </x-input-group>
-                <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red" />
+                {{-- <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red" /> --}}
             </div>
 
             @if($portal === 'parent-guardian')

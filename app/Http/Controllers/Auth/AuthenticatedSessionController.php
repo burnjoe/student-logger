@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Exceptions\SessionExpireException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,13 +36,24 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request, $portal): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Redirect user if user role is valid to selected portal
+        if((session('portal') === 'parent-guardian' && (auth()->user()->hasRole('parent') || auth()->user()->hasRole('guardian'))) || (session('portal') === 'university' && !(auth()->user()->hasRole('parent') || auth()->user()->hasRole('guardian')))) {
+            return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'Welcome ' .auth()->user()->name. '!');
+        }
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login', ['portal' => $portal])
+            ->withInput($request->only('email'))
+            ->withErrors(['email' => trans('auth.failed')]);
     }
 
     /**

@@ -25,11 +25,17 @@
             </div>
 
              <!-- Session Status -->
-            @if (session('status'))
-                <x-toast status="success">
+            @if(session('status'))
+                <x-toast :alert="session('alert')">
                     <x-auth-session-status :status="session('status')" />
                 </x-toast>
             @endif
+            
+            @error('email')
+                <x-toast alert="warning">
+                    {{ $message }}
+                </x-toast>
+            @enderror
         </div>
     </body>
 </html>

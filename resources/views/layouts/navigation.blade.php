@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-green py-4 px-8">
+<nav x-data="{ open: false }" class="bg-green py-4 px-8 z-5 shadow-md">
     <!-- Primary Navigation Menu -->
     <div class="flex justify-between space-x-8">
         <div class="text-white space-x-8">

@@ -36,7 +36,7 @@
   }
 @endphp
 
-<x-card x-data="{ open: true }" x-show="open" x-init="setTimeout(() => open = false, 5000)" {{ $attributes->merge(['class' => 'absolute fixed flex flex-row space-x-4 text-white ' .$alignmentClasses]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}" padding="px-5 py-4">
+<x-card x-data="{ open: true }" x-show="open" x-init="setTimeout(() => open = false, 5000)" {{ $attributes->merge(['class' => 'max-w-sm absolute fixed flex flex-row space-x-4 text-white ' .$alignmentClasses]) }} bgColor="{{ $bgColor }}" shadow="{{ $shadow }}" padding="px-5 py-4">
   <div class="flex justify-center items-center text-2xl">
     @switch($alert)
       @case('success')

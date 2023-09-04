@@ -12,13 +12,13 @@
 
     <div class="flex flex-col mx-8 my-6">
         @if($portal === 'parent-guardian')
-            <x-card shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightGreen">
+            <x-card class="max-w-sm" shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightGreen">
                 <div class="flex flex-col items-center">
                     <span class="text-sm text-center text-darkGreen font-bold">{{ $title }}</span>
                 </div>
             </x-card>
         @elseif($portal === 'university')
-            <x-card shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightBlue">
+            <x-card class="max-w-sm" shadow="shadow-none" rounded="rounded-md" bgColor="bg-veryLightBlue">
                 <div class="flex flex-col items-center">
                     <span class="text-sm text-center text-darkBlue font-bold">{{ $title }}</span>
                 </div>

@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <x-card class="mt-8" paddings="px-14 py-45">
+                <x-card class="max-w-sm mt-8" paddings="px-14 py-45">
                     {{ $slot }}
                 </x-card>
             </div>

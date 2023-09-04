@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,12 @@ Route::get('/', function() {
 
 // Authenticated Users
 Route::middleware('auth')->group(function () {
+    // Dashboard Module
     Route::get('dashboard', function() { return view('dashboard.index'); })
         ->name('dashboard');
 
+
+    // Profile Module
     Route::get('profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -32,6 +36,12 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+
+
+    // Students Module
+    Route::get('students', [StudentController::class, 'index'])
+        ->middleware('can:view students')
+        ->name('students.index');
 });
 
 

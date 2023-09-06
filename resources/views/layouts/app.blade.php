@@ -9,6 +9,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        @livewireStyles
     </head>
     <body>
         <div x-data="{ sidebarOpen: true }" class="flex h-screen overflow-x-hidden overflow-y-hidden">
@@ -36,5 +38,7 @@
                 {{ session('message') }}
             </x-toast>
         @endif
+
+        @livewireScripts
     </body>
 </html>

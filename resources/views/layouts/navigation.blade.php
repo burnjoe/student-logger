@@ -14,51 +14,51 @@
             {{-- <!-- Notification Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" menuWidth="44">
-                    <x-slot name="trigger">
+                    @slot('trigger')
                         <button class="transition-all focus:outline-none hover:text-gray">
                             <i class="fa-regular fa-bell"></i>
                         </button>
-                    </x-slot>
+                    @endslot
 
-                    <x-slot name="content">
+                    @slot('content')
                         <x-dropdown-link :href="route('root')" fontSize="text-xs">
-                            <x-slot name="icon">
+                            @slot('icon')
                                 <i class="fa-solid fa-check"></i>
-                            </x-slot>
+                            @endslot
                             {{__('Notification 1') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('root')" fontSize="text-xs">
-                            <x-slot name="icon">
+                            @slot('icon')
                                 <i class="fa-solid fa-check"></i>
-                            </x-slot>
+                            @endslot
                             {{__('Notification 2') }}
                         </x-dropdown-link>
-                    </x-slot>
+                    @endslot
                 </x-dropdown>
             </div> --}}
 
             <!-- Profile Dropdown -->
             <div class="flex items-center ml-6">
                 <x-dropdown align="right" menuWidth="44">
-                    <x-slot name="trigger">
+                    @slot('trigger')
                         <button class="transition-all focus:outline-none hover:text-gray">
                             <i class="fa-regular fa-user"></i>
                         </button>
-                    </x-slot>
+                    @endslot
 
-                    <x-slot name="content">
+                    @slot('content')
                         <x-dropdown-link :href="route('profile.edit')" fontSize="text-xs">
-                            <x-slot name="icon">
+                            @slot('icon')
                                 <i class="fa-solid fa-user"></i>
-                            </x-slot>
+                            @endslot
                             {{__('My Profile') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('profile.edit')" fontSize="text-xs">
-                            <x-slot name="icon">
+                            @slot('icon')
                                 <i class="fa-solid fa-unlock"></i>
-                            </x-slot>
+                            @endslot
                             {{__('Change Password') }}
                         </x-dropdown-link>
 
@@ -69,13 +69,13 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault(); 
                                     this.closest('form').submit();" fontSize="text-xs">
-                                <x-slot name="icon">
+                                @slot('icon')
                                     <i class="fa-solid fa-right-from-bracket"></i>
-                                </x-slot>
+                                @endslot
                                 {{ __('Logout') }}
                             </x-dropdown-link>
                         </form>
-                    </x-slot>
+                    @endslot
                 </x-dropdown>
             </div>
         </div>

@@ -8,6 +8,7 @@ Minor:
  - Fix Session in Back Button in /forgot-password and /reset-password/{token}
  - Fix session expires throws 419 after clicking login and logout button
  - Fix sidebar UI bug, modal has margin on top but not defined in its classes
+ - Fix table component x overflow gets cut off in main content
 
 
 Major:

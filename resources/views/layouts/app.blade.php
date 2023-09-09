@@ -38,5 +38,7 @@
                 {{ session('message') }}
             </x-toast>
         @endif
+
+        @livewireScripts
     </body>
 </html>

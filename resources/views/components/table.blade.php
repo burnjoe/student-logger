@@ -1,4 +1,4 @@
-<div class="bg-white rounded-md shadow-sm w-full">
+<div {{ $attributes->merge(['class' => 'bg-white rounded-md shadow-sm w-full']) }}>
    <div class="overflow-x-auto rounded-md">
       <table class="table-auto w-full">
          @if(isset($head))

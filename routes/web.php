@@ -23,8 +23,14 @@ Route::get('/', function() {
 // Authenticated Users
 Route::middleware('auth')->group(function () {
     // Dashboard Module
-    Route::get('dashboard', function() { return view('dashboard.index'); })
+    Route::get('dashboard', function() { return view('dashboard'); })
         ->name('dashboard');
+
+    // Students Module
+    Route::get('students', [StudentController::class, 'index'])
+        ->middleware('can:view students')
+        ->name('students');
+
 
 
     // Profile Module
@@ -36,12 +42,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
-
-
-    // Students Module
-    Route::get('students', [StudentController::class, 'index'])
-        ->middleware('can:view students')
-        ->name('students.index');
 });
 
 

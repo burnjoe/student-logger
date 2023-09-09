@@ -35,7 +35,7 @@
             </div>
         </a>
         @can('view students')
-            <a href="{{ route('students.index') }}" class="rounded-lg transition-all hover:bg-lightGray">
+            <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray">
                 <div class="py-3 px-4 w-full flex space-x-2">
                     <span class="w-6">
                         <i class="fa-solid fa-user-graduate"></i>
@@ -75,6 +75,16 @@
                 </span>
                 <span x-show="sidebarOpen" class="flex items-center">
                     <span class="text-sm">Audit Log</span>
+                </span>
+            </div>
+        </a>
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+            <div class="py-3 px-4 w-full flex space-x-2">
+                <span class="w-6">
+                    <i class="fa-solid fa-chart-line"></i>
+                </span>
+                <span x-show="sidebarOpen" class="flex items-center">
+                    <span class="text-sm">Reports</span>
                 </span>
             </div>
         </a>

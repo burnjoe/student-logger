@@ -6,7 +6,9 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="space-x-3">
-                <i class="fa-solid fa-chart-simple"></i><span class="font-bold text-lg">{{ __('Dashboard') }}</span>
+                @if(session('window') === 'dashboard')
+                    <i class="fa-solid fa-chart-simple"></i><span class="font-bold text-lg">{{ __('Dashboard') }}</span>
+                @endif
             </span>
         </div>
         

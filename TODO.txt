@@ -34,3 +34,7 @@ store   - store new (form with inputs)
 edit    - show form to edit (show form for modifying input)
 update  - update (submit for with changes to inputs)
 destroy - delete (delete)
+
+
+Laravel Breeze and Livewire's Alpine JS Conflicts
+See Article: https://laraveldaily.com/post/livewire-3-laravel-breeze-error-alpine-js-conflict

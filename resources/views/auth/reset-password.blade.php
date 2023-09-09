@@ -43,7 +43,7 @@
 
             <!-- Reset Password Button -->
             <div class="flex justify-center mt-4">
-            <x-button btnType="success" type="submit">
+            <x-button btnType="success" textSize="text-md" type="submit">
                     Reset Password
                 </x-button>
             </div>

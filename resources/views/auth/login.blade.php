@@ -62,12 +62,12 @@
 
             <div class="flex justify-center">
                 @if($portal === 'parent-guardian')
-                    <x-button btnType="success" type="submit">
-                        <span class="text-md">LOGIN</span>
+                    <x-button btnType="success" textSize="text-md" type="submit">
+                        LOGIN
                     </x-button>
                 @elseif($portal === 'university')
-                    <x-button btnType="primary" type="submit">
-                        <span class="text-md">LOGIN</span>
+                    <x-button btnType="primary" textSize="text-md" type="submit">
+                        LOGIN
                     </x-button>
                 @endif
             </div>

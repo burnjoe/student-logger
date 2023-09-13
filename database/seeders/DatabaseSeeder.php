@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '09214435512',
             'email' => 'delacruzjuan@gmail.com',
             'account_type' => 'Cabuyeno',
-            'program_id' => $program->id
+            // 'program_id' => $program->id
         ]);
 
         Student::create([
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '09214434412',
             'email' => 'santosjose@gmail.com',
             'account_type' => 'Non-Cabuyeno',
-            'program_id' => $program->id
+            // 'program_id' => $program->id
         ]);
 
         Student::create([
@@ -72,11 +72,14 @@ class DatabaseSeeder extends Seeder
             'phone' => '09214215512',
             'email' => 'leonorjosefa@gmail.com',
             'account_type' => 'Cabuyeno',
-            'program_id' => $program->id
+            // 'program_id' => $program->id
         ]);
 
 
         // Calls out other seeder
+        $this->call(EmployeeSeeder::class);
+        $this->call(FamilyMemberSeeder::class);
+        $this->call(ProfileSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);

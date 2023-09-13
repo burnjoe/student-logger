@@ -19,7 +19,8 @@ class RoleSeeder extends Seeder
                 'view students',
                 'create students',
                 'update students',
-                'delete students'
+                'delete students',
+                'view accounts'
             ]);
             
         Role::create(['name' => 'guard']);

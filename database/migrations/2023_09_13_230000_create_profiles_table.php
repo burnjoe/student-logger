@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('programs', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('college_id')
+            $table->foreignId('employee_id')
+                ->nullable()
+                ->constrained()
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
+            $table->foreignId('family_member_id')
+                ->nullable()
                 ->constrained()
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programs');
+        Schema::dropIfExists('profiles');
     }
 };

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('programs', function (Blueprint $table) {
+        Schema::create('strands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('college_id')
-                ->constrained()
-                ->restrictOnUpdate()
-                ->restrictOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programs');
+        Schema::dropIfExists('strands');
     }
 };

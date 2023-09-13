@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,13 +34,13 @@ Route::middleware('auth')->group(function () {
 
 
     // Profile Module
-    Route::get('profile', [ProfileController::class, 'edit'])
+    Route::get('profile', [UserController::class, 'edit'])
         ->name('profile.edit');
 
-    Route::patch('profile', [ProfileController::class, 'update'])
+    Route::patch('profile', [UserController::class, 'update'])
         ->name('profile.update');
 
-    Route::delete('profile', [ProfileController::class, 'destroy'])
+    Route::delete('profile', [UserController::class, 'destroy'])
         ->name('profile.destroy');
 });
 

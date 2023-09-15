@@ -44,7 +44,8 @@ class AuthenticatedSessionController extends Controller
 
         // Redirect user if user role is valid to selected portal
         if((session('portal') === 'parent-guardian' && (auth()->user()->hasRole('parent') || auth()->user()->hasRole('guardian'))) || (session('portal') === 'university' && !(auth()->user()->hasRole('parent') || auth()->user()->hasRole('guardian')))) {
-            return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'Welcome ' .auth()->user()->name. '!');
+            $profileable = auth()->user()->profileable;
+            return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'Welcome, ' .$profileable->first_name. ' ' .$profileable->last_name. '!');
         }
 
         $request->session()->invalidate();

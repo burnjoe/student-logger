@@ -68,7 +68,7 @@ $maxWidth = [
     {{-- Modal --}}
     <div
         x-show="show"
-        class="my-6 bg-lightGray rounded-md overflow-hidden shadow-lg transform transition-all sm:w-full {{ $maxWidth }} mx-auto px-6 py-4"
+        class="my-6 bg-white rounded-md overflow-hidden shadow-lg transform transition-all sm:w-full {{ $maxWidth }} mx-auto px-6 py-4"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0 sm:scale-95"
         x-transition:enter-end="opacity-100 sm:scale-100"

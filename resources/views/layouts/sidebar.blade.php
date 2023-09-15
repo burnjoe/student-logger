@@ -88,6 +88,19 @@
                 </span>
             </div>
         </a>
+
+        <hr class="mx-4 my-2 text-gray">
+
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+            <div class="py-3 px-4 w-full flex space-x-2">
+                <span class="w-6">
+                    <i class="fa-solid fa-id-badge"></i>
+                </span>
+                <span x-show="sidebarOpen" class="flex items-center">
+                    <span class="text-sm">Attendance Logger</span>
+                </span>
+            </div>
+        </a>
         {{-- <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">

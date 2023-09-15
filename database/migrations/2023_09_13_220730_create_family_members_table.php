@@ -19,10 +19,6 @@ return new class extends Migration
             $table->string('relationship');
             $table->string('occupation');
             $table->string('phone')->unique();
-            // $table->foreignId('student_id')
-            //     ->constrained()
-            //     ->restrictOnUpdate()
-            //     ->restrictOnDelete();
             $table->timestamps();
         });
     }

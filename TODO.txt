@@ -13,9 +13,9 @@ Minor:
 
 Major:
  - CRUD operation for student information
- - Pagination
  - Create a middleware for not allowing to go back to the login page after validation (Browser's Back Button)
  - Create a middleware for validating IP address from requests
+ - Implement Many-to-Many Relationship between Student <---> FamilyMember
 
 
 

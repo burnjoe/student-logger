@@ -1,7 +1,7 @@
 @props([
-    'shadow' => 'shadow-lg',
+    'shadow' => 'shadow-sm',
     'bgColor' => 'bg-white',
-    'rounded' => 'rounded-lg',
+    'rounded' => 'rounded-md',
     'padding' => 'px-6 py-4',
 ])
 

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
+use App\Models\FamilyMember;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,7 +20,8 @@ class UserSeeder extends Seeder
             'email' => 'sabanajholo@gmail.com',
             'password' => bcrypt('burnjoe25'),
             'status' => 1,
-            'profile_id' => 1
+            'profileable_id' => 1,
+            'profileable_type' => Employee::class
         ])->assignRole('admin');
 
         User::create([
@@ -26,7 +29,8 @@ class UserSeeder extends Seeder
             'email' => 'derlajulius@gmail.com',
             'password' => bcrypt('password'),
             'status' => 1,
-            'profile_id' => 2
+            'profileable_id' => 2,
+            'profileable_type' => FamilyMember::class
         ])->assignRole('parent');
 
     }

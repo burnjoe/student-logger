@@ -26,10 +26,6 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->enum('account_type', ['Cabuyeno', 'Non-Cabuyeno']);
-            // $table->foreignId('admission_id')
-            //     ->constrained()
-            //     ->restrictOnUpdate()
-            //     ->restrictOnDelete();
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class Student extends Model
             ->orWhere('middle_name', 'like', "%{$value}%");
     }
 
-    public function admissions() : HasMany {
-        return $this->hasMany(Admission::class, 'student_id');
-    }
+    // public function admissions() : HasMany {
+    //     return $this->hasMany(Admission::class, 'student_id');
+    // }
 }

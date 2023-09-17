@@ -11,28 +11,28 @@ class Students extends Component
 {
     use WithPagination;
 
-    #[Rule('digits|min:3')] 
+    #[Rule('required|digits:7|unique:students')] 
     public $student_no;
 
-    #[Rule('required|min:3')] 
+    #[Rule('required|min:2|max:50')] 
     public $last_name;
     
-    #[Rule('required|min:3')] 
+    #[Rule('required|min:2|max:50')] 
     public $first_name;
 
-    #[Rule('required|min:3')] 
+    #[Rule('nullable|min:2|max:50')] 
     public $middle_name;
 
-    #[Rule('required|min:3')] 
+    #[Rule('required')]
     public $sex;
 
-    #[Rule('required|min:3')] 
+    #[Rule('required')] 
     public $civil_status;
 
     #[Rule('required|min:3')] 
     public $nationality;
 
-    #[Rule('required|min:3')] 
+    #[Rule('required')] 
     public $birthdate;
 
     #[Rule('required|min:3')] 
@@ -47,26 +47,43 @@ class Students extends Component
     #[Rule('required|min:3')] 
     public $email;
 
-    #[Rule('required|min:3')] 
-    public $account_type;
+    // #[Rule('required|min:3')] 
+    // public $account_type;
 
-    #[Rule('required|min:3')] 
-    public $program_id;
+    // #[Rule('required|min:3')] 
+    // public $program_id;
 
     public $search;
-    
-    // Store new student in database
-    public function store() {
-        $this->validate([
+    public $filterProgram;
 
-        ]);
+
+    /**
+     * Store new student in database
+     */
+    public function store() {
+        $validated = $this->validate();
+
+        Student::create($validated);
+
+        // array_map(fn($value) => strtoupper($value),
+        // $validated)
+
+        $this->reset();
+
+        session()->flash('success', 'Student was successfully added');
+
+        $this->dispatch('close-modal');
     }
+
+    
 
     public function render()
     {
         return view('livewire.students', [
             'students' => Student::latest()
+                ->search($this->filterProgram)
                 ->search($this->search)
-                ->paginate(2)]);
+                ->paginate(2)
+        ]);
     }
 }

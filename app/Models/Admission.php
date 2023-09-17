@@ -15,9 +15,9 @@ class Admission extends Model
     protected $fillable = ['student_id', 'trackable_id', 'trackable_type', 'level', 'enrolled_at'];
 
 
-    public function student() : BelongsTo {
-        return $this->belongsTo(Student::class, 'student_id');
-    }
+    // public function student() : BelongsTo {
+    //     return $this->belongsTo(Student::class, 'student_id');
+    // }
 
     public function trackable(): MorphTo {
         return $this->morphTo(); 

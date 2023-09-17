@@ -9,7 +9,7 @@ Make sure you have installed the following:
 - [NodeJS](https://nodejs.org/en/download/)
 - [Composer](https://getcomposer.org/download/)
 - [Git](https://git-scm.com/downloads)
-- (Optional) [GitHub Desktop](https://desktop.github.com/)
+- [GitHub Desktop](https://desktop.github.com/) (Optional)
 
 ## 🔧 Installation
 Follow these steps to prior running the app:

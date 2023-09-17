@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->tinyInteger('status');      // 0-inactive  1-active
-            // $table->foreignId('profile_id')
-            //     ->constrained()
-            //     ->restrictOnUpdate()
-            //     ->restrictOnDelete();
             $table->bigInteger('profileable_id')->unsigned();
             $table->string('profileable_type');
             $table->rememberToken();

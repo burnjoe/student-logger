@@ -1,6 +1,6 @@
 <p align="center"><a target="_blank"><img src="public/img/ist_logo.png" width="400" alt="iStudentTrack Logo"></a></p>
-
-<p align="center"><a target="_blank"><img href="https://pnc.edu.ph/" src="public/img/pnc_header.png" width="200" alt="UC (PnC) Header"></a></p>
+<br>
+<p align="center"><a target="_blank"><img href="https://pnc.edu.ph/" src="public/img/pnc_header.png" width="300" alt="UC (PnC) Header"></a></p>
 
 ## 📘 Requirements
 Make sure you have installed the following:
@@ -24,22 +24,22 @@ Follow these steps to prior running the app:
 5.2. Choose a folder where you want to clone the repository in *File > Open Folder*
 5.3. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
 Clone the repository
-'''
+```
 git clone https://github.com/burnjoe/student-logger.git
-'''
+```
 
 Change terminal directory
-'''
+```
 cd student-logger
-'''
+```
 
 ### Cloning Repository with GitHub Desktop
 5.1. Open GitHub Desktop
 5.2. Clone the repository in *File > Clone Repository*
 Select URL tab and paste the following:
-'''
+```
 https://github.com/burnjoe/student-logger.git
-'''
+```
 5.3. Choose a folder where you want to clone the repository and then *Clone*
 5.4. Open the cloned repository in Visual Studio Code in *Repository > Open in Visual Studio Code*
 
@@ -47,43 +47,43 @@ https://github.com/burnjoe/student-logger.git
 6. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
 
 Install composer to the project
-'''
+```
 composer install
-'''
+```
 
 Install npm to the project
-'''
+```
 npm install
-'''
+```
 
 Create .env 
-'''
+```
 copy .env.example .env
-'''
+```
 
 Generate new app key
-'''
+```
 php artisan key:generate
-'''
+```
 
 Run the migration and seed
-'''
+```
 php artisan migrate:fresh --seed
-'''
+```
 
 
 ## ⚡ Running the server
 
 1. Enter these following commands to your terminal:
 Start local development server for your laravel app
-'''
+```
 php artisan serve
-'''
+```
 
 Open new terminal and start local development server for node
-'''
+```
 npm run dev
-'''
+```
 
 
 ### ✨ You can now access the server at *http://localhost:8000*

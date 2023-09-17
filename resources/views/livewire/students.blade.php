@@ -1,5 +1,9 @@
 <div>
-	<div class="flex justify-between">
+	<x-card>
+		Data Visual
+	</x-card>
+
+	<div class="flex justify-between mt-4">
 		@include('livewire.includes.search')
 
 		<x-button x-on:click="$dispatch('open-modal', 'create-student')" btnType="success" class="flex space-x-2 items-center">
@@ -8,6 +12,7 @@
 		</x-button>
 	</div>
 	
+	{{-- Table --}}
 	<x-table class="mt-4">
 		@slot('head')
 			<th class="px-6 py-4">Student No.</th>
@@ -25,13 +30,13 @@
 					<td class="px-6 py-4">{{ $student->first_name }}</td>
 					<td class="px-6 py-4">{{ $student->middle_name ?? "N/A" }}</td>
 					<td class="px-6 py-4 text-md flex space-x-4">
-						<button class="text-veryDarkGray hover:text-darkGray">
+						<button x-on:click="$dispatch('open-modal', 'view-student')" class="text-veryDarkGray hover:text-darkGray">
 							<i class="fa-solid fa-eye"></i>
 						</button>
-						<button class="text-veryDarkGray hover:text-darkGray">
-							<i class="fa-solid fa-pen-to-square"></i>
+						<button x-on:click="$dispatch('open-modal', 'edit-student')" class="text-veryDarkGray hover:text-darkGray">
+							<i class="fa-solid fa-pen-to-square"></i>	
 						</button>
-						<button class="text-red hover:text-lightRed">
+						<button x-on:click="$dispatch('open-modal', 'delete-student')" class="text-red hover:text-lightRed">
 							<i class="fa-solid fa-trash"></i>
 						</button>
 					</td>
@@ -40,73 +45,87 @@
 		@endslot
 	</x-table>
 
+	{{-- <div class="flex mt-4 items-center space-x-4">
+		<span class="text-sm text-darkGray">Per Page</span>
+		<x-input-select class="w-24">
+			<option selected value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</x-input-select>
+	</div> --}}
+
 	<div class="mt-4">
 		{{ $students->links() }}
 	</div>
 
 	{{-- Create Student Form --}}
     <x-modal name="create-student" title="Add Student">
-		<form wire:submit="save">
+		<form wire:submit="store">
 			{{-- Student Number --}}
 			<div>
-				<x-input-label for="student_no" :value="__('Student Number')" />
+				<x-input-label for="student_no" :value="__('Student Number')" :required="true" />
 				<x-input-text 
 					id="student_no"
+					wire:model="student_no"
 					name="student_no"
 					type="text"
 					placeholder="{{ __('Student Number') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('student_no')" />
+					class="mt-1 bg-lightGray" />
+				<x-input-error class="mt-2" :messages="$errors->get('student_no')" />
 			</div>
 			{{-- Last Name --}}
 			<div class="mt-4">
-				<x-input-label for="last_name" :value="__('Last Name')" />
+				<x-input-label for="last_name" :value="__('Last Name')" :required="true" />
 				<x-input-text 
 					id="last_name"
+					wire:model="last_name"
 					name="last_name"
 					type="text"
 					placeholder="{{ __('Last Name') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('last_name')" />
+					class="mt-1 bg-lightGray" />
+				<x-input-error class="mt-2" :messages="$errors->get('last_name')" />
 			</div>
 			{{-- First Name --}}
 			<div class="mt-4">
-				<x-input-label for="first_name" :value="__('First Name')" />
+				<x-input-label for="first_name" :value="__('First Name')" :required="true" />
 				<x-input-text 
 					id="first_name"
+					wire:model="first_name"
 					name="first_name"
 					type="text"
 					placeholder="{{ __('First Name') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('first_name')" />
+					class="mt-1 bg-lightGray" />
+				<x-input-error class="mt-2" :messages="$errors->get('first_name')" />
 			</div>
 			{{-- Middle Name --}}
 			<div class="mt-4">
 				<x-input-label for="middle_name" :value="__('Middle Name')" />
 				<x-input-text 
 					id="middle_name"
+					wire:model="middle_name"
 					name="middle_name"
 					type="text"
 					placeholder="{{ __('Middle Name') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('middle_name')" />
+					class="mt-1 bg-lightGray" />
+				<x-input-error class="mt-2" :messages="$errors->get('middle_name')" />
 			</div>
 			{{-- Sex --}}
-			<div class="mt-4">
-				<x-input-label for="sex" :value="__('Sex')" />
-				<x-input-select id="sex" name="sex" class="mt-1">
-					<option class="text-gray" hidden selected>Sex</option>
+			<div class="mt-4 text-gray">
+				<x-input-label for="sex" :value="__('Sex')" :required="true" />
+				<x-input-select id="sex" wire:model="sex" name="sex" class="mt-1 bg-lightGray">
+					<option selected hidden>Sex</option>
 					<option value="Male">Male</option>
 					<option value="Female">Female</option>
 				</x-input-select>
 				<x-input-error class="mt-2" :messages="$errors->get('sex')" />
 			</div>
 			{{-- Civil Status --}}
-			<div class="mt-4">
-				<x-input-label for="civil_status" :value="__('Civil Status')" />
-				<x-input-select id="civil_status" name="civil_status" class="mt-1">
-					<option hidden selected>Civil Status</option>
-					<option value="Single">Single</option>
+			<div class="mt-4 text-gray">
+				<x-input-label for="civil_status" :value="__('Civil Status')" :required="true" />
+				<x-input-select id="civil_status" wire:model="civil_status" name="civil_status" class="mt-1 bg-lightGray">
+					<option selected hidden>Civil Status</option>
+					<option value="Single">Single</	option>
 					<option value="Married">Married</option>
 					<option value="Divorced">Divorced</option>
 					<option value="Widowed">Widowed</option>
@@ -115,85 +134,113 @@
 			</div>
 			{{-- Nationality --}}
 			<div class="mt-4">
-				<x-input-label for="nationality" :value="__('Nationality')" />
+				<x-input-label for="nationality" :value="__('Nationality')" :required="true"/>
 				<x-input-text 
 					id="nationality"
+					wire:model="nationality"
 					name="nationality"
 					type="text"
 					placeholder="{{ __('Nationality') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('nationality')" />
+					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('nationality')" />
 			</div>
 			{{-- Birthdate --}}
 			<div class="mt-4">
-				<x-input-label for="birthdate" :value="__('Birthdate')" />
+				<x-input-label for="birthdate" :value="__('Birthdate')" :required="true"/>
 				<x-input-text 
 					id="birthdate"
+					wire:model="birthdate"
 					name="birthdate"
 					type="date"
 					placeholder="{{ __('Birthdate') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('birthdate')" />
+					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('birthdate')" />
 			</div>
 			{{-- Birthplace --}}
 			<div class="mt-4">
-				<x-input-label for="birthplace" :value="__('Birthplace')" />
+				<x-input-label for="birthplace" :value="__('Birthplace')" :required="true"/>
 				<x-input-text 
 					id="birthplace"
+					wire:model="birthplace"
 					name="birthplace"
 					type="text"
 					placeholder="{{ __('Birthplace') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('birthplace')" />
+					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('birthplace')" />
 			</div>
 			{{-- Address --}}
 			<div class="mt-4">
-				<x-input-label for="address" :value="__('Address')" />
+				<x-input-label for="address" :value="__('Address')" :required="true"/>
 				<x-input-text 
 					id="address"
+					wire:model="address"
 					name="address"
 					type="text"
 					placeholder="{{ __('Address') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('address')" />
+					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('address')" />
 			</div>
 			{{-- Phone --}}
 			<div class="mt-4">
-				<x-input-label for="phone" :value="__('Phone')" />
+				<x-input-label for="phone" :value="__('Phone')" :required="true"/>
 				<x-input-text 
 					id="phone"
+					wire:model="phone"
 					name="phone"
 					type="text"
 					placeholder="{{ __('Phone') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('phone')" />
+					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('phone')" />
 			</div>
 			{{-- Email --}}
 			<div class="mt-4">
-				<x-input-label for="email" :value="__('Email Address')" />
+				<x-input-label for="email" :value="__('Email Address')" :required="true"/>
 				<x-input-text 
 					id="email"
+					wire:model="email"
 					name="email"
 					type="email"
 					placeholder="{{ __('Email Address') }}"
-					class="mt-1" />
-					<x-input-error class="mt-2" :messages="$errors->get('email')" />
+					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('email')" />
 			</div>
-
+			<div class="flex justify-end mt-4">
+				<x-button type="submit" btnType="success">Add</x-button>
+			</div>
 		</form>
 	</x-modal>
 
-	{{-- Edit Student Form --}}
+	{{-- View Student Form --}}
+	<x-modal name="view-student" title="Student Information">
+		{{-- {{ $student->student_no }} --}}
+	</x-modal>
+
+{{-- Edit Student Form --}}
     <x-modal name="edit-student">
 	</x-modal>
 
 	{{-- Delete Student Dialog --}}
     <x-modal name="delete-student">
 	</x-modal>
+
+	{{-- Success Toast --}}
+	@if(session('success'))
+		<x-toast alert="success">
+			{{ session('success') }}
+		</x-toast>
+	@endif
+
+	{{-- Success Toast --}}
+	@if(session('warning'))
+		<x-toast alert="warning">
+			{{ session('warning') }}
+		</x-toast>
+	@endif
+
+	{{-- Danger Toast --}}
+	@if(session('danger'))
+		<x-toast alert="danger">
+			{{ session('danger') }}
+		</x-toast>
+	@endif
 </div>    

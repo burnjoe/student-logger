@@ -1,66 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a target="_blank"><img src="public/img/ist_logo.png" width="400" alt="iStudentTrack Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<p align="center"><a target="_blank"><img href="https://pnc.edu.ph/" src="public/img/pnc_header.png" width="200" alt="UC (PnC) Header"></a></p>
 
-## About Laravel
+## 📘 Requirements
+Make sure you have installed the following:
+- [Visual Studio Code](https://code.visualstudio.com/download)
+- [XAMPP](https://www.apachefriends.org/download.html)
+- [NodeJS](https://nodejs.org/en/download/)
+- [Composer](https://getcomposer.org/download/)
+- [Git](https://git-scm.com/downloads)
+- (Optional) [GitHub Desktop](https://desktop.github.com/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🔧 Installation
+Follow these steps to prior running the app:
+1. Open XAMPP Control Panel
+2. Start *Apache* & *MySQL* servers
+3. Search *http://localhost/phpmyadmin* in any browser
+4. Create new database and name it *'student_logger'*
+5. Clone the repository with [*CLI*](#cloning-repository-with-cli) or [*GitHub Desktop*](#cloning-repository-with-github-desktop)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Cloning Repository with CLI
+5.1. Open Visual Studio Code
+5.2. Choose a folder where you want to clone the repository in *File > Open Folder*
+5.3. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
+Clone the repository
+'''
+git clone https://github.com/burnjoe/student-logger.git
+'''
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Change terminal directory
+'''
+cd student-logger
+'''
 
-## Learning Laravel
+### Cloning Repository with GitHub Desktop
+5.1. Open GitHub Desktop
+5.2. Clone the repository in *File > Clone Repository*
+Select URL tab and paste the following:
+'''
+https://github.com/burnjoe/student-logger.git
+'''
+5.3. Choose a folder where you want to clone the repository and then *Clone*
+5.4. Open the cloned repository in Visual Studio Code in *Repository > Open in Visual Studio Code*
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+6. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Install composer to the project
+'''
+composer install
+'''
 
-## Laravel Sponsors
+Install npm to the project
+'''
+npm install
+'''
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Create .env 
+'''
+copy .env.example .env
+'''
 
-### Premium Partners
+Generate new app key
+'''
+php artisan key:generate
+'''
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Run the migration and seed
+'''
+php artisan migrate:fresh --seed
+'''
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## ⚡ Running the server
 
-## Code of Conduct
+1. Enter these following commands to your terminal:
+Start local development server for your laravel app
+'''
+php artisan serve
+'''
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Open new terminal and start local development server for node
+'''
+npm run dev
+'''
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### ✨ You can now access the server at *http://localhost:8000*

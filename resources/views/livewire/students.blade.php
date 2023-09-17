@@ -67,7 +67,7 @@
 				<x-input-label for="student_no" :value="__('Student Number')" :required="true" />
 				<x-input-text 
 					id="student_no"
-					wire:model="student_no"
+					wire:model.live="student_no"
 					name="student_no"
 					type="text"
 					placeholder="{{ __('Student Number') }}"
@@ -79,7 +79,7 @@
 				<x-input-label for="last_name" :value="__('Last Name')" :required="true" />
 				<x-input-text 
 					id="last_name"
-					wire:model="last_name"
+					wire:model.live="last_name"
 					name="last_name"
 					type="text"
 					placeholder="{{ __('Last Name') }}"
@@ -91,7 +91,7 @@
 				<x-input-label for="first_name" :value="__('First Name')" :required="true" />
 				<x-input-text 
 					id="first_name"
-					wire:model="first_name"
+					wire:model.live="first_name"
 					name="first_name"
 					type="text"
 					placeholder="{{ __('First Name') }}"
@@ -103,7 +103,7 @@
 				<x-input-label for="middle_name" :value="__('Middle Name')" />
 				<x-input-text 
 					id="middle_name"
-					wire:model="middle_name"
+					wire:model.live="middle_name"
 					name="middle_name"
 					type="text"
 					placeholder="{{ __('Middle Name') }}"
@@ -113,7 +113,11 @@
 			{{-- Sex --}}
 			<div class="mt-4 text-gray">
 				<x-input-label for="sex" :value="__('Sex')" :required="true" />
-				<x-input-select id="sex" wire:model="sex" name="sex" class="mt-1 bg-lightGray">
+				<x-input-select 
+					id="sex" 
+					wire:model.live="sex" 
+					name="sex" 
+					class="mt-1 bg-lightGray">
 					<option selected hidden>Sex</option>
 					<option value="Male">Male</option>
 					<option value="Female">Female</option>
@@ -123,7 +127,11 @@
 			{{-- Civil Status --}}
 			<div class="mt-4 text-gray">
 				<x-input-label for="civil_status" :value="__('Civil Status')" :required="true" />
-				<x-input-select id="civil_status" wire:model="civil_status" name="civil_status" class="mt-1 bg-lightGray">
+				<x-input-select 
+					id="civil_status" 
+					wire:model.live="civil_status" 
+					name="civil_status" 
+					class="mt-1 bg-lightGray">
 					<option selected hidden>Civil Status</option>
 					<option value="Single">Single</	option>
 					<option value="Married">Married</option>
@@ -137,7 +145,7 @@
 				<x-input-label for="nationality" :value="__('Nationality')" :required="true"/>
 				<x-input-text 
 					id="nationality"
-					wire:model="nationality"
+					wire:model.live="nationality"
 					name="nationality"
 					type="text"
 					placeholder="{{ __('Nationality') }}"
@@ -149,7 +157,7 @@
 				<x-input-label for="birthdate" :value="__('Birthdate')" :required="true"/>
 				<x-input-text 
 					id="birthdate"
-					wire:model="birthdate"
+					wire:model.live="birthdate"
 					name="birthdate"
 					type="date"
 					placeholder="{{ __('Birthdate') }}"
@@ -161,7 +169,7 @@
 				<x-input-label for="birthplace" :value="__('Birthplace')" :required="true"/>
 				<x-input-text 
 					id="birthplace"
-					wire:model="birthplace"
+					wire:model.live="birthplace"
 					name="birthplace"
 					type="text"
 					placeholder="{{ __('Birthplace') }}"
@@ -173,19 +181,33 @@
 				<x-input-label for="address" :value="__('Address')" :required="true"/>
 				<x-input-text 
 					id="address"
-					wire:model="address"
+					wire:model.live="address"
 					name="address"
 					type="text"
 					placeholder="{{ __('Address') }}"
 					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('address')" />
 			</div>
+			{{-- Account Type --}}
+			<div class="mt-4 text-gray">
+				<x-input-label for="account_type" :value="__('Account Type')" :required="true" />
+				<x-input-select 
+					id="account_type" 
+					wire:model.live="account_type" 
+					name="account_type" 
+					class="mt-1 bg-lightGray">
+					<option selected hidden>Account Type</option>
+					<option value="Cabuyeño">Cabuyeño</option>
+					<option value="Non-Cabuyeño">Non-Cabuyeño</option>
+				</x-input-select>
+				<x-input-error class="mt-2" :messages="$errors->get('account_type')" />
+			</div>
 			{{-- Phone --}}
 			<div class="mt-4">
 				<x-input-label for="phone" :value="__('Phone')" :required="true"/>
 				<x-input-text 
 					id="phone"
-					wire:model="phone"
+					wire:model.live="phone"
 					name="phone"
 					type="text"
 					placeholder="{{ __('Phone') }}"
@@ -197,16 +219,22 @@
 				<x-input-label for="email" :value="__('Email Address')" :required="true"/>
 				<x-input-text 
 					id="email"
-					wire:model="email"
+					wire:model.live="email"
 					name="email"
 					type="email"
 					placeholder="{{ __('Email Address') }}"
 					class="mt-1 bg-lightGray" />
 				<x-input-error class="mt-2" :messages="$errors->get('email')" />
 			</div>
-			<div class="flex justify-end mt-4">
+			{{-- Submit --}}
+			<div class="flex justify-end mt-4 space-x-4">
+				<x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary">Cancel</x-button>
 				<x-button type="submit" btnType="success">Add</x-button>
 			</div>
+			{{-- Loading --}}
+			{{-- <div wire:loading>
+				<i class="fa-solid fa-circle-info"></i>
+			</div> --}}
 		</form>
 	</x-modal>
 
@@ -215,7 +243,7 @@
 		{{-- {{ $student->student_no }} --}}
 	</x-modal>
 
-{{-- Edit Student Form --}}
+	{{-- Edit Student Form --}}
     <x-modal name="edit-student">
 	</x-modal>
 
@@ -223,24 +251,5 @@
     <x-modal name="delete-student">
 	</x-modal>
 
-	{{-- Success Toast --}}
-	@if(session('success'))
-		<x-toast alert="success">
-			{{ session('success') }}
-		</x-toast>
-	@endif
-
-	{{-- Success Toast --}}
-	@if(session('warning'))
-		<x-toast alert="warning">
-			{{ session('warning') }}
-		</x-toast>
-	@endif
-
-	{{-- Danger Toast --}}
-	@if(session('danger'))
-		<x-toast alert="danger">
-			{{ session('danger') }}
-		</x-toast>
-	@endif
+	@include('livewire.includes.toasts')
 </div>    

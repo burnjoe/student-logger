@@ -15,7 +15,7 @@ class EmployeeSeeder extends Seeder
     {
         Employee::create([
             'last_name' => 'Sabana',
-            'first_name' => 'Jholo',
+            'first_name' => 'Joe Lawrence',
             'sex' => 'Male',
             'birthdate' => now(),
             'address' => 'Laguna',

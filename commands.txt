@@ -21,7 +21,7 @@ Laravel Commands Cheat Sheet
 
 -> php artisan make:seeder <NewSeederName>                      // create new seeder
 
-
+-> php artisan make:livewire <ComponentName>                    // create new livewire component
 
 
 

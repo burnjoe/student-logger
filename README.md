@@ -1,4 +1,4 @@
-<p align="center"><a target="_blank"><img src="public/img/ist_logo.png" width="400" alt="iStudentTrack Logo"></a></p>
+<p align="center"><img src="public/img/ist_logo.png" width="400" alt="iStudentTrack Logo" style="margin-top: 10px;"></p>
 <br>
 <p align="center"><a target="_blank"><img href="https://pnc.edu.ph/" src="public/img/pnc_header.png" width="300" alt="UC (PnC) Header"></a></p>
 
@@ -12,7 +12,7 @@ Make sure you have installed the following:
 - [GitHub Desktop](https://desktop.github.com/) (Optional)
 
 ## 🔧 Installation
-Follow these steps to prior running the app:
+### Starting XAMPP Server
 1. Open XAMPP Control Panel
 2. Start *Apache* & *MySQL* servers
 3. Search *http://localhost/phpmyadmin* in any browser
@@ -20,9 +20,9 @@ Follow these steps to prior running the app:
 5. Clone the repository with [*CLI*](#cloning-repository-with-cli) or [*GitHub Desktop*](#cloning-repository-with-github-desktop)
 
 ### Cloning Repository with CLI
-5.1. Open Visual Studio Code
-5.2. Choose a folder where you want to clone the repository in *File > Open Folder*
-5.3. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
+1. Open Visual Studio Code
+2. Choose a folder where you want to clone the repository in *File > Open Folder*
+3. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
 Clone the repository
 ```
 git clone https://github.com/burnjoe/student-logger.git
@@ -32,19 +32,24 @@ Change terminal directory
 ```
 cd student-logger
 ```
+4. [Proceed to the next step](#adding-all-dependencies-and-setting-up-the-project)
 
 ### Cloning Repository with GitHub Desktop
-5.1. Open GitHub Desktop
-5.2. Clone the repository in *File > Clone Repository*
+1. Open GitHub Desktop
+2. Clone the repository in *File > Clone Repository*
+
 Select URL tab and paste the following:
 ```
 https://github.com/burnjoe/student-logger.git
 ```
-5.3. Choose a folder where you want to clone the repository and then *Clone*
-5.4. Open the cloned repository in Visual Studio Code in *Repository > Open in Visual Studio Code*
+
+3. Choose a folder where you want to clone the repository and then *Clone*
+4. Open the cloned repository in Visual Studio Code in *Repository > Open in Visual Studio Code*
 
 
-6. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
+### Adding All Dependencies and Setting Up the Project
+
+1. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
 
 Install composer to the project
 ```

@@ -9,7 +9,7 @@
 @php 
   switch ($btnType) {
     case 'secondary':
-      $bgClasses = 'bg-darkGray hover:bg-gray';
+      $bgClasses = 'bg-darkGray hover:bg-veryDarkGray';
       break;
     case 'success':
       $bgClasses = 'bg-green hover:bg-lightGreen';

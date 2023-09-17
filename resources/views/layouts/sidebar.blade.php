@@ -20,7 +20,7 @@
         <span>
             <x-badge>{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
         </span>
-        <span class="text-sm">{{ auth()->user()->name }}</span>
+        <span class="text-sm">{{ auth()->user()->profileable->last_name. ', ' .auth()->user()->profileable->first_name }}</span>
     </div>
 
     <nav class="flex flex-col mx-2 my-2 text-darkGray">
@@ -85,6 +85,16 @@
                 </span>
                 <span x-show="sidebarOpen" class="flex items-center">
                     <span class="text-sm">Reports</span>
+                </span>
+            </div>
+        </a>
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+            <div class="py-3 px-4 w-full flex space-x-2">
+                <span class="w-6">
+                    <i class="fa-solid fa-box-archive"></i>
+                </span>
+                <span x-show="sidebarOpen" class="flex items-center">
+                    <span class="text-sm">Archive</span>
                 </span>
             </div>
         </a>

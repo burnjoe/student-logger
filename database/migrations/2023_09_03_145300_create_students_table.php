@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone')->unique();
             $table->string('email')->unique();
-            $table->enum('account_type', ['Cabuyeno', 'Non-Cabuyeno']);
+            $table->enum('account_type', ['Cabuyeño', 'Non-Cabuyeño']);
             $table->timestamps();
         });
     }

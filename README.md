@@ -55,7 +55,7 @@ https://github.com/burnjoe/student-logger.git
 
 ### Adding All Dependencies and Setting Up the Project
 
-1. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
+#### Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
 
 Install composer to the project
 ```
@@ -85,7 +85,7 @@ php artisan migrate:fresh --seed
 
 ## ⚡ Running the Server
 
-1. Enter these following commands to your terminal:
+#### Enter these following commands to your terminal:
 
 Start local development server for your laravel app
 ```

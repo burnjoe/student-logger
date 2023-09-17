@@ -1,4 +1,5 @@
-<p align="center"><img src="public/img/ist_logo.png" width="400" alt="iStudentTrack Logo" style="margin-top: 10px;"></p>
+<br>
+<p align="center"><img src="public/img/ist_logo.png" width="400" alt="iStudentTrack Logo"></p>
 <br>
 <p align="center"><a target="_blank"><img href="https://pnc.edu.ph/" src="public/img/pnc_header.png" width="300" alt="UC (PnC) Header"></a></p>
 
@@ -17,12 +18,15 @@ Make sure you have installed the following:
 2. Start *Apache* & *MySQL* servers
 3. Search *http://localhost/phpmyadmin* in any browser
 4. Create new database and name it *'student_logger'*
-5. Clone the repository with [*CLI*](#cloning-repository-with-cli) or [*GitHub Desktop*](#cloning-repository-with-github-desktop)
+5. Clone the repository with [CLI](#cloning-repository-with-cli) or [GitHub Desktop](#cloning-repository-with-github-desktop)
+
+<br>
 
 ### Cloning Repository with CLI
 1. Open Visual Studio Code
 2. Choose a folder where you want to clone the repository in *File > Open Folder*
 3. Open Visual Studio Code terminal *(Ctrl + `)* and enter the following commands:
+
 Clone the repository
 ```
 git clone https://github.com/burnjoe/student-logger.git
@@ -32,7 +36,8 @@ Change terminal directory
 ```
 cd student-logger
 ```
-4. [Proceed to the next step](#adding-all-dependencies-and-setting-up-the-project)
+
+<br>
 
 ### Cloning Repository with GitHub Desktop
 1. Open GitHub Desktop
@@ -46,6 +51,7 @@ https://github.com/burnjoe/student-logger.git
 3. Choose a folder where you want to clone the repository and then *Clone*
 4. Open the cloned repository in Visual Studio Code in *Repository > Open in Visual Studio Code*
 
+<br>
 
 ### Adding All Dependencies and Setting Up the Project
 
@@ -77,9 +83,10 @@ php artisan migrate:fresh --seed
 ```
 
 
-## ⚡ Running the server
+## ⚡ Running the Server
 
 1. Enter these following commands to your terminal:
+
 Start local development server for your laravel app
 ```
 php artisan serve
@@ -91,4 +98,4 @@ npm run dev
 ```
 
 
-### ✨ You can now access the server at *http://localhost:8000*
+### ✨ You can now access the server at http://localhost:8000

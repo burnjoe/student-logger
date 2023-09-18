@@ -3,7 +3,6 @@
 <br>
 <p align="center"><a target="_blank"><img href="https://pnc.edu.ph/" src="public/img/pnc_header.png" width="300" alt="UC (PnC) Header"></a></p>
 
-
 ## 📘 Requirements
 Make sure you have installed the following:
 - [Visual Studio Code](https://code.visualstudio.com/download)

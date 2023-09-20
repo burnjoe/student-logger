@@ -44,7 +44,7 @@ class Students extends Component
     #[Rule('required|min:3')] 
     public $address;
     
-    #[Rule('required|min:11|unique:students')] 
+    #[Rule(['required', 'unique:students'])] 
     public $phone;
 
     #[Rule('required|email|unique:students', as: 'email address')] 
@@ -56,11 +56,29 @@ class Students extends Component
     // #[Rule('required|min:3')] 
     // public $program_id;
 
-    public $search;
+    public Student $selectedStudent;
+    public $search = "";
     public $filterProgram;
 
+
     /**
-     * Store new student in database
+     * Show selected student in modal
+     */
+    public function show(Student $student) {
+        $this->selectedStudent = $student;
+
+        $this->dispatch('open-modal', 'show-student');
+    }
+
+    /**
+     * Show create form modal
+     */
+    public function create() {
+        $this->dispatch('open-modal', 'create-student');
+    }
+
+    /**
+     * Store new student
      */
     public function store() {
         $validated = $this->validate();
@@ -72,7 +90,61 @@ class Students extends Component
 
         $this->reset();
 
-        session()->flash('success', 'Student was successfully added');
+        session()->flash('success', 'Student successfully added');
+
+        $this->dispatch('close-modal');
+    }
+
+    /**
+     * Shows edit form modal
+     */
+    public function edit(Student $student) {
+        $this->selectedStudent = $student;
+
+        $this->student_no = $student->student_no;
+        $this->last_name = $student->last_name;
+        $this->first_name = $student->first_name;
+        $this->middle_name = $student->middle_name;
+        $this->sex = $student->sex;
+        $this->civil_status = $student->civil_status;
+        $this->nationality = $student->nationality;
+        $this->birthdate = $student->birthdate;
+        $this->birthplace = $student->birthplace;
+        $this->address = $student->address;
+        $this->phone = $student->phone;
+        $this->email = $student->email;
+        $this->account_type = $student->account_type;
+
+        $this->dispatch('open-modal', 'edit-student');
+    }
+
+    /**
+     * Updates selected student 
+     */
+    public function update() {
+        $validated = $this->validate();
+
+        $this->selectedStudent->update($validated);
+
+        $this->reset();
+
+        session()->flash('success', 'Student successfully updated');
+
+        $this->dispatch('close-modal');
+    }
+
+    /**
+     * Show delete confirmation modal
+     */
+    public function delete(Student $student) {
+        // delete
+    }
+
+    /**
+     * Closes modal and resets fields
+     */
+    public function cancel() {
+        $this->reset();
 
         $this->dispatch('close-modal');
     }
@@ -86,7 +158,7 @@ class Students extends Component
             'students' => Student::latest()
                 ->search($this->filterProgram)
                 ->search($this->search)
-                ->paginate(2)
+                ->paginate(10)
         ]);
     }
 }

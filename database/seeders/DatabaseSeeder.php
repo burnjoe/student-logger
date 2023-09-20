@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'college_id' => $college->id
         ]);
 
+        Student::factory(500)->create();
+
         Student::create([
             'student_no' => '2000222',
             'last_name' => 'Dela Cruz',

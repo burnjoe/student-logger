@@ -25,7 +25,7 @@ class StudentFactory extends Factory
         } while (Student::where('phone', $phone)->exists());
         
         return [
-            'student_no' => (string) fake()->unique()->numberBetween(1800000, 2005000),
+            'student_no' => (string) fake()->unique()->numberBetween(1000000, 2000000),
             'last_name' => fake()->lastName(),
             'first_name' => fake()->firstName(),
             'middle_name' => fake()->randomElement([fake()->lastName(), '']),
@@ -36,7 +36,7 @@ class StudentFactory extends Factory
             'birthplace' => fake()->city(),
             'address' => fake()->address(),
             'phone' => $phone,
-            'email' => fake()->email(),
+            'email' => fake()->unique()->email(),
             'account_type' => fake()->randomElement(['Cabuyeño', 'Non-Cabuyeño'])
         ];
     }

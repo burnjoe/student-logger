@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceLoggerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,9 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view students')
         ->name('students');
 
-
+    // Attendance Logger Module
+    Route::get('attendance-logger', [AttendanceLoggerController::class, 'index'])
+        ->name('attendance-logger');
 
     // Profile Module
     Route::get('profile', [UserController::class, 'edit'])

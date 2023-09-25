@@ -21,7 +21,7 @@ class StudentFactory extends Factory
         $prefixes = ['921', '918', '927', '938', '947'];
 
         do {
-            $phone = $this->faker->randomElement($prefixes) . $this->faker->numerify('#######');
+            $phone = fake()->randomElement($prefixes) . fake()->unique()->numerify('#######');
         } while (Student::where('phone', $phone)->exists());
         
         return [

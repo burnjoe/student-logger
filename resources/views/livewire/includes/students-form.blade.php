@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="update">
+    <form wire:submit.prevent="{{ session('action') }}">
         {{-- Student Number --}}
         <div>
             <x-input-label for="student_no" :value="__('Student Number')" :required="true" />
@@ -167,19 +167,9 @@
         </div>
         {{-- Submit --}}
         <div class="flex justify-end items-center mt-4 space-x-4">
-            {{-- Loading --}}
-            <div wire:loading>
-                Saving student...
-            </div>
-
-            @if($errors->any())
-                <div wire:loading.remove class="text-red">
-                    Failed to save.
-                </div>
-            @endif
             {{-- x-on:click.prevent="$dispatch('close-modal')" --}}
             <div class="flex space-x-4">
-                <x-button wire:click.prevent="cancel" btnType="secondary">Cancel</x-button>
+                <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary">Cancel</x-button>
                 <x-button type="submit" btnType="success">Save</x-button>
             </div>
         </div>

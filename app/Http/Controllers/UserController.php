@@ -16,6 +16,8 @@ class UserController extends Controller
      */
     public function edit(Request $request): View
     {
+        session(['page' => 'profile']);
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);

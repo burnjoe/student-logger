@@ -8,7 +8,9 @@
         <title>{{ config('app.name', 'iStudentTrack') }}</title>
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css'])
+
+        @livewireStyles
     </head>
     <body>
         <div class="flex items-center justify-center min-h-screen bg-lightGray">
@@ -37,5 +39,7 @@
                 </x-toast>
             @enderror
         </div>
+
+        @livewireScripts
     </body>
 </html>

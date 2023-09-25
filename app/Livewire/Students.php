@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Student;
 use Livewire\Component;
-use Livewire\Attributes\Rule;
 use Livewire\WithPagination;
+use Livewire\Attributes\Rule;
 
 class Students extends Component
 {
@@ -74,6 +74,7 @@ class Students extends Component
      * Show create form modal
      */
     public function create() {
+        session()->flash('action', 'store');
         $this->dispatch('open-modal', 'create-student');
     }
 
@@ -115,6 +116,7 @@ class Students extends Component
         $this->email = $student->email;
         $this->account_type = $student->account_type;
 
+        session()->flash('action', 'update');
         $this->dispatch('open-modal', 'edit-student');
     }
 
@@ -154,11 +156,12 @@ class Students extends Component
      */
     public function render()
     {
+        session(['page' => 'students']);
+
         return view('livewire.students', [
             'students' => Student::latest()
-                ->search($this->filterProgram)
-                ->search($this->search)
-                ->paginate(10)
+            ->search($this->search)
+            ->paginate(15)
         ]);
     }
 }

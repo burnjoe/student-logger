@@ -1,13 +1,38 @@
-<nav x-data="{ open: false }" class="bg-green py-4 px-8 z-5 shadow-md">
+<nav x-data="{ open: false }" class="bg-green py-4 px-8 z-10 shadow-md">
     <!-- Primary Navigation Menu -->
     <div class="flex justify-between space-x-8">
         <div class="text-white space-x-8">
-            <button @click="sidebarOpen = !sidebarOpen" class="transition-all focus:outline-none hover:text-gray">
+            <button x-cloak @click="sidebarOpen = !sidebarOpen" class="transition-all focus:outline-none hover:text-gray">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="space-x-3">
-                @if(session('window') === 'dashboard')
-                    <i class="fa-solid fa-chart-simple"></i><span class="font-bold text-lg">{{ __('Dashboard') }}</span>
+                @if(session('page') === 'dashboard')
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="font-bold text-lg">{{ __('Dashboard') }}</span>
+                @elseif(session('page') === 'students')
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span class="font-bold text-lg">{{ __('Students') }}</span>
+                @elseif(session('page') === 'attendance')
+                <i class="fa-solid fa-clock fa-sm"></i>
+            </span class="font-bold text-lg">{{ __('Attendance') }}</span>
+                @elseif(session('page') === 'accounts')
+                    <i class="fa-solid fa-user-large fa-sm"></i>
+                    <span class="font-bold text-lg">{{ __('Accounts') }}</span>
+                @elseif(session('page') === 'audit_log')
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span class="font-bold text-lg">{{ __('Audit Log') }}</span>
+                @elseif(session('page') === 'reports')
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="font-bold text-lg">{{ __('Reports') }}</span>
+                @elseif(session('page') === 'archive')
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span class="font-bold text-lg">{{ __('Archive') }}</span>
+                @elseif(session('page') === 'profile')
+                    <i class="fa-solid fa-user"></i>
+                    <span class="font-bold text-lg">{{ __('Profile') }}</span>
+                @elseif(session('page') === 'change_password')
+                    <i class="fa-solid fa-key"></i>
+                    <span class="font-bold text-lg">{{ __('Change Password') }}</span>
                 @endif
             </span>
         </div>
@@ -59,7 +84,7 @@
 
                         <x-dropdown-link :href="route('profile.edit')" fontSize="text-xs">
                             @slot('icon')
-                                <i class="fa-solid fa-unlock"></i>
+                                <i class="fa-solid fa-key"></i>
                             @endslot
                             {{__('Change Password') }}
                         </x-dropdown-link>

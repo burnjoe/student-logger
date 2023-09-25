@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\StudentController;
+use App\Livewire\Students;
+use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,12 @@ Route::get('/', function() {
 // Authenticated Users
 Route::middleware('auth')->group(function () {
     // Dashboard Module
-    Route::get('dashboard', function() { return view('dashboard'); })
-        ->name('dashboard');
+    Route::get('dashboard', Dashboard::class)
+    // function() { return view('dashboard'); })
+    ->name('dashboard');
 
     // Students Module
-    Route::get('students', [StudentController::class, 'index'])
+    Route::get('students', Students::class)
         ->middleware('can:view students')
         ->name('students');
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -11,6 +12,7 @@ class Dashboard extends Component
      */
     public function render()
     {
+        session(['page' => 'dashboard']);
         return view('livewire.dashboard');
     }
 }

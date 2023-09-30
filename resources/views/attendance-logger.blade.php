@@ -9,7 +9,6 @@
 
     @livewireStyles
     <style>
-        /* Define CSS for the two-column layout */
         .container {
             display: flex;
             justify-content: center;
@@ -20,8 +19,8 @@
             padding-right: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
+            align-items: center;
+            justify-content: center;
         }
 
         .right-column {
@@ -39,7 +38,6 @@
 </head>
 <body class="flex flex-col min-h-screen bg-lightGray">
     <div class="flex-grow flex items-center justify-center">
-        <!-- Move the back button outside the container -->
         {{-- Back Button --}}
         <x-button btnType="secondary" element="a" :href="route('dashboard')" class="back-button rounded-md">
             <i class="fa-solid fa-arrow-left"></i>
@@ -56,7 +54,7 @@
                         <!-- Display live population count here -->
                         <div>
                             <div id="livePopulationCount" class="mt-4 text-xl font-semibold text-center p-4 sm:p-6">
-                                <!-- Numbers -->
+                                <!-- Population Count -->
                             </div>
                         </div>
 
@@ -78,6 +76,7 @@
     </div>
 
     <script>
+        // POPULATION COUNT FUNCTIONS
         // Function to simulate a live population count update
         function updateLivePopulationCount() {
             // Replace this with your actual data retrieval logic
@@ -94,9 +93,11 @@
             livePopulationCountElement.style.fontSize = "5rem"; // You can adjust the size as needed
         }
 
-        // Update the live population count every 5 seconds (5000 milliseconds)
+        // Update the live population count every 1 second (1000 milliseconds)
         setInterval(updateLivePopulationCount, 1000);
 
+        
+        // RFID READER FUNCTIONS
         // Define the correct ID here
         const correctID = "123"; // Replace "123" with your correct ID
 
@@ -123,8 +124,22 @@
             return id === correctID;
         }
 
+        let inputTimer; // Variable to store the timer
+
+        function resetInputField() {
+            idInput.value = ""; // Clear the input field
+        }
+
         // Listen for input changes (simulated RFID detection)
         document.addEventListener("keydown", function (event) {
+            const allowedKeys = /^[0-9a-zA-Z]$/; // Regular expression to match letters and numbers
+
+            // Check if the pressed key is allowed (letters or numbers)
+            if (!event.key.match(allowedKeys)) {
+                event.preventDefault(); // Prevent the default behavior of the key press
+                return;
+            }
+
             const typedCharacter = event.key;
             const currentInput = idInput.value + typedCharacter;
 
@@ -133,10 +148,14 @@
                 // If it matches, show the example information
                 showExampleInfo();
                 // Clear the input field
-                idInput.value = "";
+                resetInputField();
             } else {
                 // If it doesn't match, continue typing
                 idInput.value = currentInput;
+
+                // Clear the timer and restart it
+                clearTimeout(inputTimer);
+                inputTimer = setTimeout(resetInputField, 1000); // Reset after 1 second of inactivity
             }
         });
     </script>

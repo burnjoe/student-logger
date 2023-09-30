@@ -7,7 +7,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- @livewireStyles -->
+    @livewireStyles
     <style>
         /* Define CSS for the two-column layout */
         .container {
@@ -45,7 +45,7 @@
                     </div>
 
                     <!-- Testing Insert -->
-                    <input type="text" id="idInput" class="border border-gray-300 rounded-md w-full p-2 mt-4" placeholder="Tap your ID">
+                    <!-- <input type="text" id="idInput" class="border border-gray-300 rounded-md w-full p-2 mt-4" placeholder="Tap your ID"> -->
 
                 </div>
             </div>
@@ -65,7 +65,7 @@
         // Function to simulate a live population count update
         function updateLivePopulationCount() {
             // Replace this with your actual data retrieval logic
-            const populationCount = Math.floor(Math.random() * 10000); // Simulated count
+            const populationCount = Math.floor(Math.random() * 1000000); // Simulated count
             const livePopulationCountElement = document.getElementById("livePopulationCount");
             
             // Format the population count with commas
@@ -82,10 +82,7 @@
         setInterval(updateLivePopulationCount, 1000);
 
         // Define the correct ID here
-        const correctID = "123";
-
-        // Get the input element
-        const idInput = document.getElementById("idInput");
+        const correctID = "123"; // Replace "123" with your correct ID
 
         // Get the example information element
         const exampleInfo = document.getElementById("exampleInfo");
@@ -93,7 +90,6 @@
         // Function to show the example information
         function showExampleInfo() {
             exampleInfo.classList.remove("hidden");
-            idInput.value = ""; // Clear the text in the input field
             setTimeout(hideExampleInfo, 10000); // Hide after 10 seconds
         }
 
@@ -105,15 +101,26 @@
         // Initially hide the example information
         hideExampleInfo();
 
-        // Listen for input changes
-        idInput.addEventListener("input", function() {
+        // Function to simulate ID detection (replace this with your actual RFID detection logic)
+        function detectID(id) {
+            // Simulate RFID detection logic here
+            return id === correctID;
+        }
+
+        // Listen for input changes (simulated RFID detection)
+        document.addEventListener("keydown", function (event) {
+            const typedCharacter = event.key;
+            const currentInput = idInput.value + typedCharacter;
+
             // Check if the entered ID matches the correct ID
-            if (idInput.value === correctID) {
+            if (detectID(currentInput)) {
                 // If it matches, show the example information
                 showExampleInfo();
+                // Clear the input field
+                idInput.value = "";
             } else {
-                // If it doesn't match, hide the example information
-                hideExampleInfo();
+                // If it doesn't match, continue typing
+                idInput.value = currentInput;
             }
         });
     </script>

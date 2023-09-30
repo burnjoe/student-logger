@@ -12,41 +12,57 @@
         /* Define CSS for the two-column layout */
         .container {
             display: flex;
-            flex-direction: row;
+            justify-content: center;
         }
 
         .left-column {
             flex: 1;
             padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
         }
 
         .right-column {
             flex: 1;
+            justify-content: center;
             padding-left: 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 8px;
+            left: 8px;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-lightGray">
     <div class="flex-grow flex items-center justify-center">
+        <!-- Move the back button outside the container -->
+        {{-- Back Button --}}
+        <x-button btnType="secondary" element="a" :href="route('dashboard')" class="back-button rounded-md">
+            <i class="fa-solid fa-arrow-left"></i>
+        </x-button>
         <div class="container">
             <!-- Left Column - "live Population Count" Content -->
             <div class="left-column">
-                <div class="max-w-full h-32 mb-4">
-                    <img class="w-full h-full object-contain" src="{{asset('img/pnc_header.png')}}" alt="">
-                </div>
-                            
-                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-                    <p class="text-5xl font-bold text-center">Population Count</p>
-                    <!-- Display live population count here -->
-                    <div>
-                        <div id="livePopulationCount" class="mt-4 text-xl font-semibold text-center p-4 sm:p-6">
-                            <!-- Numbers -->
-                        </div>
+                <div>
+                    <div class="max-w-full h-32 mb-4">
+                        <img class="w-full h-full object-contain" src="{{asset('img/pnc_header.png')}}" alt="">
                     </div>
+                    <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                        <p class="text-5xl font-bold text-center">Population Count</p>
+                        <!-- Display live population count here -->
+                        <div>
+                            <div id="livePopulationCount" class="mt-4 text-xl font-semibold text-center p-4 sm:p-6">
+                                <!-- Numbers -->
+                            </div>
+                        </div>
 
-                    <!-- Testing Insert -->
-                    <!-- <input type="text" id="idInput" class="border border-gray-300 rounded-md w-full p-2 mt-4" placeholder="Tap your ID"> -->
-
+                        <!-- Testing Insert -->
+                        <input type="text" id="idInput" class="border border-gray-300 rounded-md w-full p-2 mt-4" placeholder="Tap your ID">
+                    </div>
                 </div>
             </div>
 

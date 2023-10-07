@@ -44,8 +44,8 @@ $maxWidth = [
     })"
     x-on:open-modal.window="$event.detail == '{{ $name }}' ? show = true : null"
     x-on:close-modal.window = "show = false"
-    x-on:close.stop="show = false"
-    x-on:keydown.escape.window="show = false"
+    {{-- x-on:close.stop="show = false" --}}
+    {{-- x-on:keydown.escape.window="show = false" --}}
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
@@ -55,7 +55,7 @@ $maxWidth = [
     <div
         x-show="show"
         class="fixed inset-0 transform transition-all"
-        x-on:click="show = false"
+        {{-- x-on:click="show = false" --}}
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -80,8 +80,10 @@ $maxWidth = [
         {{-- Header --}}
         <div class="flex justify-between">
             <span class="text-lg font-bold">{{ $title ?? '' }}</span>
-            <button x-on:click="show = false" class="text-darkGray hover:text-black">
-                <i class="fa-solid fa-xmark"></i>
+            <button 
+                x-on:click="show = false" 
+                class="text-darkGray transition-all hover:text-black">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
         <div class="mt-6">

@@ -6,31 +6,32 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="space-x-3">
-                @if(session('page') === 'dashboard')
+                {{-- Page Titles Shown in Navigation Bar --}}
+                @if($page === 'dashboard')
                     <i class="fa-solid fa-chart-simple"></i>
                     <span class="font-bold text-lg">{{ __('Dashboard') }}</span>
-                @elseif(session('page') === 'students')
+                @elseif($page === 'students')
                     <i class="fa-solid fa-user-graduate"></i>
                     <span class="font-bold text-lg">{{ __('Students') }}</span>
-                @elseif(session('page') === 'attendance')
+                @elseif($page === 'attendance')
                 <i class="fa-solid fa-clock fa-sm"></i>
             </span class="font-bold text-lg">{{ __('Attendance') }}</span>
-                @elseif(session('page') === 'accounts')
+                @elseif($page === 'accounts')
                     <i class="fa-solid fa-user-large fa-sm"></i>
                     <span class="font-bold text-lg">{{ __('Accounts') }}</span>
-                @elseif(session('page') === 'audit_log')
+                @elseif($page === 'audit_log')
                     <i class="fa-solid fa-clipboard-list"></i>
                     <span class="font-bold text-lg">{{ __('Audit Log') }}</span>
-                @elseif(session('page') === 'reports')
+                @elseif($page === 'reports')
                     <i class="fa-solid fa-chart-line"></i>
                     <span class="font-bold text-lg">{{ __('Reports') }}</span>
-                @elseif(session('page') === 'archive')
+                @elseif($page === 'archive')
                     <i class="fa-solid fa-box-archive"></i>
                     <span class="font-bold text-lg">{{ __('Archive') }}</span>
-                @elseif(session('page') === 'profile')
+                @elseif($page === 'profile')
                     <i class="fa-solid fa-user"></i>
                     <span class="font-bold text-lg">{{ __('Profile') }}</span>
-                @elseif(session('page') === 'change_password')
+                @elseif($page === 'change_password')
                     <i class="fa-solid fa-key"></i>
                     <span class="font-bold text-lg">{{ __('Change Password') }}</span>
                 @endif

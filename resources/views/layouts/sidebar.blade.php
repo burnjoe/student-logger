@@ -24,7 +24,7 @@
     </div>
 
     <nav class="flex flex-col mx-2 my-2 text-darkGray">
-        <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray">
+        <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
                     <i class="fa-solid fa-chart-simple"></i>
@@ -35,7 +35,7 @@
             </div>
         </a>
         @can('view students')
-            <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray">
+            <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Students">
                 <div class="py-3 px-4 w-full flex space-x-2">
                     <span class="w-6">
                         <i class="fa-solid fa-user-graduate"></i>
@@ -46,7 +46,7 @@
                 </div>
             </a>
         @endcan
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
                     <i class="fa-solid fa-clock fa-sm"></i>
@@ -57,7 +57,7 @@
             </div>
         </a>
         @can('view accounts')
-            <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+            <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts">
                 <div class="py-3 px-4 w-full flex space-x-2">
                     <span class="w-6">
                         <i class="fa-solid fa-user-large fa-sm"></i>
@@ -68,7 +68,7 @@
                 </div>
             </a>
         @endcan
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
                     <i class="fa-solid fa-clipboard-list"></i>
@@ -78,7 +78,7 @@
                 </span>
             </div>
         </a>
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Reports">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
                     <i class="fa-solid fa-chart-line"></i>
@@ -88,7 +88,7 @@
                 </span>
             </div>
         </a>
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Archive">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
                     <i class="fa-solid fa-box-archive"></i>
@@ -101,7 +101,7 @@
 
         <hr class="mx-4 my-2 text-gray">
 
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
                     <i class="fa-solid fa-id-badge"></i>

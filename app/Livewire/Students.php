@@ -6,65 +6,100 @@ use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Rule;
+use Illuminate\Support\Facades\View;
+use Illuminate\Validation\Rules\Unique;
 
 class Students extends Component
 {
     use WithPagination;
 
-    #[Rule('required|digits:7|unique:students', as: 'student number')] 
     public $student_no;
-
-    #[Rule('required|min:2|max:50')] 
     public $last_name;
-    
-    #[Rule('required|min:2|max:50')] 
     public $first_name;
-
-    #[Rule('nullable|min:2|max:50')] 
     public $middle_name;
-
-    #[Rule('required')]
     public $sex;
-
-    #[Rule('required')] 
     public $civil_status;
-
-    #[Rule('required|min:3')] 
     public $nationality;
-
-    #[Rule('required')] 
-    #[Rule('date')]
-    #[Rule('after_or_equal:1950-01-01', message: 'The :attribute field must be a valid date')]
-    #[Rule('before_or_equal:today', message: 'The :attribute field must be a valid date')]
     public $birthdate;
-
-    #[Rule('required|min:3')] 
     public $birthplace;
-
-    #[Rule('required|min:3')] 
     public $address;
-    
-    #[Rule(['required', 'unique:students'])] 
     public $phone;
-
-    #[Rule('required|email|unique:students', as: 'email address')] 
     public $email;
-
-    #[Rule('required')] 
     public $account_type;
 
-    // #[Rule('required|min:3')] 
     // public $program_id;
 
     public Student $selectedStudent;
     public $search = "";
     public $filterProgram;
+    public $action;
 
+
+    /**
+     * Validation rules
+     */
+    public function rules() 
+    {
+        return [
+            'student_no' => 'required|digits:7|unique:students',
+            'last_name' => 'required|min:2|max:50',
+            'first_name' => 'required|min:2|max:50',
+            'middle_name' => 'nullable|min:2|max:50',
+            'sex' => 'required',
+            'civil_status' => 'required',
+            'nationality' => 'required|min:3',
+            'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
+            'birthplace' => 'required|min:3',
+            'address' => 'required|min:3',
+            'phone' => 'required|unique:students',
+            'email' => 'required|email|unique:students',
+            'account_type' => 'required',
+        ];
+    }
+
+    /**
+     * Validation messages
+     */
+    public function messages() 
+    {
+        return[
+            'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
+            'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
+        ];
+    }
+
+    /**
+     * Validation attributes
+     */
+    public function validationAttributes() 
+    {
+        return[
+            'student_no' => 'student number',
+            'email' => 'email address'
+        ];
+    }
+
+    /**
+     * Render livewire view
+     */
+    public function render()
+    {
+        View::share('page', 'students');
+
+        return view('livewire.students', [
+            'students' => Student::latest()
+            ->search($this->search)
+            ->paginate(15)
+        ]);
+    }
 
     /**
      * Show selected student in modal
      */
-    public function show(Student $student) {
+    public function show(Student $student) 
+    {
+        $this->dispatch('close-modal');
+
         $this->selectedStudent = $student;
 
         $this->dispatch('open-modal', 'show-student');
@@ -73,15 +108,24 @@ class Students extends Component
     /**
      * Show create form modal
      */
-    public function create() {
-        session()->flash('action', 'store');
+    public function create() 
+    {
+        $this->dispatch('close-modal');
+
+        $this->resetValidation();
+        
+        $this->resetExcept(['search', 'filterProgram']);
+
+        $this->action = 'store';
+        
         $this->dispatch('open-modal', 'create-student');
     }
 
     /**
      * Store new student
      */
-    public function store() {
+    public function store() 
+    {
         $validated = $this->validate();
 
         Student::create($validated);
@@ -99,7 +143,14 @@ class Students extends Component
     /**
      * Shows edit form modal
      */
-    public function edit(Student $student) {
+    public function edit(Student $student) 
+    {
+        $this->dispatch('close-modal');
+
+        $this->resetValidation();
+        
+        $this->resetExcept(['search', 'filterProgram']);
+
         $this->selectedStudent = $student;
 
         $this->student_no = $student->student_no;
@@ -116,14 +167,16 @@ class Students extends Component
         $this->email = $student->email;
         $this->account_type = $student->account_type;
 
-        session()->flash('action', 'update');
+        $this->action = 'update';
+
         $this->dispatch('open-modal', 'edit-student');
     }
 
     /**
      * Updates selected student 
      */
-    public function update() {
+    public function update() 
+    {
         $validated = $this->validate();
 
         $this->selectedStudent->update($validated);
@@ -138,30 +191,8 @@ class Students extends Component
     /**
      * Show delete confirmation modal
      */
-    public function delete(Student $student) {
-        // delete
-    }
-
-    /**
-     * Closes modal and resets fields
-     */
-    public function cancel() {
-        $this->reset();
-
-        $this->dispatch('close-modal');
-    }
-
-    /**
-     * Render livewire view
-     */
-    public function render()
+    public function delete(Student $student) 
     {
-        session(['page' => 'students']);
-
-        return view('livewire.students', [
-            'students' => Student::latest()
-            ->search($this->search)
-            ->paginate(15)
-        ]);
+        // delete
     }
 }

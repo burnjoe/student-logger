@@ -29,6 +29,7 @@ export default {
                 darkOrange: 'rgb(209,59,25)',
                 red: 'rgb(244,55,92)',
                 lightRed: 'rgb(252,101,131)',
+                veryLightRed: 'rgb(253,242,242)',
                 darkRed: 'rgb(181,33,62)',
                 gray: 'rgb(198,199,198)',
                 lightGray: 'rgb(243,244,246)',

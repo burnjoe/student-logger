@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="{{ session('action') }}">
+    <form wire:submit.prevent="{{ $action }}">
         {{-- Student Number --}}
         <div>
             <x-input-label for="student_no" :value="__('Student Number')" :required="true" />
@@ -9,7 +9,8 @@
                 name="student_no"
                 type="text"
                 placeholder="{{ __('Student Number') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('student_no')" />
             <x-input-error class="mt-2" :messages="$errors->get('student_no')" />
         </div>
         {{-- Last Name --}}
@@ -21,7 +22,8 @@
                 name="last_name"
                 type="text"
                 placeholder="{{ __('Last Name') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('last_name')" />
             <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
         </div>
         {{-- First Name --}}
@@ -33,7 +35,8 @@
                 name="first_name"
                 type="text"
                 placeholder="{{ __('First Name') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('first_name')" />
             <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
         </div>
         {{-- Middle Name --}}
@@ -45,7 +48,8 @@
                 name="middle_name"
                 type="text"
                 placeholder="{{ __('Middle Name') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('middle_name')" />
             <x-input-error class="mt-2" :messages="$errors->get('middle_name')" />
         </div>
         {{-- Sex --}}
@@ -55,7 +59,8 @@
                 id="sex" 
                 wire:model="sex" 
                 name="sex" 
-                class="mt-1 bg-lightGray">
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('sex')">
                 <option selected hidden>Sex</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -69,7 +74,8 @@
                 id="civil_status" 
                 wire:model="civil_status" 
                 name="civil_status" 
-                class="mt-1 bg-lightGray">
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('civil_status')">
                 <option selected hidden>Civil Status</option>
                 <option value="Single">Single</	option>
                 <option value="Married">Married</option>
@@ -87,7 +93,8 @@
                 name="nationality"
                 type="text"
                 placeholder="{{ __('Nationality') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('nationality')" />
             <x-input-error class="mt-2" :messages="$errors->get('nationality')" />
         </div>
         {{-- Birthdate --}}
@@ -98,7 +105,8 @@
                 wire:model="birthdate"
                 name="birthdate"
                 type="date"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('birthdate')" />
             <x-input-error class="mt-2" :messages="$errors->get('birthdate')" />
         </div>
         {{-- Birthplace --}}
@@ -110,7 +118,8 @@
                 name="birthplace"
                 type="text"
                 placeholder="{{ __('Place of Birth') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('birthplace')" />
             <x-input-error class="mt-2" :messages="$errors->get('birthplace')" />
         </div>
         {{-- Address --}}
@@ -122,7 +131,8 @@
                 name="address"
                 type="text"
                 placeholder="{{ __('Address') }}"
-                class="mt-1 bg-lightGray" />
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('address')" />
             <x-input-error class="mt-2" :messages="$errors->get('address')" />
         </div>
         {{-- Account Type --}}
@@ -132,7 +142,8 @@
                 id="account_type" 
                 wire:model="account_type" 
                 name="account_type" 
-                class="mt-1 bg-lightGray">
+                class="mt-1 bg-lightGray"
+                :messages="$errors->get('account_type')">
                 <option selected hidden>Account Type</option>
                 <option value="Cabuyeño">Cabuyeño</option>
                 <option value="Non-Cabuyeño">Non-Cabuyeño</option>
@@ -147,8 +158,10 @@
                 wire:model="phone"
                 name="phone"
                 type="text"
-                class="mt-1 bg-lightGray ps-12 flex items-center" alignIcon="left">
-                <span class="text-bold text-darkGray">+63</span>
+                class="mt-1 bg-lightGray ps-12 flex items-center" 
+                alignIcon="left" 
+                :messages="$errors->get('phone')">
+                <span class="text-darkGray">+63</span>
             </x-input-text>
             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
         </div>
@@ -162,15 +175,30 @@
                 type="email"
                 placeholder="{{ __('Email Address') }}"
                 class="mt-1 bg-lightGray"
-                />
+                :messages="$errors->get('email')" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
         {{-- Submit --}}
         <div class="flex justify-end items-center mt-4 space-x-4">
             {{-- x-on:click.prevent="$dispatch('close-modal')" --}}
             <div class="flex space-x-4">
-                <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary">Cancel</x-button>
-                <x-button type="submit" btnType="success">Save</x-button>
+                <span wire:loading wire:target="{{ $action }}">
+                    Saving...
+                </span>
+                <x-button 
+                    x-on:click.prevent="$dispatch('close-modal')" 
+                    btnType="secondary" 
+                    wire:loading.class="cursor-not-allowed" 
+                    wire:loading.attr="disabled">
+                    Cancel
+                </x-button>
+                <x-button 
+                    type="submit" 
+                    btnType="success" 
+                    wire:loading.class="cursor-wait" 
+                    wire:loading.attr="disabled">
+                    Save
+                </x-button>
             </div>
         </div>
     </form>

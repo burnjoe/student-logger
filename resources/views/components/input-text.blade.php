@@ -1,6 +1,7 @@
 @props([
     'alignIcon' => 'none',
     'disabled' => false,
+    'messages' => '',
 ])
 
 @php
@@ -18,13 +19,15 @@ switch ($alignIcon) {
         $inputPadding = 'px-4 py-1.5';
         break;
 }
+
+$errorStyle = $messages ? 'bg-veryLightRed border-red text-darkRed placeholder-darkRed' : 'text-veryDarkGray border-gray';
 @endphp
 
-<div class="relative text-sm text-veryDarkGray">
+<div class="relative text-sm">
   @if (isset($slot) && $alignIcon !== 'none')
-    <span class="flex absolute inset-y-0 items-center {{ $alignmentClasses }}">
+    <div class="flex absolute {{ $messages ? 'text-darkRed' : null }} inset-y-0 items-center {{ $alignmentClasses }}">
       {{ $slot }}
-    </span>
+    </div>
   @endif
-    <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-sm border-gray rounded-md ' .$inputPadding ]) }} />
+    <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-sm ' .$errorStyle. ' rounded-md ' .$inputPadding]) }} />
 </div>

@@ -5,14 +5,13 @@ namespace App\Livewire;
 use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\View;
-use Illuminate\Validation\Rules\Unique;
 
 class Students extends Component
 {
     use WithPagination;
 
+    public $id;
     public $student_no;
     public $last_name;
     public $first_name;
@@ -41,7 +40,7 @@ class Students extends Component
     public function rules() 
     {
         return [
-            'student_no' => 'required|digits:7|unique:students',
+            'student_no' => 'required|digits:7|unique:students,student_no,' .$this->id,
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
@@ -51,8 +50,8 @@ class Students extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|unique:students',
-            'email' => 'required|email|unique:students',
+            'phone' => 'required|unique:students,phone,' .$this->id,
+            'email' => 'required|email|unique:students,email,' .$this->id,
             'account_type' => 'required',
         ];
     }
@@ -153,6 +152,7 @@ class Students extends Component
 
         $this->selectedStudent = $student;
 
+        $this->id = $student->id;
         $this->student_no = $student->student_no;
         $this->last_name = $student->last_name;
         $this->first_name = $student->first_name;

@@ -49,7 +49,7 @@ $maxWidth = [
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
-    class="fixed inset-0 overflow-y-auto px-4 py-6 px-0 z-50"
+    class="fixed inset-0 overflow-y-auto px-4 py-6 z-50"
 >
     {{-- Backdrop --}}
     <div
@@ -69,7 +69,7 @@ $maxWidth = [
     {{-- Modal --}}
     <div
         x-show="show"
-        class="my-6 bg-white rounded-md overflow-hidden shadow-lg transform transition-all sm:w-full {{ $maxWidth }} mx-auto px-6 py-4"
+        class="mx-auto my-6 bg-white rounded-md overflow-hidden shadow-lg transform transition-all sm:w-full {{ $maxWidth }}"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0 sm:scale-95"
         x-transition:enter-end="opacity-100 sm:scale-100"
@@ -78,15 +78,16 @@ $maxWidth = [
         x-transition:leave-end="opacity-0 sm:scale-95"
     >
         {{-- Header --}}
-        <div class="flex justify-between">
-            <span class="text-lg font-bold">{{ $title ?? '' }}</span>
+        <div class="flex justify-between bg-green px-6 py-4">
+            <span class="text-white text-lg font-bold">{{ $title ?? '' }}</span>
             <button 
                 x-on:click="show = false" 
-                class="text-darkGray transition-all hover:text-black">
+                class="text-gray transition-all hover:text-lightGray">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
-        <div class="mt-6">
+        {{-- Body --}}
+        <div class="mt-6 px-6 py-4">
             {{ $slot }}
         </div>
     </div>

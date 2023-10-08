@@ -179,27 +179,24 @@
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
         {{-- Submit --}}
-        <div class="flex justify-end items-center mt-4 space-x-4">
-            {{-- x-on:click.prevent="$dispatch('close-modal')" --}}
-            <div class="flex space-x-4">
-                <span wire:loading wire:target="{{ $action }}">
-                    Saving...
-                </span>
-                <x-button 
-                    x-on:click.prevent="$dispatch('close-modal')" 
-                    btnType="secondary" 
-                    wire:loading.class="cursor-not-allowed" 
-                    wire:loading.attr="disabled">
-                    Cancel
-                </x-button>
-                <x-button 
-                    type="submit" 
-                    btnType="success" 
-                    wire:loading.class="cursor-wait" 
-                    wire:loading.attr="disabled">
-                    Save
-                </x-button>
-            </div>
+        <div class="flex justify-end items-center space-x-4 mt-6">
+            <span wire:loading wire:target="{{ $action }}">
+                Saving...
+            </span>
+            <x-button 
+                x-on:click.prevent="$dispatch('close-modal')" 
+                btnType="secondary" 
+                wire:loading.class="cursor-not-allowed" 
+                wire:loading.attr="disabled">
+                Cancel
+            </x-button>
+            <x-button 
+                type="submit" 
+                btnType="success" 
+                wire:loading.class="cursor-wait" 
+                wire:loading.attr="disabled">
+                Save
+            </x-button>
         </div>
     </form>
 </div>

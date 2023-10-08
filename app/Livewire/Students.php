@@ -44,15 +44,15 @@ class Students extends Component
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
-            'sex' => 'required',
-            'civil_status' => 'required',
+            'sex' => 'required|in:Male,Female',
+            'civil_status' => 'required|in:Single,Married,Divorced,Widowed',
             'nationality' => 'required|min:3',
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|unique:students,phone,' .$this->id,
+            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' .$this->id,
             'email' => 'required|email|unique:students,email,' .$this->id,
-            'account_type' => 'required',
+            'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
         ];
     }
 
@@ -64,6 +64,7 @@ class Students extends Component
         return[
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
+            'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)'
         ];
     }
 
@@ -74,7 +75,10 @@ class Students extends Component
     {
         return[
             'student_no' => 'student number',
-            'email' => 'email address'
+            'birthdate' => 'date of birth',
+            'birthplace' => 'place of birth',
+            'phone' => 'phone number',
+            'email' => 'email address',
         ];
     }
 
@@ -95,7 +99,7 @@ class Students extends Component
     /**
      *  Initialize attributes
      */
-    public function init($id) 
+    public function init(int $id) 
     {
         $this->student = Student::find($id);
 
@@ -115,11 +119,10 @@ class Students extends Component
         $this->account_type = $this->student->account_type;
     }
 
-
     /**
      * Show selected student in modal
      */
-    public function show($id) 
+    public function show(int $id) 
     {
         $this->dispatch('close-modal');
 
@@ -165,7 +168,7 @@ class Students extends Component
     /**
      * Shows edit form modal
      */
-    public function edit($id) 
+    public function edit(int $id) 
     {
         $this->dispatch('close-modal');
 
@@ -198,8 +201,26 @@ class Students extends Component
     /**
      * Show delete confirmation modal
      */
-    public function delete(Student $student) 
+    public function delete($id) 
     {
-        // delete
+        $this->dispatch('close-modal');
+
+        $this->resetExcept(['search', 'filterProgram']);
+        $this->id = $id;
+
+        $this->dispatch('open-modal', 'delete-student');
+    }
+
+    /**
+     * Deletes selected student
+     */
+    public function destroy() {
+        Student::find($this->id)->delete();
+
+        $this->reset();
+
+        session()->flash('success', 'Student successfully deleted');
+
+        $this->dispatch('close-modal');
     }
 }

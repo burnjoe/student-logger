@@ -161,7 +161,7 @@
                 class="mt-1 bg-lightGray ps-12 flex items-center" 
                 alignIcon="left" 
                 :messages="$errors->get('phone')">
-                <span class="text-darkGray">+63</span>
+                <span>+63</span>
             </x-input-text>
             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
         </div>

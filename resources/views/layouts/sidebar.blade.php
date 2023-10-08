@@ -88,16 +88,18 @@
                 </span>
             </div>
         </a>
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Archive">
-            <div class="py-3 px-4 w-full flex space-x-2">
-                <span class="w-6">
-                    <i class="fa-solid fa-box-archive"></i>
-                </span>
-                <span x-show="sidebarOpen" class="flex items-center">
-                    <span class="text-sm">Archive</span>
-                </span>
-            </div>
-        </a>
+        @can('view archive')
+            <a href="{{ route('archive') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Archive">
+                <div class="py-3 px-4 w-full flex space-x-2">
+                    <span class="w-6">
+                        <i class="fa-solid fa-box-archive"></i>
+                    </span>
+                    <span x-show="sidebarOpen" class="flex items-center">
+                        <span class="text-sm">Archive</span>
+                    </span>
+                </div>
+            </a>
+        @endcan
 
         <hr class="mx-4 my-2 text-gray">
 

@@ -33,7 +33,8 @@ create  - show form to create new (show form for input)
 store   - store new (form with inputs)
 edit    - show form to edit (show form for modifying input)
 update  - update (submit for with changes to inputs)
-destroy - delete (delete)
+delete - show delete confirmation modal
+destroy - delete data (archive)
 
 
 Laravel Breeze and Livewire's Alpine JS Conflicts

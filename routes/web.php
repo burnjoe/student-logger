@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Archive;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::get('students', Students::class)
         ->middleware('can:view students')
         ->name('students');
+
+    // Archive Module
+    Route::get('archive', Archive::class)
+        ->middleware('can:view archive')
+        ->name('archive');
 
 
 

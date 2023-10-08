@@ -7,12 +7,11 @@ Minor:
  - Create customized dropdown menu for notification
  - Fix Session in Back Button in /forgot-password and /reset-password/{token}
  - Fix session expires throws 419 after clicking login and logout button
- - Fix sidebar UI bug, modal has margin on top but not defined in its classes
  - Fix table component x overflow gets cut off in main content
 
 
 Major:
- - CRUD operation for student information
+ - Soft Delete (Student Module)
  - Create a middleware for not allowing to go back to the login page after validation (Browser's Back Button)
  - Create a middleware for validating IP address from requests
  - Implement Many-to-Many Relationship between Student <---> FamilyMember

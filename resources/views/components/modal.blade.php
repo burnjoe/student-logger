@@ -2,7 +2,7 @@
     'name',
     'title',
     'show' => false,
-    'maxWidth' => '3xl'
+    'maxWidth' => '5xl'
 ])
 
 @php
@@ -13,6 +13,9 @@ $maxWidth = [
     'xl' => 'max-w-xl',
     '2xl' => 'max-w-2xl',
     '3xl' => 'max-w-3xl',
+    '4xl' => 'max-w-4xl',
+    '5xl' => 'max-w-5xl',
+    '6xl' => 'max-w-6xl',
 ][$maxWidth];
 @endphp
 
@@ -86,8 +89,9 @@ $maxWidth = [
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
+        
         {{-- Body --}}
-        <div class="mt-6 px-6 py-4">
+        <div class="p-6">
             {{ $slot }}
         </div>
     </div>

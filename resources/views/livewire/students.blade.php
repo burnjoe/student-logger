@@ -1,8 +1,4 @@
 <div>
-	<x-card>
-		Data Visual
-	</x-card>
-
 	<div class="flex justify-between mt-4">
 		@include('livewire.includes.search')
 
@@ -28,15 +24,15 @@
 					<td class="px-6 py-4">{{ $student->student_no }}</td>
 					<td class="px-6 py-4">{{ $student->last_name }}</td>
 					<td class="px-6 py-4">{{ $student->first_name }}</td>
-					<td class="px-6 py-4">{{ $student->middle_name ?? "N/A" }}</td>
+					<td class="px-6 py-4">{{ empty($student->middle_name) ? "N/A" : $student->middle_name }}</td>
 					<td class="px-6 py-4 text-md flex space-x-4">
-						<x-button wire:click.prevent="show({{$student}})" btnType="success" textSize="text-xs">
+						<x-button wire:click.prevent="show({{$student->id}})" btnType="success" textSize="text-xs">
 							View
 						</x-button>
-						<x-button wire:click.prevent="edit({{$student}})" btnType="warning" textSize="text-xs">
+						<x-button wire:click.prevent="edit({{$student->id}})" btnType="warning" textSize="text-xs">
 							Edit
 						</x-button>
-						<x-button wire:click.prevent="delete({{$student}})" btnType="danger" textSize="text-xs">
+						<x-button wire:click.prevent="delete({{$student->id}})" btnType="danger" textSize="text-xs">
 							Delete
 						</x-button>
 					</td>
@@ -55,34 +51,32 @@
 		@include('livewire.includes.students-form')
 	</x-modal>
 
-	@if($selectedStudent)
-		{{-- View Student Form --}}
-		<x-modal name="show-student" title="Student Information" focusable>
-			<div>
-				{{ $selectedStudent->first_name. ' ' .$selectedStudent->middle_name. ' ' .$selectedStudent->last_name }}
-			</div>
-			
-			Student Number: {{ $selectedStudent->student_no }} <br>
-			Sex: {{ $selectedStudent->sex }} <br>
-			Civil Status: {{ $selectedStudent->civil_status }} <br>
-			Nationality: {{ $selectedStudent->nationality }} <br>
-			Date of Birth: {{ $selectedStudent->birthdate }} <br>
-			Place of Birth: {{ $selectedStudent->birthplace }} <br>
-			Address: {{ $selectedStudent->address }} <br>
-			Phone Number: {{ $selectedStudent->phone }} <br>
-			Email: {{ $selectedStudent->email }} <br>
-			Account Type: {{ $selectedStudent->account_type }}
-		</x-modal>
+	{{-- View Student Form --}}
+	<x-modal name="show-student" title="Student Information" focusable>
+		<div>
+			{{ $first_name. ' ' .$middle_name. ' ' .$last_name }}
+		</div>
+		
+		Student Number: {{ $student_no }} <br>
+		Sex: {{ $sex }} <br>
+		Civil Status: {{ $civil_status }} <br>
+		Nationality: {{ $nationality }} <br>
+		Date of Birth: {{ $birthdate }} <br>
+		Place of Birth: {{ $birthplace }} <br>
+		Address: {{ $address }} <br>
+		Phone Number: {{ $phone }} <br>
+		Email: {{ $email }} <br>
+		Account Type: {{ $account_type }}
+	</x-modal>
 
-		{{-- Edit Student Form --}}
-		<x-modal name="edit-student" title="Edit Student" focusable>
-			@include('livewire.includes.students-form')
-		</x-modal>
+	{{-- Edit Student Form --}}
+	<x-modal name="edit-student" title="Edit Student" focusable>
+		@include('livewire.includes.students-form')
+	</x-modal>
 
-		{{-- Delete Student Dialog --}}
-		<x-modal name="delete-student" title="Delete Student" focusable>
-		</x-modal>
-	@endif
+	{{-- Delete Student Dialog --}}
+	<x-modal name="delete-student" title="Delete Student" focusable>
+	</x-modal>
 
 	@include('livewire.includes.toasts')
 </div>    

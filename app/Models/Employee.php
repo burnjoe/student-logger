@@ -10,7 +10,15 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['last_name', 'first_name', 'sex', 'birthdate', 'address', 'phone'];
+    protected $fillable = [
+        'last_name', 
+        'first_name',
+        'middle_name', 
+        'sex', 
+        'birthdate', 
+        'address', 
+        'phone'
+    ];
 
 
     public function user() : MorphOne {

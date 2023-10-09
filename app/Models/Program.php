@@ -11,11 +11,14 @@ class Program extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'college_id'];
+    protected $fillable = [
+        'name', 
+        'college_id'
+    ];
 
 
     public function college() : BelongsTo {
-        return $this->belongsTo(College::class, 'college_id');
+        return $this->belongsTo(College::class);
     }
 
     public function admissions() : MorphMany {

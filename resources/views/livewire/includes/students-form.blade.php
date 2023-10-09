@@ -180,22 +180,23 @@
         </div>
         {{-- Submit --}}
         <div class="flex justify-end items-center space-x-4 mt-6">
-            <span wire:loading wire:target="{{ $action }}">
-                Saving...
-            </span>
             <x-button 
                 x-on:click.prevent="$dispatch('close-modal')" 
                 btnType="secondary" 
-                wire:loading.class="cursor-not-allowed" 
-                wire:loading.attr="disabled">
+                wire:loading.class="cursor-not-allowed" >
                 Cancel
             </x-button>
             <x-button 
                 type="submit" 
                 btnType="success" 
-                wire:loading.class="cursor-wait" 
-                wire:loading.attr="disabled">
-                Save
+                wire:loading.class="cursor-wait">
+                <span wire:loading.remove>
+                    Save
+                </span>
+                <span wire:loading>
+                    <i class="fa-solid fa-circle-notch animate-spin-slow mr-2"></i> 
+                    Saving...
+                </span>
             </x-button>
         </div>
     </form>

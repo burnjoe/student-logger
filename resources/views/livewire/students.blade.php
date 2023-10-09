@@ -102,25 +102,12 @@
 	{{-- Delete Student Dialog --}}
 	@can('delete students')
 		<x-modal wire:ignore.self name="delete-student" title="Delete Student" maxWidth="lg" focusable>
-			<form wire:submit.prevent="destroy">
-				<span>Are you sure you want to delete this record?</span> 
-				<div class="flex justify-end items-center space-x-4 mt-6">
-					<x-button 
-						x-on:click.prevent="$dispatch('close-modal')" 
-						btnType="secondary" 
-						wire:loading.class="cursor-not-allowed" 
-						wire:loading.attr="disabled">
-						Cancel
-					</x-button>
-					<x-button 
-						type="submit" 
-						btnType="danger" 
-						wire:loading.class="cursor-wait" 
-						wire:loading.attr="disabled">
-						Delete
-					</x-button>
-				</div>
-			</form>
+			@include('livewire.includes.confirm-form', [
+				'prompt' => 'Are you sure you want to delete this record?',
+				'btnType' => 'danger',
+				'label' => 'Delete',
+				'labelLoading' => 'Deleting...'
+			])
 		</x-modal>
 	@endcan
 

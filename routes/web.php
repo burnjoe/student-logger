@@ -33,8 +33,7 @@ Route::middleware('auth')->group(function () {
         ->name('students');
 
     // Attendance Logger Module
-    Route::get('attendance-logger', [AttendanceLoggerController::class, 'index'])
-        ->name('attendance-logger');
+    Route::get('attendance-logger', 'AttendanceLoggerController@show')->middleware('password.confirm');
 
     // Profile Module
     Route::get('profile', [UserController::class, 'edit'])

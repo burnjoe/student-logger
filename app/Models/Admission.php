@@ -16,7 +16,7 @@ class Admission extends Model
 
 
     // public function student() : BelongsTo {
-    //     return $this->belongsTo(Student::class, 'student_id');
+    //     return $this->belongsTo(Student::class);
     // }
 
     public function trackable(): MorphTo {

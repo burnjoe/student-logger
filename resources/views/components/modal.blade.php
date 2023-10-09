@@ -84,7 +84,7 @@ $maxWidth = [
         <div class="flex justify-between bg-green px-6 py-4">
             <span class="text-white text-lg font-bold">{{ $title ?? '' }}</span>
             <button 
-                x-on:click="show = false" 
+                @click="show = false" 
                 class="text-gray transition-all hover:text-lightGray">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>

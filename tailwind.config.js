@@ -11,8 +11,8 @@ export default {
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            animation: {
+                'spin-slow': 'spin 3s linear infinite',
             },
 
             colors: {
@@ -35,6 +35,10 @@ export default {
                 lightGray: 'rgb(243,244,246)',
                 darkGray: 'rgb(109,117,124)',
                 veryDarkGray: 'rgb(73,81,86)',
+            },
+
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
 
             screens: {

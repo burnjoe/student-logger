@@ -28,7 +28,7 @@ class Students extends Component
 
     // public $program_id;
 
-    public Student $student;
+    public Student $selectedStudent;
     public $search = "";
     public $filterProgram;
     public $action;
@@ -101,22 +101,22 @@ class Students extends Component
      */
     public function init(int $id) 
     {
-        $this->student = Student::find($id);
+        $this->selectedStudent = Student::find($id);
 
-        $this->id = $this->student->id;
-        $this->student_no = $this->student->student_no;
-        $this->last_name = $this->student->last_name;
-        $this->first_name = $this->student->first_name;
-        $this->middle_name = $this->student->middle_name;
-        $this->sex = $this->student->sex;
-        $this->civil_status = $this->student->civil_status;
-        $this->nationality = $this->student->nationality;
-        $this->birthdate = $this->student->birthdate;
-        $this->birthplace = $this->student->birthplace;
-        $this->address = $this->student->address;
-        $this->phone = $this->student->phone;
-        $this->email = $this->student->email;
-        $this->account_type = $this->student->account_type;
+        $this->id = $this->selectedStudent->id;
+        $this->student_no = $this->selectedStudent->student_no;
+        $this->last_name = $this->selectedStudent->last_name;
+        $this->first_name = $this->selectedStudent->first_name;
+        $this->middle_name = $this->selectedStudent->middle_name;
+        $this->sex = $this->selectedStudent->sex;
+        $this->civil_status = $this->selectedStudent->civil_status;
+        $this->nationality = $this->selectedStudent->nationality;
+        $this->birthdate = $this->selectedStudent->birthdate;
+        $this->birthplace = $this->selectedStudent->birthplace;
+        $this->address = $this->selectedStudent->address;
+        $this->phone = $this->selectedStudent->phone;
+        $this->email = $this->selectedStudent->email;
+        $this->account_type = $this->selectedStudent->account_type;
     }
 
     /**
@@ -189,7 +189,7 @@ class Students extends Component
     {
         $validated = $this->validate();
 
-        $this->student->update($validated);
+        $this->selectedStudent->update($validated);
 
         $this->reset();
 
@@ -207,6 +207,8 @@ class Students extends Component
 
         $this->resetExcept(['search', 'filterProgram']);
         $this->id = $id;
+
+        $this->action = 'destroy';
 
         $this->dispatch('open-modal', 'delete-student');
     }

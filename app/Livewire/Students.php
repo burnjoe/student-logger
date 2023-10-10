@@ -29,6 +29,7 @@ class Students extends Component
     // public $program_id;
 
     public Student $selectedStudent;
+    
     public $search = "";
     public $filterProgram;
     public $action;
@@ -101,34 +102,41 @@ class Students extends Component
      */
     public function init(int $id) 
     {
-        $this->selectedStudent = Student::find($id);
+        try{
+            $this->selectedStudent = Student::find($id);
 
-        $this->id = $this->selectedStudent->id;
-        $this->student_no = $this->selectedStudent->student_no;
-        $this->last_name = $this->selectedStudent->last_name;
-        $this->first_name = $this->selectedStudent->first_name;
-        $this->middle_name = $this->selectedStudent->middle_name;
-        $this->sex = $this->selectedStudent->sex;
-        $this->civil_status = $this->selectedStudent->civil_status;
-        $this->nationality = $this->selectedStudent->nationality;
-        $this->birthdate = $this->selectedStudent->birthdate;
-        $this->birthplace = $this->selectedStudent->birthplace;
-        $this->address = $this->selectedStudent->address;
-        $this->phone = $this->selectedStudent->phone;
-        $this->email = $this->selectedStudent->email;
-        $this->account_type = $this->selectedStudent->account_type;
+            $this->id = $this->selectedStudent->id;
+            $this->student_no = $this->selectedStudent->student_no;
+            $this->last_name = $this->selectedStudent->last_name;
+            $this->first_name = $this->selectedStudent->first_name;
+            $this->middle_name = $this->selectedStudent->middle_name;
+            $this->sex = $this->selectedStudent->sex;
+            $this->civil_status = $this->selectedStudent->civil_status;
+            $this->nationality = $this->selectedStudent->nationality;
+            $this->birthdate = $this->selectedStudent->birthdate;
+            $this->birthplace = $this->selectedStudent->birthplace;
+            $this->address = $this->selectedStudent->address;
+            $this->phone = $this->selectedStudent->phone;
+            $this->email = $this->selectedStudent->email;
+            $this->account_type = $this->selectedStudent->account_type;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
-     * Show selected student in modal
+     * Show selected record in modal
      */
     public function show(int $id) 
     {
         $this->dispatch('close-modal');
 
-        $this->init($id);
-
-        $this->dispatch('open-modal', 'show-student');
+        try {
+            $this->init($id);
+            $this->dispatch('open-modal', 'show-student');
+        } catch (\Throwable $th) {
+            session()->flash('danger', 'Unable to view student');
+        }
     }
 
     /**
@@ -147,7 +155,7 @@ class Students extends Component
     }
 
     /**
-     * Store new student
+     * Store new record
      */
     public function store() 
     {
@@ -175,15 +183,17 @@ class Students extends Component
         $this->resetValidation();
         $this->resetExcept(['search', 'filterProgram']);
 
-        $this->init($id);
-
-        $this->action = 'update';
-
-        $this->dispatch('open-modal', 'edit-student');
+        try {
+            $this->init($id);
+            $this->action = 'update';
+            $this->dispatch('open-modal', 'edit-student');
+        } catch (\Throwable $th) {
+            session()->flash('danger', 'Unable to edit student');
+        }
     }
 
     /**
-     * Updates selected student 
+     * Updates selected record
      */
     public function update() 
     {
@@ -199,25 +209,28 @@ class Students extends Component
     }
 
     /**
-     * Show delete confirmation modal
+     * Show delete confirmation dialog
      */
     public function delete($id) 
     {
         $this->dispatch('close-modal');
 
         $this->resetExcept(['search', 'filterProgram']);
-        $this->id = $id;
-
-        $this->action = 'destroy';
-
-        $this->dispatch('open-modal', 'delete-student');
+        
+        try {
+            $this->selectedStudent = Student::findOrFail($id);
+            $this->action = 'destroy';
+            $this->dispatch('open-modal', 'delete-student');
+        } catch (\Throwable $th) {
+            session()->flash('danger', 'Unable to delete student');
+        }
     }
 
     /**
-     * Deletes selected student
+     * Archives selected record
      */
     public function destroy() {
-        Student::find($this->id)->delete();
+        $this->selectedStudent->delete();
 
         $this->reset();
 

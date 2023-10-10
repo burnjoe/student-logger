@@ -14,6 +14,7 @@ Major:
  - Create a middleware for not allowing to go back to the login page after validation (Browser's Back Button)
  - Create a middleware for validating IP address from requests
  - Implement the designed restoration process considering duplicate entry (Overwriting Process) (see Diagrams for reference)
+ - Cascade soft delete
 
 
 

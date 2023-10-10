@@ -1,4 +1,4 @@
-<aside :class="{'xs:w-0 lg:w-16': !sidebarOpen}" class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
+<aside :class="{'xs:w-0 lg:w-16': !sidebarOpen}" class="custom-scrollbar scrollbar-thumb absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
     <div :class="{'pb-8': !sidebarOpen}" class="sticky top-0 bg-white pt-1 pb-12 z-10">
         <div x-show="sidebarOpen" class="flex flex-row justify-between">
             <div class="mt-5 mx-6 w-40">
@@ -25,16 +25,19 @@
     </div>
 
     <nav class="flex flex-col mx-2 my-2 text-darkGray">
+        {{-- Dashboard --}}
         <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-chart-simple"></i>
                 </span>
-                <span x-show="sidebarOpen" class="w-full flex items-center">
-                    <span class="text-sm">Dashboard</span>
+                <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                    Dashboard
                 </span>
             </div>
         </a>
+
+        {{-- Students --}}
         @can('view students')
             <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen">
                 <x-accordion-item headerClasses="hover:bg-lightGray" contentClasses="bg-lightGray" :showIndicator="true">
@@ -43,25 +46,23 @@
                             <span>
                                 <i class="w-4 fa-solid fa-user-graduate"></i>
                             </span>
-                            <div class="w-full flex justify-between items-center">
-                                <span x-show="sidebarOpen">
-                                    <span class="text-sm">Students</span>
-                                </span>
+                            <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                                Students
                             </div>
                         </div>
                     @endslot
                     @slot('content')
                         <a href="{{ route('students') }}" title="Student Information">
                             <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                                <span x-show="sidebarOpen" class="w-full flex items-center">
-                                    <span class="text-sm">Information</span>
+                                <span class="w-full flex items-center text-sm">
+                                    Information
                                 </span>
                             </div>
                         </a>
                         <a href="#" title="RFID">
                             <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                                <span x-show="sidebarOpen" class="w-full flex items-center">
-                                    <span class="text-sm">RFID</span>
+                                <span class="w-full flex items-center text-sm">
+                                    RFID
                                 </span>
                             </div>
                         </a>
@@ -69,50 +70,60 @@
                 </x-accordion-item>
             </x-accordion>
         @endcan
+
+        {{-- Attendance --}}
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-clock fa-sm"></i>
                 </span>
-                <span x-show="sidebarOpen" class="w-full flex items-center">
-                    <span class="text-sm">Attendance</span>
+                <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                    Attendance
                 </span>
             </div>
         </a>
+
+        {{-- Accounts --}}
         @can('view accounts')
             <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts">
                 <div class="py-3 px-4 w-full flex space-x-4">
                     <span>
                         <i class="w-4 fa-solid fa-user-large fa-sm"></i>
                     </span>
-                    <span x-show="sidebarOpen" class="w-full flex items-center">
-                        <span class="text-sm">Accounts</span>
+                    <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                        Accounts
                     </span>
                 </div>
             </a>
         @endcan
+
+        {{-- Audit Log --}}
         @can('view audit log')
             <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log">
                 <div class="py-3 px-4 w-full flex space-x-4">
                     <span>
                         <i class="w-4 fa-solid fa-clipboard-list"></i>
                     </span>
-                    <span x-show="sidebarOpen" class="w-full flex items-center">
-                        <span class="text-sm">Audit Log</span>
+                    <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                        Audit Log
                     </span>
                 </div>
             </a>
         @endcan
+
+        {{-- Reports --}}
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Reports">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-chart-line"></i>
                 </span>
-                <span x-show="sidebarOpen" class="w-full flex items-center">
-                    <span class="text-sm">Reports</span>
+                <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                    Reports
                 </span>
             </div>
         </a>
+
+        {{-- Archive --}}
         @can('view archive')
             <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen">
                 <x-accordion-item headerClasses="hover:bg-lightGray" contentClasses="bg-lightGray" :showIndicator="true">
@@ -121,25 +132,23 @@
                             <span>
                                 <i class="w-4 fa-solid fa-box-archive"></i>
                             </span>
-                            <div class="w-full flex justify-between items-center">
-                                <span x-show="sidebarOpen">
-                                    <span class="text-sm">Archive</span>
-                                </span>
+                            <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                                Archive
                             </div>
                         </div>
                     @endslot
                     @slot('content')
                         <a href="{{ route('archive-students') }}" title="Archived Students">
                             <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                                <span x-show="sidebarOpen" class="w-full flex items-center">
-                                    <span class="text-sm">Archived Students</span>
+                                <span class="w-full flex items-center text-sm">
+                                    Archived Students
                                 </span>
                             </div>
                         </a>
                         <a href="#" title="Archived Accounts">
                             <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                                <span x-show="sidebarOpen" class="w-full flex items-center">
-                                    <span class="text-sm">Archived Accounts</span>
+                                <span class="w-full flex items-center text-sm">
+                                    Archived Accounts
                                 </span>
                             </div>
                         </a>
@@ -150,6 +159,7 @@
 
         <hr class="mx-4 my-2 text-gray">
 
+        {{-- Attendance Logger --}}
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
@@ -160,15 +170,5 @@
                 </span>
             </div>
         </a>
-        {{-- <a href="#" class="rounded-lg transition-all hover:bg-lightGray">
-            <div class="py-3 px-4 w-full flex space-x-2">
-                <span class="w-6">
-                    <i class="fa-solid fa-hard-drive fa-sm"></i>
-                </span>
-                <span x-show="sidebarOpen" class="flex items-center">
-                    <span class="text-sm">Backup</span>
-                </span>
-            </div>
-        </a> --}}
     </nav>
 </aside>

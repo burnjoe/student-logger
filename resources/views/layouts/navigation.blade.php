@@ -2,7 +2,9 @@
     <!-- Primary Navigation Menu -->
     <div class="flex justify-between space-x-8">
         <div class="text-white space-x-8">
-            <button x-cloak @click="sidebarOpen = !sidebarOpen" class="transition-all focus:outline-none hover:text-gray">
+            <button x-cloak 
+                @click="sidebarOpen = !sidebarOpen;" 
+                class="transition-all focus:outline-none hover:text-gray">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="space-x-3">
@@ -49,19 +51,19 @@
                     @endslot
 
                     @slot('content')
-                        <x-dropdown-link :href="route('root')" fontSize="text-xs">
+                        <x-dropdown-item :href="route('root')" fontSize="text-xs">
                             @slot('icon')
                                 <i class="fa-solid fa-check"></i>
                             @endslot
                             {{__('Notification 1') }}
-                        </x-dropdown-link>
+                        </x-dropdown-item>
 
-                        <x-dropdown-link :href="route('root')" fontSize="text-xs">
+                        <x-dropdown-item :href="route('root')" fontSize="text-xs">
                             @slot('icon')
                                 <i class="fa-solid fa-check"></i>
                             @endslot
                             {{__('Notification 2') }}
-                        </x-dropdown-link>
+                        </x-dropdown-item>
                     @endslot
                 </x-dropdown>
             </div> --}}
@@ -76,32 +78,32 @@
                     @endslot
 
                     @slot('content')
-                        <x-dropdown-link :href="route('profile.edit')" fontSize="text-xs">
+                        <x-dropdown-item :href="route('profile.edit')" fontSize="text-xs">
                             @slot('icon')
                                 <i class="fa-solid fa-user"></i>
                             @endslot
                             {{__('My Profile') }}
-                        </x-dropdown-link>
+                        </x-dropdown-item>
 
-                        <x-dropdown-link :href="route('profile.edit')" fontSize="text-xs">
+                        <x-dropdown-item :href="route('profile.edit')" fontSize="text-xs">
                             @slot('icon')
                                 <i class="fa-solid fa-key"></i>
                             @endslot
                             {{__('Change Password') }}
-                        </x-dropdown-link>
+                        </x-dropdown-item>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-dropdown-item :href="route('logout')"
                                     onclick="event.preventDefault(); 
                                     this.closest('form').submit();" fontSize="text-xs">
                                 @slot('icon')
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                 @endslot
                                 {{ __('Logout') }}
-                            </x-dropdown-link>
+                            </x-dropdown-item>
                         </form>
                     @endslot
                 </x-dropdown>

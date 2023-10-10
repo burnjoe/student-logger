@@ -43,6 +43,9 @@
                     <span x-show="sidebarOpen" class="flex items-center">
                         <span class="text-sm">Students</span>
                     </span>
+                    <span x-show="sidebarOpen" class="flex items-center">
+                        <i class="fa-solid fa-angle-right fa-2xs"></i>
+                    </span>
                 </div>
             </a>
         @endcan
@@ -68,16 +71,18 @@
                 </div>
             </a>
         @endcan
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log">
-            <div class="py-3 px-4 w-full flex space-x-2">
-                <span class="w-6">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                </span>
-                <span x-show="sidebarOpen" class="flex items-center">
-                    <span class="text-sm">Audit Log</span>
-                </span>
-            </div>
-        </a>
+        @can('view audit log')
+            <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log">
+                <div class="py-3 px-4 w-full flex space-x-2">
+                    <span class="w-6">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </span>
+                    <span x-show="sidebarOpen" class="flex items-center">
+                        <span class="text-sm">Audit Log</span>
+                    </span>
+                </div>
+            </a>
+        @endcan
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Reports">
             <div class="py-3 px-4 w-full flex space-x-2">
                 <span class="w-6">
@@ -96,6 +101,9 @@
                     </span>
                     <span x-show="sidebarOpen" class="flex items-center">
                         <span class="text-sm">Archive</span>
+                    </span>
+                    <span x-show="sidebarOpen" class="flex items-center">
+                        <i class="fa-solid fa-angle-right fa-2xs"></i>
                     </span>
                 </div>
             </a>

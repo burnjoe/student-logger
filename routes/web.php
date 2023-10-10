@@ -5,6 +5,7 @@ use App\Livewire\Students;
 use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Livewire\AuditLog;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::get('students', Students::class)
         ->middleware('can:view students')
         ->name('students');
+
+    // Audit Log
+    Route::get('audit-log', AuditLog::class)
+        ->middleware('can:view audit log')
+        ->name('audit-log');
 
     // Archive Module
     Route::get('archive/students', StudentsArchive::class)

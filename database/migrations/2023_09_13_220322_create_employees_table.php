@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

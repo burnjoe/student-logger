@@ -3,7 +3,7 @@
     <div class="flex justify-between space-x-8">
         <div class="text-white space-x-8">
             <button x-cloak 
-                @click="sidebarOpen = !sidebarOpen;" 
+                @click="sidebarOpen = !sidebarOpen; $dispatch('close-accordion');" 
                 class="transition-all focus:outline-none hover:text-gray">
                 <i class="fa-solid fa-bars"></i>
             </button>

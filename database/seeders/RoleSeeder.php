@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
                 'create students',
                 'edit students',
                 'delete students',
+                'view attendances',
                 'view accounts',
                 'view audit log',
                 'view archive',

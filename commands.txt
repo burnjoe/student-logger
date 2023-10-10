@@ -35,3 +35,5 @@ Git Commands Cheat Sheet
 -> git checkout -b <new-branch-name>                            // create new branch in local repo
 
 -> git branch                                                   // shows all the list of branches in local repo 
+
+-> git branch -d <branch>                                       // deletes local branch

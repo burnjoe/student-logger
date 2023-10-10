@@ -30,7 +30,7 @@ class StudentFactory extends Factory
             'first_name' => fake()->firstName(),
             'middle_name' => fake()->randomElement([fake()->lastName(), '']),
             'sex' => fake()->randomElement(['Male', 'Female']),
-            'civil_status' => fake()->randomElement(['Single', 'Married', 'Divorced', 'Widowed']),
+            'civil_status' => 'Single',
             'nationality' => 'Filipino',
             'birthdate' => fake()->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
             'birthplace' => fake()->city(),

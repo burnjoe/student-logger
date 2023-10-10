@@ -71,14 +71,14 @@
             </x-accordion>
         @endcan
 
-        {{-- Attendance --}}
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance">
+        {{-- Attendances --}}
+        <a href=" {{ route('attendances') }} " class="rounded-lg transition-all hover:bg-lightGray" title="Attendances">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-clock fa-sm"></i>
                 </span>
                 <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-                    Attendance
+                    Attendances
                 </span>
             </div>
         </a>

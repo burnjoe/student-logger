@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="flex justify-between space-x-8">
         <div class="text-white space-x-8">
-            <button x-cloak 
+            <button
                 @click="sidebarOpen = !sidebarOpen; $dispatch('close-accordion');" 
                 class="transition-all focus:outline-none hover:text-gray">
                 <i class="fa-solid fa-bars"></i>
@@ -15,9 +15,9 @@
                 @elseif($page === 'students')
                     <i class="fa-solid fa-user-graduate"></i>
                     <span class="font-bold text-lg">{{ __('Students') }}</span>
-                @elseif($page === 'attendance')
-                <i class="fa-solid fa-clock fa-sm"></i>
-            </span class="font-bold text-lg">{{ __('Attendance') }}</span>
+                @elseif($page === 'attendances')
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="font-bold text-lg">{{ __('Attendances') }}</span>
                 @elseif($page === 'accounts')
                     <i class="fa-solid fa-user-large fa-sm"></i>
                     <span class="font-bold text-lg">{{ __('Accounts') }}</span>
@@ -97,8 +97,8 @@
                             @csrf
 
                             <x-dropdown-item :href="route('logout')"
-                                    onclick="event.preventDefault(); 
-                                    this.closest('form').submit();" fontSize="text-xs">
+                                onclick="event.preventDefault(); 
+                                this.closest('form').submit();" fontSize="text-xs">
                                 @slot('icon')
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                 @endslot

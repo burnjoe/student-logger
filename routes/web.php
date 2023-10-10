@@ -1,11 +1,12 @@
 <?php
 
-use App\Livewire\StudentsArchive;
+use App\Livewire\AuditLog;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
+use App\Livewire\Attendances;
+use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Livewire\AuditLog;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::get('students', Students::class)
         ->middleware('can:view students')
         ->name('students');
+
+    // Attendance
+    Route::get('attendances', Attendances::class)
+        ->middleware('can:view attendances')
+        ->name('attendances');
 
     // Audit Log
     Route::get('audit-log', AuditLog::class)

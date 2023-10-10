@@ -21,6 +21,7 @@ class RoleSeeder extends Seeder
                 'edit students',
                 'delete students',
                 'view accounts',
+                'view audit log',
                 'view archive',
             ]);
             

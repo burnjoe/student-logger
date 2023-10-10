@@ -19,6 +19,7 @@ return new class extends Migration
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

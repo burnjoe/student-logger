@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('profileable_type');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

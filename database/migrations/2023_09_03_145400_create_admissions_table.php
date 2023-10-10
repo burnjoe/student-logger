@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('level');
             $table->timestamp('enrolled_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         }); 
     }
 

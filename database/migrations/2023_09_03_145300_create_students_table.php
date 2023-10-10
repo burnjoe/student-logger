@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->enum('account_type', ['Cabuyeño', 'Non-Cabuyeño']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

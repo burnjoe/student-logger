@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('occupation');
             $table->string('phone')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,7 +17,6 @@
     </div>  
 
     <div x-show="sidebarOpen"
-        x-init="setTimeout(() => sidebarOpen = true, 5000)"
         class="bg-darkGray px-6 py-3 text-white flex flex-col space-y-2">
         <span>
             <x-badge>{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>

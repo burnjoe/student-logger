@@ -9,7 +9,7 @@
     <!-- Header -->
     <div @click="selected = selected != {{ $itemId }} ? {{ $itemId }} : null"
         class="flex justify-between items-center px-4 py-3  {{$headerClasses}} transition-all hover:cursor-pointer"
-        :class="(selected == {{ $itemId }} ? 'rounded-t-lg' : 'rounded-lg')">
+        :class="(selected == {{ $itemId }} ? 'rounded-t-lg' : 'delay-200 rounded-lg')">
         {{ $header ?? "" }}
         @if($showIndicator)
             <i class="fa-solid fa-angle-right fa-2xs transition-all duration-300"

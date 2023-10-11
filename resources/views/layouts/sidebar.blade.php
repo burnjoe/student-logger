@@ -39,8 +39,8 @@
 
         {{-- Students --}}
         @can('view students')
-            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen">
-                <x-accordion-item headerClasses="hover:bg-lightGray" contentClasses="bg-lightGray" :showIndicator="true">
+            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen" class="transition-all rounded-lg hover:bg-lightGray">
+                <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                     @slot('header')
                         <div class="w-full flex space-x-4" title="Students">
                             <span>
@@ -125,8 +125,8 @@
 
         {{-- Archive --}}
         @can('view archive')
-            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen">
-                <x-accordion-item headerClasses="hover:bg-lightGray" contentClasses="bg-lightGray" :showIndicator="true">
+            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen" class="transition-all rounded-lg hover:bg-lightGray">
+                <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                     @slot('header')
                         <div class="w-full flex space-x-4" title="Archive">
                             <span>

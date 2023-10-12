@@ -19,14 +19,14 @@
     <div x-show="sidebarOpen"
         class="bg-darkGray px-6 py-3 text-white flex flex-col space-y-2">
         <span>
-            <x-badge>{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
+            <x-badge size="sm" fontWeight="semibold">{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
         </span>
         <span class="text-sm">{{ auth()->user()->profileable->first_name. ' ' .(auth()->user()->profileable->middle_name ? auth()->user()->profileable->middle_name[0]. '. ' : ' ') .auth()->user()->profileable->last_name }}</span>
     </div>
 
     <nav class="flex flex-col mx-2 my-2 text-darkGray">
         {{-- Dashboard --}}
-        <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard">
+        <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard" @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-chart-simple"></i>
@@ -52,14 +52,14 @@
                         </div>
                     @endslot
                     @slot('content')
-                        <a href="{{ route('students') }}" title="Student Information">
+                        <a href="{{ route('students') }}" title="Student Information" @click="$dispatch('close-accordion')">
                             <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
                                 <span class="w-full flex items-center text-sm">
                                     Information
                                 </span>
                             </div>
                         </a>
-                        <a href="#" title="RFID">
+                        <a href="#" title="RFID" @click="$dispatch('close-accordion')">
                             <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
                                 <span class="w-full flex items-center text-sm">
                                     RFID
@@ -72,7 +72,7 @@
         @endcan
 
         {{-- Attendances --}}
-        <a href=" {{ route('attendances') }} " class="rounded-lg transition-all hover:bg-lightGray" title="Attendances">
+        <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances" @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-clock fa-sm"></i>
@@ -85,7 +85,7 @@
 
         {{-- Accounts --}}
         @can('view accounts')
-            <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts">
+            <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts" @click="$dispatch('close-accordion')">
                 <div class="py-3 px-4 w-full flex space-x-4">
                     <span>
                         <i class="w-4 fa-solid fa-user-large fa-sm"></i>
@@ -99,7 +99,7 @@
 
         {{-- Audit Log --}}
         @can('view audit log')
-            <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log">
+            <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log" @click="$dispatch('close-accordion')">
                 <div class="py-3 px-4 w-full flex space-x-4">
                     <span>
                         <i class="w-4 fa-solid fa-clipboard-list"></i>
@@ -112,7 +112,7 @@
         @endcan
 
         {{-- Reports --}}
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Reports">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Reports" @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-chart-line"></i>
@@ -138,14 +138,14 @@
                         </div>
                     @endslot
                     @slot('content')
-                        <a href="{{ route('archive-students') }}" title="Archived Students">
+                        <a href="{{ route('archive-students') }}" title="Archived Students" @click="$dispatch('close-accordion')">
                             <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
                                 <span class="w-full flex items-center text-sm">
                                     Archived Students
                                 </span>
                             </div>
                         </a>
-                        <a href="#" title="Archived Accounts">
+                        <a href="#" title="Archived Accounts" @click="$dispatch('close-accordion')">
                             <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
                                 <span class="w-full flex items-center text-sm">
                                     Archived Accounts
@@ -160,7 +160,7 @@
         <hr class="mx-4 my-2 text-gray">
 
         {{-- Attendance Logger --}}
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger">
+        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger" @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-id-badge"></i>

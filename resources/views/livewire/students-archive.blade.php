@@ -35,6 +35,12 @@
 		@endslot
     </x-table>
 
+	<div class="flex justify-center py-6">
+		@if($students->total() == 0)
+			No records found
+		@endif
+	</div>
+
 	{{-- Pagination Links --}}
 	<div class="mt-4">
 		{{ $students->links() }}

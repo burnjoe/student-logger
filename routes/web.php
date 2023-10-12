@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 
 // Root
 Route::get('/', function() { 
-    return redirect('parent-guardian/login');
+    return redirect()->route('login', ['portal' => 'university']);
 })->name('root');
 
 // Authenticated Users

@@ -1,6 +1,6 @@
 <div>
 	<div class="grid grid-cols-2 mt-4">
-		@include('livewire.includes.search')
+		@include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
 		@can('create students')
 			<div class="flex justify-end">

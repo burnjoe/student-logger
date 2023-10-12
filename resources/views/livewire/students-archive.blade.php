@@ -1,6 +1,6 @@
 <div>
     <div class="mt-4">
-		@include('livewire.includes.search')
+		@include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 	</div>
 
     <x-table class="mt-4">

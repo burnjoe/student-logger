@@ -27,9 +27,9 @@ class UserSeeder extends Seeder
             'email' => 'derlajulius@gmail.com',
             'password' => bcrypt('password'),
             'status' => 1,
-            'profileable_id' => 2,
+            'profileable_id' => 1,
             'profileable_type' => FamilyMember::class
-        ])->assignRole('parent');
+        ])->assignRole('parent/guardian');
 
     }
 }

@@ -19,7 +19,7 @@ class EmployeeSeeder extends Seeder
             'sex' => 'Male',
             'birthdate' => now(),
             'address' => 'Laguna',
-            'phone' => '09212318882'
+            'phone' => '9212318882'
         ]);
     }
 }

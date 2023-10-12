@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            // $table-> 
-            $table->timestamps();
+            $table->foreignId('student_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
+            $table->dateTime('logged_in_at');
+            $table->dateTime('logged_out_at')->nullable();
+            $table->enum('comment', ['Logged Out', 'Missed Log Out']);
+            // Include status: Attempt Failed, Attempt Success
         });
     }
 

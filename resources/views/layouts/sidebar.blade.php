@@ -1,3 +1,4 @@
+{{-- task 3 --}}
 <aside :class="{'xs:w-0 lg:w-16': !sidebarOpen}" class="custom-scrollbar scrollbar-thumb absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
     <div :class="{'pb-8': !sidebarOpen}" class="sticky top-0 bg-white pt-1 pb-12 z-10">
         <div x-show="sidebarOpen" class="flex flex-row justify-between">
@@ -10,12 +11,12 @@
                 <i class="fa-solid fa-x"></i>
             </button>
         </div>
-
+ 
         <div x-cloak x-show="!sidebarOpen" class="mt-2 mx-3 w-40">
             <a href="{{ route('root') }}"><img class="h-10 w-10" src="{{asset('img/pnc_logo.png')}}" alt=""></a>
         </div>
     </div>  
-
+ 
     <div x-show="sidebarOpen"
         class="bg-darkGray px-6 py-3 text-white flex flex-col space-y-2">
         <span>
@@ -23,7 +24,7 @@
         </span>
         <span class="text-sm">{{ auth()->user()->profileable->first_name. ' ' .(auth()->user()->profileable->middle_name ? auth()->user()->profileable->middle_name[0]. '. ' : ' ') .auth()->user()->profileable->last_name }}</span>
     </div>
-
+ 
     <nav class="flex flex-col mx-2 my-2 text-darkGray">
         {{-- Dashboard --}}
         <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard">
@@ -36,7 +37,7 @@
                 </span>
             </div>
         </a>
-
+ 
         {{-- Students --}}
         @can('view students')
             <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen">
@@ -70,7 +71,7 @@
                 </x-accordion-item>
             </x-accordion>
         @endcan
-
+ 
         {{-- Attendance --}}
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance">
             <div class="py-3 px-4 w-full flex space-x-4">
@@ -82,7 +83,7 @@
                 </span>
             </div>
         </a>
-
+ 
         {{-- Accounts --}}
         @can('view accounts')
             <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts">
@@ -96,7 +97,7 @@
                 </div>
             </a>
         @endcan
-
+ 
         {{-- Audit Log --}}
         @can('view audit log')
             <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log">
@@ -110,7 +111,7 @@
                 </div>
             </a>
         @endcan
-
+ 
         {{-- Reports --}}
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Reports">
             <div class="py-3 px-4 w-full flex space-x-4">
@@ -122,7 +123,7 @@
                 </span>
             </div>
         </a>
-
+ 
         {{-- Archive --}}
         @can('view archive')
             <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen">
@@ -156,9 +157,9 @@
                 </x-accordion-item>
             </x-accordion>
         @endcan
-
+ 
         <hr class="mx-4 my-2 text-gray">
-
+ 
         {{-- Attendance Logger --}}
         <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger">
             <div class="py-3 px-4 w-full flex space-x-4">
@@ -171,4 +172,4 @@
             </div>
         </a>
     </nav>
-</aside>
+ </aside>

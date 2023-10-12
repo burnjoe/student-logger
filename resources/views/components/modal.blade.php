@@ -58,7 +58,7 @@ $maxWidth = [
     <div
         x-show="show"
         class="fixed inset-0 transform transition-all"
-        {{-- x-on:click="show = false" --}}
+        x-on:click="show = false"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -79,7 +79,7 @@ $maxWidth = [
         x-transition:leave="ease-in duration-200"
         x-transition:leave-start="opacity-100 sm:scale-100"
         x-transition:leave-end="opacity-0 sm:scale-95"
-    >
+        >
         {{-- Header --}}
         <div class="flex justify-between bg-green px-6 py-4">
             <span class="text-white text-lg font-bold">{{ $title ?? '' }}</span>
@@ -89,7 +89,7 @@ $maxWidth = [
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
-        
+
         {{-- Body --}}
         <div class="p-6">
             {{ $slot }}

@@ -8,6 +8,7 @@ Minor:
  - Fix Session in Back Button in /forgot-password and /reset-password/{token}
  - Fix session expires throws 419 after clicking login and logout button
  - Fix table component x overflow gets cut off in main content
+ - Make toast component's data intialized as false, then assign true when needed to be shown. Then, completely remove the component after n seconds (not hide).
 
 
 Major:

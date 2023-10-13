@@ -7,6 +7,7 @@ use App\Livewire\Attendances;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AttendanceLoggerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,10 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view archive')
         ->name('archive-students');
 
+    // Attendance Logger Module
+    Route::get('attendance-logger', 'AttendanceLoggerController@show')->middleware('password.confirm');
 
+    
 
     // Profile Module
     Route::get('profile', [UserController::class, 'edit'])

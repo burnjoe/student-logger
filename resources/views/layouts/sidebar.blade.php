@@ -1,4 +1,4 @@
-<aside :class="{'xs:w-0 lg:w-16': !sidebarOpen}" class="custom-scrollbar scrollbar-thumb absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
+<aside :class="{'xs:w-0 lg:w-16': !sidebarOpen}" class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
     <div :class="{'pb-8': !sidebarOpen}" class="sticky top-0 bg-white pt-1 pb-12 z-10">
         <div x-show="sidebarOpen" class="flex flex-row justify-between">
             <div class="mt-5 mx-6 w-40">
@@ -169,6 +169,6 @@
                     <span class="text-sm">Attendance Logger</span>
                 </span>
             </div>
-        </a>
+        </a> --}}
     </nav>
 </aside>

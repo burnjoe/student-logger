@@ -39,7 +39,7 @@
 
         {{-- Students --}}
         @can('view students')
-            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen" class="transition-all rounded-lg hover:bg-lightGray">
+            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');" class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
                 <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                     @slot('header')
                         <div class="w-full flex space-x-4" title="Students">
@@ -125,7 +125,7 @@
 
         {{-- Archive --}}
         @can('view archive')
-            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen" class="transition-all rounded-lg hover:bg-lightGray">
+            <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'students-accordion');" class="transition-all rounded-lg hover:bg-lightGray" name="archive-accordion">
                 <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                     @slot('header')
                         <div class="w-full flex space-x-4" title="Archive">
@@ -169,6 +169,6 @@
                     <span class="text-sm">Attendance Logger</span>
                 </span>
             </div>
-        </a> --}}
+        </a>
     </nav>
 </aside>

@@ -4,10 +4,10 @@ use App\Livewire\AuditLog;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
 use App\Livewire\Attendances;
+use App\Livewire\AttendanceLogger;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AttendanceLoggerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +29,7 @@ Route::get('/', function() {
 Route::middleware('auth')->group(function () {
     // Dashboard Module
     Route::get('dashboard', Dashboard::class)
-    // function() { return view('dashboard'); })
-    ->name('dashboard');
+        ->name('dashboard');
 
     // Students Module
     Route::get('students', Students::class)
@@ -53,7 +52,9 @@ Route::middleware('auth')->group(function () {
         ->name('archive-students');
 
     // Attendance Logger Module
-    Route::get('attendance-logger', 'AttendanceLoggerController@show')->middleware('password.confirm');
+    Route::get('attendance-logger', AttendanceLogger::class)
+        ->middleware('password.confirm')
+        ->name('attendance-logger');
 
     
 

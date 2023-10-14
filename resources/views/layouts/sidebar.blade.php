@@ -19,7 +19,7 @@
     <div x-show="sidebarOpen"
         class="bg-darkGray px-6 py-3 text-white flex flex-col space-y-2">
         <span>
-            <x-badge size="sm" fontWeight="semibold">{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
+            <x-badge class="text-darkGray bg-lightGray" size="sm" fontWeight="semibold">{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
         </span>
         <span class="text-sm">{{ auth()->user()->profileable->first_name. ' ' .(auth()->user()->profileable->middle_name ? auth()->user()->profileable->middle_name[0]. '. ' : ' ') .auth()->user()->profileable->last_name }}</span>
     </div>
@@ -160,7 +160,7 @@
         <hr class="mx-4 my-2 text-gray">
 
         {{-- Attendance Logger --}}
-        <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger" @click="$dispatch('close-accordion')">
+        <a href="{{ route('attendance-logger') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendance Logger" @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                 <span>
                     <i class="w-4 fa-solid fa-id-badge"></i>

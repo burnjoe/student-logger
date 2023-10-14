@@ -29,13 +29,14 @@ class AttendanceFactory extends Factory
         $loggedOutAt->modify('+' . mt_rand(1, 12) . ' hours');
         $loggedOutAt = fake()->randomElement([$loggedOutAt, null]);
 
-        $note = ($loggedOutAt ? 'Logged Out' : fake()->randomElement(['Logged In', 'Missed Log Out'])) == 'Missed Log Out' && $postId == 1 ? 'Missed Log Out' : 'Logged In';
+        $status = fake()->randomElement(['IN', 'MISSED']);
+        $status = $loggedOutAt ? 'OUT' : ($status == 'MISSED' && $postId == 1 ? 'MISSED' : 'IN');
 
         return [
             'student_id' => $studentId,
             'logged_in_at' => $loggedInAt,
             'logged_out_at' => $loggedOutAt,
-            'note' => $note,
+            'status' => $status,
             'post_id' => $postId, 
         ];
     }

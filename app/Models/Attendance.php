@@ -13,13 +13,11 @@ class Attendance extends Model
 {
     use HasFactory, SoftDeletes;    
 
-    public $timestamps = false;
-
     protected $fillable = [
         'student_id',
         'logged_in_at',
         'logged_out_at',
-        'note',
+        'status',
         'post_id',
     ];
 

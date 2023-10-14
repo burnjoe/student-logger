@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
             $table->dateTime('logged_in_at');
             $table->dateTime('logged_out_at')->nullable();
-            $table->enum('note', ['Logged In', 'Logged Out', 'Missed Log Out']);
+            $table->enum('status', ['IN', 'OUT', 'MISSED']);
             $table->foreignId('post_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
             $table->softDeletes();
+            $table->timestamps();
             // Include status: Attempt Failed, Attempt Success
         });
     }

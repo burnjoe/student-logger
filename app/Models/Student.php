@@ -37,8 +37,7 @@ class Student extends Model
     public function scopeSearch($query, $value) {
         $query->where('student_no', 'like', "%{$value}%")
             ->orWhere('last_name', 'like', "%{$value}%")
-            ->orWhere('first_name', 'like', "%{$value}%")
-            ->orWhere('middle_name', 'like', "%{$value}%");
+            ->orWhere('first_name', 'like', "%{$value}%");
     }
 
     // public function admissions() : HasMany {

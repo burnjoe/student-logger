@@ -1,5 +1,5 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -14,7 +14,7 @@ export default {
             animation: {
                 'spin-slow': 'spin 3s linear infinite',
             },
-
+ 
             colors: {
                 blue: 'rgb(0,123,255)',
                 lightBlue: 'rgb(71, 160, 255)',
@@ -33,7 +33,7 @@ export default {
                 darkRed: 'rgb(181,33,62)',
                 gray: 'rgb(198,199,198)',
                 lightGray: 'rgb(243,244,246)',
-                darkGray: 'rgb(109,117,124)',
+                darkGray: 'rgb(108,117,125)',
                 veryDarkGray: 'rgb(73,81,86)',
             },
 

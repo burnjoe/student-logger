@@ -63,7 +63,6 @@
 		</x-modal>
 	@endcan
 
-	{{-- task 1 & 4 --}}
 	{{-- View Student Form --}}
 	@can('view students')
 		<x-modal wire:ignore.self name="show-student" title="Student Information" focusable>

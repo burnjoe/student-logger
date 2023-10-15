@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->nullable()->constrained()->restrictOnUpdate()->restrictOnDelete();
             $table->bigInteger('trackable_id')->unsigned();
             $table->string('trackable_type');
-            $table->string('level');
+            $table->tinyInteger('level');
             $table->timestamp('enrolled_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

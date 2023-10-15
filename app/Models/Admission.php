@@ -12,7 +12,10 @@ class Admission extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['student_id', 'trackable_id', 'trackable_type', 'level', 'enrolled_at'];
+    protected $fillable = [
+        'level', 
+        'enrolled_at'
+    ];
 
 
     // public function student() : BelongsTo {

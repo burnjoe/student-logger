@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Attendance;
-use App\Models\FamilyMember;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,5 +48,9 @@ class Student extends Model
 
     public function attendances() : HasMany {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function cards() : HasMany {
+        return $this->hasMany(Card::class);
     }
 }

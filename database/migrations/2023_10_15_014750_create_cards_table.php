@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 25);
+        Schema::create('cards', function (Blueprint $table) {
+            $table->id('id');
+            $table->bigInteger('rfid')->unique();
+            $table->foreignId('student_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
+            $table->string('profile_photo');
+            $table->string('signature');
+            $table->timestamp('expires_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('cards');
     }
 };

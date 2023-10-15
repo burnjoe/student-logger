@@ -13,8 +13,7 @@ class Program extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 
-        'college_id'
+        'name',
     ];
 
 

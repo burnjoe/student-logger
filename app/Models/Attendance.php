@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Student;
-use App\Models\Post;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +12,9 @@ class Attendance extends Model
     use HasFactory, SoftDeletes;    
 
     protected $fillable = [
-        'student_id',
         'logged_in_at',
         'logged_out_at',
         'status',
-        'post_id',
     ];
 
     /**
@@ -31,8 +27,8 @@ class Attendance extends Model
             ->orWhere('middle_name', 'like', "%{$value}%");
     }
 
-    public function student() : BelongsTo {
-        return $this->belongsTo(Student::class);
+    public function card() : BelongsTo {
+        return $this->belongsTo(Card::class);
     }
 
     public function post() : BelongsTo {

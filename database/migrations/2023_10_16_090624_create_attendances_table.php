@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
-            $table->dateTime('logged_in_at');
-            $table->dateTime('logged_out_at')->nullable();
+            $table->foreignId('card_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
+            $table->timestamp('logged_in_at');
+            $table->timestamp('logged_out_at')->nullable();
             $table->enum('status', ['IN', 'OUT', 'MISSED']);
             $table->foreignId('post_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
             $table->softDeletes();

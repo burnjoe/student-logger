@@ -9,12 +9,20 @@
     <title>{{ config('app.name', 'iStudentTrack') }}</title>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 
     @livewireStyles
 </head>
 
-<body>
+<body x-data="{ rfid: '', timer: null}" x-init="$watch('rfid', value => rfid = value)"  
+    @keydown.window="let allowedKeys = /^[0-9A-Za-z]$/;
+    if ($event.key.match(allowedKeys)) {
+        rfid += $event.key;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            rfid = '';
+        }, 50000);
+    }">
     {{ $slot }}
 
     {{-- Back Button --}}
@@ -22,5 +30,7 @@
     rounded="rounded-md">
         <i class="fa-solid fa-arrow-left"></i>
     </x-button>
+
+    @livewireScripts
 </body>
 </html>

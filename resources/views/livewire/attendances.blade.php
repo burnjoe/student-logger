@@ -20,9 +20,9 @@
 		@foreach ($attendances as $attendance)
 		<tr wire:key="{{ $attendance->id }}"
 			class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-			<td class="px-6 py-4">{{ $attendance->student->student_no }}</td>
-			<td class="px-6 py-4">{{ $attendance->student->last_name }}</td>
-			<td class="px-6 py-4">{{ $attendance->student->first_name }}</td>
+			<td class="px-6 py-4">{{ $attendance->card->rfid }}</td>
+			<td class="px-6 py-4">{{ $attendance->card->student->last_name }}</td>
+			<td class="px-6 py-4">{{ $attendance->card->student->first_name }}</td>
 			<td class="px-6 py-4">{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('M. d, Y') }}</td>
 			<td class="px-6 py-4">{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('h:i A') }}</td>
 			<td class="px-6 py-4">

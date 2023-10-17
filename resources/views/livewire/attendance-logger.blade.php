@@ -1,4 +1,4 @@
-<div>
+<div class="container-none">
     <div class="grid grid-cols-2 h-screen bg-lightGray">
         {{-- Left Column - Prompt Message --}}
         <div class="col-span-1 ps-4 pe-2 py-4 h-full">
@@ -8,9 +8,17 @@
                 </div>
                 <div class="py-8">
                     <p class="text-2xl font-bold text-center text-veryDarkGray">TAP YOUR RFID CARD</p>
-                    <img class="h-52 w-52 mt-4 mx-auto opacity-50" src="{{ asset('img/reader-icon.jpg') }}" alt="">
+                    <img class="object-contain h-52 w-52 mt-4 mx-auto opacity-50" src="{{ asset('img/reader-icon.jpg') }}" alt="">
                 </div>
-                <x-input-text id="idInput" hidden />
+
+                {{-- <form wire:submit.prevent="log(4497431039)">
+                    <input type="text" x-model="rfid" />
+                </form> --}}
+
+                <form wire:submit.prevent="log(4315777895)">
+                    <input type="text" />
+                </form>
+
             </x-card>
         </div>
 

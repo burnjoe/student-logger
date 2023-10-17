@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Card;
 use App\Models\Post;
-use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +18,8 @@ class AttendanceFactory extends Factory
      */
     public function definition(): array
     {
-        // Generate a random student ID
-        $studentId = Student::inRandomOrder()->value('id');
+        // Generate a random card ID
+        $cardId = Card::inRandomOrder()->value('id');
         // Generate a random post ID
         $postId = Post::inRandomOrder()->value('id');
 
@@ -33,7 +33,7 @@ class AttendanceFactory extends Factory
         $status = $loggedOutAt ? 'OUT' : ($status == 'MISSED' && $postId == 1 ? 'MISSED' : 'IN');
 
         return [
-            'student_id' => $studentId,
+            'card_id' => $cardId,
             'logged_in_at' => $loggedInAt,
             'logged_out_at' => $loggedOutAt,
             'status' => $status,

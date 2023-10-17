@@ -12,9 +12,11 @@ class Attendance extends Model
     use HasFactory, SoftDeletes;    
 
     protected $fillable = [
+        'card_id',
         'logged_in_at',
         'logged_out_at',
         'status',
+        'post_id',
     ];
 
     /**

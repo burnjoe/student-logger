@@ -15,7 +15,6 @@
 	{{-- Table --}}
 	<x-table class="mt-4">
 		@slot('head')
-			<th class="px-6 py-4">ID</th>
 			<th class="px-6 py-4">Student No.</th>
 			<th class="px-6 py-4">Last Name</th>
 			<th class="px-6 py-4">First Name</th>
@@ -25,7 +24,6 @@
 		@slot('data')
 			@foreach ($students as $student)
 				<tr wire:key="{{ $student->id }}" class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-					<td class="px-6 py-4">{{ $student->id }}</td>
 					<td class="px-6 py-4">{{ $student->student_no }}</td>
 					<td class="px-6 py-4">{{ $student->last_name }}</td>
 					<td class="px-6 py-4">{{ $student->first_name }}</td>

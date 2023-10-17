@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'sabanajholo@gmail.com',
             'password' => bcrypt('burnjoe25'),
-            'status' => 1,
+            'status' => 'ACTIVE',
             'profileable_id' => 1,
             'profileable_type' => Employee::class
         ])->assignRole('admin');
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'derlajulius@gmail.com',
             'password' => bcrypt('password'),
-            'status' => 1,
+            'status' => 'ACTIVE',
             'profileable_id' => 1,
             'profileable_type' => FamilyMember::class
         ])->assignRole('parent/guardian');

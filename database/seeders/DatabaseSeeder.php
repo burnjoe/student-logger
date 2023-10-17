@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Attendance;
 use App\Models\User;
 use App\Models\College;
 use App\Models\Program;
@@ -26,15 +27,14 @@ class DatabaseSeeder extends Seeder
             'college_id' => $college->id
         ]);
 
-        Student::factory(10000)->create();
-
         // Calls out other seeder
+        $this->call(PostSeeder::class);
+        $this->call(CardSeeder::class);
+        $this->call(AttendanceSeeder::class);
         $this->call(EmployeeSeeder::class);
         $this->call(FamilyMemberSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(PostSeeder::class);
-        $this->call(AttendanceSeeder::class);
     }
 }

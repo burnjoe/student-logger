@@ -17,7 +17,7 @@ class StudentFactory extends Factory
      */
     public function definition(): array
     {
-        
+
         $prefixes = ['921', '918', '927', '938', '947'];
 
         do {
@@ -25,7 +25,7 @@ class StudentFactory extends Factory
         } while (Student::where('phone', $phone)->exists());
         
         return [
-            'student_no' => (string) fake()->unique()->numberBetween(1000000, 2000000),
+            'student_no' => fake()->unique()->numberBetween(1000000, 2000000),
             'last_name' => fake()->lastName(),
             'first_name' => fake()->firstName(),
             'middle_name' => fake()->randomElement([fake()->lastName(), '']),

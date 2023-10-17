@@ -1,6 +1,7 @@
 @props([
     'size' => 'xs',
     'fontWeight' => 'normal',
+    'padding' => 'py-1 px-3'
 ])
 
 @php
@@ -21,6 +22,6 @@ $fontWeight = [
 ][$fontWeight];
 @endphp
 
-<span {{$attributes->merge(['class' => "rounded-md " .$fontWeight. " py-1 px-4 " .$size])}}>
+<span {{$attributes->merge(['class' => "rounded-md " .$fontWeight. " " .$padding. " " .$size])}}>
     {{ $slot }}
 </span>

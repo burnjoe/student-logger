@@ -39,3 +39,12 @@ body {
     top: 8px;
     left: 8px;
 }
+
+
+.h6 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}

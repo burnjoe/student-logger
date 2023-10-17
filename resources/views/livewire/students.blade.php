@@ -74,29 +74,7 @@
 	{{-- View Student Form --}}
 	@can('view students')
 		<x-modal wire:ignore.self name="show-student" title="Student Information" focusable>
-			<div>
-				{{ $first_name. ' ' .$middle_name. ' ' .$last_name }}
-			</div>
-			
-			Student Number: {{ $student_no }} <br>
-			Sex: {{ $sex }} <br>
-			Civil Status: {{ $civil_status }} <br>
-			Nationality: {{ $nationality }} <br>
-			Date of Birth: {{ $birthdate }} <br>
-			Place of Birth: {{ $birthplace }} <br>
-			Address: {{ $address }} <br>
-			Phone Number: {{ $phone }} <br>
-			Email: {{ $email }} <br>
-			Account Type: {{ $account_type }}
-
-			<div class="flex justify-end items-center mt-4">
-				<x-button 
-					x-on:click.prevent="$dispatch('close-modal')" 
-					btnType="secondary"
-					wire:loading.attr="disabled">
-					Close
-				</x-button>
-			</div>
+			@include('livewire.includes.view-student-form')
 		</x-modal>
 	@endcan
 

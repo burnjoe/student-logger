@@ -21,8 +21,15 @@ class UserController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
-    }
 
+    /**
+     * Update the password.
+     */
+    }
+    public function index(){
+        return view('profile.update-password');
+    }
+    
     /**
      * Update the user's profile information.
      */

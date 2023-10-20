@@ -82,7 +82,7 @@
                             {{__('My Profile') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('profile.edit')" fontSize="text-xs">
+                        <x-dropdown-link :href="route('profile.index')" fontSize="text-xs">
                             @slot('icon')
                                 <i class="fa-solid fa-key"></i>
                             @endslot

@@ -26,10 +26,18 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'derlajulius@gmail.com',
             'password' => bcrypt('password'),
+            'status' => 'INACTIVE',
+            'profileable_id' => 2,
+            'profileable_type' => Employee::class
+        ])->assignRole('librarian');
+
+        User::create([
+            'email' => 'delacruzjuan@gmail.com',
+            'password' => bcrypt('password'),
             'status' => 'ACTIVE',
             'profileable_id' => 1,
             'profileable_type' => FamilyMember::class
-        ])->assignRole('parent/guardian');
+        ])->assignRole('parent / guardian');
 
     }
 }

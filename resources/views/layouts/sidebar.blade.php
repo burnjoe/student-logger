@@ -59,7 +59,7 @@
                                 </span>
                             </div>
                         </a>
-                        <a href="#" title="RFID" @click="$dispatch('close-accordion')">
+                        <a href="{{ route('rfid') }}" title="Student RFID" @click="$dispatch('close-accordion')">
                             <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
                                 <span class="w-full flex items-center text-sm">
                                     RFID
@@ -85,7 +85,7 @@
 
         {{-- Accounts --}}
         @can('view accounts')
-            <a href="#" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts" @click="$dispatch('close-accordion')">
+            <a href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts" @click="$dispatch('close-accordion')">
                 <div class="py-3 px-4 w-full flex space-x-4">
                     <span>
                         <i class="w-4 fa-solid fa-user-large fa-sm"></i>

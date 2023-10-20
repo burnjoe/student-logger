@@ -14,7 +14,10 @@
                     <span class="font-bold text-lg">{{ __('Dashboard') }}</span>
                 @elseif($page === 'students')
                     <i class="fa-solid fa-user-graduate"></i>
-                    <span class="font-bold text-lg">{{ __('Students') }}</span>
+                    <span class="font-bold text-lg">{{ __('Student Information') }}</span>
+                @elseif($page === 'rfid')
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span class="font-bold text-lg">{{ __('Student RFID') }}</span>
                 @elseif($page === 'attendances')
                     <i class="fa-solid fa-clock"></i>
                     <span class="font-bold text-lg">{{ __('Attendances') }}</span>

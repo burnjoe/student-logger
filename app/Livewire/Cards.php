@@ -2,30 +2,29 @@
 
 namespace App\Livewire;
 
-use App\Models\Attendance;
-use Livewire\Component;
+use App\Models\Card;
 use Illuminate\Support\Facades\View;
+use Livewire\Component;
 use Livewire\WithPagination;
 
-class Attendances extends Component
+class Cards extends Component
 {
-    use WithPagination;
+    Use WithPagination;
 
     public $search = "";
 
-
     public function render()
     {
-        View::share('page', 'attendances');
+        View::share('page', 'rfid');
         
-        return view('livewire.attendances', [
-            'attendances' => Attendance::with(['card', 'post', 'card.student'])
-                ->whereHas('card.student', function ($query) {
+        return view('livewire.cards', [
+            'cards' => Card::with(['student'])
+                ->whereHas('student', function ($query) {
                     $query->where('student_no', 'like', "%{$this->search}%")
                         ->orWhere('last_name', 'like', "%{$this->search}%")
                         ->orWhere('first_name', 'like', "%{$this->search}%");
-            })
-            ->orderBy('updated_at', 'desc')
+                })
+            ->latest()
             ->paginate(15)
         ]);
     }

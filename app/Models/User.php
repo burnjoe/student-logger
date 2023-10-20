@@ -47,6 +47,13 @@ class User extends Authenticatable
     ];
 
 
+    /**
+     * Filtering search
+     */
+    // public function scopeSearch($query, $value) {
+    //     $query->where('email', 'like', "%{$value}%");
+    // }
+
     public function profileable(): MorphTo {
         return $this->morphTo(); 
     }

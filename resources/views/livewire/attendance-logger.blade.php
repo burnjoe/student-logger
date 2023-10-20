@@ -7,18 +7,17 @@
                     <img class="w-full h-full object-contain" src="{{ asset('img/pnc_header.png') }}" alt="">
                 </div>
                 <div class="py-8">
-                    <p class="text-2xl font-bold text-center text-veryDarkGray">TAP YOUR RFID CARD</p>
+                    <p class="text-2xl font-bold text-center text-veryDarkGray">TAP YOUR ID ON READER</p>
                     <img class="object-contain h-52 w-52 mt-4 mx-auto opacity-50" src="{{ asset('img/reader-icon.jpg') }}" alt="">
                 </div>
 
-                {{-- <form wire:submit.prevent="log(4497431039)">
+                <form wire:submit.prevent="log(rfid)">
                     <input type="text" x-model="rfid" />
-                </form> --}}
-
-                <form wire:submit.prevent="log(4315777895)">
-                    <input type="text" />
                 </form>
 
+                {{-- <form wire:submit.prevent="log(4297159718)">
+                    <input type="text" />
+                </form> --}}
             </x-card>
         </div>
 
@@ -34,7 +33,7 @@
                 </p>
             </x-card>
             <x-card bgColor="bg-white" shadow="shadow-lg" class="mt-4" padding="px-6 py-12">
-                <img class="object-contain h-60 w-60 mx-auto" src="{{ asset('img/id_picture.png') }}" alt="">
+                <img class="object-contain h-60 w-60 mx-auto" src="{{ asset('img/user_icon.png') }}" alt="">
                 <p class="mt-4 text-3xl font-semibold text-center text-veryDarkGray">FULL NAME</p>
                 <p class="mt-2 text-2xl font-semibold text-center text-veryDarkGray">BSCpE</p>
                 <div class="flex justify-center mt-2">
@@ -45,4 +44,6 @@
             </x-card>
         </div>
     </div>
+
+    @include('livewire.includes.toasts');
 </div>

@@ -21,5 +21,14 @@ class EmployeeSeeder extends Seeder
             'address' => 'Laguna',
             'phone' => '9212318882'
         ]);
+
+        Employee::create([
+            'last_name' => 'Derla',
+            'first_name' => 'Julius',
+            'sex' => 'Male',
+            'birthdate' => now(),
+            'address' => 'Laguna',
+            'phone' => '9212448993'
+        ]);
     }
 }

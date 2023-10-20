@@ -8,6 +8,8 @@ use App\Livewire\AttendanceLogger;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Livewire\Accounts;
+use App\Livewire\Cards;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,11 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view students')
         ->name('students');
 
+    // Students Module
+    Route::get('rfid', Cards::class)
+        // ->middleware('can:view students')
+        ->name('rfid');
+
     // Attendance
     Route::get('attendances', Attendances::class)
         ->middleware('can:view attendances')
@@ -45,6 +52,11 @@ Route::middleware('auth')->group(function () {
     Route::get('audit-log', AuditLog::class)
         ->middleware('can:view audit log')
         ->name('audit-log');
+
+    // Accounts
+    Route::get('accounts', Accounts::class)
+        // ->middleware('can:view audit log')
+        ->name('accounts');
 
     // Archive Module
     Route::get('archive/students', StudentsArchive::class)

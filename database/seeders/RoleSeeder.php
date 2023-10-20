@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'guard']);
         Role::create(['name' => 'librarian']);
         Role::create(['name' => 'nurse']);
-        Role::create(['name' => 'parent/guardian'])
+        Role::create(['name' => 'parent / guardian'])
             ->syncPermissions([
                 // 'view my students',
                 // 'view my attendance',

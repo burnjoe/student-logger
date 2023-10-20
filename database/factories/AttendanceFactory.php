@@ -24,7 +24,7 @@ class AttendanceFactory extends Factory
         $postId = Post::inRandomOrder()->value('id');
 
         // Generate a random time for logged in and a later random time for logged out
-        $loggedInAt = fake()->dateTimeThisYear();
+        $loggedInAt = fake()->dateTimeThisMonth();
         $loggedOutAt = clone $loggedInAt;
         $loggedOutAt->modify('+' . mt_rand(1, 12) . ' hours');
         $loggedOutAt = fake()->randomElement([$loggedOutAt, null]);

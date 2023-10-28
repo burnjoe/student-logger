@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('family_member_student', function (Blueprint $table) {
-            $table->unsignedBigInteger('student_id')->unsigned();
-            $table->unsignedBigInteger('family_member_id')->unsigned();
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('family_member_id');
 
             $table->unique(['student_id', 'family_member_id']);
 

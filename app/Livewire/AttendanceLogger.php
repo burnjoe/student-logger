@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Card;
 use Livewire\Component;
 use App\Models\Attendance;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\View;
 
@@ -22,45 +23,48 @@ class AttendanceLogger extends Component
     /**
      * Render livewire view
      */
-    #[Layout('layouts.logger')] 
+    #[Layout('layouts.logger')]
     public function render()
     {
-        View::share('page', 'attendance-logger');
-
         return view('livewire.attendance-logger');
     }
 
     /**
      * Log the attendance of student
      */
-    public function log($rfid) {
+    #[On('log')]
+    public function log($rfid)
+    {
         try {
-            $this->card = Card::with(['student','attendances','attendances.post'])->where('rfid', $rfid)->first();
+            // retrieves card with the given rfid
+            $this->card = Card::with(['student', 'attendances', 'attendances.post'])->where('rfid', $rfid)->first();
+            $this->rfid = $rfid;
 
+            // retrieves last attendance of card owner
             $this->attendance = $this->card->attendances->sortByDesc('updated_at')->first();
 
-            // Computes the duration 
-            $duration = now()->diff($this->attendance->updated_at);
-
-            // Checks if last update timestamp < 30 secs, if not
-            if($duration->i == 0 && $duration->s < 30) {
-                session()->flash('warning', 'Please wait '. (30 - $duration->s) .' second(s).');
-                // display an error
-                return;
+            // if there is last attendance compute
+            if ($duration = now()->diff($this->attendance->updated_at)) {
+                // Checks if last update timestamp < 30 secs, if not
+                if ($duration->i == 0 && $duration->s < 30) {
+                    session()->flash('warning', 'Please wait ' . (30 - $duration->s) . ' second(s).');
+                    // display an error
+                    return;
+                }
             }
 
             // Check if there's a latest attendance
-            if($this->attendance) {
+            if ($this->attendance) {
                 // Check the status prior logging
                 switch ($this->attendance->status) {
                     case 'IN':
                         // if logged in different day, mark latest attendance as missing
-                        if(!now()->isSameDay($this->attendance->logged_in_at)) {
+                        if (!now()->isSameDay($this->attendance->logged_in_at)) {
                             // Record missing
                             $this->attendance->update([
-                                'status' => 'MISSING',
+                                'status' => 'MISSED',
                             ]);
-
+                            
                             // Record log in
                             $this->attendance = Attendance::create([
                                 'card_id' => $this->card->id,
@@ -77,19 +81,14 @@ class AttendanceLogger extends Component
                         }
                         break;
                     case 'OUT':
-                    case 'MISSING':
-                        try {
-                            // Record log in
-                            $this->attendance = Attendance::create([
-                                'card_id' => $this->card->id,
-                                'logged_in_at' => now(),
-                                'status' => 'IN',
-                                'post_id' => 1,                 // Change this to actual post id
-                            ]);
-                        } catch (\Throwable $th) {
-                            dd($th);
-                        }
-                        
+                    case 'MISSED':
+                        // Record log in
+                        $this->attendance = Attendance::create([
+                            'card_id' => $this->card->id,
+                            'logged_in_at' => now(),
+                            'status' => 'IN',
+                            'post_id' => 1,                     // Change this to actual post id
+                        ]);
                         break;
                     default:
                         // Throw error to view to say that something unexpected have happened
@@ -100,23 +99,11 @@ class AttendanceLogger extends Component
                     'card_id' => $this->card->id,
                     'logged_in_at' => now(),
                     'status' => 'IN',
-                    'post_id' => 1,                         // Change this to actual post id
+                    'post_id' => 1,                             // Change this to actual post id
                 ]);
             }
         } catch (\Throwable $th) {
-            // throw error message here to be passed on view
-            // Invalid ID
-            session()->flash('danger', 'Invalid ID.');
+            // error here
         }
     }
-
-    private function login() {
-
-    }
-
-    private function logout() {
-
-    }
-
-
 }

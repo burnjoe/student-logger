@@ -11,13 +11,7 @@
                     <img class="object-contain h-52 w-52 mt-4 mx-auto opacity-50" src="{{ asset('img/reader-icon.jpg') }}" alt="">
                 </div>
 
-                <form wire:submit.prevent="log(rfid)">
-                    <input type="text" x-model="rfid" />
-                </form>
-
-                {{-- <form wire:submit.prevent="log(4297159718)">
-                    <input type="text" />
-                </form> --}}
+                <input type="text" x-model="rfid" hidden />
             </x-card>
         </div>
 

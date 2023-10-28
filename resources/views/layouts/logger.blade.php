@@ -14,23 +14,24 @@
     @livewireStyles
 </head>
 
-<body x-data="{ rfid: '', timer: null}" x-init="$watch('rfid', value => rfid = value)"  
-    @keydown.window="let allowedKeys = /^[0-9A-Za-z]$/;
-    if ($event.key.match(allowedKeys)) {
+<body x-data="{ rfid: '', timer: null}" x-init="$watch('rfid', value => rfid = value)" @keydown.window="if ($event.key.match(/^[0-9A-Za-z]$/)) {
         rfid += $event.key;
         clearTimeout(timer);
         timer = setTimeout(() => {
             rfid = '';
-        }, 50000);
+        }, 1000);
+    } else if ($event.key.match(/\r|Enter/)) {
+        $dispatch('log', {rfid: rfid});
     }">
     {{ $slot }}
 
     {{-- Back Button --}}
     <x-button btnType="secondary" element="a" :href="route('dashboard')" class="absolute top-8 left-8"
-    rounded="rounded-md">
+        rounded="rounded-md">
         <i class="fa-solid fa-arrow-left"></i>
     </x-button>
 
     @livewireScripts
 </body>
+
 </html>

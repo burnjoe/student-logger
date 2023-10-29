@@ -17,11 +17,18 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'create students']);
         Permission::create(['name' => 'edit students']);
         Permission::create(['name' => 'delete students']);
+        
+        Permission::create(['name' => 'manage students'])
+        ->givePermissionTo([
+            'view students',
+            'create students',
+            'edit students',
+            'delete students',
+        ]);
+        
         Permission::create(['name' => 'view attendances']);
         Permission::create(['name' => 'view accounts']);
-
         Permission::create(['name' => 'view audit log']);
         Permission::create(['name' => 'view archive']);
-
     }
 }

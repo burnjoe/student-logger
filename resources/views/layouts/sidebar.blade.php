@@ -21,7 +21,7 @@
         <span>
             <x-badge class="text-darkGray bg-lightGray" size="sm" fontWeight="semibold">{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
         </span>
-        <span class="text-sm">{{ auth()->user()->profileable->first_name. ' ' .(auth()->user()->profileable->middle_name ? auth()->user()->profileable->middle_name[0]. '. ' : ' ') .auth()->user()->profileable->last_name }}</span>
+        <span class="text-sm">{{ auth()->user()->employee->first_name. ' ' .(auth()->user()->employee->middle_name ? auth()->user()->employee->middle_name[0]. '. ' : ' ') .auth()->user()->employee->last_name }}</span>
     </div>
 
     <nav class="flex flex-col mx-2 my-2 text-darkGray">
@@ -38,7 +38,7 @@
         </a>
 
         {{-- Students --}}
-        @can('view students')
+        @can('manage students')
             <x-accordion @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');" class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
                 <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                     @slot('header')

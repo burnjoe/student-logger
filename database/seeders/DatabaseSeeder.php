@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         // Calls out other seeder
         $this->call(PostSeeder::class);
-        $this->call(CardSeeder::class);
+        $this->call(StudentCardSeeder::class);
         $this->call(AttendanceSeeder::class);
         $this->call(EmployeeSeeder::class);
         $this->call(FamilyMemberSeeder::class);

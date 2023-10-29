@@ -19,25 +19,14 @@ class UserSeeder extends Seeder
             'email' => 'sabanajholo@gmail.com',
             'password' => bcrypt('burnjoe25'),
             'status' => 'ACTIVE',
-            'profileable_id' => 1,
-            'profileable_type' => Employee::class
+            'employee_id' => 1,
         ])->assignRole('admin');
 
         User::create([
             'email' => 'derlajulius@gmail.com',
             'password' => bcrypt('password'),
             'status' => 'INACTIVE',
-            'profileable_id' => 2,
-            'profileable_type' => Employee::class
+            'employee_id' => 2,
         ])->assignRole('librarian');
-
-        User::create([
-            'email' => 'delacruzjuan@gmail.com',
-            'password' => bcrypt('password'),
-            'status' => 'ACTIVE',
-            'profileable_id' => 1,
-            'profileable_type' => FamilyMember::class
-        ])->assignRole('parent / guardian');
-
     }
 }

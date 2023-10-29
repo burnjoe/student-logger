@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 
     // Students Module
     Route::get('students', Students::class)
-        ->middleware('can:view students')
+        ->middleware('can:manage students')
         ->name('students');
 
     // Students Module

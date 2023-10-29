@@ -29,7 +29,7 @@
             <x-card bgColor="bg-white" shadow="shadow-lg" class="mt-4" padding="px-6 py-12">
                 <img class="object-contain h-60 w-60 mx-auto" src="{{ asset('img/user_icon.png') }}" alt="">
                 <p class="mt-4 text-3xl font-semibold text-center text-veryDarkGray">FULL NAME</p>
-                <p class="mt-2 text-2xl font-semibold text-center text-veryDarkGray">BSCpE</p>
+                <p class="mt-2 text-2xl font-semibold text-center text-veryDarkGray">BSCS</p>
                 <div class="flex justify-center mt-2">
                     <x-badge class="my-2 text-white bg-green" size="sm" fontWeight="semibold">
                         ENROLLED

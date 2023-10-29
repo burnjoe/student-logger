@@ -19,7 +19,7 @@
         clearTimeout(timer);
         timer = setTimeout(() => {
             rfid = '';
-        }, 1000);
+        }, 50);
     } else if ($event.key.match(/\r|Enter/)) {
         $dispatch('log', {rfid: rfid});
     }">

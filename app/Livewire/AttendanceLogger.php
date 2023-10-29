@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\View;
 class AttendanceLogger extends Component
 {
     public $rfid;
+    public $full_name;
     public $profile_photo;
     public $signature;
     public $expires_at;
@@ -44,14 +45,14 @@ class AttendanceLogger extends Component
             $this->attendance = $this->card->attendances->sortByDesc('updated_at')->first();
 
             // if there is last attendance compute
-            if ($duration = now()->diff($this->attendance->updated_at)) {
+            // if ($duration = now()->diff($this->attendance->updated_at)) {
                 // Checks if last update timestamp < 30 secs, if not
-                if ($duration->i == 0 && $duration->s < 30) {
-                    session()->flash('warning', 'Please wait ' . (30 - $duration->s) . ' second(s).');
+                // if ($duration->i == 0 && $duration->s < 30) {
+                    // session()->flash('warning', 'Please wait ' . (30 - $duration->s) . ' second(s).');
                     // display an error
-                    return;
-                }
-            }
+                    // return;
+                // }
+            // }
 
             // Check if there's a latest attendance
             if ($this->attendance) {
@@ -102,6 +103,8 @@ class AttendanceLogger extends Component
                     'post_id' => 1,                             // Change this to actual post id
                 ]);
             }
+
+            $this->full_name = $rfid->student->first_name. ' ' . $rfid->student->last_name;
         } catch (\Throwable $th) {
             // error here
         }

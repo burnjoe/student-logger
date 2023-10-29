@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('status', ['INACTIVE', 'ACTIVE']);      // 0-inactive  1-active
-            $table->bigInteger('profileable_id')->unsigned();
-            $table->string('profileable_type');
+            $table->enum('status', ['INACTIVE', 'ACTIVE']);
+            $table->foreignId('employee_id')
+                ->constrained()
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

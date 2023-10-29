@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id('id');
             $table->bigInteger('rfid')->unique();
-            $table->foreignId('student_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('student_id')
+                ->constrained()
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
             $table->string('profile_photo');
             $table->string('signature');
             $table->timestamp('expires_at');

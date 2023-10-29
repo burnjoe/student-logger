@@ -13,18 +13,18 @@ class Student extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'student_no', 
-        'last_name', 
-        'first_name', 
-        'middle_name', 
-        'sex', 
-        'civil_status', 
-        'nationality', 
-        'birthdate', 
-        'birthplace', 
-        'address', 
-        'phone', 
-        'email', 
+        'student_no',
+        'last_name',
+        'first_name',
+        'middle_name',
+        'sex',
+        'civil_status',
+        'nationality',
+        'birthdate',
+        'birthplace',
+        'address',
+        'phone',
+        'email',
         'account_type'
     ];
 
@@ -32,25 +32,28 @@ class Student extends Model
     /**
      * Filtering search
      */
-    public function scopeSearch($query, $value) {
+    public function scopeSearch($query, $value)
+    {
         $query->where('student_no', 'like', "%{$value}%")
             ->orWhere('last_name', 'like', "%{$value}%")
             ->orWhere('first_name', 'like', "%{$value}%");
     }
 
-    // public function admissions() : HasMany {
-    //     return $this->hasMany(Admission::class);
-    // }
+    /**
+     * Relationships
+     */
+    public function admissions(): HasMany
+    {
+        return $this->hasMany(Admission::class);
+    }
 
-    public function family_members() : BelongsToMany {
+    public function family_members(): BelongsToMany
+    {
         return $this->belongsToMany(FamilyMember::class);
     }
 
-    public function attendances() : HasMany {
-        return $this->hasMany(Attendance::class);
-    }
-
-    public function cards() : HasMany {
+    public function cards(): HasMany
+    {
         return $this->hasMany(Card::class);
     }
 }

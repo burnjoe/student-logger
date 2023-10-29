@@ -19,12 +19,26 @@ class Card extends Model
         'expires_at',
     ];
 
-    
-    public function student() : BelongsTo {
+
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('card_id', 'like', "%{$value}%")
+            ->orWhere('status', 'like', "%{$value}%");
+    }
+
+    /**
+     * Relationships
+     */
+    public function student(): BelongsTo
+    {
         return $this->belongsTo(Student::class);
     }
 
-    public function attendances() : HasMany {
+    public function attendances(): HasMany
+    {
         return $this->hasMany(Attendance::class);
     }
 }

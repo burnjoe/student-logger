@@ -15,7 +15,20 @@ class Post extends Model
         'name',
     ];
 
-    public function attendances() : HasMany {
+
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%");
+    }
+
+    /**
+     * Relationships
+     */
+    public function attendances(): HasMany
+    {
         return $this->hasMany(Attendance::class);
     }
 }

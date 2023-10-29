@@ -17,11 +17,24 @@ class Program extends Model
     ];
 
 
-    public function college() : BelongsTo {
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%");
+    }
+
+    /**
+     * Relationships
+     */
+    public function college(): BelongsTo
+    {
         return $this->belongsTo(College::class);
     }
 
-    public function admissions() : MorphMany {
+    public function admissions(): MorphMany
+    {
         return $this->morphMany(Admission::class, 'trackable');
     }
 }

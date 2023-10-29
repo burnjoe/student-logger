@@ -16,7 +16,19 @@ class College extends Model
     ];
 
 
-    public function programs() : HasMany {
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%");
+    }
+
+    /**
+     * Relationships
+     */
+    public function programs(): HasMany
+    {
         return $this->hasMany(Program::class);
     }
 }

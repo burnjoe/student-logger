@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attendance extends Model
 {
-    use HasFactory, SoftDeletes;    
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'card_id',
@@ -22,18 +22,22 @@ class Attendance extends Model
     /**
      * Filtering search
      */
-    public function scopeSearch($query, $value) {
-        $query->where('student_no', 'like', "%{$value}%")
-            ->orWhere('last_name', 'like', "%{$value}%")
-            ->orWhere('first_name', 'like', "%{$value}%")
-            ->orWhere('middle_name', 'like', "%{$value}%");
+    public function scopeSearch($query, $value)
+    {
+        $query->where('card_id', 'like', "%{$value}%")
+            ->orWhere('status', 'like', "%{$value}%");
     }
 
-    public function card() : BelongsTo {
+    /**
+     * Relationships
+     */
+    public function card(): BelongsTo
+    {
         return $this->belongsTo(Card::class);
     }
 
-    public function post() : BelongsTo {
+    public function post(): BelongsTo
+    {
         return $this->belongsTo(Post::class);
     }
 }

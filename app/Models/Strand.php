@@ -16,7 +16,19 @@ class Strand extends Model
     ];
 
 
-    public function admissions() : MorphMany {
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%");
+    }
+
+    /**
+     * Relationships
+     */
+    public function admissions(): MorphMany
+    {
         return $this->morphMany(Admission::class, 'trackable');
     }
 }

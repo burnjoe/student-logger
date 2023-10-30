@@ -18,7 +18,7 @@ class Employee extends Model
         'sex',
         'birthdate',
         'address',
-        'phone'
+        'phone',
     ];
 
 
@@ -27,11 +27,14 @@ class Employee extends Model
      */
     public function scopeSearch($query, $value)
     {
+        $subvalue = substr($value, 1);
+
         $query->where('last_name', 'like', "%{$value}%")
             ->orWhere('first_name', 'like', "%{$value}%")
             ->orWhere('middle_name', 'like', "%{$value}%")
             ->orWhere('sex', 'like', "%{$value}%")
-            ->orWhere('phone', 'like', "%{$value}%");
+            ->orWhere('phone', 'like', "%{$value}%")
+            ->orWhere('phone', 'like', "%{$subvalue}%");
     }
 
     /**

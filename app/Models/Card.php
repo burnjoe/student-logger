@@ -25,8 +25,7 @@ class Card extends Model
      */
     public function scopeSearch($query, $value)
     {
-        $query->where('card_id', 'like', "%{$value}%")
-            ->orWhere('status', 'like', "%{$value}%");
+        $query->where('rfid', 'like', "%{$value}%");
     }
 
     /**

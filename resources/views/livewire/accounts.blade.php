@@ -20,10 +20,10 @@
 		<tr wire:key="{{ $user->id }}"
 			class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
 			<td class="px-6 py-4">{{ $user->id }}</td>
-			<td class="px-6 py-4">{{ $user->profileable->last_name }}</td>
-			<td class="px-6 py-4">{{ $user->profileable->first_name }}</td>
+			<td class="px-6 py-4">{{ $user->employee->last_name }}</td>
+			<td class="px-6 py-4">{{ $user->employee->first_name }}</td>
 			<td class="px-6 py-4">{{ $user->email }}</td>
-			<td class="px-6 py-4">{{ 0 . $user->profileable->phone }}</td>
+			<td class="px-6 py-4">{{ 0 . $user->employee->phone }}</td>
 			{{-- <td class="px-6 py-4">{{ ucwords($user->getRoleNames()->first()) }}</td> --}}
 			<td class="px-6 py-4">
 				@if($user->status == 'ACTIVE')

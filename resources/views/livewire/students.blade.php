@@ -2,7 +2,7 @@
 	<div class="grid grid-cols-2 mt-4">
 		@include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
-		@can('create students')
+		@can('manage students')
 		<div class="flex justify-end">
 			<x-button wire:click.prevent="create" btnType="success" class="flex space-x-2 items-center">
 				<i class="fa-solid fa-plus"></i>
@@ -87,6 +87,4 @@
 		])
 	</x-modal>
 	@endcan
-
-	@include('livewire.includes.toasts')
 </div>

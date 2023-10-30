@@ -38,7 +38,8 @@ class StudentsArchive extends Component
 
         return view('livewire.students-archive', 
         [
-            'students' => Student::onlyTrashed()
+            'students' => Student::select('id', 'student_no', 'last_name', 'first_name')
+                ->onlyTrashed()
                 ->latest()
                 ->search($this->search)
                 ->paginate(15)
@@ -84,7 +85,7 @@ class StudentsArchive extends Component
 
             $this->dispatch('open-modal', 'show-student');
         } catch (\Throwable $th) {
-            session()->flash('danger', 'Unable to view student');
+            $this->dispatch('error', ['message' => 'Unable to view student']);
         }
     }
 
@@ -100,7 +101,7 @@ class StudentsArchive extends Component
             $this->action = "recover";
             $this->dispatch('open-modal', 'restore-student');
         } catch (\Throwable $th) {
-            session()->flash('danger', 'Unable to restore student');
+            $this->dispatch('error', ['message' => 'Unable to restore student']);
         }
     }
 
@@ -113,7 +114,7 @@ class StudentsArchive extends Component
 
         $this->reset();
 
-        session()->flash('success', 'Student successfully deleted');
+        $this->dispatch('success', ['message' => 'Student successfully restored']);
 
         $this->dispatch('close-modal');
     }
@@ -130,7 +131,7 @@ class StudentsArchive extends Component
             $this->action = "destroy";
             $this->dispatch('open-modal', 'delete-student');
         } catch (\Throwable $th) {
-            session()->flash('danger', 'Unable to delete student permanently');
+            $this->dispatch('error', ['message' => 'Unable to delete student permanently']);
         }
     }
 
@@ -143,7 +144,7 @@ class StudentsArchive extends Component
 
         $this->reset();
 
-        session()->flash('success', 'Student successfully deleted');
+        $this->dispatch('success', ['message' => 'Student successfully deleted']);
 
         $this->dispatch('close-modal');
     }

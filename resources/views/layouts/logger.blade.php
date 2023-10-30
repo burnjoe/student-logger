@@ -31,6 +31,39 @@
         <i class="fa-solid fa-arrow-left"></i>
     </x-button>
 
+    {{-- Toastr --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        toastr.options = {
+            "showDuration": "300",
+            "hideDuration": "800",
+            "closeButton": true,
+            "positionClass": "toast-bottom-left",
+        }
+        
+        window.addEventListener('info', event => {
+            toastr.info(event.detail[0].message);
+        });
+
+        window.addEventListener('success', event => {
+            toastr.success(event.detail[0].message);
+        });
+
+        window.addEventListener('warning', event => {
+            toastr.warning(event.detail[0].message);
+        });
+
+        window.addEventListener('error', event => {
+            toastr.error(event.detail[0].message);
+        });
+    </script>
+
     @livewireScripts
 </body>
 

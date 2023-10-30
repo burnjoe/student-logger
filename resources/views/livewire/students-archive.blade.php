@@ -72,6 +72,4 @@
 			'labelLoading' => 'Deleting...'
 		])
 	</x-modal>
-
-	@include('livewire.includes.toasts')
 </div>

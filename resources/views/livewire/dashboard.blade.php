@@ -11,6 +11,4 @@
 			Pie Chart of Students per Dept.
 		</x-card>
 	</div>
-
-    @include('livewire.includes.toasts')
 </div>

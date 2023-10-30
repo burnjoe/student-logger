@@ -91,7 +91,8 @@ class Students extends Component
         View::share('page', 'students');
 
         return view('livewire.students', [
-            'students' => Student::latest()
+            'students' => Student::select('id', 'student_no', 'last_name', 'first_name')
+            ->latest()
             ->search($this->search)
             ->paginate(15)
         ]);
@@ -135,7 +136,7 @@ class Students extends Component
             $this->init($id);
             $this->dispatch('open-modal', 'show-student');
         } catch (\Throwable $th) {
-            session()->flash('danger', 'Unable to view student');
+            $this->dispatch('error', ['message' => 'Unable to view student']);
         }
     }
 
@@ -168,7 +169,7 @@ class Students extends Component
 
         $this->reset();
 
-        session()->flash('success', 'Student successfully added');
+        $this->dispatch('success', ['message' => 'Student successfully added']);
 
         $this->dispatch('close-modal');
     }
@@ -188,7 +189,7 @@ class Students extends Component
             $this->action = 'update';
             $this->dispatch('open-modal', 'edit-student');
         } catch (\Throwable $th) {
-            session()->flash('danger', 'Unable to edit student');
+            $this->dispatch('error', ['message' => 'Unable to edit student']);
         }
     }
 
@@ -203,7 +204,7 @@ class Students extends Component
 
         $this->reset();
 
-        session()->flash('success', 'Student successfully updated');
+        $this->dispatch('success', ['message' => 'Student successfully updated']);
 
         $this->dispatch('close-modal');
     }
@@ -222,7 +223,7 @@ class Students extends Component
             $this->action = 'destroy';
             $this->dispatch('open-modal', 'delete-student');
         } catch (\Throwable $th) {
-            session()->flash('danger', 'Unable to delete student');
+            $this->dispatch('error', ['message' => 'Unable to delete student']);
         }
     }
 
@@ -234,8 +235,8 @@ class Students extends Component
 
         $this->reset();
 
-        session()->flash('success', 'Student successfully deleted');
-
+        $this->dispatch('success', ['message' => 'Student successfully deleted']);
+        
         $this->dispatch('close-modal');
     }
 }

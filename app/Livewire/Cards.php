@@ -9,23 +9,27 @@ use Livewire\WithPagination;
 
 class Cards extends Component
 {
-    Use WithPagination;
+    use WithPagination;
 
     public $search = "";
 
     public function render()
     {
         View::share('page', 'rfid');
-        
+
         return view('livewire.cards', [
-            'cards' => Card::with(['student'])
-                ->whereHas('student', function ($query) {
-                    $query->where('student_no', 'like', "%{$this->search}%")
-                        ->orWhere('last_name', 'like', "%{$this->search}%")
-                        ->orWhere('first_name', 'like', "%{$this->search}%");
+            'cards' => Card::select('id', 'rfid', 'expires_at', 'student_id')
+                ->with(['student' => function ($query) {
+                    $query->select('id', 'student_no', 'last_name', 'first_name');
+                }])
+                ->where(function ($query) {
+                    $query->search($this->search)
+                        ->orWhereHas('student', function ($subquery) {
+                            $subquery->search($this->search);
+                        });
                 })
-            ->latest()
-            ->paginate(15)
+                ->latest()
+                ->paginate(15)
         ]);
     }
 }

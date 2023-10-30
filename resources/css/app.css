@@ -1,5 +1,6 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800');
+@import url('./toastr.min.css');
 
 @tailwind base;
 @tailwind components;
@@ -39,7 +40,6 @@ body {
     top: 8px;
     left: 8px;
 }
-
 
 .h6 {
   font-size: 1rem;

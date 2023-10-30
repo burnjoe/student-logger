@@ -38,6 +38,4 @@
             </x-card>
         </div>
     </div>
-
-    @include('livewire.includes.toasts');
 </div>

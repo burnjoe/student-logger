@@ -19,14 +19,17 @@ class Accounts extends Component
         View::share('page', 'accounts');
 
         return view('livewire.accounts', [
-            'users' => User::with('profileable')
-                ->whereHas('profileable', function ($query) {
-                    $query->where('last_name', 'like', "%{$this->search}%")
-                        ->orWhere('first_name', 'like', "%{$this->search}%")
-                        ->orWhere('phone', 'like', "%{$this->search}%");
+            'users' => User::select('id', 'email', 'employee_id', 'status')
+                ->with(['employee' => function ($query) {
+                    $query->select('id', 'last_name', 'first_name', 'phone');
+                }])
+                ->where(function ($query) {
+                    $query->search($this->search)
+                        ->orWhereHas('employee', function ($subquery) {
+                            $subquery->search($this->search);
+                        });
                 })
                 ->latest()
-                // ->search($this->search)
                 ->paginate(15)
         ]);
     }

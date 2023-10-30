@@ -23,7 +23,7 @@
                     <span class="font-bold text-lg">{{ __('Attendances') }}</span>
                 @elseif($page === 'accounts')
                     <i class="fa-solid fa-user-large fa-sm"></i>
-                    <span class="font-bold text-lg">{{ __('Accounts') }}</span>
+                    <span class="font-bold text-lg">{{ __('User Accounts') }}</span>
                 @elseif($page === 'audit_log')
                     <i class="fa-solid fa-clipboard-list"></i>
                     <span class="font-bold text-lg">{{ __('Audit Log') }}</span>

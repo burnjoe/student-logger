@@ -83,7 +83,7 @@
             </div>
         </a>
 
-        {{-- Accounts --}}
+        {{-- User Accounts --}}
         @can('view accounts')
             <a href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts" @click="$dispatch('close-accordion')">
                 <div class="py-3 px-4 w-full flex space-x-4">
@@ -91,7 +91,7 @@
                         <i class="w-4 fa-solid fa-user-large fa-sm"></i>
                     </span>
                     <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-                        Accounts
+                        User Accounts
                     </span>
                 </div>
             </a>

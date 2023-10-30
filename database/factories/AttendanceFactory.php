@@ -25,6 +25,7 @@ class AttendanceFactory extends Factory
 
         // Generate a random time for logged in and a later random time for logged out
         $loggedInAt = fake()->dateTimeThisMonth();
+        $loggedInAt->modify('-1 days');
         $loggedOutAt = clone $loggedInAt;
         $loggedOutAt->modify('+' . mt_rand(1, 12) . ' hours');
         $loggedOutAt = fake()->randomElement([$loggedOutAt, null]);
@@ -37,7 +38,9 @@ class AttendanceFactory extends Factory
             'logged_in_at' => $loggedInAt,
             'logged_out_at' => $loggedOutAt,
             'status' => $status,
-            'post_id' => $postId, 
+            'post_id' => $postId,
+            'created_at' => $loggedInAt,
+            'updated_at' => $loggedOutAt ?? $loggedInAt,
         ];
     }
 }

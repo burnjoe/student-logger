@@ -24,7 +24,7 @@ use App\Livewire\Cards;
 
 // Root
 Route::get('/', function() { 
-    return redirect()->route('login', ['portal' => 'university']);
+    return redirect()->route('login');
 })->name('root');
 
 // Authenticated Users

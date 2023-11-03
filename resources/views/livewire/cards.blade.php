@@ -1,6 +1,24 @@
 <div>
     <div class="grid grid-cols-2 mt-4">
 		@include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
+
+		{{-- Filtering --}}
+		<div class="flex justify-start items-center">
+			<div class="relative text-sm">
+				<i class="fa-solid fa-filter ps-2 text-darkGray"></i>
+				<span class="font-normal text-darkGray ps-1">Filter by:</span>
+			</div>
+			
+			{{-- Filter by college --}}
+			<div class="flex justify-start items-center ps-2">
+				@include('livewire.includes.filter-college')
+			</div>
+			
+			{{-- Filter by program --}}
+			<div class="flex justify-start items-center ps-2">
+				@include('livewire.includes.filter-program')
+			</div>
+		</div>
 	</div>
 
 	{{-- Table --}}

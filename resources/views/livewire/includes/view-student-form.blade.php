@@ -106,9 +106,9 @@
             <div class="flex flex-wrap px-5 pb-5 pt-2.5">
                 <div class="w-full">
                     <small class="font-normal text-darkGray pt-2.5" style="font-size: 65%;">College</small>
-                    <h6 class="text-1rem font-medium leading-5 mb-2">Computer Science</h6>
+                    <h6 class="text-1rem font-medium leading-5 mb-2">College</h6>
                     <small class="font-normal text-darkGray pt-2.5" style="font-size: 65%;">Program</small>
-                    <h6 class="text-1rem font-medium leading-5 mb-2">CCS</h6>
+                    <h6 class="text-1rem font-medium leading-5 mb-2">Program</h6>
                 </div>
                 <div class="w-full md:w-1/2">
                     <small class="font-normal text-darkGray pt-2.5" style="font-size: 65%;">Curriculum</small>

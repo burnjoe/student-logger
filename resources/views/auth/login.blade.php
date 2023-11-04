@@ -18,7 +18,7 @@
 
             {{-- Email Address --}}
             <div>
-                <x-input-text type="email" name="email" :value="old('email')" required placeholder="Username"
+                <x-input-text type="email" name="email" :value="old('email')" required placeholder="Email"
                     alignIcon="left">
                     <i class="fa-solid fa-user"></i>
                 </x-input-text>

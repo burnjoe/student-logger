@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Card;
 use Livewire\Component;
 use App\Models\Attendance;
+use App\Models\Post;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\View;
@@ -31,82 +32,99 @@ class AttendanceLogger extends Component
     }
 
     /**
-     * Log the attendance of student
+     * Logs attendance of student
      */
     #[On('log')]
     public function log($rfid)
     {
         try {
-            // retrieves card with the given rfid
+            // Retrieves card of rfid (OPTIMIZE THIS)
             $this->card = Card::with(['student', 'attendances', 'attendances.post'])->where('rfid', $rfid)->first();
             $this->rfid = $rfid;
 
-            // retrieves last attendance of card owner
+            // Retrieves last log (OPTIMIZE THIS)
             $this->attendance = $this->card->attendances->sortByDesc('updated_at')->first();
 
-            // if there is last attendance compute
-            // if ($duration = now()->diff($this->attendance->updated_at)) {
-                // Checks if last update timestamp < 30 secs, if not
-                // if ($duration->i == 0 && $duration->s < 30) {
-                    // session()->flash('warning', 'Please wait ' . (30 - $duration->s) . ' second(s).');
-                    // display an error
-                    // return;
-                // }
-            // }
+            // Log attendance throttle
+            if ($this->attendance) {
+                if ($duration = now()->diff($this->attendance->updated_at)) {
+                    // Last log is < 30s
+                    if ($duration->i == 0 && $duration->s < 30) {
+                        $this->dispatch('warning', ['message' => 'Please try again later. ' . (30 - $duration->s) . ' second(s) remaining.']);
+                        return;
+                    }
+                }
+            }
 
             // Check if there's a latest attendance
             if ($this->attendance) {
                 // Check the status prior logging
                 switch ($this->attendance->status) {
                     case 'IN':
-                        // if logged in different day, mark latest attendance as missing
+                        // When forgot to logout yesterday: Mark last log as MISSED
                         if (!now()->isSameDay($this->attendance->logged_in_at)) {
-                            // Record missing
+                            // Mark last log as MISSED
                             $this->attendance->update([
                                 'status' => 'MISSED',
                             ]);
-                            
-                            // Record log in
-                            $this->attendance = Attendance::create([
-                                'card_id' => $this->card->id,
-                                'logged_in_at' => now(),
-                                'status' => 'IN',
-                                'post_id' => 1,                 // Change this to actual post id
-                            ]);
+
+                            $this->login();
                         } else {
-                            // Record log out
-                            $this->attendance->update([
-                                'logged_out_at' => now(),
-                                'status' => 'OUT',
-                            ]);
+                            $this->logout();
                         }
                         break;
                     case 'OUT':
                     case 'MISSED':
-                        // Record log in
-                        $this->attendance = Attendance::create([
-                            'card_id' => $this->card->id,
-                            'logged_in_at' => now(),
-                            'status' => 'IN',
-                            'post_id' => 1,                     // Change this to actual post id
-                        ]);
+                        $this->login();
                         break;
                     default:
-                        // Throw error to view to say that something unexpected have happened
-                        break;
+                        $this->dispatch('warning', ['message' => 'Something unexpected has happened. Please try again.']);
                 }
             } else {
-                $this->attendance = Attendance::create([
-                    'card_id' => $this->card->id,
-                    'logged_in_at' => now(),
-                    'status' => 'IN',
-                    'post_id' => 1,                             // Change this to actual post id
-                ]);
+                $this->login();
             }
-
-            $this->full_name = $rfid->student->first_name. ' ' . $rfid->student->last_name;
         } catch (\Throwable $th) {
-            // error here
+            $this->dispatch('error', ['message' => 'Invalid ID.']);
         }
+    }
+
+    /**
+     * Log in attendance
+     */
+    private function login()
+    {
+        $this->attendance = Attendance::create([
+            'card_id' => $this->card->id,
+            'logged_in_at' => now(),
+            'status' => 'IN',
+            'post_id' => 1,
+        ]);
+
+        $this->dispatch('success', ['message' => 'Successfully logged in.']);
+    }
+
+    /**
+     * Log out attendance
+     */
+    private function logout()
+    {
+        $this->attendance->update([
+            'logged_out_at' => now(),
+            'status' => 'OUT',
+        ]);
+
+        $this->dispatch('success', ['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * Mark remaining logs of IN status with MISSED
+     */
+    private function markMissed()
+    {
+        $this->attendance->update([
+            'status' => 'MISSED',
+        ]);
+
+        $this->dispatch('success', ['message' => 'Successfully marked all as missed']);
     }
 }

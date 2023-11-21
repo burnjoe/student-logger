@@ -2,6 +2,7 @@
 
 use App\Events\PlaygroundEvent;
 use App\Livewire\AuditLog;
+use App\Livewire\Reports;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
 use App\Livewire\Attendances;
@@ -9,6 +10,7 @@ use App\Livewire\AttendanceLogger;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PdfController;
 use App\Livewire\Accounts;
 use App\Livewire\Cards;
 
@@ -61,6 +63,13 @@ Route::middleware('auth')->group(function () {
     Route::get('audit-log', AuditLog::class)
         ->middleware('can:view audit log')
         ->name('audit-log');
+
+    // Reports Module
+    Route::get('reports', Reports::class)
+        ->name('reports');
+
+    Route::get('/export_library_pdf', [PdfController::class, 'export_library_pdf'])
+        ->name('export_library_pdf');
 
     // Accounts
     Route::get('accounts', Accounts::class)

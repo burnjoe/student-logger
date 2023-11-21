@@ -3,7 +3,7 @@
       @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
       {{-- Filtering --}}
-      <div class="flex justify-start items-center">
+      <div class="flex justify-end items-center">
          <div class="relative text-sm">
             <i class="fa-solid fa-filter ps-2 text-darkGray"></i>
             <span class="font-normal text-darkGray ps-1">Filter by:</span>
@@ -22,6 +22,14 @@
          {{-- Filter by program --}}
          <div class="flex justify-start items-center ps-2">
             @include('livewire.includes.filter-program')
+         </div>
+
+         {{-- Generate Report --}}
+         <div class="flex justify-end ps-2">
+            <x-button btnType="success" class="flex space-x-2 items-center">
+               <i class="fa-solid fa-print"></i>
+               <span>Generate Report</span>
+            </x-button>
          </div>
       </div>
    </div>

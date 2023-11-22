@@ -13,51 +13,65 @@
          size: letter;
       }
 
+      body {
+         margin: 5em 0;
+      }
+
+      /* Page Break */
+      hr {
+         page-break-after: always;
+         border: 0;
+      }
+
       /* Header */
-      .header {
+      #header {
          display: flex;
          flex-direction: column;
          text-align: center;
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
       }
 
-      .header .main-name {
+      #header .main-name {
          font-weight: bold;
          font-size: 25px;
          line-height: 90%;
          color: rgb(0, 51, 0);
       }
 
-      .header .label-name {
+      #header .label-name {
          font-weight: medium;
          font-size: 12px;
       }
 
-      .header .sub-name {
+      #header .sub-name {
          font-weight: medium;
          font-size: 14px;
          line-height: 90%;
       }
 
-      .header .office {
+      #header .office {
          font-weight: bolder;
          font-style: italic;
          font-size: 14px;
          line-height: 90%;
       }
 
-      .header .address {
+      #header .address {
          line-height: 90%;
          font-size: 10px;
       }
 
-      .header .logo {
+      #header .logo {
          position: fixed;
          top: 0;
          right: 480px;
       }
 
       /* Footer */
-      .footer {
+      #footer {
          position: fixed;
          bottom: 0;
          left: 0;
@@ -65,6 +79,7 @@
          text-align: center;
       }
 
+      /* Title */
       .title {
          display: flex;
          flex-direction: column;
@@ -132,19 +147,25 @@
 </head>
 
 <body>
-   <!-- First Page - Pie Chart -->
-   <div class="section1">
-      <div class="header">
-         <div class="logo">
-            <img src="{{ public_path('img/pnc_logo.png') }}" style="width: 50%; height: auto;" />
-         </div>
-         <div class="label-name">Republic of the Philippines</div>
-         <div class="main-name">University of Cabuyao</div>
-         <div class="sub-name">(Pamantasan ng Cabuyao)</div>
-         <div class="office">Office of the University Library</div>
-         <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
+   {{-- Header --}}
+   <div id="header">
+      <div class="logo">
+         <img src="{{ public_path('img/pnc_logo.png') }}" style="width: 50%; height: auto;" />
       </div>
+      <div class="label-name">Republic of the Philippines</div>
+      <div class="main-name">University of Cabuyao</div>
+      <div class="sub-name">(Pamantasan ng Cabuyao)</div>
+      <div class="office">Office of the University Library</div>
+      <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
+   </div>
 
+   {{-- Footer --}}
+   <div id="footer">
+      <img src="{{ public_path('img/pnc_footer.png') }}" style="width: 18%; height: auto;" />
+   </div>
+
+   <!-- First Page - Pie Chart -->
+   <div>
       <div class="title">
          <div class="page-title">STUDENTS LIBRARY ATTENDANCE</div>
          <div><span class="month">NOVEMBER</span></div>
@@ -207,25 +228,12 @@
             </div>
          </div>
       </div>
-
-      <div class="footer">
-         <img src="{{ public_path('img/pnc_footer.png') }}" style="width: 18%; height: auto;" />
-      </div>
    </div>
 
-   <!-- Second Page - Top Users -->
-   <div class="section2">
-      <div class="header" style="page-break-before: always">
-         <div class="logo">
-            <img src="{{ public_path('img/pnc_logo.png') }}" style="width: 50%; height: auto;" />
-         </div>
-         <div class="label-name">Republic of the Philippines</div>
-         <div class="main-name">University of Cabuyao</div>
-         <div class="sub-name">(Pamantasan ng Cabuyao)</div>
-         <div class="office">Office of the University Library</div>
-         <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
-      </div>
+   <hr />
 
+   <!-- Second Page - Top Users -->
+   <div>
       <div class="title">
          <div class="page-title">TOP USERS IN LIBRARY</div>
          <div><span class="month">NOVEMBER</span></div>
@@ -304,10 +312,6 @@
                <span class="position">University Librarian</span>
             </div>
          </div>
-      </div>
-
-      <div class="footer">
-         <img src="{{ public_path('img/pnc_footer.png') }}" style="width: 18%; height: auto;" />
       </div>
    </div>
 </body>

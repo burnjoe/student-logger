@@ -98,18 +98,14 @@
 
                      {{-- Print --}}
                      <div class="flex">
-                        <x-button href="{{ route('export_library_pdf') }}" btnType="primary" textSize="text-xs"
-                           class="flex space-x-2 items-center">
+                        <x-button href="{{ route('export_library_pdf') }}" element="a" btnType="primary"
+                           textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                            <i class="fa-solid fa-print"></i>
                            <span>Print</span>
                         </x-button>
                      </div>
                   </div>
-position: fixed;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				text-align: center;
+
                   <x-table class="mt-4">
                      @slot('head')
                         <th class="px-6 py-4">Name</th>
@@ -203,7 +199,8 @@ position: fixed;
 
                      {{-- Print --}}
                      <div class="flex">
-                        <x-button btnType="primary" textSize="text-xs" class="flex space-x-2 items-center">
+                        <x-button href="{{ route('export_clinic_pdf') }}" element="a" btnType="primary"
+                           textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                            <i class="fa-solid fa-print"></i>
                            <span>Print</span>
                         </x-button>

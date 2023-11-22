@@ -7,9 +7,10 @@
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
    <style>
       /* Font Style */
-      body {
+      @page {
          font-family: Arial, sans-serif;
-         margin: -2em 2em -2em 2em;
+         margin: 1em 6em 1em 6em;
+         size: letter;
       }
 
       /* Header */
@@ -21,26 +22,38 @@
 
       .header .main-name {
          font-weight: bold;
-         font-size: 22px;
+         font-size: 25px;
+         line-height: 90%;
          color: rgb(0, 51, 0);
       }
 
       .header .label-name {
-         font-size: 11px;
+         font-weight: medium;
+         font-size: 12px;
       }
 
       .header .sub-name {
-         font-size: 11px;
+         font-weight: medium;
+         font-size: 14px;
+         line-height: 90%;
       }
 
       .header .office {
-         font-weight: bold;
+         font-weight: bolder;
          font-style: italic;
-         font-size: 11px;
+         font-size: 14px;
+         line-height: 90%;
       }
 
       .header .address {
+         line-height: 90%;
          font-size: 10px;
+      }
+
+      .header .logo {
+         position: fixed;
+         top: 0;
+         right: 480px;
       }
 
       /* Footer */
@@ -56,22 +69,22 @@
          display: flex;
          flex-direction: column;
          text-align: center;
-         margin-top: 20px;
+         margin-top: 15px;
          font-weight: bold;
-         font-size: 10px;
+         font-size: 14px;
       }
 
       /* Chart */
       .chart {
          text-align: center;
-         margin-top: 10px;
+         margin-top: 15px;
       }
 
       /* Table */
       .table {
          text-align: center;
-         margin-top: 20px;
-         font-size: 11px;
+         margin-top: 30px;
+         font-size: 13px;
       }
 
       table {
@@ -90,8 +103,8 @@
       /* Summary */
       .summary {
          text-align: justify;
-         margin-top: 20px;
-         font-size: 9px;
+         margin-top: 15px;
+         font-size: 12px;
       }
 
       /* Signature */
@@ -99,7 +112,7 @@
          margin-top: 20px;
          display: flex;
          flex-direction: column;
-         font-size: 9px;
+         font-size: 12px;
       }
 
       .signature .name {
@@ -115,18 +128,21 @@
          margin-top: 20px;
       }
    </style>
-   <title>Clinic Report</title>
+   <title>Clinic Reports</title>
 </head>
 
 <body>
    <!-- First Page - Pie Chart -->
    <div class="section1">
       <div class="header">
+         <div class="logo">
+            <img src="{{ public_path('img/pnc_logo.png') }}" style="width: 50%; height: auto;" />
+         </div>
          <div class="label-name">Republic of the Philippines</div>
          <div class="main-name">University of Cabuyao</div>
          <div class="sub-name">(Pamantasan ng Cabuyao)</div>
-         <div class="office">University of Health Department</div>
-         <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, Cabuyao City, Laguna 4025</div>
+         <div class="office">University Health Services Department</div>
+         <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
       </div>
 
       <div class="title">
@@ -136,7 +152,7 @@
       </div>
 
       <div class="chart">
-         <p>[Chart]</p>
+         <span>[Chart]</span>
       </div>
 
       <div class="summary">
@@ -156,61 +172,58 @@
                class="">73%</span>
          </p>
       </div>
-
+      {{-- need new info for clinic --}}
       <div class="signature">
-         <!-- prepared by -->
+         <!-- prepared by (need info) -->
          <div class="prepared">
             <p>Prepared by:</p>
             <br />
             <div>
-               {{-- need info --}}
                <span class="name">Hazel B. Dile</span>
                <br />
-               {{-- need info --}}
                <span class="position">Library Support Staff</span>
             </div>
          </div>
 
-         <!-- checked by-->
+         <!-- checked by (need info) -->
          <div class="checked">
             <p>Checked by:</p>
             <br />
             <div>
-               {{-- need info --}}
                <span class="name">Juanita B. Cuizon,</span> <span class="rl">RL</span>
                <br />
-               {{-- need info --}}
                <span>Circulation Librarian</span>
             </div>
          </div>
 
-         <!-- noted by -->
+         <!-- noted by (need info) -->
          <div class="noted">
             <p>Noted by:</p>
             <br />
             <div>
-               {{-- need info --}}
                <span class="name">Mariquit M. Redrasa,</span> <span class="rl">RL</span>
                <br />
-               {{-- need info --}}
                <span class="position">University Librarian</span>
             </div>
          </div>
       </div>
 
       <div class="footer">
-         <img src="{{ public_path('public/img/pnc_footer.png') }}" />
+         <img src="{{ public_path('img/pnc_footer.png') }}" style="width: 18%; height: auto;" />
       </div>
    </div>
 
    <!-- Second Page - Top Users -->
    <div class="section2">
       <div class="header" style="page-break-before: always">
+         <div class="logo">
+            <img src="{{ public_path('img/pnc_logo.png') }}" style="width: 50%; height: auto;" />
+         </div>
          <div class="label-name">Republic of the Philippines</div>
          <div class="main-name">University of Cabuyao</div>
          <div class="sub-name">(Pamantasan ng Cabuyao)</div>
-         <div class="office">University of Health Department</div>
-         <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, Cabuyao City, Laguna 4025</div>
+         <div class="office">University Health Services Department</div>
+         <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
       </div>
 
       <div class="title">
@@ -257,50 +270,44 @@
             </tbody>
          </table>
       </div>
-
+      {{-- need new info for clinic --}}
       <div class="signature">
-         <!-- prepared by -->
+         <!-- prepared by (need info) -->
          <div class="prepared">
             <p>Prepared by:</p>
             <br />
             <div>
-               {{-- need info --}}
                <span class="name">Hazel B. Dile</span>
                <br />
-               {{-- need info --}}
                <span class="position">Library Support Staff</span>
             </div>
          </div>
 
-         <!-- checked by-->
+         <!-- checked by (need info) -->
          <div class="checked">
             <p>Checked by:</p>
             <br />
             <div>
-               {{-- need info --}}
                <span class="name">Juanita B. Cuizon,</span> <span class="rl">RL</span>
                <br />
-               {{-- need info --}}
                <span>Circulation Librarian</span>
             </div>
          </div>
 
-         <!-- noted by -->
+         <!-- noted by (need info) -->
          <div class="noted">
             <p>Noted by:</p>
             <br />
             <div>
-               {{-- need info --}}
                <span class="name">Mariquit M. Redrasa,</span> <span class="rl">RL</span>
                <br />
-               {{-- need info --}}
                <span class="position">University Librarian</span>
             </div>
          </div>
       </div>
 
       <div class="footer">
-         <img src="{{ public_path('img/pnc_footer.png') }}" />
+         <img src="{{ public_path('img/pnc_footer.png') }}" style="width: 18%; height: auto;" />
       </div>
    </div>
 </body>

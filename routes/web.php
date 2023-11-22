@@ -71,6 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/export_library_pdf', [PdfController::class, 'export_library_pdf'])
         ->name('export_library_pdf');
 
+    Route::get('/export_clinic_pdf', [PdfController::class, 'export_clinic_pdf'])
+        ->name('export_clinic_pdf');
+        
     // Accounts
     Route::get('accounts', Accounts::class)
         // ->middleware('can:view audit log')

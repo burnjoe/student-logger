@@ -26,7 +26,8 @@
 
          {{-- Generate Report --}}
          <div class="flex justify-end ps-2">
-            <x-button btnType="success" class="flex space-x-2 items-center">
+            <x-button href="{{ route('export_attendance_pdf') }}" btnType="success" element="a"
+               class="flex space-x-2 items-center" target="_blank">
                <i class="fa-solid fa-print"></i>
                <span>Generate Report</span>
             </x-button>

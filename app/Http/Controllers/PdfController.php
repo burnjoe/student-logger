@@ -7,6 +7,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfController extends Controller
 {
+    public function export_attendance_pdf()
+    {
+        $pdf = Pdf::loadView('pdf.attendance-pdf');
+        return $pdf->stream('Attendance-Reports.pdf');
+    }
+
     public function export_library_pdf()
     {
         $pdf = Pdf::loadView('pdf.library-pdf');

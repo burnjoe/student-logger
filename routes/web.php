@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::get('attendances', Attendances::class)
         ->middleware('can:view attendances')
         ->name('attendances');
+    
+    Route::get('/export_attendance_pdf', [PdfController::class, 'export_attendance_pdf'])
+        ->name('export_attendance_pdf');
 
     // Audit Log
     Route::get('audit-log', AuditLog::class)

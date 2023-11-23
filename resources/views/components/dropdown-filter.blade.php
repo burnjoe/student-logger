@@ -30,6 +30,9 @@
        case '44':
            $menuWidth = 'w-44';
            break;
+       case '100%':
+           $menuWidth = 'w-100%';
+           break;
        default:
            break;
    }

@@ -1,33 +1,34 @@
 <div>
-   <div class="grid grid-cols-3 mt-4">
+   <div class="grid lg:grid-cols-2 gap-4 mt-4">
       @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
       {{-- Filtering --}}
-      <div class="flex justify-start items-center">
-         <div class="relative text-sm">
-            <i class="fa-solid fa-filter ps-2 text-darkGray"></i>
-            <span class="font-normal text-darkGray ps-1">Filter by:</span>
-         </div>
+      <div class="flex justify-between lg:justify-end items-center">
+         <div class="flex justify-start lg:justify-end items-center">
+            <div class="relative text-sm">
+               <i class="fa-solid fa-filter ps-2 text-darkGray"></i>
+               <span class="font-normal text-darkGray ps-1">Filter by:</span>
+            </div>
 
-         {{-- Filter by college --}}
-         <div class="flex justify-start items-center ps-2">
-            @include('livewire.includes.filter-college')
-         </div>
+            {{-- Filter by college --}}
+            <div class="flex justify-start items-center ps-2">
+               @include('livewire.includes.filter-college')
+            </div>
 
-         {{-- Filter by program --}}
-         <div class="flex justify-start items-center ps-2">
-            @include('livewire.includes.filter-program')
+            {{-- Filter by program --}}
+            <div class="flex justify-start items-center ps-2">
+               @include('livewire.includes.filter-program')
+            </div>
          </div>
+         @can('manage students')
+            <div class="flex justify-end ps-2">
+               <x-button wire:click.prevent="create" btnType="success" class="flex space-x-2 items-center">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add New Student</span>
+               </x-button>
+            </div>
+         @endcan
       </div>
-
-      @can('manage students')
-         <div class="flex justify-end">
-            <x-button wire:click.prevent="create" btnType="success" class="flex space-x-2 items-center">
-               <i class="fa-solid fa-plus"></i>
-               <span>Add New Student</span>
-            </x-button>
-         </div>
-      @endcan
    </div>
 
    {{-- Table --}}

@@ -13,6 +13,12 @@ class PdfController extends Controller
         return $pdf->stream('Attendance-Reports.pdf');
     }
 
+    public function export_maingate_pdf() 
+    {
+        $pdf = Pdf::loadView('pdf.main-gate-pdf');
+        return $pdf->stream('Main-Gate-Reports.pdf');
+    }
+
     public function export_library_pdf()
     {
         $pdf = Pdf::loadView('pdf.library-pdf');

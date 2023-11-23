@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view attendances')
         ->name('attendances');
     
-    Route::get('/export_attendance_pdf', [PdfController::class, 'export_attendance_pdf'])
+    Route::get('attendance-reports-pdf', [PdfController::class, 'export_attendance_pdf'])
         ->name('export_attendance_pdf');
 
     // Audit Log
@@ -71,11 +71,14 @@ Route::middleware('auth')->group(function () {
     Route::get('reports', Reports::class)
         ->name('reports');
 
-    Route::get('/export_library_pdf', [PdfController::class, 'export_library_pdf'])
+    Route::get('library-reports-pdf', [PdfController::class, 'export_library_pdf'])
         ->name('export_library_pdf');
 
-    Route::get('/export_clinic_pdf', [PdfController::class, 'export_clinic_pdf'])
+    Route::get('clinic-reports-pdf', [PdfController::class, 'export_clinic_pdf'])
         ->name('export_clinic_pdf');
+
+    Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
+        ->name('export_maingate_pdf');
         
     // Accounts
     Route::get('accounts', Accounts::class)

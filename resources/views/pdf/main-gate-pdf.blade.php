@@ -130,7 +130,7 @@
          margin-top: 20px;
       }
    </style>
-   <title>Library Reports</title>
+   <title>Main Gate Reports</title>
 </head>
 
 <body>
@@ -143,7 +143,7 @@
       <div class="main-name">University of Cabuyao</div>
       <div class="sub-name">(Pamantasan ng Cabuyao)</div>
       <!-- need info PMGSD? -->
-      <div class="office">Office of the University Library</div>
+      <div class="office">PMGSD</div>
       <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
    </div>
 
@@ -155,9 +155,9 @@
    <!-- First Page -->
    <div>
       <div class="title">
-         <div class="page-title">ATTENDANCE REPORT</div>
-         <div>From <span class="start-date">Nov. 05, 2023</span> to <span class="end-date">Nov. 05, 2023</span></div>
-         {{-- <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div> --}}
+         <div class="page-title">MAIN GATE REPORT</div>
+         {{-- <div>From <span class="start-date">Nov. 05, 2023</span> to <span class="end-date">Nov. 05, 2023</span></div> --}}
+         <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div>
       </div>
 
       <div class="table">
@@ -171,7 +171,6 @@
                   <th>Log In</th>
                   <th>Log Out</th>
                   <th>Status</th>
-                  <th>Post</th>
                </tr>
             </thead>
             <tbody>
@@ -183,7 +182,6 @@
                   <td>05:05 PM</td>
                   <td>10:05 PM</td>
                   <td>Out</td>
-                  <td>Clinic</td>
                </tr>
             </tbody>
          </table>

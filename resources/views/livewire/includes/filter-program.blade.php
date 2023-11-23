@@ -9,13 +9,11 @@
 
       @slot('content')
          {{-- CAS --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="CAS">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         CAS
                      </div>
                   </div>
@@ -37,13 +35,11 @@
          </x-accordion>
 
          {{-- CBAA --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="CBAA">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         CBAA
                      </div>
                   </div>
@@ -89,13 +85,11 @@
          </x-accordion>
 
          {{-- CCS --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="CCS">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         CCS
                      </div>
                   </div>
@@ -129,13 +123,11 @@
          </x-accordion>
 
          {{-- COED --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="COED">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         COED
                      </div>
                   </div>
@@ -205,13 +197,11 @@
          </x-accordion>
 
          {{-- COE --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="COE">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         COE
                      </div>
                   </div>
@@ -257,13 +247,11 @@
          </x-accordion>
 
          {{-- CHAS --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="CHAS">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         CHAS
                      </div>
                   </div>
@@ -285,13 +273,11 @@
          </x-accordion>
 
          {{-- SHS --}}
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
+         <x-accordion class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
             <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
                @slot('header')
                   <div class="w-full flex space-x-4" title="SHS">
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                     <div class="w-full flex justify-between items-center text-sm">
                         SHS
                      </div>
                   </div>

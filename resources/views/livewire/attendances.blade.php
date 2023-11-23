@@ -1,27 +1,90 @@
 <div>
-   <div class="grid grid-cols-2 mt-4">
+   <div class="grid lg:grid-cols-2 gap-4 mt-4">
       @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
       {{-- Filtering --}}
-      <div class="flex justify-start items-center">
-         <div class="relative text-sm">
-            <i class="fa-solid fa-filter ps-2 text-darkGray"></i>
-            <span class="font-normal text-darkGray ps-1">Filter by:</span>
+      <div class="flex justify-between lg:justify-end items-center">
+         <div class="flex justify-start lg:justify-end items-center">
+            <div class="relative text-sm">
+               <i class="fa-solid fa-filter ps-2 text-darkGray"></i>
+               <span class="font-normal text-darkGray ps-1">Filter by:</span>
+            </div>
+
+            {{-- Filter by status --}}
+            <div class="flex justify-start items-center ps-2">
+               @include('livewire.includes.filter-status')
+            </div>
+
+            {{-- Filter by college --}}
+            <div class="flex justify-start items-center ps-2">
+               @include('livewire.includes.filter-college')
+            </div>
+
+            {{-- Filter by program --}}
+            <div class="flex justify-start items-center ps-2">
+               @include('livewire.includes.filter-program')
+            </div>
          </div>
 
-         {{-- Filter by status --}}
-         <div class="flex justify-start items-center ps-2">
-            @include('livewire.includes.filter-status')
-         </div>
+         {{-- Generate Report --}}
+         <div class="flex justify-end ps-2">
+            <x-dropdown-filter align="right" menuWidth="100%">
+               @slot('trigger')
+                  <x-button btnType="success" class="flex space-x-2 items-center">
+                     <i class="fa-solid fa-print"></i>
+                     <span>Generate Report</span>
+                  </x-button>
+               @endslot
+               @slot('content')
+                  {{-- Search label --}}
+                  <div class="w-48">
+                     <x-input-label for="searchby">
+                        <small class="font-normal text-darkGray" style="font-size: 75%;">Search by</small>
+                     </x-input-label>
+                     <x-input-text id="searchby" wire:model.live.debounce.300ms="search" type="text" alignIcon="left"
+                        placeholder="Student no. or name" class="w-full mt-1">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                     </x-input-text>
+                  </div>
 
-         {{-- Filter by college --}}
-         <div class="flex justify-start items-center ps-2">
-            @include('livewire.includes.filter-college')
-         </div>
+                  {{-- Start Date --}}
+                  <div>
+                     <div class="mt-4">
+                        <x-input-label for="startdate">
+                           <small class="font-normal text-darkGray" style="font-size: 75%;">Start Date</small>
+                        </x-input-label>
+                        <x-input-text id="startdate" wire:model="startdate" name="startdate" type="date"
+                           class="w-full mt-1 bg-lightGray" :messages="$errors->get('birthdate')" />
+                     </div>
+                  </div>
 
-         {{-- Filter by program --}}
-         <div class="flex justify-start items-center ps-2">
-            @include('livewire.includes.filter-program')
+                  {{-- End Date --}}
+                  <div>
+                     <div class="mt-4">
+                        <x-input-label for="enddate">
+                           <small class="font-normal text-darkGray" style="font-size: 75%;">End Date</small>
+                        </x-input-label>
+                        <x-input-text id="enddate" wire:model="enddate" name="enddate" type="date"
+                           class="w-full mt-1 bg-lightGray" :messages="$errors->get('birthdate')" />
+                     </div>
+                  </div>
+
+                  <hr class="mx-4 my-2 text-gray">
+
+                  {{-- Print --}}
+                  <div class="flex justify-end items-center space-x-4">
+                     {{-- <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary"
+                     textSize="text-xs"
+                        class="flex space-x-2 items-center">
+                        Cancel
+                     </x-button> --}}
+                     <x-button href="{{ route('export_attendance_pdf') }}" btnType="success" element="a"
+                        textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
+                        <span>Print</span>
+                     </x-button>
+                  </div>
+               @endslot
+            </x-dropdown-filter>
          </div>
       </div>
    </div>

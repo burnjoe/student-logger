@@ -2,6 +2,7 @@
 
 use App\Events\PlaygroundEvent;
 use App\Livewire\AuditLog;
+use App\Livewire\Reports;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
 use App\Livewire\Attendances;
@@ -9,6 +10,7 @@ use App\Livewire\AttendanceLogger;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PdfController;
 use App\Livewire\Accounts;
 use App\Livewire\Cards;
 
@@ -56,12 +58,28 @@ Route::middleware('auth')->group(function () {
     Route::get('attendances', Attendances::class)
         ->middleware('can:view attendances')
         ->name('attendances');
+    
+    Route::get('attendance-reports-pdf', [PdfController::class, 'export_attendance_pdf'])
+        ->name('export_attendance_pdf');
 
     // Audit Log
     Route::get('audit-log', AuditLog::class)
         ->middleware('can:view audit log')
         ->name('audit-log');
 
+    // Reports Module
+    Route::get('reports', Reports::class)
+        ->name('reports');
+
+    Route::get('library-reports-pdf', [PdfController::class, 'export_library_pdf'])
+        ->name('export_library_pdf');
+
+    Route::get('clinic-reports-pdf', [PdfController::class, 'export_clinic_pdf'])
+        ->name('export_clinic_pdf');
+
+    Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
+        ->name('export_maingate_pdf');
+        
     // Accounts
     Route::get('accounts', Accounts::class)
         // ->middleware('can:view audit log')

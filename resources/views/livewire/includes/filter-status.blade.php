@@ -1,10 +1,10 @@
 <div>
    <x-dropdown-filter align="left" menuWidth="44">
       @slot('trigger')
-         <x-primary-button class="flex space-x-2 items-center">
+         <x-button btnType="success" class="flex space-x-2 items-center">
             <span style="text-transform: none;">Status</span>
             <i class="fa-solid fa-angle-down"></i>
-         </x-primary-button>
+         </x-button>
       @endslot
 
       @slot('content')

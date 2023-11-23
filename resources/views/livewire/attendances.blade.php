@@ -35,7 +35,7 @@
          <th class="px-6 py-4">Date</th>
          <th class="px-6 py-4">Log In</th>
          <th class="px-6 py-4">Log Out</th>
-         <th class="px-6 py-4">Status</th>
+         <th class="">@include('livewire.includes.filter-status')</th>
          <th class="px-6 py-4">Post</th>
       @endslot
 

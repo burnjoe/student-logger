@@ -142,8 +142,7 @@
       <div class="label-name">Republic of the Philippines</div>
       <div class="main-name">University of Cabuyao</div>
       <div class="sub-name">(Pamantasan ng Cabuyao)</div>
-      <!-- need info PMGSD? -->
-      <div class="office">PMGSD</div>
+      <div class="office">Property Management and General Services Department</div>
       <div class="address">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna, Phillipines 4025</div>
    </div>
 

@@ -11,7 +11,7 @@
     } else if(Array.isArray($event.detail)) {
         $event.detail.includes('{{ $name }}') ? selected = null : null;
     }"
-    {{ $attributes->merge(['class' => 'w-full mx-auto space-y-4']) }}>
+    {{ $attributes->merge(['class' => 'w-full mx-auto space-y-2']) }}>
     
     {{ $slot }}
 </div>

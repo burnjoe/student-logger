@@ -55,6 +55,21 @@ class User extends Authenticatable
         $query->where('email', 'like', "%{$value}%");
     }
 
+    public function scopeStatusIn($query, $array)
+    {
+        $query->whereIn('status', $array);
+    }
+
+    public function scopeRoleIn($query, $array)
+    {
+        $query->whereHas(
+            'roles',
+            function ($query) use ($array) {
+                $query->whereIn('id', $array);
+            }
+        );
+    }
+
     /**
      * Relationships
      */

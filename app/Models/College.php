@@ -13,6 +13,7 @@ class College extends Model
 
     protected $fillable = [
         'name',
+        'abbreviation',
     ];
 
 
@@ -22,6 +23,11 @@ class College extends Model
     public function scopeSearch($query, $value)
     {
         $query->where('name', 'like', "%{$value}%");
+    }
+
+    public function scopeCollegeIn($query, $array)
+    {
+        $query->whereIn('name', $array);
     }
 
     /**

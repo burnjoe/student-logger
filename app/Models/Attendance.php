@@ -24,9 +24,9 @@ class Attendance extends Model
     /**
      * Filtering search
      */
-    public function scopeSearch($query, $value)
+    public function scopeStatusIn($query, $array)
     {
-        $query->where('status', 'like', "%{$value}%");
+        $query->whereIn('status', $array);
     }
 
     /**

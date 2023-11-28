@@ -2,10 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\College;
 use App\Models\Student;
 use Livewire\Component;
-use Illuminate\Support\Facades\View;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\View;
 
 class StudentsArchive extends Component
 {
@@ -25,31 +26,37 @@ class StudentsArchive extends Component
     public $phone;
     public $email;
     public $account_type;
-    
+
     public Student $selectedStudent;
 
     public $action;
     public $search = "";
+    public $selectedPrograms = [];
 
 
     public function render()
     {
         View::share('page', 'archive');
 
-        return view('livewire.students-archive', 
-        [
+        return view('livewire.students-archive', [
             'students' => Student::select('id', 'student_no', 'last_name', 'first_name')
                 ->onlyTrashed()
                 ->latest()
-                ->search($this->search)
-                ->paginate(15)
+                ->when(
+                    $this->search,
+                    fn ($query) =>
+                    $query->search($this->search)
+                )
+                ->paginate(15),
+            'colleges' => College::orderBy('name')
+                ->get(),
         ]);
     }
 
     /**
      *  Initialize attributes
      */
-    public function init(int $id) 
+    public function init(int $id)
     {
         try {
             $this->selectedStudent = Student::onlyTrashed()->findOrFail($id);
@@ -72,11 +79,11 @@ class StudentsArchive extends Component
             throw $th;
         }
     }
-    
+
     /**
      * Show selected record in modal
      */
-    public function show(int $id) 
+    public function show(int $id)
     {
         $this->dispatch('close-modal');
 
@@ -92,7 +99,7 @@ class StudentsArchive extends Component
     /**
      * Show restore confirmation dialog
      */
-    public function restore($id) 
+    public function restore($id)
     {
         $this->dispatch('close-modal');
 
@@ -108,7 +115,7 @@ class StudentsArchive extends Component
     /**
      * Restore record
      */
-    public function recover() 
+    public function recover()
     {
         $this->selectedStudent->restore();
 
@@ -122,7 +129,7 @@ class StudentsArchive extends Component
     /**
      * Show delete confirmation dialog
      */
-    public function delete($id) 
+    public function delete($id)
     {
         $this->dispatch('close-modal');
 
@@ -138,7 +145,7 @@ class StudentsArchive extends Component
     /**
      * Permanently deletes record
      */
-    public function destroy() 
+    public function destroy()
     {
         $this->selectedStudent->forceDelete();
 

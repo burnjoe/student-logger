@@ -2,7 +2,8 @@
     'align' => 'right',
     'width' => 'fit', 
     'menuWidth', 
-    'contentClasses' => 'p-1.5 bg-white'
+    'contentClasses' => 'p-1.5 bg-white',
+    'isFilter' => false,
 ])
 
 @php
@@ -33,6 +34,9 @@ switch ($menuWidth) {
     case '44':
         $menuWidth = 'w-44';
         break;
+    case '100%':
+        $menuWidth = 'w-100%';
+        break;
     default: 
         break;
 }
@@ -46,7 +50,11 @@ switch ($menuWidth) {
     <div x-show="open"  
             class="dropdown-menu absolute {{ $menuWidth ?? $width }} mt-2 rounded-md shadow-lg text-darkGray ring-1 ring-black ring-opacity-5 {{ $alignmentClasses }}"
             style="display: none;"
-            @click="open = false">
+            @if($isFilter)
+            @click="open = true"
+            @else
+            @click="open = false"
+            @endif>
         <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
             {{ $content }}
         </div>

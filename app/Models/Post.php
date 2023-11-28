@@ -24,6 +24,11 @@ class Post extends Model
         $query->where('name', 'like', "%{$value}%");
     }
 
+    public function scopePostIn($query, $array)
+    {
+        $query->whereIn('id', $array);
+    }
+
     /**
      * Relationships
      */

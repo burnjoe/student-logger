@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\College;
 use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,7 +30,7 @@ class Students extends Component
     // public $program_id;
 
     public Student $selectedStudent;
-    
+
     public $search = "";
     public $filterProgram;
     public $action;
@@ -38,10 +39,10 @@ class Students extends Component
     /**
      * Validation rules
      */
-    public function rules() 
+    public function rules()
     {
         return [
-            'student_no' => 'required|digits:7|unique:students,student_no,' .$this->id,
+            'student_no' => 'required|digits:7|unique:students,student_no,' . $this->id,
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
@@ -51,8 +52,8 @@ class Students extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' .$this->id,
-            'email' => 'required|email|unique:students,email,' .$this->id,
+            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->id,
+            'email' => 'required|email|unique:students,email,' . $this->id,
             'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
         ];
     }
@@ -60,9 +61,9 @@ class Students extends Component
     /**
      * Validation messages
      */
-    public function messages() 
+    public function messages()
     {
-        return[
+        return [
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
             'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)'
@@ -72,9 +73,9 @@ class Students extends Component
     /**
      * Validation attributes
      */
-    public function validationAttributes() 
+    public function validationAttributes()
     {
-        return[
+        return [
             'student_no' => 'student number',
             'birthdate' => 'date of birth',
             'birthplace' => 'place of birth',
@@ -92,18 +93,24 @@ class Students extends Component
 
         return view('livewire.students', [
             'students' => Student::select('id', 'student_no', 'last_name', 'first_name')
-            ->latest()
-            ->search($this->search)
-            ->paginate(15)
+                ->latest()
+                ->when(
+                    $this->search,
+                    fn ($query) =>
+                    $query->search($this->search)
+                )
+                ->paginate(15),
+            'colleges' => College::orderBy('name')
+                ->get(),
         ]);
     }
 
     /**
      *  Initialize attributes
      */
-    public function init(int $id) 
+    public function init(int $id)
     {
-        try{
+        try {
             $this->selectedStudent = Student::find($id);
 
             $this->id = $this->selectedStudent->id;
@@ -128,7 +135,7 @@ class Students extends Component
     /**
      * Show selected record in modal
      */
-    public function show(int $id) 
+    public function show(int $id)
     {
         $this->dispatch('close-modal');
 
@@ -143,22 +150,22 @@ class Students extends Component
     /**
      * Show create form modal
      */
-    public function create() 
+    public function create()
     {
         $this->dispatch('close-modal');
 
-        $this->resetValidation();        
+        $this->resetValidation();
         $this->resetExcept(['search', 'filterProgram']);
 
         $this->action = 'store';
-        
+
         $this->dispatch('open-modal', 'create-student');
     }
 
     /**
      * Store new record
      */
-    public function store() 
+    public function store()
     {
         $validated = $this->validate();
 
@@ -177,7 +184,7 @@ class Students extends Component
     /**
      * Shows edit form modal
      */
-    public function edit(int $id) 
+    public function edit(int $id)
     {
         $this->dispatch('close-modal');
 
@@ -196,7 +203,7 @@ class Students extends Component
     /**
      * Updates selected record
      */
-    public function update() 
+    public function update()
     {
         $validated = $this->validate();
 
@@ -212,12 +219,12 @@ class Students extends Component
     /**
      * Show delete confirmation dialog
      */
-    public function delete($id) 
+    public function delete($id)
     {
         $this->dispatch('close-modal');
 
         $this->resetExcept(['search', 'filterProgram']);
-        
+
         try {
             $this->selectedStudent = Student::findOrFail($id);
             $this->action = 'destroy';
@@ -230,13 +237,14 @@ class Students extends Component
     /**
      * Archives selected record
      */
-    public function destroy() {
+    public function destroy()
+    {
         $this->selectedStudent->delete();
 
         $this->reset();
 
         $this->dispatch('success', ['message' => 'Student successfully deleted']);
-        
+
         $this->dispatch('close-modal');
     }
 }

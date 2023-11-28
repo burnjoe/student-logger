@@ -3,7 +3,7 @@
    <div :class="{ 'pb-8': !sidebarOpen }" class="sticky top-0 bg-white pt-1 pb-12 z-10">
       <div x-show="sidebarOpen" class="flex flex-row justify-between">
          <div class="mt-5 mx-6 w-40">
-            <a href="{{ route('root') }}"><img class="w-full" src="{{ asset('img/ist_logo.png') }}" alt=""></a>
+            <a wire:navigate href="{{ route('root') }}"><img class="w-full" src="{{ asset('img/ist_logo.png') }}" alt=""></a>
          </div>
 
          {{-- close button --}}
@@ -13,7 +13,7 @@
       </div>
 
       <div x-cloak x-show="!sidebarOpen" class="mt-2 mx-3 w-40">
-         <a href="{{ route('root') }}"><img class="h-10 w-10" src="{{ asset('img/pnc_logo.png') }}" alt=""></a>
+         <a wire:navigate href="{{ route('root') }}"><img class="h-10 w-10" src="{{ asset('img/pnc_logo.png') }}" alt=""></a>
       </div>
    </div>
 
@@ -28,7 +28,7 @@
 
    <nav class="flex flex-col mx-2 my-2 text-darkGray">
       {{-- Dashboard --}}
-      <a href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard"
+      <a wire:navigate href="{{ route('dashboard') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Dashboard"
          @click="$dispatch('close-accordion')">
          <div class="py-3 px-4 w-full flex space-x-4">
             <span>
@@ -57,14 +57,14 @@
                   </div>
                @endslot
                @slot('content')
-                  <a href="{{ route('students') }}" title="Student Information" @click="$dispatch('close-accordion')">
+                  <a wire:navigate href="{{ route('students') }}" title="Student Information" @click="$dispatch('close-accordion')">
                      <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
                         <span class="w-full flex items-center text-sm">
                            Information
                         </span>
                      </div>
                   </a>
-                  <a href="{{ route('rfid') }}" title="Student RFID" @click="$dispatch('close-accordion')">
+                  <a wire:navigate href="{{ route('rfid') }}" title="Student RFID" @click="$dispatch('close-accordion')">
                      <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
                         <span class="w-full flex items-center text-sm">
                            RFID
@@ -77,7 +77,7 @@
       @endcan
 
       {{-- Attendances --}}
-      <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
+      <a wire:navigate href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
          @click="$dispatch('close-accordion')">
          <div class="py-3 px-4 w-full flex space-x-4">
             <span>
@@ -91,7 +91,7 @@
 
       {{-- User Accounts --}}
       @can('view accounts')
-         <a href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts"
+         <a wire:navigate href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                <span>
@@ -106,7 +106,7 @@
 
       {{-- Audit Log --}}
       @can('view audit log')
-         <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
+         <a wire:navigate href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                <span>
@@ -120,7 +120,7 @@
       @endcan
 
       {{-- Reports --}}
-      <a href="{{ route('reports') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Reports"
+      <a wire:navigate href="{{ route('reports') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Reports"
          @click="$dispatch('close-accordion')">
          <div class="py-3 px-4 w-full flex space-x-4">
             <span>
@@ -149,14 +149,14 @@
                   </div>
                @endslot
                @slot('content')
-                  <a href="{{ route('archive-students') }}" title="Archived Students" @click="$dispatch('close-accordion')">
+                  <a wire:navigate href="{{ route('archive-students') }}" title="Archived Students" @click="$dispatch('close-accordion')">
                      <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
                         <span class="w-full flex items-center text-sm">
                            Archived Students
                         </span>
                      </div>
                   </a>
-                  <a href="#" title="Archived Accounts" @click="$dispatch('close-accordion')">
+                  <a wire:navigate href="#" title="Archived Accounts" @click="$dispatch('close-accordion')">
                      <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
                         <span class="w-full flex items-center text-sm">
                            Archived Accounts
@@ -171,7 +171,7 @@
       <hr class="mx-4 my-2 text-gray">
 
       {{-- Attendance Logger --}}
-      <a href="{{ route('attendance-logger') }}" class="rounded-lg transition-all hover:bg-lightGray"
+      <a wire:navigate href="{{ route('attendance-logger') }}" class="rounded-lg transition-all hover:bg-lightGray"
          title="Attendance Logger" @click="$dispatch('close-accordion')">
          <div class="py-3 px-4 w-full flex space-x-4">
             <span>

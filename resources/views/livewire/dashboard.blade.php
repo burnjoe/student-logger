@@ -1,33 +1,34 @@
 <div>
-   <x-card>
-      {{ 'Welcome, ' . Auth::user()->employee->first_name . ' ' . Auth::user()->employee->last_name . '!' }}
-   </x-card>
+    <x-card>
+        {{ 'Welcome, ' . Auth::user()->employee->first_name . ' ' . Auth::user()->employee->last_name . '!' }}
+    </x-card>
 
-   <div class="grid grid-cols-2 gap-4 mt-4">
-      {{-- pie chart per department --}}
-      <x-card>
-         <div class=" flex flex-col items-center">
-            <span class="text-1rem font-bold">Number of Students per Dept.</span>
-            <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
-         </div>
-      </x-card>
+    <div class="grid grid-cols-2 gap-4 mt-4">
+        {{-- pie chart per department --}}
+        <x-card>
+            <div class=" flex flex-col items-center">
+                <span class="text-1rem font-bold">Number of Students per Dept.</span>
+                <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
+            </div>
+        </x-card>
 
-      <x-card>
-         Total Number Students
-      </x-card>
-   </div>
+        <x-card>
+            Total Number Students
+        </x-card>
+    </div>
 </div>
 
 @push('scripts')
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-   <script>
-      const ctx = document.getElementById('campusChart');
+<script>
+    const ctx = document.getElementById('campusChart');
 
       new Chart(ctx, {
          type: 'pie',
          data: {
-            labels: ['CAS',
+            labels: [
+               'CAS',
                'CBAA',
                'CCS',
                'COED',
@@ -58,5 +59,5 @@
          },
          responsive: true
       });
-   </script>
+</script>
 @endpush

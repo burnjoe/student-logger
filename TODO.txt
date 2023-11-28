@@ -8,6 +8,7 @@ Minor:
  - Fix Session in Back Button in /forgot-password and /reset-password/{token}
  - Fix session expires throws 419 after clicking login and logout button
  - Fix table component x overflow gets cut off in main content
+ - Make toast component's data intialized as false, then assign true when needed to be shown. Then, completely remove the component after n seconds (not hide).
 
 
 Major:
@@ -38,3 +39,19 @@ destroy - delete data (archive)
 
 Laravel Breeze and Livewire's Alpine JS Conflicts
 See Article: https://laraveldaily.com/post/livewire-3-laravel-breeze-error-alpine-js-conflict
+
+Deep Relationships
+See Tutorial: https://www.youtube.com/watch?v=5s-_SnVl-1g&t=365s
+
+cURL ERROR 60: SSL Certificate Problem Solution:
+https://www.youtube.com/watch?v=Oo4kX3LMwJ4
+https://curl.se/docs/caextract.html
+
+beyondcode/laravel-websockets Discussion:
+https://www.youtube.com/watch?v=AUlbN_xsdXg
+
+beyondcode/laravel-websockets Installation Guide:
+https://beyondco.de/docs/laravel-websockets/getting-started/installation
+
+beyondcode/laravel-websockets Installation Issue:
+https://youtu.be/8RL584c7EsI

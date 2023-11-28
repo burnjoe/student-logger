@@ -12,14 +12,31 @@ class Admission extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['student_id', 'trackable_id', 'trackable_type', 'level', 'enrolled_at'];
+    protected $fillable = [
+        'level',
+        'enrolled_at'
+    ];
 
 
-    // public function student() : BelongsTo {
-    //     return $this->belongsTo(Student::class);
-    // }
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('level', 'like', "%{$value}%")
+            ->orWhere('enrolled_at', 'like', "%{$value}%");
+    }
 
-    public function trackable(): MorphTo {
-        return $this->morphTo(); 
+    /**
+     * Relationships
+     */
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function program(): BelongsTo
+    {
+        return $this->belongsTo(Program::class);
     }
 }

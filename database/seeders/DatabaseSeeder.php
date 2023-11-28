@@ -4,10 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\User;
-use App\Models\College;
-use App\Models\Program;
-use App\Models\Student;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,18 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $college = College::create([
-            'name' => 'College of Computing Science'
-        ]);
-
-        $program = Program::create([
-            'name' => 'Bachelor of Science in Computer Science',
-            'college_id' => $college->id
-        ]);
-
-        Student::factory(10000)->create();
-
         // Calls out other seeder
+        $this->call(CollegeSeeder::class);
+        $this->call(PostSeeder::class);
+        $this->call(StudentCardSeeder::class);
+        $this->call(AttendanceSeeder::class);
         $this->call(EmployeeSeeder::class);
         $this->call(FamilyMemberSeeder::class);
         $this->call(PermissionSeeder::class);

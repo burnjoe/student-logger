@@ -11,10 +11,30 @@ class College extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'abbreviation',
+    ];
 
 
-    public function programs() : HasMany {
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%");
+    }
+
+    public function scopeCollegeIn($query, $array)
+    {
+        $query->whereIn('name', $array);
+    }
+
+    /**
+     * Relationships
+     */
+    public function programs(): HasMany
+    {
         return $this->hasMany(Program::class);
     }
 }

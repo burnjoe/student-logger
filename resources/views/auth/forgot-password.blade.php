@@ -32,7 +32,7 @@
     </div>
 
     {{-- Back Button --}}
-    <x-button btnType="secondary" element="a" :href="route('login', ['portal' => $portal])" class="absolute top-8 left-8" rounded="rounded-md">
+    <x-button btnType="secondary" element="a" :href="route('login')" class="absolute top-8 left-8" rounded="rounded-md">
         <i class="fa-solid fa-arrow-left"></i>
     </x-button>
 </x-guest-layout>

@@ -32,7 +32,9 @@ Git Commands Cheat Sheet
 
 -> git checkout <branch-name>                                   // switch branch 
 
--> git checkout -b <new-branch-name>                            // create new branch in local repo
+-> git checkout -b <new-branch-name>                            // create new branch in local repo from current branch
+
+-> git checkout -b <new-branch-name>                            // create new branch in local repo from remote repo
 
 -> git branch                                                   // shows all the list of branches in local repo 
 

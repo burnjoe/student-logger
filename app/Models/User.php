@@ -7,7 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -24,8 +24,6 @@ class User extends Authenticatable
         'email',
         'password',
         'status',
-        'profileable_id',
-        'profileable_type',
     ];
 
     /**
@@ -49,7 +47,34 @@ class User extends Authenticatable
     ];
 
 
-    public function profileable(): MorphTo {
-        return $this->morphTo(); 
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('email', 'like', "%{$value}%");
+    }
+
+    public function scopeStatusIn($query, $array)
+    {
+        $query->whereIn('status', $array);
+    }
+
+    public function scopeRoleIn($query, $array)
+    {
+        $query->whereHas(
+            'roles',
+            function ($query) use ($array) {
+                $query->whereIn('id', $array);
+            }
+        );
+    }
+
+    /**
+     * Relationships
+     */
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

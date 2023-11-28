@@ -1,11 +1,18 @@
 <?php
 
-use App\Livewire\StudentsArchive;
+use App\Events\PlaygroundEvent;
+use App\Livewire\AuditLog;
+use App\Livewire\Reports;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
+use App\Livewire\Attendances;
+use App\Livewire\AttendanceLogger;
+use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Livewire\AuditLog;
+use App\Http\Controllers\PdfController;
+use App\Livewire\Accounts;
+use App\Livewire\Cards;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,34 +25,77 @@ use App\Livewire\AuditLog;
 |
 */
 
+Route::get('/ws', function() {
+    return view('websocket');
+});
+
+Route::get('/playground', function() {
+    event(new PlaygroundEvent());
+});
+
 // Root
 Route::get('/', function() { 
-    return redirect('parent-guardian/login');
+    return redirect()->route('login');
 })->name('root');
 
 // Authenticated Users
 Route::middleware('auth')->group(function () {
     // Dashboard Module
     Route::get('dashboard', Dashboard::class)
-    // function() { return view('dashboard'); })
-    ->name('dashboard');
+        ->name('dashboard');
 
     // Students Module
     Route::get('students', Students::class)
-        ->middleware('can:view students')
+        ->middleware('can:manage students')
         ->name('students');
+
+    // Students Module
+    Route::get('rfid', Cards::class)
+        // ->middleware('can:view students')
+        ->name('rfid');
+
+    // Attendance
+    Route::get('attendances', Attendances::class)
+        ->middleware('can:view attendances')
+        ->name('attendances');
+    
+    Route::get('attendance-reports-pdf', [PdfController::class, 'export_attendance_pdf'])
+        ->name('export_attendance_pdf');
 
     // Audit Log
     Route::get('audit-log', AuditLog::class)
         ->middleware('can:view audit log')
         ->name('audit-log');
 
+    // Reports Module
+    Route::get('reports', Reports::class)
+        ->name('reports');
+
+    Route::get('library-reports-pdf', [PdfController::class, 'export_library_pdf'])
+        ->name('export_library_pdf');
+
+    Route::get('clinic-reports-pdf', [PdfController::class, 'export_clinic_pdf'])
+        ->name('export_clinic_pdf');
+
+    Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
+        ->name('export_maingate_pdf');
+        
+    // Accounts
+    Route::get('accounts', Accounts::class)
+        // ->middleware('can:view audit log')
+        ->name('accounts');
+
     // Archive Module
     Route::get('archive/students', StudentsArchive::class)
         ->middleware('can:view archive')
         ->name('archive-students');
 
+    // Attendance Logger Module
+    Route::get('attendance-logger', AttendanceLogger::class)
+        ->middleware('password.confirm')
+        ->name('attendance-logger');
 
+    
 
     // Profile Module
     Route::get('profile', [UserController::class, 'edit'])

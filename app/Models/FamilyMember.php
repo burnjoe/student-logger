@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,20 +12,32 @@ class FamilyMember extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'last_name', 
-        'first_name', 
-        'middle_name', 
-        'relationship', 
-        'occupation', 
+        'last_name',
+        'first_name',
+        'middle_name',
+        'relationship',
+        'occupation',
         'phone'
     ];
 
 
-    public function user() : MorphOne {
-        return $this->morphOne(User::class, 'profileable');
+    /**
+     * Filtering search
+     */
+    public function scopeSearch($query, $value)
+    {
+        $query->where('last_name', 'like', "%{$value}%")
+            ->orWhere('first_name', 'like', "%{$value}%")
+            ->orWhere('middle_name', 'like', "%{$value}%")
+            ->orWhere('relationship', 'like', "%{$value}%")
+            ->orWhere('phone', 'like', "%{$value}%");
     }
 
-    public function students() : BelongsToMany {
+    /**
+     * Relationships
+     */
+    public function students(): BelongsToMany
+    {
         return $this->belongsToMany(Student::class);
     }
 }

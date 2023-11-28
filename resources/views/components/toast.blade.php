@@ -39,7 +39,8 @@
 <x-card 
 	x-data="{ open: true }" 
 	x-show="open" 
-	x-init="setTimeout(() => open = false, 3000)" 
+	x-init="setTimeout(() => open = false, 5000)" 
+	x-on:open-toast.window="show = true"
 	{{-- x-transition:enter="ease-out duration-300"
 	x-transition:enter-start="opacity-0"
 	x-transition:enter-end="opacity-100"

@@ -18,18 +18,15 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'sabanajholo@gmail.com',
             'password' => bcrypt('burnjoe25'),
-            'status' => 1,
-            'profileable_id' => 1,
-            'profileable_type' => Employee::class
+            'status' => 'ACTIVE',
+            'employee_id' => 1,
         ])->assignRole('admin');
 
         User::create([
             'email' => 'derlajulius@gmail.com',
             'password' => bcrypt('password'),
-            'status' => 1,
-            'profileable_id' => 2,
-            'profileable_type' => FamilyMember::class
-        ])->assignRole('parent');
-
+            'status' => 'INACTIVE',
+            'employee_id' => 2,
+        ])->assignRole('librarian');
     }
 }

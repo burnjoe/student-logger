@@ -12,6 +12,7 @@ class Dashboard extends Component
      */
     public function render()
     {
+        session()->forget('auth.password_confirmed_at');
         View::share('page', 'dashboard');
         
         return view('livewire.dashboard');

@@ -104,10 +104,10 @@
                     :messages="$errors->get('role')">
                     <option selected hidden>Role</option>
                     @foreach ($roles as $role)
-                    <option value="{{ $role->name }}">{{ ucwords($role->name) }}</option>    
+                    <option value="{{ $role->id }}">{{ ucwords($role->name) }}</option>    
                     @endforeach
                 </x-input-select>
-                <x-input-error class="absolute" :messages="$errors->get('sex')" />
+                <x-input-error class="absolute" :messages="$errors->get('role')" />
             </div>
             {{-- User Account Status --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
@@ -120,7 +120,7 @@
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="INACTIVE">INACTIVE</option>
                 </x-input-select>
-                <x-input-error class="absolute" :messages="$errors->get('sex')" />
+                <x-input-error class="absolute" :messages="$errors->get('status')" />
             </div>
         </div>
 

@@ -85,7 +85,7 @@ class Accounts extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'address' => 'required|min:3',
             'phone' => 'required|regex:/^9\d{9}$/|unique:employees,phone,' . $this->employee_id,
-            'role' => 'required|exists:roles,name',
+            'role' => 'required|exists:roles,id',
         ];
     }
 

@@ -99,7 +99,7 @@ class AccountsArchive extends Component
             throw $th;
         }
     }
-
+    
     /**
      * Show selected record in modal
      */

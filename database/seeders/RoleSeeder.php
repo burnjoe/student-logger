@@ -17,8 +17,8 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'admin'])
             ->syncPermissions([
                 'manage students',
-                'view attendances',
-                'view accounts',
+                'manage attendances',
+                'manage users',
                 'view audit log',
                 'view archive',
             ]);

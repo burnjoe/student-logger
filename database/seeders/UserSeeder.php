@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Employee;
 use App\Models\FamilyMember;
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
@@ -15,6 +16,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $roleNames = Role::pluck('name')->all();
+
+        User::factory(10)->create();
+
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $user->assignRole(fake()->randomElement($roleNames));
+        }
+
         User::create([
             'email' => 'sabanajholo@gmail.com',
             'password' => bcrypt('burnjoe25'),

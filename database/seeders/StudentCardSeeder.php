@@ -16,7 +16,7 @@ class StudentCardSeeder extends Seeder
     public function run(): void
     {
         // Creates student and card records
-        Card::factory(1000)->create();
+        Card::factory(8)->create();
 
         $student = Student::create([
             'student_no' => 2000294,

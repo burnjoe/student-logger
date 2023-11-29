@@ -19,8 +19,7 @@ return new class extends Migration
             $table->enum('status', ['INACTIVE', 'ACTIVE']);
             $table->foreignId('employee_id')
                 ->constrained()
-                ->restrictOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

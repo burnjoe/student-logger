@@ -9,12 +9,12 @@
       <div class="p-6">
          <div class="flex flex-col md:flex-row gap-4 pb-6">
             {{-- Left Side --}}
-            <div class="card-body md:w-1/3 flex flex-col items-center">
+            <div class="md:w-1/3 flex flex-col items-center">
                <span class="text-1rem font-bold">Number of Students per Dept. in the Campus</span>
                <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right Side --}}
-            <div class="card-body w-full md:w-3/4">
+            <div class="w-full md:w-3/4">
                <div class="flex flex-col">
                   <span class="text-1rem font-bold">Total Number Students</span>
                   #
@@ -137,12 +137,12 @@
       <div class="p-6">
          <div class="flex flex-col md:flex-row gap-4">
             {{-- Left Side --}}
-            <div class="card-body md:w-1/3 flex flex-col items-center">
+            <div class="md:w-1/3 flex flex-col items-center">
                <span class="text-1rem font-bold">Number of Students per Dept. in the Library</span>
                <canvas id="libraryChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right side --}}
-            <div class="card-body w-full md:w-3/4">
+            <div class="w-full md:w-3/4">
                <div class="flex flex-col mb-3">
                   <span class="text-1rem font-bold">Total Number Students</span>
                   #
@@ -263,12 +263,12 @@
       <div class="p-6">
          <div class="flex flex-col md:flex-row gap-4">
             {{-- Left Side --}}
-            <div class="card-body md:w-1/3 flex flex-col items-center">
+            <div class="md:w-1/3 flex flex-col items-center">
                <span class="text-1rem font-bold">Number of Students per Dept. in the Clinic</span>
                <canvas id="clinicChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right Side --}}
-            <div class="card-body w-full md:w-3/4">
+            <div class="w-full md:w-3/4">
                <div class="flex flex-col mb-3">
                   <span class="text-1rem font-bold">Total Number Students</span>
                   #

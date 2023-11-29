@@ -16,7 +16,7 @@
                     {{-- Search label --}}
                     <div class="w-48">
                         <x-input-label for="searchby">
-                            <small class="font-normal text-darkGray" style="font-size: 75%;">Search by</small>
+                            <small class="font-normal text-darkGray text-xs">Search by</small>
                         </x-input-label>
                         <x-input-text id="searchby" wire:model.live.debounce.300ms="search" type="text" alignIcon="left"
                             placeholder="Student no. or name" class="w-full mt-1">
@@ -28,7 +28,7 @@
                     <div>
                         <div class="mt-4">
                             <x-input-label for="startdate">
-                                <small class="font-normal text-darkGray" style="font-size: 75%;">Start Date</small>
+                                <small class="font-normal text-darkGray text-xs">Start Date</small>
                             </x-input-label>
                             <x-input-text id="startdate" wire:model="startdate" name="startdate" type="date"
                                 class="w-full mt-1 bg-lightGray" :messages="$errors->get('startdate')" />
@@ -39,7 +39,7 @@
                     <div>
                         <div class="mt-4">
                             <x-input-label for="enddate">
-                                <small class="font-normal text-darkGray" style="font-size: 75%;">End Date</small>
+                                <small class="font-normal text-darkGray text-xs">End Date</small>
                             </x-input-label>
                             <x-input-text id="enddate" wire:model="enddate" name="enddate" type="date"
                                 class="w-full mt-1 bg-lightGray" :messages="$errors->get('enddate')" />

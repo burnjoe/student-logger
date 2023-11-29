@@ -77,6 +77,7 @@
       @endcan
 
       {{-- Attendances --}}
+      @can('manage attendances')
       <a wire:navigate href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
          @click="$dispatch('close-accordion')">
          <div class="py-3 px-4 w-full flex space-x-4">
@@ -88,9 +89,10 @@
             </span>
          </div>
       </a>
+      @endcan
 
       {{-- User Accounts --}}
-      @can('view accounts')
+      @can('manage users')
          <a wire:navigate href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">

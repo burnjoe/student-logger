@@ -25,16 +25,16 @@ use App\Livewire\Cards;
 |
 */
 
-Route::get('/ws', function() {
+Route::get('/ws', function () {
     return view('websocket');
 });
 
-Route::get('/playground', function() {
+Route::get('/playground', function () {
     event(new PlaygroundEvent());
 });
 
 // Root
-Route::get('/', function() { 
+Route::get('/', function () {
     return redirect()->route('login');
 })->name('root');
 
@@ -44,21 +44,21 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard', Dashboard::class)
         ->name('dashboard');
 
-    // Students Module
+    // Students Information
     Route::get('students', Students::class)
         ->middleware('can:manage students')
         ->name('students');
 
-    // Students Module
+    // Students RFID
     Route::get('rfid', Cards::class)
-        // ->middleware('can:view students')
         ->name('rfid');
 
-    // Attendance
+    // Attendances
     Route::get('attendances', Attendances::class)
-        ->middleware('can:view attendances')
+        // ->middleware('can:manage attendances')
         ->name('attendances');
-    
+
+    // Attendance Reports
     Route::get('attendance-reports-pdf', [PdfController::class, 'export_attendance_pdf'])
         ->name('export_attendance_pdf');
 
@@ -66,6 +66,11 @@ Route::middleware('auth')->group(function () {
     Route::get('audit-log', AuditLog::class)
         ->middleware('can:view audit log')
         ->name('audit-log');
+
+    // Accounts
+    Route::get('accounts', Accounts::class)
+        ->middleware('can:manage users')
+        ->name('accounts');
 
     // Reports Module
     Route::get('reports', Reports::class)
@@ -79,11 +84,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
         ->name('export_maingate_pdf');
-        
-    // Accounts
-    Route::get('accounts', Accounts::class)
-        // ->middleware('can:view audit log')
-        ->name('accounts');
 
     // Archive Module
     Route::get('archive/students', StudentsArchive::class)
@@ -94,8 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::get('attendance-logger', AttendanceLogger::class)
         ->middleware('password.confirm')
         ->name('attendance-logger');
-
-    
 
     // Profile Module
     Route::get('profile', [UserController::class, 'edit'])
@@ -111,4 +109,4 @@ Route::middleware('auth')->group(function () {
 
 
 // includes the auth.php in routes
-require __DIR__.'/auth.php';
+require __DIR__. '/auth.php';

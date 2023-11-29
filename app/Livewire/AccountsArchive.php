@@ -80,7 +80,8 @@ class AccountsArchive extends Component
     {
         try {
             $this->selectedUser = User::with('employee', 'roles')
-                ->find($id);
+                ->onlyTrashed()
+                ->findOrFail($id);
 
             $this->user_id = $this->selectedUser->id;
             $this->employee_id = $this->selectedUser->employee->id;

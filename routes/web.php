@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PdfController;
 use App\Livewire\Accounts;
+use App\Livewire\AccountsArchive;
 use App\Livewire\Cards;
 
 /*
@@ -85,10 +86,15 @@ Route::middleware('auth')->group(function () {
     Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
         ->name('export_maingate_pdf');
 
-    // Archive Module
+    // Archive Students
     Route::get('archive/students', StudentsArchive::class)
         ->middleware('can:view archive')
         ->name('archive-students');
+    
+    // Archive Accounts
+    Route::get('archive/accounts', AccountsArchive::class)
+        ->middleware('can:view archive')
+        ->name('archive-users');
 
     // Attendance Logger Module
     Route::get('attendance-logger', AttendanceLogger::class)

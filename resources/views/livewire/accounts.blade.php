@@ -1,12 +1,22 @@
 <div>
 	<div class="grid grid-cols-2 mt-4">
 		@include('livewire.includes.search', ['placeholder' => 'Search by name or email'])
+
+		<div class="flex justify-between lg:justify-end items-center">
+			@can('manage users')
+			<div class="flex justify-end ps-2">
+				<x-button wire:click.prevent="create" btnType="success" class="flex space-x-2 items-center">
+					<i class="fa-solid fa-plus"></i>
+					<span>Add New User</span>
+				</x-button>
+			</div>
+			@endcan
+		</div>
 	</div>
 
 	{{-- Table --}}
 	<x-table class="mt-4">
 		@slot('head')
-		<th class="px-6 py-4">ID</th>
 		<th class="px-6 py-4">Last Name</th>
 		<th class="px-6 py-4">First Name</th>
 		<th class="px-6 py-4">Email</th>
@@ -18,7 +28,6 @@
 		@slot('data')
 		@foreach ($users as $user)
 		<tr wire:key="{{ $user->id }}" class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-			<td class="px-6 py-4">{{ $user->id }}</td>
 			<td class="px-6 py-4">{{ $user->employee->last_name }}</td>
 			<td class="px-6 py-4">{{ $user->employee->first_name }}</td>
 			<td class="px-6 py-4">{{ $user->email }}</td>
@@ -34,7 +43,19 @@
 				</x-badge>
 				@endif
 			</td>
-			<td class="px-6 py-4">Action</td>
+			<td class="px-6 py-4 text-md flex space-x-4">
+				@can('manage users')
+				<x-button wire:click.prevent="show({{ $user->id }})" btnType="success" textSize="text-xs">
+					View
+				</x-button>
+				<x-button wire:click.prevent="edit({{ $user->id }})" btnType="warning" textSize="text-xs">
+					Edit
+				</x-button>
+				<x-button wire:click.prevent="delete({{ $user->id }})" btnType="danger" textSize="text-xs">
+					Delete
+				</x-button>
+				@endcan
+			</td>
 		</tr>
 		@endforeach
 		@endslot
@@ -54,4 +75,32 @@
 	<div class="mt-4">
 		{{ $users->links() }}
 	</div>
+
+	{{-- Modals --}}
+	@can('manage users')
+	{{-- View Student --}}
+	<x-modal wire:ignore.self name="show-user" title="User Account Information" focusable>
+		@include('livewire.includes.users-modal.users-info')
+	</x-modal>
+
+	{{-- Create Form --}}
+	<x-modal wire:ignore.self name="create-user" title="Add User Account" focusable>
+		@include('livewire.includes.users-modal.users-form')
+	</x-modal>
+
+	{{-- Edit Form --}}
+	<x-modal wire:ignore.self name="edit-user" title="Edit User Account" focusable>
+		@include('livewire.includes.users-modal.users-form')
+	</x-modal>
+
+	{{-- Delete Dialog --}}
+	<x-modal wire:ignore.self name="delete-user" title="Delete User Account" maxWidth="lg" focusable>
+		@include('livewire.includes.confirm-form', [
+		'prompt' => 'Are you sure you want to delete this record?',
+		'btnType' => 'danger',
+		'label' => 'Delete',
+		'labelLoading' => 'Deleting...',
+		])
+	</x-modal>
+	@endcan
 </div>

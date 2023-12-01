@@ -41,9 +41,14 @@ class Accounts extends Component
 
         return view('livewire.accounts', [
             'users' => User::select('id', 'email', 'employee_id', 'status')
-                ->with(['employee' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
-                }])
+                ->with([
+                    'employee' =>
+                    fn ($query) =>
+                    $query->select('id', 'last_name', 'first_name'),
+                    'roles' =>
+                    fn ($query) =>
+                    $query->select('id', 'name')
+                ])
                 ->when(
                     $this->search,
                     fn ($query) =>
@@ -76,7 +81,7 @@ class Accounts extends Component
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email,' .$this->user_id,
+            'email' => 'required|email|unique:users,email,' . $this->user_id,
             'status' => 'required|in:ACTIVE,INACTIVE',
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
@@ -134,7 +139,7 @@ class Accounts extends Component
             $this->birthdate = $this->selectedUser->employee->birthdate;
             $this->address = $this->selectedUser->employee->address;
             $this->phone = $this->selectedUser->employee->phone;
-            $this->role = $this->selectedUser->roles->first()->name;
+            $this->role = $this->selectedUser->roles->first()->id;
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -31,7 +31,7 @@
 			<td class="px-6 py-4">{{ $user->employee->last_name }}</td>
 			<td class="px-6 py-4">{{ $user->employee->first_name }}</td>
 			<td class="px-6 py-4">{{ $user->email }}</td>
-			<td class="px-6 py-4">{{ ucwords($user->getRoleNames()->first()) }}</td>
+			<td class="px-6 py-4">{{ ucwords($user->roles->first()->name) }}</td>
 			<td class="px-6 py-4">
 				@if($user->status == 'ACTIVE')
 				<x-badge class="text-white bg-green" size="xs" fontWeight="semibold">

@@ -4,13 +4,14 @@ $eventColors = [
     'updated' => 'orange',
     'deleted' => 'red',
     'restored' => 'green',
+    'force deleted' => 'red',
 ];
 @endphp
 
 <div>
     {{-- Search --}}
     <div class="grid grid-cols-2 gap-4 mt-4">
-        @include('livewire.includes.search', ['placeholder' => 'Search by user name'])
+        @include('livewire.includes.search', ['placeholder' => 'Search by user name or description'])
     </div>
 
     {{-- Table --}}
@@ -27,18 +28,18 @@ $eventColors = [
         @slot('data')
         @foreach ($logs as $log)
         <tr wire:key="{{ $log->id }}" class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-            <td class="px-6 py-4">
+            <td class="px-6 py-4" style="white-space: nowrap;">
                 <x-badge class="bg-{{$eventColors[$log->event]}} text-white" size="xs" fontWeight="semibold">
                     {{ ucwords($log->event).' '.class_basename($log->subject_type) }}
                 </x-badge>
             </td>
-            <td class="px-6 py-4">To Be Implemented Later</td>
+            <td class="px-6 py-4">{{ $log->description }}</td>
             <td class="px-6 py-4">{{ $log->causer->employee->first_name.' '.$log->causer->employee->last_name }}</td>
             <td class="px-6 py-4">{{ ucwords($log->causer->roles->first()->name) }}</td>
             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($log->created_at)->format('Y-m-d h:i A') }}</td>
             <td class="px-6 py-4">
                 @can('view audit log')
-                <x-button wire:click.prevent="" btnType="success" textSize="text-xs">
+                <x-button wire:click.prevent="show({{ $log->id }})" btnType="success" textSize="text-xs">
 					View
 				</x-button>
                 @endcan
@@ -63,4 +64,11 @@ $eventColors = [
         {{ $logs->links() }}
     </div>
 
+    {{-- Modals --}}
+	@can('view audit log')
+	{{-- View Log Details --}}
+	<x-modal wire:ignore.self name="show-log-details" title="Log Details" focusable>
+		@include('livewire.includes.audit-logs-modal.audit-logs-info')
+	</x-modal>
+    @endcan
 </div>

@@ -13,6 +13,9 @@ class AuditLog extends Component
 {
     use WithPagination;
 
+    public $selectedLog;
+    public $properties;
+
     public $search = "";
     public $selectedEvents = [];
     public $selectedRoles = [];
@@ -32,6 +35,16 @@ class AuditLog extends Component
                 $query->select('id', 'last_name', 'first_name'),
             ])
                 ->when(
+                    $this->search,
+                    fn ($query) =>
+                    $query->where('description', 'like', '%' . $this->search . '%')
+                        ->orWhereHas(
+                            'causer.employee',
+                            fn ($subquery) =>
+                            $subquery->search($this->search)
+                        )
+                )
+                ->when(
                     $this->selectedEvents,
                     fn ($query) =>
                     $query->whereIn('event', $this->selectedEvents)
@@ -45,19 +58,27 @@ class AuditLog extends Component
                         $subquery->roleIn($this->selectedRoles)
                     )
                 )
-                ->whereHas(
-                    'causer.employee',
-                    fn ($query) =>
-                    $query->when(
-                        $this->search,
-                        fn ($subquery) =>
-                        $subquery->search($this->search)
-                    )
-                )
-                ->latest()
+                ->orderBy('id', 'desc')
                 ->paginate(15),
             'roles' => Role::select('id', 'name')
                 ->get(),
         ]);
+    }
+
+    /**
+     * Show selected record in modal
+     */
+    public function show($id)
+    {
+        $this->dispatch('close-modal');
+
+        try {
+            $this->selectedLog = Activity::find($id);
+            $this->properties = $this->selectedLog->changes;
+
+            $this->dispatch('open-modal', 'show-log-details');
+        } catch (\Throwable $th) {
+            $this->dispatch('error', ['message' => 'Unable to view log']);
+        }
     }
 }

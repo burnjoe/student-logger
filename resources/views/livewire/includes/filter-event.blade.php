@@ -1,3 +1,13 @@
+@php
+$eventNames = [
+'created' => 'Created',
+'updated' => 'Updated',
+'deleted' => 'Deleted',
+'restored' => 'Restored',
+'force deleted' => 'Force Deleted',
+]
+@endphp
+
 <div>
     <x-dropdown align="left" menuWidth="44" isFilter="true">
         @slot('trigger')
@@ -8,53 +18,19 @@
         @endslot
 
         @slot('content')
+        @foreach ($eventNames as $key => $value)
         <x-dropdown-item fontSize="text-xs">
             <div class="flex flex-row">
                 <div class="flex-1 flex items-center">
-                    <input wire:model.live="selectedEvents" id="created" type="checkbox" value="created"
+                    <input wire:model.live="selectedEvents" id="{{$key}}" type="checkbox" value="{{$key}}"
                         class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 focus:ring-2" />
-                    <label for="created" class="ml-2">
-                        Created
+                    <label for="{{$key}}" class="ml-2">
+                        {{ $value }}
                     </label>
                 </div>
             </div>
         </x-dropdown-item>
-
-        <x-dropdown-item fontSize="text-xs">
-            <div class="flex flex-row">
-                <div class="flex-1 flex items-center">
-                    <input wire:model.live="selectedEvents" id="updated" type="checkbox" value="updated"
-                        class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 focus:ring-2" />
-                    <label for="updated" class="ml-2">
-                        Updated
-                    </label>
-                </div>
-            </div>
-        </x-dropdown-item>
-
-        <x-dropdown-item fontSize="text-xs">
-            <div class="flex flex-row">
-                <div class="flex-1 flex items-center">
-                    <input wire:model.live="selectedEvents" id="deleted" type="checkbox" value="deleted"
-                        class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 focus:ring-2" />
-                    <label for="deleted" class="ml-2">
-                        Deleted
-                    </label>
-                </div>
-            </div>
-        </x-dropdown-item>
-
-        <x-dropdown-item fontSize="text-xs">
-            <div class="flex flex-row">
-                <div class="flex-1 flex items-center">
-                    <input wire:model.live="selectedEvents" id="restored" type="checkbox" value="restored"
-                        class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 focus:ring-2" />
-                    <label for="restored" class="ml-2">
-                        Restored
-                    </label>
-                </div>
-            </div>
-        </x-dropdown-item>
+        @endforeach
         @endslot
     </x-dropdown>
 </div>

@@ -164,7 +164,7 @@
       <img src="{{ public_path('img/pnc_footer.png') }}" style="width: 18%; height: auto;" />
    </div>
 
-   <!-- First Page - Pie Chart -->
+   {{--  First Page - Pie Chart --}}
    <div>
       <div class="title">
          <div class="page-title">STUDENTS LIBRARY ATTENDANCE</div>
@@ -173,12 +173,12 @@
       </div>
 
       <div class="chart">
-         <span>[Chart]</span>
+         <img src="{{ $imageUrl }}" alt="Library Chart">
       </div>
 
       <div class="summary">
          <p style="text-indent: 20px">
-            The graph shows that <span class="">SHS</span> has the greatest number of students who visited the
+            The graph shows that <span class="">CHAS</span> has the greatest number of students who visited the
             library onsite while the <span class="">CCS</span> has the least number of students. Overall, <span
                class="">62%</span> of the total student’s population visited the library onsite during the
             month of <span class="">MAY</span> <span>2023</span>.
@@ -189,8 +189,7 @@
                class="">69%</span>; <span class="">COE</span> – <span class="">59%</span>; <span
                class="">CHAS</span> – <span class="">88%</span>; <span class="">CAS</span> – <span
                class="">77%</span>;
-            <span class="">CCS</span> – <span class="">24%</span>; <span class="">SHS</span> – <span
-               class="">73%</span>
+            <span class="">CCS</span> – <span class="">24%</span>
          </p>
       </div>
 
@@ -230,9 +229,10 @@
       </div>
    </div>
 
+   {{-- page break --}}
    <hr />
 
-   <!-- Second Page - Top Users -->
+   {{-- Second Page - Top Users --}}
    <div>
       <div class="title">
          <div class="page-title">TOP USERS IN LIBRARY</div>

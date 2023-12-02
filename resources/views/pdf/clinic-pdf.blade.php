@@ -161,12 +161,12 @@
       </div>
 
       <div class="chart">
-         <span>[Chart]</span>
+         <img src="{{ $imageUrl }}" alt="Clinic Chart">
       </div>
 
       <div class="summary">
          <p style="text-indent: 20px">
-            The graph shows that <span class="">SHS</span> has the greatest number of students who visited the
+            The graph shows that <span class="">CHAS</span> has the greatest number of students who visited the
             clinic onsite while the <span class="">CCS</span> has the least number of students. Overall, <span
                class="">62%</span> of the total student’s population visited the clinic onsite during the
             month of <span class="">MAY</span> <span>2023</span>.
@@ -177,8 +177,7 @@
                class="">69%</span>; <span class="">COE</span> – <span class="">59%</span>; <span
                class="">CHAS</span> – <span class="">88%</span>; <span class="">CAS</span> – <span
                class="">77%</span>;
-            <span class="">CCS</span> – <span class="">24%</span>; <span class="">SHS</span> – <span
-               class="">73%</span>
+            <span class="">CCS</span> – <span class="">24%</span>
          </p>
       </div>
 
@@ -219,6 +218,7 @@
       </div>
    </div>
 
+   {{-- Page Break --}}
    <hr/>
 
    <!-- Second Page - Top Users -->

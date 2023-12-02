@@ -197,8 +197,8 @@
 
                      {{-- Print --}}
                      <div class="flex">
-                        <x-button href="{{ route('export_library_pdf') }}" element="a" btnType="primary"
-                           textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
+                        <x-button href="{{ route('export_library_pdf') }}" onclick="generatePDF()" element="a"
+                           btnType="primary" textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                            <i class="fa-solid fa-print"></i>
                            <span>Print</span>
                         </x-button>
@@ -381,127 +381,58 @@
 </div>
 
 @push('scripts')
+   {{-- chart.js --}}
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
    <script>
-      const campusChart = document.getElementById('campusChart');
-      const libraryChart = document.getElementById('libraryChart');
-      const clinicChart = document.getElementById('clinicChart');
-
       // Main Gate Chart
-      new Chart(campusChart, {
+      var ctx = document.getElementById('campusChart').getContext('2d');
+      var myChart = new Chart(ctx, {
          type: 'pie',
          data: {
-            labels: ['CAS',
-               'CBAA',
-               'CCS',
-               'COED',
-               'COE',
-               'CHAS',
-               'SHS'
-            ],
+            labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
             datasets: [{
                label: ' # of Students',
-               data: [12,
-                  19,
-                  3,
-                  5,
-                  2,
-                  3,
-                  4
-               ],
-               backgroundColor: [
-                  'rgb(153, 0, 0)', //CAS
-                  'rgb(255, 205, 86)', //CBAA
-                  'rgb(255, 128, 0)', //CCS
-                  'rgb(0, 102, 204)', //COED
-                  'rgb(255, 102, 102)', //COE
-                  'rgb(0, 153, 0)', //CHAS
-                  'rgb(153, 255, 204)' //SHS
+               data: [10, 20, 30, 5, 9, 12, 9],
+               backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
+                  'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                ],
                hoverOffset: 4
             }]
-         },
-         options: {
-            responsive: true
          }
       });
 
       // Library Chart
-      new Chart(libraryChart, {
+      var ctx = document.getElementById('libraryChart').getContext('2d');
+      var myChart = new Chart(ctx, {
          type: 'pie',
          data: {
-            labels: ['CAS',
-               'CBAA',
-               'CCS',
-               'COED',
-               'COE',
-               'CHAS',
-               'SHS'
-            ],
+            labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
             datasets: [{
                label: ' # of Students',
-               data: [10,
-                  19,
-                  5,
-                  9,
-                  12,
-                  9,
-                  8
-               ],
-               backgroundColor: [
-                  'rgb(153, 0, 0)', //CAS
-                  'rgb(255, 205, 86)', //CBAA
-                  'rgb(255, 128, 0)', //CCS
-                  'rgb(0, 102, 204)', //COED
-                  'rgb(255, 102, 102)', //COE
-                  'rgb(0, 153, 0)', //CHAS
-                  'rgb(153, 255, 204)' //SHS
+               data: [10, 20, 30, 5, 9, 12, 9],
+               backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
+                  'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                ],
                hoverOffset: 4
             }]
-         },
-         options: {
-            responsive: true
          }
       });
 
       // Clinic Chart
-      new Chart(clinicChart, {
+      var ctx = document.getElementById('clinicChart').getContext('2d');
+      var myChart = new Chart(ctx, {
          type: 'pie',
          data: {
-            labels: ['CAS',
-               'CBAA',
-               'CCS',
-               'COED',
-               'COE',
-               'CHAS',
-               'SHS'
-            ],
+            labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
             datasets: [{
                label: ' # of Students',
-               data: [1,
-                  1,
-                  2,
-                  1,
-                  2,
-                  3,
-                  4
-               ],
-               backgroundColor: [
-                  'rgb(153, 0, 0)', //CAS
-                  'rgb(255, 205, 86)', //CBAA
-                  'rgb(255, 128, 0)', //CCS
-                  'rgb(0, 102, 204)', //COED
-                  'rgb(255, 102, 102)', //COE
-                  'rgb(0, 153, 0)', //CHAS
-                  'rgb(153, 255, 204)' //SHS
+               data: [10, 20, 30, 5, 9, 12, 9],
+               backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
+                  'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                ],
                hoverOffset: 4
             }]
-         },
-         options: {
-            responsive: true
          }
       });
    </script>

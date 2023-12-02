@@ -1,5 +1,5 @@
 <aside :class="{ 'xs:w-0 lg:w-16': !sidebarOpen }"
-   @click.away="if (! $event.target.closest('button')) sidebarOpen = false"
+   @click.away="if (! $event.target.closest('.sidebar-button') && ! $event.target.closest('.filter-accordion')) { sidebarOpen = false; $dispatch('close-sidebar-accordion'); }"
    class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
    <div :class="{ 'pb-8': !sidebarOpen }" class="sticky top-0 bg-white pt-1 pb-12 z-10">
       <div x-show="sidebarOpen" class="flex flex-row justify-between">

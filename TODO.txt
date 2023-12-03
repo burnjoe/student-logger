@@ -13,6 +13,8 @@ Major:
  - Create a middleware for not allowing to go back to the login page after validation (Browser's Back Button)
  - Implement the designed restoration process considering duplicate entry (Overwriting Process) (see Diagrams for reference)
  - Cascade soft delete
+ - In force deleting, do not log DELETED event, only log FORCE_DELETED event
+ - Make batch logging, e.g., Relationship: Users <---> Employee, when performed actions (like delete, edit, etc.) to Users it will also log changes to Employee's values in a single activity log
 
 
 

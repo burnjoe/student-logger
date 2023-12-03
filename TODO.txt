@@ -4,16 +4,13 @@ Minor:
  - Sidebar responsiveness in viewport size
  - Add backdrop in sidebar (Mobile)
  - Minor bug: PNC logo and icons are showing on sidebar collapse then disappears (Mobile)
- - Create customized dropdown menu for notification
  - Fix Session in Back Button in /forgot-password and /reset-password/{token}
  - Fix session expires throws 419 after clicking login and logout button
  - Fix table component x overflow gets cut off in main content
- - Make toast component's data intialized as false, then assign true when needed to be shown. Then, completely remove the component after n seconds (not hide).
 
 
 Major:
  - Create a middleware for not allowing to go back to the login page after validation (Browser's Back Button)
- - Create a middleware for validating IP address from requests
  - Implement the designed restoration process considering duplicate entry (Overwriting Process) (see Diagrams for reference)
  - Cascade soft delete
 

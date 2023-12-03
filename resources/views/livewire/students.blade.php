@@ -68,17 +68,17 @@
    {{-- Create Student Form --}}
    @can('manage students')
    <x-modal wire:ignore.self name="create-student" title="Add Student" focusable>
-      @include('livewire.includes.students-form')
+      @include('livewire.includes.students-modal.students-form')
    </x-modal>
 
    {{-- View Student Form --}}
    <x-modal wire:ignore.self name="show-student" title="Student Information" focusable>
-      @include('livewire.includes.view-student-form')
+      @include('livewire.includes.students-modal.students-info')
    </x-modal>
 
    {{-- Edit Student Form --}}
    <x-modal wire:ignore.self name="edit-student" title="Edit Student" focusable>
-      @include('livewire.includes.students-form')
+      @include('livewire.includes.students-modal.students-form')
    </x-modal>
 
    {{-- Delete Student Dialog --}}

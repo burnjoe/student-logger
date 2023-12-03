@@ -104,4 +104,4 @@ php artisan websockets:serve
 
 ### ✨ You can now access the server at http://localhost:8000
 
-### Deployed Server at https://istudenttrack.com
+### ✨ Server Deployed with Hostinger: https://istudenttrack.com

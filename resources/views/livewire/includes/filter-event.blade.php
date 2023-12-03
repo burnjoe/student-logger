@@ -1,13 +1,3 @@
-@php
-$eventNames = [
-'created' => 'Created',
-'updated' => 'Updated',
-'deleted' => 'Deleted',
-'restored' => 'Restored',
-'force deleted' => 'Force Deleted',
-]
-@endphp
-
 <div>
     <x-dropdown align="left" menuWidth="44" isFilter="true">
         @slot('trigger')

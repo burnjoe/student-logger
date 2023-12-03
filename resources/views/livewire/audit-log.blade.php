@@ -4,8 +4,16 @@ $eventColors = [
     'updated' => 'orange',
     'deleted' => 'red',
     'restored' => 'green',
-    'force deleted' => 'red',
+    'forceDeleted' => 'red',
 ];
+
+$eventNames = [
+    'created' => 'Created',
+    'updated' => 'Updated',
+    'deleted' => 'Deleted',
+    'restored' => 'Restored',
+    'forceDeleted' => 'Permanently Deleted',
+]
 @endphp
 
 <div>
@@ -30,7 +38,7 @@ $eventColors = [
         <tr wire:key="{{ $log->id }}" class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
             <td class="px-6 py-4" style="white-space: nowrap;">
                 <x-badge class="bg-{{$eventColors[$log->event]}} text-white" size="xs" fontWeight="semibold">
-                    {{ ucwords($log->event).' '.class_basename($log->subject_type) }}
+                    {{ $eventNames[$log->event].' '.$log->log_name }}
                 </x-badge>
             </td>
             <td class="px-6 py-4">{{ $log->description }}</td>

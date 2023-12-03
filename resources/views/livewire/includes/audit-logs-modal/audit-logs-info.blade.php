@@ -1,10 +1,10 @@
 <div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
         @if ($selectedLog)
-        @if (in_array($selectedLog->event, ['created', 'restored', 'deleted', 'force deleted']))
+        @if (in_array($selectedLog->event, ['created', 'restored', 'deleted', 'forceDeleted']))
         <div class="rounded-lg col-span-2 overflow-hidden">
             <div class="bg-light{{ ucwords($eventColors[$selectedLog->event]) }} px-6 py-4">
-                <p class="text-sm font-bold text-white">{{ ucwords($selectedLog->event).' '.class_basename($selectedLog->subject_type) }}</p>
+                <p class="text-sm font-bold text-white">{{ $eventNames[$selectedLog->event].' '.$selectedLog->log_name }}</p>
             </div>
 
             <div class="h-full bg-veryLight{{ ucwords($eventColors[$selectedLog->event]) }} px-6 py-4">

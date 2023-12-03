@@ -4,7 +4,7 @@
         <div class="text-white space-x-8">
             <button
                 @click="sidebarOpen = !sidebarOpen; $dispatch('close-accordion');" 
-                class="transition-all focus:outline-none hover:text-gray">
+                class="sidebar-button transition-all focus:outline-none hover:text-gray">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="space-x-3">

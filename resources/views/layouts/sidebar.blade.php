@@ -1,4 +1,5 @@
 <aside :class="{ 'xs:w-0 lg:w-16': !sidebarOpen }"
+   @click.away="if (! $event.target.closest('.sidebar-button') && ! $event.target.closest('.filter-accordion')) { sidebarOpen = false; $dispatch('close-sidebar-accordion'); }"
    class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
    <div :class="{ 'pb-8': !sidebarOpen }" class="sticky top-0 bg-white pt-1 pb-12 z-10">
       <div x-show="sidebarOpen" class="flex flex-row justify-between">
@@ -78,17 +79,17 @@
 
       {{-- Attendances --}}
       @can('manage attendances')
-      <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
-         @click="$dispatch('close-accordion')">
-         <div class="py-3 px-4 w-full flex space-x-4">
-            <span>
-               <i class="w-4 fa-solid fa-clock fa-sm"></i>
-            </span>
-            <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-               Attendances
-            </span>
-         </div>
-      </a>
+         <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
+            @click="$dispatch('close-accordion')">
+            <div class="py-3 px-4 w-full flex space-x-4">
+               <span>
+                  <i class="w-4 fa-solid fa-clock fa-sm"></i>
+               </span>
+               <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                  Attendances
+               </span>
+            </div>
+         </a>
       @endcan
 
       {{-- User Accounts --}}

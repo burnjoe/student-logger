@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +12,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
+
+    /**
+     * Events only recorded in activity log
+     */
+    protected static $recordEvents = [
+        'created',
+        'updated',
+        'deleted',
+        'restored',
+        'forceDeleted',
+    ];
 
     protected $fillable = [
         'student_no',
@@ -28,6 +41,37 @@ class Student extends Model
         'account_type'
     ];
 
+
+    /**
+     * Activity logs option
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->useLogName('Student')
+            ->setDescriptionForEvent(function (string $eventName) {
+                $attributes = $this->getDirty();
+                $old = $this->getAttributes();
+
+                switch ($eventName) {
+                    case 'created':
+                        return "Added New Student: \"" . ($attributes['first_name'] . ' ' . $attributes['last_name']) . "\"";
+                    case 'updated':
+                        return "Updated Student: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                    case 'deleted':
+                        return "Archived Student: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                    case 'restored':
+                        return "Restored Student: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                    case 'forceDeleted':
+                        return "Deleted Student Permanently: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                    default:
+                        break;
+                }
+            });
+    }
 
     /**
      * Filtering search

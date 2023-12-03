@@ -56,4 +56,10 @@
             <p class="text-1rem font-medium leading-5 mb-2">{{ $status }}</p>
         </div>
     </div>
+
+    {{-- Close button --}}
+    <div class="flex justify-end items-center mt-4">
+        <x-button x-on:click="$dispatch('close-modal')" btnType="secondary" wire:loading.attr="disabled">Close
+        </x-button>
+    </div>
 </div>

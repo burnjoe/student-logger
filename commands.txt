@@ -23,7 +23,7 @@ Laravel Commands Cheat Sheet
 
 -> php artisan make:livewire <ComponentName>                    // create new livewire component
 
-
+-> php artisan activitylog:clean --days=0                       // cleans activity log from day 0 onwards
 
 
 

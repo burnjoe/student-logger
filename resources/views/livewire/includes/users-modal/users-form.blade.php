@@ -125,7 +125,7 @@
         </div>
 
         {{-- Submit --}}
-        <div class="flex justify-end items-center space-x-4 mt-6">
+        <div class="flex justify-end items-center space-x-4 mt-6 pe-5">
             <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary"
                 wire:loading.class="cursor-not-allowed">
                 Cancel

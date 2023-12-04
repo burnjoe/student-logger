@@ -1,3 +1,11 @@
+@php
+$statusColors = [
+'IN' => 'orange',
+'OUT' => 'green',
+'MISSED' => 'red',
+]
+@endphp
+
 <div>
     <div class="grid lg:grid-cols-2 gap-4 mt-4">
         @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
@@ -74,8 +82,8 @@
         <th class="px-6 py-4">Date</th>
         <th class="px-6 py-4">Log In</th>
         <th class="px-6 py-4">Log Out</th>
-        <th>@include('livewire.includes.filter-attendance-status')</th>
         <th>@include('livewire.includes.filter-post')</th>
+        <th>@include('livewire.includes.filter-attendance-status')</th>
         @endslot
 
         @slot('data')
@@ -85,29 +93,19 @@
             <td class="px-6 py-4">{{ $attendance->card->student->student_no }}</td>
             <td class="px-6 py-4">{{ $attendance->card->student->last_name }}</td>
             <td class="px-6 py-4">{{ $attendance->card->student->first_name }}</td>
-            <td class="px-6 py-4">{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('M. d, Y') }}</td>
+            <td class="px-6 py-4">{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('M. j, Y') }}</td>
             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('h:i A') }}</td>
             <td class="px-6 py-4">
                 @if ($attendance->logged_out_at)
                 {{ \Carbon\Carbon::parse($attendance->logged_out_at)->format('h:i A') }}
                 @endif
             </td>
-            <td class="px-6 py-4">
-                @if ($attendance->status == 'IN')
-                <x-badge class="text-white bg-orange" size="xs" fontWeight="semibold">
-                    {{ $attendance->status }}
-                </x-badge>
-                @elseif($attendance->status == 'OUT')
-                <x-badge class="text-white bg-green" size="xs" fontWeight="semibold">
-                    {{ $attendance->status }}
-                </x-badge>
-                @elseif($attendance->status == 'MISSED')
-                <x-badge class="text-white bg-red" size="xs" fontWeight="semibold">
-                    {{ $attendance->status }}
-                </x-badge>
-                @endif
-            </td>
             <td class="px-6 py-4">{{ $attendance->post->name }}</td>
+            <td class="px-6 py-4">
+                <x-badge class="text-white bg-{{$statusColors[$attendance->status]}}" size="xs" fontWeight="semibold">
+                    {{ $attendance->status }}
+                </x-badge>
+            </td>
         </tr>
         @endforeach
         @endslot

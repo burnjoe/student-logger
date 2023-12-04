@@ -46,7 +46,7 @@
         </div>
     </div>
     {{-- Family Background --}}
-    <div class="border border-t-0 border-l-0 border-r-0 border-lightGray border-lightGray">
+    <div class="border border-t-0 border-l-0 border-r-0 border-lightGray">
         <span class="text-1rem font-bold">Family Background</span>
     </div>
     <div class="flex flex-wrap px-5 pb-5 pt-2.5">

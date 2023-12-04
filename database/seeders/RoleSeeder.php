@@ -24,6 +24,7 @@ class RoleSeeder extends Seeder
                 'delete students',
                 'view rfids',
                 'issue rfids',
+                'view issues',
                 'view users',
                 'create users',
                 'edit users',

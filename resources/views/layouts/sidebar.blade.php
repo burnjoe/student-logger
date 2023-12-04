@@ -43,7 +43,7 @@
 
       {{-- Students --}}
       @can('view students')
-         <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
+         <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Students"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
                <span>

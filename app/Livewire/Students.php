@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Card;
 use App\Models\College;
 use App\Models\Student;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class Students extends Component
     use WithPagination;
 
     // Student
-    public $id;
+    public $student_id;
     public $student_no;
     public $last_name;
     public $first_name;
@@ -31,6 +32,11 @@ class Students extends Component
     public Student $selectedStudent;
 
     // Card
+    public $card_id;
+    public $rfid;
+    public $profile_photo;
+
+    public Card $selectedCard;
 
     public $search = "";
     public $selectedPrograms = [];
@@ -43,7 +49,7 @@ class Students extends Component
     public function rules()
     {
         return [
-            'student_no' => 'required|digits:7|unique:students,student_no,' . $this->id,
+            'student_no' => 'required|digits:7|unique:students,student_no,' . $this->student_id,
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
@@ -53,8 +59,8 @@ class Students extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->id,
-            'email' => 'required|email|unique:students,email,' . $this->id,
+            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->student_id,
+            'email' => 'required|email|unique:students,email,' . $this->student_id,
             'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
         ];
     }
@@ -67,7 +73,7 @@ class Students extends Component
         return [
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
-            'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)'
+            'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
         ];
     }
 
@@ -116,7 +122,7 @@ class Students extends Component
                 case 'student':
                     $this->selectedStudent = Student::find($id);
 
-                    $this->id = $this->selectedStudent->id;
+                    $this->student_id = $this->selectedStudent->id;
                     $this->student_no = $this->selectedStudent->student_no;
                     $this->last_name = $this->selectedStudent->last_name;
                     $this->first_name = $this->selectedStudent->first_name;
@@ -132,6 +138,27 @@ class Students extends Component
                     $this->account_type = $this->selectedStudent->account_type;
                     break;
                 case 'card':
+                    $this->selectedStudent = Student::with([
+                        'cards' =>
+                        fn ($query) =>
+                        $query->orderBy('id', 'desc')
+                            ->first(),
+                    ])
+                        ->find($id);
+                    $this->selectedCard = $this->selectedStudent->cards->first();
+                    
+                    $this->student_no = $this->selectedStudent->student_no;
+                    $this->last_name = $this->selectedStudent->last_name;
+                    $this->first_name = $this->selectedStudent->first_name;
+                    $this->middle_name = $this->selectedStudent->middle_name;
+                    // program
+                    $this->birthdate = $this->selectedStudent->birthdate;
+                    $this->address = $this->selectedStudent->address;
+                    $this->rfid = $this->selectedCard->rfid;
+                    $this->profile_photo = $this->selectedCard->profile_photo;
+                    // emergency contact person
+                    // contact number
+
                     break;
                 case 'history':
                     break;
@@ -172,7 +199,7 @@ class Students extends Component
                     $this->dispatch('error', ['message' => 'Unable to view student']);
                     break;
                 case 'card':
-                    $this->dispatch('error', ['message' => 'Unable to view RFID']);
+                    $this->dispatch('info', ['message' => 'Student does not have an existing RFID']);
                     break;
                 case 'history':
                     $this->dispatch('error', ['message' => 'Unable to view issue history']);
@@ -212,35 +239,7 @@ class Students extends Component
      */
     public function store()
     {
-        $validated = $this->validate(
-            [
-                'student_no' => 'required|digits:7|unique:students,student_no,' . $this->id,
-                'last_name' => 'required|min:2|max:50',
-                'first_name' => 'required|min:2|max:50',
-                'middle_name' => 'nullable|min:2|max:50',
-                'sex' => 'required|in:Male,Female',
-                'civil_status' => 'required|in:Single,Married,Divorced,Widowed',
-                'nationality' => 'required|min:3',
-                'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
-                'birthplace' => 'required|min:3',
-                'address' => 'required|min:3',
-                'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->id,
-                'email' => 'required|email|unique:students,email,' . $this->id,
-                'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
-            ],
-            [
-                'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
-                'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
-                'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
-            ],
-            [
-                'student_no' => 'student number',
-                'birthdate' => 'date of birth',
-                'birthplace' => 'place of birth',
-                'phone' => 'phone number',
-                'email' => 'email address',
-            ]
-        );
+        $validated = $this->validate();
 
         Student::create($validated);
 

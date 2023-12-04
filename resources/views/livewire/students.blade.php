@@ -65,7 +65,7 @@
                         </x-dropdown-item>
                         @endcan
                         @can('issue rfids')
-                        <x-dropdown-item wire:click.prevent="create('card')" fontSize="text-xs" element="button">
+                        <x-dropdown-item wire:click.prevent="create({{ $student->id }})" fontSize="text-xs" element="button">
                             Issue New RFID
                         </x-dropdown-item>
                         @endcan

@@ -138,15 +138,25 @@ class Students extends Component
                     $this->account_type = $this->selectedStudent->account_type;
                     break;
                 case 'card':
-                    $this->selectedStudent = Student::with([
-                        'cards' =>
-                        fn ($query) =>
-                        $query->orderBy('id', 'desc')
-                            ->first(),
-                    ])
+                    $this->selectedStudent = Student::select(
+                        'id',
+                        'student_no',
+                        'last_name',
+                        'first_name',
+                        'middle_name',
+                        'birthdate',
+                        'address',
+                    )
+                        ->with([
+                            'cards' =>
+                            fn ($query) =>
+                            $query->orderBy('id', 'desc')
+                                ->first(),
+                        ])
                         ->find($id);
+
                     $this->selectedCard = $this->selectedStudent->cards->first();
-                    
+
                     $this->student_no = $this->selectedStudent->student_no;
                     $this->last_name = $this->selectedStudent->last_name;
                     $this->first_name = $this->selectedStudent->first_name;
@@ -161,6 +171,19 @@ class Students extends Component
 
                     break;
                 case 'history':
+                    $this->selectedStudent = Student::select(
+                        'id',
+                        'student_no',
+                        'last_name',
+                        'first_name'
+                    )
+                        ->with([
+                            'cards' =>
+                            fn ($query) =>
+                            $query->orderBy('id', 'desc')
+                        ])
+                        ->find($id);
+
                     break;
                 default:
                     break;
@@ -176,6 +199,8 @@ class Students extends Component
     public function show(int $id, $type = "student")
     {
         $this->dispatch('close-modal');
+
+        $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
             $this->init($id, $type);
@@ -213,24 +238,19 @@ class Students extends Component
     /**
      * Show create form modal
      */
-    public function create($type = 'student')
+    public function create(int $id = null)
     {
         $this->dispatch('close-modal');
 
         $this->resetValidation();
-        $this->resetExcept(['search', 'filterProgram']);
+        $this->resetExcept(['search', 'selectedPrograms']);
 
-        switch ($type) {
-            case 'student':
-                $this->action = 'store';
+        if (!$id) {
+            $this->action = 'store';
 
-                $this->dispatch('open-modal', 'create-student');
-                break;
-            case 'card':
-                $this->dispatch('open-modal', 'create-card');
-                break;
-            default:
-                break;
+            $this->dispatch('open-modal', 'create-student');
+        } else {
+            $this->dispatch('open-modal', 'create-card');
         }
     }
 
@@ -258,7 +278,7 @@ class Students extends Component
         $this->dispatch('close-modal');
 
         $this->resetValidation();
-        $this->resetExcept(['search', 'filterProgram']);
+        $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
             $this->init($id);
@@ -292,7 +312,7 @@ class Students extends Component
     {
         $this->dispatch('close-modal');
 
-        $this->resetExcept(['search', 'filterProgram']);
+        $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
             $this->selectedStudent = Student::findOrFail($id);

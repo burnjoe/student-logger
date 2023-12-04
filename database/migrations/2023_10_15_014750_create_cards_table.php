@@ -19,7 +19,7 @@ return new class extends Migration
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->string('profile_photo');
-            $table->string('signature');
+            $table->string('signature')->nullable();
             $table->timestamp('expires_at');
             $table->timestamps();
             $table->softDeletes();

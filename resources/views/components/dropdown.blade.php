@@ -43,12 +43,12 @@ switch ($menuWidth) {
 @endphp
 
 <div x-cloak class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
-    <div @click="open = ! open">
+    <div @click="open = ! open" class="z-0">
         {{ $trigger }}
     </div>
 
     <div x-show="open"  
-            class="dropdown-menu absolute {{ $menuWidth ?? $width }} mt-2 rounded-md shadow-lg text-darkGray ring-1 ring-black ring-opacity-5 {{ $alignmentClasses }}"
+            class="dropdown-menu absolute {{ $menuWidth ?? $width }} mt-2 rounded-md shadow-lg text-darkGray ring-1 ring-black ring-opacity-5 z-50 {{ $alignmentClasses }}"
             style="display: none;"
             @if($isFilter)
             @click="open = true"

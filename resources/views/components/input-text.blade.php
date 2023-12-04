@@ -2,6 +2,7 @@
     'alignIcon' => 'none',
     'disabled' => false,
     'messages' => '',
+    'bgColor' => 'bg-white',
 ])
 
 @php
@@ -29,5 +30,5 @@ $errorStyle = $messages ? 'bg-veryLightRed border-red text-darkRed placeholder-d
       {{ $slot }}
     </div>
   @endif
-    <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-sm ' .$errorStyle. ' rounded-md ' .$inputPadding]) }} />
+    <input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => 'w-full border text-sm ' .$bgColor. ' ' .$errorStyle. ' rounded-md ' .$inputPadding]) }} />
 </div>

@@ -1,5 +1,5 @@
 <div>
-    <x-dropdown align="left" menuWidth="44" isFilter="true">
+    <x-dropdown align="right" menuWidth="44" isFilter="true">
         @slot('trigger')
         <x-button btnType="success" class="flex space-x-2 items-center">
             <span style="text-transform: none;">Status</span>

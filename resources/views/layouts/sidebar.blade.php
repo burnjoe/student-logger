@@ -43,38 +43,17 @@
 
       {{-- Students --}}
       @can('view students')
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
-            <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
-               @slot('header')
-                  <div class="w-full flex space-x-4" title="Students">
-                     <span>
-                        <i class="w-4 fa-solid fa-user-graduate"></i>
-                     </span>
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
-                        Students
-                     </div>
-                  </div>
-               @endslot
-               @slot('content')
-                  <a href="{{ route('students') }}" title="Student Information" @click="$dispatch('close-accordion')">
-                     <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                        <span class="w-full flex items-center text-sm">
-                           Information
-                        </span>
-                     </div>
-                  </a>
-                  <a href="{{ route('rfid') }}" title="Student RFID" @click="$dispatch('close-accordion')">
-                     <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                        <span class="w-full flex items-center text-sm">
-                           RFID
-                        </span>
-                     </div>
-                  </a>
-               @endslot
-            </x-accordion-item>
-         </x-accordion>
+         <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
+            @click="$dispatch('close-accordion')">
+            <div class="py-3 px-4 w-full flex space-x-4">
+               <span>
+                  <i class="w-4 fa-solid fa-user-graduate"></i>
+               </span>
+               <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+                  Students
+               </span>
+            </div>
+         </a>
       @endcan
 
       {{-- Attendances --}}

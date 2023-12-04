@@ -13,7 +13,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PdfController;
 use App\Livewire\Accounts;
 use App\Livewire\AccountsArchive;
-use App\Livewire\Cards;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,10 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::get('students', Students::class)
         ->middleware('can:view students')
         ->name('students');
-
-    // Students RFID
-    Route::get('rfid', Cards::class)
-        ->name('rfid');
 
     // Attendances
     Route::get('attendances', Attendances::class)

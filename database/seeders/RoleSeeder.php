@@ -16,15 +16,40 @@ class RoleSeeder extends Seeder
         // Roles
         Role::create(['name' => 'admin'])
             ->syncPermissions([
-                'manage students',
-                'manage attendances',
-                'manage users',
-                'view audit log',
-                'view archive',
+                'view students',
+                'create students',
+                'edit students',
+                'archive students',
+                'restore students',
+                'delete students',
+                'view rfids',
+                'issue rfids',
+                'view users',
+                'create users',
+                'edit users',
+                'archive users',
+                'restore users',
+                'delete users',
+                'view attendances',
+                'log attendances',
+                'view audit logs',
+                'view archives',
             ]);
-            
-        Role::create(['name' => 'guard']);
-        Role::create(['name' => 'librarian']);
-        Role::create(['name' => 'nurse']);
+
+        Role::create(['name' => 'guard'])
+            ->syncPermissions([
+                'view attendances',
+                'log attendances',
+            ]);
+        Role::create(['name' => 'librarian'])
+            ->syncPermissions([
+                'view attendances',
+                'log attendances',
+            ]);
+        Role::create(['name' => 'nurse'])
+            ->syncPermissions([
+                'view attendances',
+                'log attendances',
+            ]);;
     }
 }

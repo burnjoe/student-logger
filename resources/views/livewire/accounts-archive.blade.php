@@ -33,15 +33,21 @@
                 @endif
             </td>
             <td class="px-6 py-4 text-md flex space-x-4">
+                @can('view users')
                 <x-button wire:click.prevent="show({{ $user->id }})" btnType="success" textSize="text-xs">
                     View
                 </x-button>
+                @endcan
+                @can('restore users')
                 <x-button wire:click.prevent="restore({{ $user->id }})" btnType="secondary" textSize="text-xs">
                     Restore
                 </x-button>
+                @endcan
+                @can('delete users')
                 <x-button wire:click.prevent="delete({{ $user->id }})" btnType="danger" textSize="text-xs">
                     Delete Permanently
                 </x-button>
+                @endcan
             </td>
         </tr>
         @endforeach
@@ -64,13 +70,15 @@
 	</div>
 
     {{-- Modals --}}
-	@can('manage users')
+	@can('view users')
 	{{-- View Student --}}
 	<x-modal wire:ignore.self name="show-user" title="User Account Information" focusable>
 		@include('livewire.includes.users-modal.users-info')
 	</x-modal>
+    @endcan
     
     {{-- Restore Confirmation Dialog --}}
+    @can('restore users')
     <x-modal wire:ignore.self name="restore-user" title="Restore User Account" maxWidth="lg" focusable>
         @include('livewire.includes.confirm-form', [
             'prompt' => 'Are you sure you want to restore this record?',
@@ -79,8 +87,10 @@
         'labelLoading' => 'Restoring...',
         ])
     </x-modal>
+    @endcan
 
     {{-- Delete Permanently Confirmation Dialog --}}
+    @can('delete users')
     <x-modal wire:ignore.self name="delete-user" title="Delete User Account" maxWidth="lg" focusable>
         @include('livewire.includes.confirm-form', [
         'prompt' => 'Are you sure you want to delete this record permanently?',

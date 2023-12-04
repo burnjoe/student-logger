@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
     // Students Information
     Route::get('students', Students::class)
-        ->middleware('can:manage students')
+        ->middleware('can:view students')
         ->name('students');
 
     // Students RFID
@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
 
     // Attendances
     Route::get('attendances', Attendances::class)
-        // ->middleware('can:manage attendances')
+        ->middleware('can:view attendances')
         ->name('attendances');
 
     // Attendance Reports
@@ -65,12 +65,12 @@ Route::middleware('auth')->group(function () {
 
     // Audit Log
     Route::get('audit-log', AuditLog::class)
-        ->middleware('can:view audit log')
+        ->middleware('can:view audit logs')
         ->name('audit-log');
 
     // Accounts
     Route::get('accounts', Accounts::class)
-        ->middleware('can:manage users')
+        ->middleware('can:view users')
         ->name('accounts');
 
     // Reports Module
@@ -88,12 +88,12 @@ Route::middleware('auth')->group(function () {
 
     // Archive Students
     Route::get('archive/students', StudentsArchive::class)
-        ->middleware('can:view archive')
+        ->middleware('can:view archives')
         ->name('archive-students');
     
     // Archive Accounts
     Route::get('archive/accounts', AccountsArchive::class)
-        ->middleware('can:view archive')
+        ->middleware('can:view archives')
         ->name('archive-users');
 
     // Attendance Logger Module

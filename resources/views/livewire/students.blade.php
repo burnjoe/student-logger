@@ -3,7 +3,7 @@
       @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
       <div class="flex justify-between lg:justify-end items-center">
-         @can('manage students')
+         @can('create students')
          <div class="flex justify-end ps-2">
             <x-button wire:click.prevent="create" btnType="success" class="flex space-x-2 items-center">
                <i class="fa-solid fa-plus"></i>
@@ -33,13 +33,17 @@
          <td class="px-6 py-4">{{ $student->first_name }}</td>
          <td class="px-6 py-4">Program</td>
          <td class="px-6 py-4 text-md flex space-x-4">
-            @can('manage students')
+            @can('view students')
             <x-button wire:click.prevent="show({{ $student->id }})" btnType="success" textSize="text-xs">
                View
             </x-button>
+            @endcan
+            @can('edit students')
             <x-button wire:click.prevent="edit({{ $student->id }})" btnType="warning" textSize="text-xs">
                Edit
             </x-button>
+            @endcan
+            @can('archive students')
             <x-button wire:click.prevent="delete({{ $student->id }})" btnType="danger" textSize="text-xs">
                Delete
             </x-button>
@@ -66,22 +70,28 @@
    </div>
 
    {{-- Create Student Form --}}
-   @can('manage students')
+   @can('create students')
    <x-modal wire:ignore.self name="create-student" title="Add Student" focusable>
       @include('livewire.includes.students-modal.students-form')
    </x-modal>
+   @endcan
 
    {{-- View Student Form --}}
+   @can('view students')
    <x-modal wire:ignore.self name="show-student" title="Student Information" focusable>
       @include('livewire.includes.students-modal.students-info')
    </x-modal>
+   @endcan
 
    {{-- Edit Student Form --}}
+   @can('edit students')
    <x-modal wire:ignore.self name="edit-student" title="Edit Student" focusable>
       @include('livewire.includes.students-modal.students-form')
    </x-modal>
+   @endcan
 
    {{-- Delete Student Dialog --}}
+   @can('archive students')
    <x-modal wire:ignore.self name="delete-student" title="Delete Student" maxWidth="lg" focusable>
       @include('livewire.includes.confirm-form', [
       'prompt' => 'Are you sure you want to delete this record?',
@@ -91,4 +101,5 @@
       ])
    </x-modal>
    @endcan
+
 </div>

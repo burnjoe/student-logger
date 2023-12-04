@@ -1,5 +1,5 @@
 <aside :class="{ 'xs:w-0 lg:w-16': !sidebarOpen }"
-   @click.away="if (! $event.target.closest('.sidebar-button') && ! $event.target.closest('.filter-accordion')) { sidebarOpen = false; $dispatch('close-sidebar-accordion'); }"
+   {{-- @click.away="if (! $event.target.closest('.sidebar-button') && ! $event.target.closest('.filter-accordion')) { sidebarOpen = false; $dispatch('close-sidebar-accordion'); }" --}}
    class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
    <div :class="{ 'pb-8': !sidebarOpen }" class="sticky top-0 bg-white pt-1 pb-12 z-10">
       <div x-show="sidebarOpen" class="flex flex-row justify-between">
@@ -8,7 +8,7 @@
          </div>
 
          {{-- close button --}}
-         <button x-cloak x-show="sidebarOpen" @click="sidebarOpen = !sidebarOpen" class="mt-4 mx-6 lg:hidden">
+         <button x-cloak x-show="sidebarOpen" @click="sidebarOpen = !sidebarOpen; $dispatch('close-accordion');" class="mt-4 mx-6 lg:hidden">
             <i class="fa-solid fa-x"></i>
          </button>
       </div>
@@ -42,7 +42,7 @@
       </a>
 
       {{-- Students --}}
-      @can('manage students')
+      @can('view students')
          <x-accordion
             @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'archive-accordion');"
             class="transition-all rounded-lg hover:bg-lightGray" name="students-accordion">
@@ -78,7 +78,7 @@
       @endcan
 
       {{-- Attendances --}}
-      @can('manage attendances')
+      @can('view attendances')
          <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
@@ -93,7 +93,7 @@
       @endcan
 
       {{-- User Accounts --}}
-      @can('manage users')
+      @can('view users')
          <a href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
@@ -108,7 +108,7 @@
       @endcan
 
       {{-- Audit Log --}}
-      @can('view audit log')
+      @can('view audit logs')
          <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
             @click="$dispatch('close-accordion')">
             <div class="py-3 px-4 w-full flex space-x-4">
@@ -136,7 +136,7 @@
       </a>
 
       {{-- Archive --}}
-      @can('view archive')
+      @can('view archives')
          <x-accordion
             @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'students-accordion');"
             class="transition-all rounded-lg hover:bg-lightGray" name="archive-accordion">

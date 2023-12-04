@@ -46,7 +46,7 @@ $eventNames = [
             <td class="px-6 py-4">{{ ucwords($log->causer->roles->first()->name) }}</td>
             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($log->created_at)->format('Y-m-d h:i A') }}</td>
             <td class="px-6 py-4">
-                @can('view audit log')
+                @can('view audit logs')
                 <x-button wire:click.prevent="show({{ $log->id }})" btnType="success" textSize="text-xs">
 					View
 				</x-button>
@@ -73,7 +73,7 @@ $eventNames = [
     </div>
 
     {{-- Modals --}}
-	@can('view audit log')
+	@can('view audit logs')
 	{{-- View Log Details --}}
 	<x-modal wire:ignore.self name="show-log-details" title="Log Details" focusable>
 		@include('livewire.includes.audit-logs-modal.audit-logs-info')

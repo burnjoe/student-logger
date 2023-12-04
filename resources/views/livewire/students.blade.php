@@ -59,18 +59,21 @@
                         </x-button>
                         @endslot
                         @slot('content')
-                        @can('view rfids')
-                        <x-dropdown-item wire:click.prevent="show({{ $student->id }}, 'card' )" fontSize="text-xs" element="button">
-                            View RFID
-                        </x-dropdown-item>
-                        @endcan
                         @can('issue rfids')
-                        <x-dropdown-item wire:click.prevent="create({{ $student->id }})" fontSize="text-xs" element="button">
+                        <x-dropdown-item wire:click.prevent="create({{ $student->id }})" fontSize="text-xs"
+                            element="button">
                             Issue New RFID
                         </x-dropdown-item>
                         @endcan
+                        @can('view rfids')
+                        <x-dropdown-item wire:click.prevent="show({{ $student->id }}, 'card' )" fontSize="text-xs"
+                            element="button">
+                            View Current RFID
+                        </x-dropdown-item>
+                        @endcan
                         @can('view issues')
-                        <x-dropdown-item wire:click.prevent="show({{ $student->id }}, 'history')" fontSize="text-xs" element="button">
+                        <x-dropdown-item wire:click.prevent="show({{ $student->id }}, 'history')" fontSize="text-xs"
+                            element="button">
                             View Issue History
                         </x-dropdown-item>
                         @endcan
@@ -132,17 +135,17 @@
     </x-modal>
     @endcan
 
-    {{-- View Student RFID Form --}}
-    @can('view rfids')
-    <x-modal wire:ignore.self name="show-card" title="RFID Information" focusable>
-        @include('livewire.includes.students-modal.cards-info')
-    </x-modal>
-    @endcan
-
     {{-- Issue Student RFID Form --}}
     @can('issue rfids')
     <x-modal wire:ignore.self name="create-card" title="Issue RFID" focusable>
         @include('livewire.includes.students-modal.cards-multiform')
+    </x-modal>
+    @endcan
+
+    {{-- View Student RFID Form --}}
+    @can('view rfids')
+    <x-modal wire:ignore.self name="show-card" title="RFID Information" focusable>
+        @include('livewire.includes.students-modal.cards-info')
     </x-modal>
     @endcan
 

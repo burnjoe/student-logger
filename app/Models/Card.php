@@ -29,6 +29,7 @@ class Card extends Model
         'rfid',
         'profile_photo',
         'signature',
+        'issuance_reason',
         'expires_at',
     ];
 

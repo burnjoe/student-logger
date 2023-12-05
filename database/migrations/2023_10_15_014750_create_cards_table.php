@@ -20,6 +20,7 @@ return new class extends Migration
                 ->restrictOnDelete();
             $table->string('profile_photo');
             $table->string('signature')->nullable();
+            $table->enum('issuance_reason', ['First Issue', 'Renewal', 'Reissue for Lost ID']);
             $table->timestamp('expires_at');
             $table->timestamps();
             $table->softDeletes();

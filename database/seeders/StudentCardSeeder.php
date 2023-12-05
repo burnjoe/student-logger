@@ -37,7 +37,6 @@ class StudentCardSeeder extends Seeder
         Card::factory()->create([
             'rfid' => 3207181875,
             'student_id' => $student->id,
-            'expires_at' => now(),
         ]);
 
         $student = Student::create([
@@ -59,7 +58,27 @@ class StudentCardSeeder extends Seeder
         Card::factory()->create([
             'rfid' => 3444330862,
             'student_id' => $student->id,
-            'expires_at' => now(),
+        ]);
+
+        $student = Student::create([
+            'student_no' => 2011253,
+            'last_name' => 'Naparan',
+            'first_name' => 'Cecilio',
+            'middle_name' => 'Mancanes',
+            'sex' => 'Male',
+            'civil_status' => 'Single',
+            'nationality' => 'Filipino',
+            'birthdate' => Carbon::parse('2001-01-18'),
+            'birthplace' => 'Cabuyao, Laguna',
+            'address' => 'Banay-Banay, Cabuyao, Laguna',
+            'phone' => '9924091282',
+            'email' => 'naparancecilio82@gmail.com',
+            'account_type' => 'Cabuyeño',
+        ]);
+
+        Card::factory()->create([
+            'rfid' => 3444330823,
+            'student_id' => $student->id,
         ]);
     }
 }

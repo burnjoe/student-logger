@@ -6,17 +6,13 @@
    </x-card>
 
    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      <x-card class="flex flex-col">
-         <div>
-            <p class="text-xl text-veryDarkGray font-semibold">
-               Total Number of Students:
-            </p>
-         </div>
-         <div class="">
-            <p class="text-6xl text-veryDarkGray font-bold">
-               0
-            </p>
-         </div>
+      <x-card>
+         <p class="text-xl text-veryDarkGray font-semibold">
+            Total Number of Students:
+         </p>
+         <p class="text-6xl text-veryDarkGray font-bold">
+            0
+         </p>
       </x-card>
 
       {{-- pie chart per department --}}

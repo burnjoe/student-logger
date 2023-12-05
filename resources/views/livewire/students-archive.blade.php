@@ -21,15 +21,21 @@
             <td class="px-6 py-4">{{ $student->first_name }}</td>
             <td class="px-6 py-4">Program</td>
             <td class="px-6 py-4 text-md flex space-x-4">
+                @can('view students')
                 <x-button wire:click.prevent="show({{ $student->id }})" btnType="success" textSize="text-xs">
                     View
                 </x-button>
+                @endcan
+                @can('restore students')
                 <x-button wire:click.prevent="restore({{ $student->id }})" btnType="secondary" textSize="text-xs">
                     Restore
                 </x-button>
+                @endcan
+                @can('delete students')
                 <x-button wire:click.prevent="delete({{ $student->id }})" btnType="danger" textSize="text-xs">
                     Delete Permanently
                 </x-button>
+                @endcan
             </td>
         </tr>
         @endforeach
@@ -52,11 +58,14 @@
     </div>
 
     {{-- View Student Form --}}
+    @can('view students')
     <x-modal wire:ignore.self name="show-student" title="Student Information" focusable>
         @include('livewire.includes.view-student-form')
     </x-modal>
+    @endcan
 
     {{-- Restore Student Dialog --}}
+    @can('restore students')
     <x-modal wire:ignore.self name="restore-student" title="Restore Student" maxWidth="lg" focusable>
         @include('livewire.includes.confirm-form', [
         'prompt' => 'Are you sure you want to restore this record?',
@@ -65,8 +74,10 @@
         'labelLoading' => 'Restoring...',
         ])
     </x-modal>
+    @endcan
 
     {{-- Delete Permanently Student Dialog --}}
+    @can('delete students')
     <x-modal wire:ignore.self name="delete-student" title="Delete Student Permanently" maxWidth="lg" focusable>
         @include('livewire.includes.confirm-form', [
         'prompt' => 'Are you sure you want to delete this record permanently?',
@@ -75,4 +86,5 @@
         'labelLoading' => 'Deleting...',
         ])
     </x-modal>
+    @endcan
 </div>

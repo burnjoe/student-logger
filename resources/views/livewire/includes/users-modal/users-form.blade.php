@@ -1,7 +1,7 @@
 <div>
     <form wire:submit.prevent="{{ $action }}">
         {{-- Personal Information --}}
-        <div class="border border-t-0 border-l-0 border-r-0 border-lightGray border-lightGray px-5">
+        <div class="px-5">
             <span class="text-1rem font-bold">Personal Information</span>
         </div>
 
@@ -13,7 +13,7 @@
                 </x-input-label>
                 <x-input-text id="last_name" wire:model="last_name" type="text" placeholder="{{ __('Last Name') }}"
                     class="mt-1 bg-lightGray" :messages="$errors->get('last_name')" />
-                <x-input-error class="absolute" :messages="$errors->get('last_name')" />
+                <x-input-error :messages="$errors->get('last_name')" />
             </div>
             {{-- First Name --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
@@ -22,7 +22,7 @@
                 </x-input-label>
                 <x-input-text id="first_name" wire:model="first_name" type="text" placeholder="{{ __('First Name') }}"
                     class="mt-1 bg-lightGray" :messages="$errors->get('first_name')" />
-                <x-input-error class="absolute" :messages="$errors->get('first_name')" />
+                <x-input-error :messages="$errors->get('first_name')" />
             </div>
             {{-- First Name --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
@@ -32,7 +32,7 @@
                 <x-input-text id="middle_name" wire:model="middle_name" type="text"
                     placeholder="{{ __('Middle Name') }}" class="mt-1 bg-lightGray"
                     :messages="$errors->get('middle_name')" />
-                <x-input-error class="absolute" :messages="$errors->get('middle_name')" />
+                <x-input-error :messages="$errors->get('middle_name')" />
             </div>
 
             {{-- Sex --}}
@@ -45,7 +45,7 @@
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </x-input-select>
-                <x-input-error class="absolute" :messages="$errors->get('sex')" />
+                <x-input-error :messages="$errors->get('sex')" />
             </div>
             {{-- Date of Birth --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
@@ -54,7 +54,7 @@
                 </x-input-label>
                 <x-input-text id="birthdate" wire:model="birthdate" type="date" class="mt-1 bg-lightGray"
                     :messages="$errors->get('birthdate')" />
-                <x-input-error class="absolute" :messages="$errors->get('birthdate')" />
+                <x-input-error :messages="$errors->get('birthdate')" />
             </div>
             {{-- Phone Number --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
@@ -66,7 +66,7 @@
                     :messages="$errors->get('phone')">
                     <span>+63</span>
                 </x-input-text>
-                <x-input-error class="absolute" :messages="$errors->get('phone')" />
+                <x-input-error :messages="$errors->get('phone')" />
             </div>
 
             {{-- Address --}}
@@ -76,12 +76,12 @@
                 </x-input-label>
                 <x-input-text id="address" wire:model="address" name="address" type="text"
                     placeholder="{{ __('Address') }}" class="mt-1 bg-lightGray" :messages="$errors->get('address')" />
-                <x-input-error class="absolute" :messages="$errors->get('address')" />
+                <x-input-error :messages="$errors->get('address')" />
             </div>
         </div>
 
         {{-- User Account Information --}}
-        <div class="border border-t-0 border-l-0 border-r-0 border-lightGray border-lightGray px-5">
+        <div class="px-5">
             <span class="text-1rem font-bold">User Account Information</span>
         </div>
 
@@ -93,9 +93,9 @@
                 </x-input-label>
                 <x-input-text id="email" wire:model="email" type="email" placeholder="{{ __('Email Address') }}"
                     class="mt-1 bg-lightGray" :messages="$errors->get('email')" />
-                <x-input-error class="absolute" :messages="$errors->get('email')" />
+                <x-input-error :messages="$errors->get('email')" />
             </div>
-            {{-- Role Status --}}
+            {{-- Role --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
                 <x-input-label for="role" :required="true">
                     <small class="font-normal text-darkGray text-xs">Role</small>
@@ -107,7 +107,7 @@
                     <option value="{{ $role->id }}">{{ ucwords($role->name) }}</option>    
                     @endforeach
                 </x-input-select>
-                <x-input-error class="absolute" :messages="$errors->get('role')" />
+                <x-input-error :messages="$errors->get('role')" />
             </div>
             {{-- User Account Status --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
@@ -120,12 +120,12 @@
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="INACTIVE">INACTIVE</option>
                 </x-input-select>
-                <x-input-error class="absolute" :messages="$errors->get('status')" />
+                <x-input-error :messages="$errors->get('status')" />
             </div>
         </div>
 
         {{-- Submit --}}
-        <div class="flex justify-end items-center space-x-4 mt-6">
+        <div class="flex justify-end items-center space-x-4 mt-6 pe-5">
             <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary"
                 wire:loading.class="cursor-not-allowed">
                 Cancel

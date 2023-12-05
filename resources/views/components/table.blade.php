@@ -9,7 +9,7 @@
             </thead>
          @endif
          @if(isset($data))
-            <tbody style="white-space: nowrap;">
+            <tbody>
                {{ $data }}
             </tbody>
          @endif

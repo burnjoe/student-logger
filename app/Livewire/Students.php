@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Card;
 use App\Models\College;
 use App\Models\Student;
 use Livewire\Component;
@@ -12,7 +13,8 @@ class Students extends Component
 {
     use WithPagination;
 
-    public $id;
+    // Student
+    public $student_id;
     public $student_no;
     public $last_name;
     public $first_name;
@@ -27,12 +29,17 @@ class Students extends Component
     public $email;
     public $account_type;
 
-    // public $program_id;
-
     public Student $selectedStudent;
 
+    // Card
+    public $card_id;
+    public $rfid;
+    public $profile_photo;
+
+    public Card $selectedCard;
+
     public $search = "";
-    public $filterProgram;
+    public $selectedPrograms = [];
     public $action;
 
 
@@ -42,7 +49,7 @@ class Students extends Component
     public function rules()
     {
         return [
-            'student_no' => 'required|digits:7|unique:students,student_no,' . $this->id,
+            'student_no' => 'required|digits:7|unique:students,student_no,' . $this->student_id,
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
@@ -52,8 +59,8 @@ class Students extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->id,
-            'email' => 'required|email|unique:students,email,' . $this->id,
+            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->student_id,
+            'email' => 'required|email|unique:students,email,' . $this->student_id,
             'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
         ];
     }
@@ -66,7 +73,7 @@ class Students extends Component
         return [
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
-            'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)'
+            'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
         ];
     }
 
@@ -108,25 +115,79 @@ class Students extends Component
     /**
      *  Initialize attributes
      */
-    public function init(int $id)
+    public function init(int $id, $type = "student")
     {
         try {
-            $this->selectedStudent = Student::find($id);
+            switch ($type) {
+                case 'student':
+                    $this->selectedStudent = Student::find($id);
 
-            $this->id = $this->selectedStudent->id;
-            $this->student_no = $this->selectedStudent->student_no;
-            $this->last_name = $this->selectedStudent->last_name;
-            $this->first_name = $this->selectedStudent->first_name;
-            $this->middle_name = $this->selectedStudent->middle_name;
-            $this->sex = $this->selectedStudent->sex;
-            $this->civil_status = $this->selectedStudent->civil_status;
-            $this->nationality = $this->selectedStudent->nationality;
-            $this->birthdate = $this->selectedStudent->birthdate;
-            $this->birthplace = $this->selectedStudent->birthplace;
-            $this->address = $this->selectedStudent->address;
-            $this->phone = $this->selectedStudent->phone;
-            $this->email = $this->selectedStudent->email;
-            $this->account_type = $this->selectedStudent->account_type;
+                    $this->student_id = $this->selectedStudent->id;
+                    $this->student_no = $this->selectedStudent->student_no;
+                    $this->last_name = $this->selectedStudent->last_name;
+                    $this->first_name = $this->selectedStudent->first_name;
+                    $this->middle_name = $this->selectedStudent->middle_name;
+                    $this->sex = $this->selectedStudent->sex;
+                    $this->civil_status = $this->selectedStudent->civil_status;
+                    $this->nationality = $this->selectedStudent->nationality;
+                    $this->birthdate = $this->selectedStudent->birthdate;
+                    $this->birthplace = $this->selectedStudent->birthplace;
+                    $this->address = $this->selectedStudent->address;
+                    $this->phone = $this->selectedStudent->phone;
+                    $this->email = $this->selectedStudent->email;
+                    $this->account_type = $this->selectedStudent->account_type;
+                    break;
+                case 'card':
+                    $this->selectedStudent = Student::select(
+                        'id',
+                        'student_no',
+                        'last_name',
+                        'first_name',
+                        'middle_name',
+                        'birthdate',
+                        'address',
+                    )
+                        ->with([
+                            'cards' =>
+                            fn ($query) =>
+                            $query->orderBy('id', 'desc')
+                                ->first(),
+                        ])
+                        ->find($id);
+
+                    $this->selectedCard = $this->selectedStudent->cards->first();
+
+                    $this->student_no = $this->selectedStudent->student_no;
+                    $this->last_name = $this->selectedStudent->last_name;
+                    $this->first_name = $this->selectedStudent->first_name;
+                    $this->middle_name = $this->selectedStudent->middle_name;
+                    // program
+                    $this->birthdate = $this->selectedStudent->birthdate;
+                    $this->address = $this->selectedStudent->address;
+                    $this->rfid = $this->selectedCard->rfid;
+                    $this->profile_photo = $this->selectedCard->profile_photo;
+                    // emergency contact person
+                    // contact number
+
+                    break;
+                case 'history':
+                    $this->selectedStudent = Student::select(
+                        'id',
+                        'student_no',
+                        'last_name',
+                        'first_name'
+                    )
+                        ->with([
+                            'cards' =>
+                            fn ($query) =>
+                            $query->orderBy('id', 'desc')
+                        ])
+                        ->find($id);
+
+                    break;
+                default:
+                    break;
+            }
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -135,31 +196,62 @@ class Students extends Component
     /**
      * Show selected record in modal
      */
-    public function show(int $id)
+    public function show(int $id, $type = "student")
     {
         $this->dispatch('close-modal');
 
+        $this->resetExcept(['search', 'selectedPrograms']);
+
         try {
-            $this->init($id);
-            $this->dispatch('open-modal', 'show-student');
+            $this->init($id, $type);
+
+            switch ($type) {
+                case 'student':
+                    $this->dispatch('open-modal', 'show-student');
+                    break;
+                case 'card':
+                    $this->dispatch('open-modal', 'show-card');
+                    break;
+                case 'history':
+                    $this->dispatch('open-modal', 'show-issues');
+                    break;
+                default:
+                    break;
+            }
         } catch (\Throwable $th) {
-            $this->dispatch('error', ['message' => 'Unable to view student']);
+            switch ($type) {
+                case 'student':
+                    $this->dispatch('error', ['message' => 'Unable to view student']);
+                    break;
+                case 'card':
+                    $this->dispatch('info', ['message' => 'Student does not have an existing RFID']);
+                    break;
+                case 'history':
+                    $this->dispatch('error', ['message' => 'Unable to view issue history']);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     /**
      * Show create form modal
      */
-    public function create()
+    public function create(int $id = null)
     {
         $this->dispatch('close-modal');
 
         $this->resetValidation();
-        $this->resetExcept(['search', 'filterProgram']);
+        $this->resetExcept(['search', 'selectedPrograms']);
 
-        $this->action = 'store';
+        if (!$id) {
+            $this->action = 'store';
 
-        $this->dispatch('open-modal', 'create-student');
+            $this->dispatch('open-modal', 'create-student');
+        } else {
+            $this->dispatch('open-modal', 'create-card');
+        }
     }
 
     /**
@@ -170,9 +262,6 @@ class Students extends Component
         $validated = $this->validate();
 
         Student::create($validated);
-
-        // array_map(fn($value) => strtoupper($value),
-        // $validated)
 
         $this->reset();
 
@@ -189,7 +278,7 @@ class Students extends Component
         $this->dispatch('close-modal');
 
         $this->resetValidation();
-        $this->resetExcept(['search', 'filterProgram']);
+        $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
             $this->init($id);
@@ -223,7 +312,7 @@ class Students extends Component
     {
         $this->dispatch('close-modal');
 
-        $this->resetExcept(['search', 'filterProgram']);
+        $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
             $this->selectedStudent = Student::findOrFail($id);

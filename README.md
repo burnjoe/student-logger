@@ -97,5 +97,11 @@ Open new terminal and start local development server for node
 npm run dev
 ```
 
+Start Laravel Websocket server
+```
+php artisan websockets:serve
+```
 
 ### ✨ You can now access the server at http://localhost:8000
+
+### ✨ Server Deployed with Hostinger: https://istudenttrack.com

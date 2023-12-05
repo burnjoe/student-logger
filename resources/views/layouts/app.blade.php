@@ -15,11 +15,11 @@
 </head>
 
 <body>
-    <div x-data="{ sidebarOpen: true }" class="flex h-screen overflow-x-auto overflow-y-hidden">
+    <div x-data="{ sidebarOpen: true }" class="flex h-screen overflow-x-hidden overflow-y-hidden">
         {{-- Side Nav --}}
         @include('layouts.sidebar')
 
-        <div class="flex-1 flex flex-col p-0">
+        <div class="w-full flex-1 flex flex-col p-0">
             {{-- Top Nav --}}
             @include('layouts.navigation')
 

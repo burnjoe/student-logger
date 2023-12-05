@@ -1,5 +1,5 @@
 <div>
-	<div class="grid grid-cols-2 mt-4">
+	<div class="grid lg:grid-cols-2 gap-4 mt-4">
 		@include('livewire.includes.search', ['placeholder' => 'Search by name or email'])
 
 		<div class="flex justify-between lg:justify-end items-center">

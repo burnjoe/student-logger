@@ -10,14 +10,18 @@
          <div class="flex flex-col md:flex-row gap-4 pb-6">
             {{-- Left Side --}}
             <div class="md:w-1/3 flex flex-col items-center">
-               <span class="text-1rem font-bold">Number of Students per Dept. in the Campus</span>
+               <span class="text-1rem font-semibold">Number of Students per Dept. in the Campus</span>
                <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right Side --}}
             <div class="w-full md:w-3/4">
-               <div class="flex flex-col">
-                  <span class="text-1rem font-bold">Total Number Students</span>
-                  #
+               <div class="flex flex-col mb-3">
+                  <p class="text-1rem font-semibold">
+                     Total Number Students
+                  </p>
+                  <p class="text-3xl text-veryDarkGray font-bold">
+                     0
+                  </p>
                </div>
 
                <div class="flex flex-col">
@@ -68,7 +72,7 @@
          <div class="">
             <div class="flex flex-row justify-between">
                <div class="flex items-center">
-                  <span class="text-1rem font-bold ">Main Gate Report</span>
+                  <span class="text-1rem font-semibold">Main Gate Report</span>
                </div>
 
                {{-- Print --}}
@@ -138,14 +142,18 @@
          <div class="flex flex-col md:flex-row gap-4">
             {{-- Left Side --}}
             <div class="md:w-1/3 flex flex-col items-center">
-               <span class="text-1rem font-bold">Number of Students per Dept. in the Library</span>
+               <span class="text-1rem font-semibold">Number of Students per Dept. in the Library</span>
                <canvas id="libraryChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right side --}}
             <div class="w-full md:w-3/4">
                <div class="flex flex-col mb-3">
-                  <span class="text-1rem font-bold">Total Number Students</span>
-                  #
+                  <p class="text-1rem font-semibold">
+                     Total Number Students
+                  </p>
+                  <p class="text-3xl text-veryDarkGray font-bold">
+                     0
+                  </p>
                </div>
 
                <div class="flex flex-col">
@@ -192,7 +200,7 @@
 
                   <div class="flex flex-row justify-between">
                      <div class="flex items-center">
-                        <span class="text-1rem font-bold ">Top Users in Library</span>
+                        <span class="text-1rem font-semibold">Top Users in Library</span>
                      </div>
 
                      {{-- Print --}}
@@ -264,14 +272,18 @@
          <div class="flex flex-col md:flex-row gap-4">
             {{-- Left Side --}}
             <div class="md:w-1/3 flex flex-col items-center">
-               <span class="text-1rem font-bold">Number of Students per Dept. in the Clinic</span>
+               <span class="text-1rem font-semibold">Number of Students per Dept. in the Clinic</span>
                <canvas id="clinicChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right Side --}}
             <div class="w-full md:w-3/4">
                <div class="flex flex-col mb-3">
-                  <span class="text-1rem font-bold">Total Number Students</span>
-                  #
+                  <p class="text-1rem font-semibold">
+                     Total Number Students
+                  </p>
+                  <p class="text-3xl text-veryDarkGray font-bold">
+                     0
+                  </p>
                </div>
 
                <div class="flex flex-col">

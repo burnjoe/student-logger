@@ -1,17 +1,28 @@
 <div>
    <x-card>
-      {{ 'Welcome, ' . Auth::user()->employee->first_name . ' ' . Auth::user()->employee->last_name . '!' }}
+      <span class="text-xl text-veryDarkGray font-semibold">
+         {{ 'Welcome, ' . Auth::user()->employee->first_name . ' ' . Auth::user()->employee->last_name . '!' }}
+      </span>
    </x-card>
 
    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      <x-card>
-         Total Number Students
+      <x-card class="flex flex-col">
+         <div>
+            <p class="text-xl text-veryDarkGray font-semibold">
+               Total Number of Students:
+            </p>
+         </div>
+         <div class="">
+            <p class="text-6xl text-veryDarkGray font-bold">
+               0
+            </p>
+         </div>
       </x-card>
 
       {{-- pie chart per department --}}
       <x-card>
-         <div class=" flex flex-col items-center">
-            <span class="text-1rem font-bold">Number of Students per Dept.</span>
+         <div class="flex flex-col items-center">
+            <span class="text-xl text-veryDarkGray font-semibold">Number of Students per Dept.</span>
             <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
          </div>
       </x-card>

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div x-data="{ sidebarOpen: true }" class="flex h-screen overflow-x-hidden overflow-y-hidden">
+    <div x-data="{ sidebarOpen: true }" class="flex h-screen overflow-x-auto overflow-y-hidden">
         {{-- Side Nav --}}
         @include('layouts.sidebar')
 

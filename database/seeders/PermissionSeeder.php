@@ -39,5 +39,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'view rfids']);
         Permission::create(['name' => 'issue rfids']);
         Permission::create(['name' => 'view issues']);
+
+
+        Permission::create(['name' => 'view main gate reports']);
+        Permission::create(['name' => 'view library reports']);
+        Permission::create(['name' => 'view clinic reports']);
+        Permission::create(['name' => 'generate reports']);
     }
 }

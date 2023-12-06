@@ -70,22 +70,26 @@ Route::middleware('auth')->group(function () {
 
     // Reports Module
     Route::get('reports', Reports::class)
+        ->middleware('can:generate reports')
         ->name('reports');
 
     Route::get('library-reports-pdf', [PdfController::class, 'export_library_pdf'])
+        ->middleware('can:generate reports')
         ->name('export_library_pdf');
 
     Route::get('clinic-reports-pdf', [PdfController::class, 'export_clinic_pdf'])
+        ->middleware('can:generate reports')
         ->name('export_clinic_pdf');
 
     Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
+        ->middleware('can:generate reports')
         ->name('export_maingate_pdf');
 
     // Archive Students
     Route::get('archive/students', StudentsArchive::class)
         ->middleware('can:view archives')
         ->name('archive-students');
-    
+
     // Archive Accounts
     Route::get('archive/accounts', AccountsArchive::class)
         ->middleware('can:view archives')
@@ -110,4 +114,4 @@ Route::middleware('auth')->group(function () {
 
 
 // includes the auth.php in routes
-require __DIR__. '/auth.php';
+require __DIR__ . '/auth.php';

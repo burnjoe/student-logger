@@ -1,6 +1,6 @@
 <div>
    {{-- Main Gate --}}
-   {{-- @can('view clinic reports') --}}
+   {{-- @can('view main gate reports') --}}
       <div class="mx-auto my-6 bg-white rounded-lg overflow-hidden shadow-lg sm:w-full">
          {{-- Header --}}
          <div class="flex bg-green px-6 py-4">
@@ -138,12 +138,11 @@
             new Chart(document.getElementById('campusChart').getContext('2d'), {
                type: 'pie',
                data: {
-                  labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
+                  labels: @json($data->keys()),
                   datasets: [{
                      label: ' # of Students',
-                     data: [10, 20, 30, 5, 9, 12, 9],
-                     backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
-                        'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
+                     data: @json($data->values()),
+                     backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)', 'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                      ],
                      hoverOffset: 4
                   }]
@@ -295,8 +294,7 @@
                   datasets: [{
                      label: ' # of Students',
                      data: [10, 20, 30, 5, 9, 12, 9],
-                     backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
-                        'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
+                     backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)', 'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                      ],
                      hoverOffset: 4
                   }]
@@ -448,8 +446,7 @@
                   datasets: [{
                      label: ' # of Students',
                      data: [10, 20, 30, 5, 9, 12, 9],
-                     backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
-                        'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
+                     backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)', 'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                      ],
                      hoverOffset: 4
                   }]

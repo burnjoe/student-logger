@@ -159,21 +159,43 @@
          {{-- <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div> --}}
       </div>
 
+      {{-- from attendances module table --}}
       <div class="table">
          <table>
-            <thead>
-               <tr>
-                  <th>Student No.</th>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  <th>Date</th>
-                  <th>Log In</th>
-                  <th>Log Out</th>
-                  <th>Status</th>
-                  <th>Post</th>
-               </tr>
-            </thead>
-            <tbody>
+            @slot('head')
+               <thead>
+                  <tr>
+                     <th>Student No.</th>
+                     <th>Last Name</th>
+                     <th>First Name</th>
+                     <th>Date</th>
+                     <th>Log In</th>
+                     <th>Log Out</th>
+                     <th>Status</th>
+                     <th>Post</th>
+                  </tr>
+               </thead>
+            @endslot
+            
+            @slot('data')
+               @foreach ($attendances as $attendance)
+                  <tr>
+                     <td>{{ $attendance->card->student->student_no }}</td>
+                     <td>{{ $attendance->card->student->last_name }}</td>
+                     <td>{{ $attendance->card->student->first_name }}</td>
+                     <td>{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('M. j, Y') }}</td>
+                     <td>{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('h:i A') }}</td>
+                     <td>
+                        @if ($attendance->logged_out_at)
+                           {{ \Carbon\Carbon::parse($attendance->logged_out_at)->format('h:i A') }}
+                        @endif
+                     </td>
+                     <td>{{ $attendance->post->name }}</td>
+                     <td>{{ $attendance->status }}</td>
+                  </tr>
+               @endforeach
+            @endslot
+            {{-- <tbody>
                <tr>
                   <td>2000541</td>
                   <td>Ferreras</td>
@@ -184,7 +206,7 @@
                   <td>Out</td>
                   <td>Clinic</td>
                </tr>
-            </tbody>
+            </tbody> --}}
          </table>
       </div>
    </div>

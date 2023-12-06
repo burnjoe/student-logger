@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use App\Models\Post;
+use App\Models\Student;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfController extends Controller
 {
-    public function export_attendance_pdf()
+    // Export Attendances PDF
+    public function export_attendance_pdf(Attendance $attendances, Card $card, Post $post, Student $student)
     {
-        $pdf = Pdf::loadView('pdf.attendance-pdf');
+        $pdf = Pdf::loadView('pdf.attendance-pdf', ['attendances' => $attendances, 'card' => $card, 'student' => $student]);
         return $pdf->stream('Attendance-Reports.pdf');
     }
 
+    // Export Main Gate PDF
     public function export_maingate_pdf() 
     {
         $pdf = Pdf::loadView('pdf.main-gate-pdf');

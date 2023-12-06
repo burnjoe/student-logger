@@ -60,7 +60,7 @@
     {{-- View Student Form --}}
     @can('view students')
     <x-modal wire:ignore.self name="show-student" title="Student Information" focusable>
-        @include('livewire.includes.view-student-form')
+        @include('livewire.includes.students-modal.students-info')
     </x-modal>
     @endcan
 

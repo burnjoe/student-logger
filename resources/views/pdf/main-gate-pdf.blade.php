@@ -159,6 +159,7 @@
          <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div>
       </div>
 
+      {{-- only in post main gate --}}
       <div class="table">
          <table>
             <thead>

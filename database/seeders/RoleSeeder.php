@@ -35,6 +35,9 @@ class RoleSeeder extends Seeder
                 'log attendances',
                 'view audit logs',
                 'view archives',
+                'view main gate reports',
+                'view library reports',
+                'generate reports',
             ]);
 
         Role::create(['name' => 'guard'])
@@ -46,6 +49,8 @@ class RoleSeeder extends Seeder
             ->syncPermissions([
                 'view attendances',
                 'log attendances',
+                'view library reports',
+                'generate reports',
             ]);
         Role::create(['name' => 'nurse'])
             ->syncPermissions([

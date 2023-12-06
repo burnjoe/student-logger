@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id('id');
-            $table->bigInteger('rfid')->unique();
+            $table->string('rfid')->unique();
             $table->foreignId('student_id')
                 ->constrained()
                 ->restrictOnUpdate()

@@ -21,7 +21,7 @@ class CardFactory extends Factory
         $studentId = (Student::factory()->create())->id;
 
         return [
-            'rfid' => fake()->unique()->numberBetween(1000000000, 9999999999),
+            'rfid' => strval(fake()->unique()->numberBetween(1000000000, 9999999999)),
             'student_id' => $studentId,
             'profile_photo' => asset('img/id_picture.png'),
             'signature' => asset('img/id_picture.png'),

@@ -3,11 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Employee;
-use App\Models\FamilyMember;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -34,9 +31,9 @@ class UserSeeder extends Seeder
         ])->assignRole('admin');
 
         User::create([
-            'email' => 'derlajulius@gmail.com',
+            'email' => 'test@gmail.com',
             'password' => bcrypt('password'),
-            'status' => 'INACTIVE',
+            'status' => 'ACTIVE',
             'employee_id' => 2,
         ])->assignRole('librarian');
     }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\PlaygroundEvent;
 use App\Livewire\AuditLog;
 use App\Livewire\Reports;
 use App\Livewire\Students;
@@ -24,14 +23,6 @@ use App\Livewire\AccountsArchive;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/ws', function () {
-    return view('websocket');
-});
-
-Route::get('/playground', function () {
-    event(new PlaygroundEvent());
-});
 
 // Root
 Route::get('/', function () {

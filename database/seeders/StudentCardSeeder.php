@@ -35,7 +35,7 @@ class StudentCardSeeder extends Seeder
         ]);
 
         Card::factory()->create([
-            'rfid' => 3207181875,
+            'rfid' => '0515641249',
             'student_id' => $student->id,
             'expires_at' => now(),
         ]);
@@ -57,7 +57,7 @@ class StudentCardSeeder extends Seeder
         ]);
 
         Card::factory()->create([
-            'rfid' => 3444330862,
+            'rfid' => '3448217731',
             'student_id' => $student->id,
             'expires_at' => now(),
         ]);

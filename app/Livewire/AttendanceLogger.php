@@ -97,7 +97,7 @@ class AttendanceLogger extends Component
             'card_id' => $this->card->id,
             'logged_in_at' => now(),
             'status' => 'IN',
-            'post_id' => 1,
+            'post_id' => 2,
         ]);
 
         $this->dispatch('success', ['message' => 'Successfully logged in.']);

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -29,7 +30,10 @@ class Card extends Model
         'rfid',
         'profile_photo',
         'signature',
+        'issuance_reason',
         'expires_at',
+        'student_id',
+        'contact_person_id',
     ];
 
 
@@ -39,7 +43,7 @@ class Card extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable()
+            ->logOnly(['rfid', 'profile_photo', 'signature', 'issuance_reason', 'expires_at'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->useLogName('Card')
@@ -83,5 +87,9 @@ class Card extends Model
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function contact_person(): HasOne {
+        return $this->hasOne(FamilyMember::class);
     }
 }

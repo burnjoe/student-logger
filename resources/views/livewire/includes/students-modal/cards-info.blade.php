@@ -5,9 +5,9 @@
         <!-- Left Side  -->
         <div class="w-full md:w-1/4 text-center border border-t-0 border-l-0 border-r-0 border-lightGray md:border-b-0">
             <!-- Profile Picture -->
-            <img src="{{ asset('img/user_icon.png') }}" alt="Profile Picture"
-                class="rounded-full border border-3 border-lightGray mx-auto mb-4 mt-2.5"
-                style="border-width: 3px !important;" width="150">
+            <img class="object-cover object-center h-52 w-52 rounded-full border border-2 border-gray my-4 mx-auto"
+                    alt="Profile Picture"
+                    src="{{ asset('storage'.$profile_photo) }}" alt="Profile Photo">
         </div>
 
         <div class="w-full md:w-3/4">
@@ -20,7 +20,8 @@
                 {{-- Student Name --}}
                 <div class="w-full md:w-1/2">
                     <small class="font-normal text-darkGray text-xs">Student</small>
-                    <h6 class="text-1rem font-medium leading-5 mb-2">{{ $last_name.', '.$first_name }}</h6>
+                    <h6 class="text-1rem font-medium leading-5 mb-2">{{ $first_name.' '.($middle_name ?
+                        strtoupper(substr($middle_name, 0, 1)).'.' : '').' '.$last_name }}</h6>
                 </div>
                 {{-- Program --}}
                 <div class="w-full md:w-1/2">
@@ -44,7 +45,7 @@
                 </div>
                 {{-- ID Status --}}
                 <div class="w-full md:w-1/2">
-                    <small class="font-normal text-darkGray text-xs">Status</small>
+                    <small class="font-normal text-darkGray text-xs">RFID Status</small>
                     <p>
                         @if($selectedCard->expires_at < now())
                         <x-badge class="bg-red text-white">EXPIRED</x-badge>
@@ -65,7 +66,7 @@
                 <div class="w-full md:w-1/2">
                     <small class="font-normal text-darkGray text-xs">Emergency Contact Person
                         (Parent/Guardian)</small>
-                    <h6 class="text-1rem font-medium leading-5 mb-2">SABANA, JOCELYN</h6>
+                    <h6 class="text-1rem font-medium leading-5 mb-2">Dela Cruz, Juan</h6>
                 </div>
                 {{-- Contact No --}}
                 <div class="w-full md:w-1/2">

@@ -21,6 +21,7 @@
             @slot('head')
             <th class="px-6 py-4">Photo</th>
             <th class="px-6 py-4">Issued At</th>
+            <th class="px-6 py-4">Issuance Reason</th>
             <th class="px-6 py-4">Expires At</th>
             <th class="px-6 py-4">Status</th>
             @endslot
@@ -30,20 +31,27 @@
             <tr wire:key="{{ $card->id }}"
                 class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
                 <td class="px-6 py-4">Photo Here</td>
-                <td class="px-6 py-4">{{ \Carbon\Carbon::parse($card->expires_at)->subYears(2)->format('M. j, Y') }}</td>
+                <td class="px-6 py-4">{{ \Carbon\Carbon::parse($card->expires_at)->subYears(2)->format('M. j, Y') }}
+                </td>
+                <td class="px-6 py-4">{{ $card->issuance_reason }}</td>
                 <td class="px-6 py-4">{{ \Carbon\Carbon::parse($card->expires_at)->format('M. j, Y') }}</td>
                 <td class="px-6 py-4">
-                    @if($card->expires_at < now())
-                    <x-badge class="bg-red text-white">EXPIRED</x-badge>
-                    @else
-                    <x-badge class="bg-green text-white">ACTIVE</x-badge>
-                    @endif
+                    @if($card->expires_at < now()) <x-badge class="bg-red text-white">EXPIRED</x-badge>
+                        @else
+                        <x-badge class="bg-green text-white">ACTIVE</x-badge>
+                        @endif
                 </td>
             </tr>
             @endforeach
             @endslot
         </x-table>
     </div>
+
+    @if ($selectedStudent->cards->count() == 0)
+    <div class="flex justify-center py-6">
+        No records found.
+    </div>
+    @endif
 
     {{-- Close button --}}
     <div class="flex justify-end items-center mt-4 pe-5">

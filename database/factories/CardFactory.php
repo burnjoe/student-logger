@@ -25,6 +25,7 @@ class CardFactory extends Factory
             'student_id' => $studentId,
             'profile_photo' => asset('img/id_picture.png'),
             'signature' => asset('img/id_picture.png'),
+            'issuance_reason' => 'First Issue',
             'expires_at' => now()->addYears(2),
         ];
     }

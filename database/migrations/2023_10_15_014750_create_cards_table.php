@@ -15,11 +15,20 @@ return new class extends Migration
             $table->id('id');
             $table->string('rfid')->unique();
             $table->foreignId('student_id')
+                ->references('id')
+                ->on('students')
                 ->constrained()
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->string('profile_photo');
             $table->string('signature')->nullable();
+            $table->enum('issuance_reason', ['First Issue', 'Renewal', 'Reissue for Lost ID']);
+            // $table->foreignId('contact_person_id')
+            //     ->references('id')
+            //     ->on('family_members')
+            //     ->constrained()
+            //     ->restrictOnUpdate()
+            //     ->restrictOnDelete();
             $table->timestamp('expires_at');
             $table->timestamps();
             $table->softDeletes();

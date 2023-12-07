@@ -40,4 +40,9 @@ class FamilyMember extends Model
     {
         return $this->belongsToMany(Student::class);
     }
+
+    public function card(): BelongsToMany
+    {
+        return $this->belongsToMany(Card::class);
+    }
 }

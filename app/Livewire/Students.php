@@ -6,12 +6,14 @@ use App\Models\Card;
 use App\Models\College;
 use App\Models\Student;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\View;
 
 class Students extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     // Student
     public $student_id;
@@ -35,6 +37,8 @@ class Students extends Component
     public $card_id;
     public $rfid;
     public $profile_photo;
+    public $contact_person_id;
+    public $issuance_reason;
 
     public Card $selectedCard;
 
@@ -42,6 +46,10 @@ class Students extends Component
     public $selectedPrograms = [];
     public $action;
 
+    public $totalSteps = 5;
+    public $currentStep = 1;
+
+    public $validatedCardFields = [];
 
     /**
      * Validation rules
@@ -92,6 +100,67 @@ class Students extends Component
     }
 
     /**
+     * Validation for multiform
+     */
+    public function validateData()
+    {
+        if ($this->currentStep == 1) {
+            $this->validatedCardFields = $this->validate(
+                ['issuance_reason' => 'required|in:First Issue,Renewal,Reissue for Lost ID'],
+                [],
+                ['issuance_reason' => 'ID issuance reason']
+            );
+        } else if ($this->currentStep == 2) {
+            $this->validatedCardFields += $this->validate(
+                ['profile_photo' => 'required|image|max:2048'],
+                [
+                    'profile_photo.mimes' => 'The :attribute must be in JPEG, PNG, or JPG format.',
+                    'profile_photo.max' => 'The :attribute file size must not exceed 2MB.',
+                ],
+                ['profile_photo' => 'ID picture']
+            );
+        } else if ($this->currentStep == 3) {
+            // $this->validate(
+            //     ['contact_person_id' => 'required|exists:family_members,id'],
+            //     [],
+            //     ['contact_person_id' => 'emergency contact person']
+            // );
+        } else if ($this->currentStep == 4) {
+            $this->validateRfid($this->rfid);
+        }
+    }
+
+    /**
+     * Action when rfid property is 
+     */
+    #[On('validateRfid')]
+    public function validateRfid($rfid)
+    {
+        if ($this->currentStep === 4) {
+            $this->rfid = $rfid;
+
+            try {
+                $this->validatedCardFields += $this->validate(
+                    ['rfid' => 'required|unique:cards,rfid,' . $this->card_id]
+                );
+                $this->currentStep++;
+            } catch (\Throwable $th) {
+                $this->dispatch('error', ['message' => 'The RFID is already registered']);
+                $this->rfid = null;
+            }
+        }
+    }
+
+    /**
+     * Initializes some properties
+     */
+    public function mount()
+    {
+        $this->currentStep = 1;
+        $this->totalSteps = 5;
+    }
+
+    /**
      * Render livewire view
      */
     public function render()
@@ -113,9 +182,38 @@ class Students extends Component
     }
 
     /**
+     * Proceed to next step in multiform
+     */
+    public function nextStep()
+    {
+        $this->resetErrorBag();
+        $this->validateData();
+
+        $this->currentStep++;
+
+        if ($this->currentStep > $this->totalSteps) {
+            $this->currentStep = $this->totalSteps;
+        }
+    }
+
+    /**
+     * Proceed to previous step in multiform
+     */
+    public function prevStep()
+    {
+        $this->resetErrorBag();
+
+        $this->currentStep--;
+
+        if ($this->currentStep < 1) {
+            $this->currentStep = 1;
+        }
+    }
+
+    /**
      *  Initialize attributes
      */
-    public function init(int $id, $type = "student")
+    private function init(int $id, $type = "student")
     {
         try {
             switch ($type) {
@@ -170,7 +268,7 @@ class Students extends Component
                     // contact number
 
                     break;
-                case 'history':
+                case 'issues':
                     $this->selectedStudent = Student::select(
                         'id',
                         'student_no',
@@ -194,51 +292,71 @@ class Students extends Component
     }
 
     /**
-     * Show selected record in modal
+     * Show selected student in modal
      */
-    public function show(int $id, $type = "student")
+    public function showStudent(int $id)
     {
         $this->dispatch('close-modal');
-
         $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
-            $this->init($id, $type);
-
-            switch ($type) {
-                case 'student':
-                    $this->dispatch('open-modal', 'show-student');
-                    break;
-                case 'card':
-                    $this->dispatch('open-modal', 'show-card');
-                    break;
-                case 'history':
-                    $this->dispatch('open-modal', 'show-issues');
-                    break;
-                default:
-                    break;
-            }
+            $this->init($id);
+            $this->dispatch('open-modal', 'show-student');
         } catch (\Throwable $th) {
-            switch ($type) {
-                case 'student':
-                    $this->dispatch('error', ['message' => 'Unable to view student']);
-                    break;
-                case 'card':
-                    $this->dispatch('info', ['message' => 'Student does not have an existing RFID']);
-                    break;
-                case 'history':
-                    $this->dispatch('error', ['message' => 'Unable to view issue history']);
-                    break;
-                default:
-                    break;
-            }
+            $this->dispatch('error', ['message' => 'Unable to view student']);
         }
     }
 
     /**
-     * Show create form modal
+     * Show selected card in modal
      */
-    public function create(int $id = null)
+    public function showCard(int $id)
+    {
+        $this->dispatch('close-modal');
+        $this->resetExcept(['search', 'selectedPrograms']);
+
+        try {
+            $this->init($id, 'card');
+            $this->dispatch('open-modal', 'show-card');
+        } catch (\Throwable $th) {
+            $this->dispatch('info', ['message' => 'Student does not have an existing RFID']);
+        }
+    }
+
+    /**
+     * Show selected card's issue history
+     */
+    public function showIssues(int $id)
+    {
+        $this->dispatch('close-modal');
+        $this->resetExcept(['search', 'selectedPrograms']);
+
+        try {
+            $this->init($id, 'issues');
+            $this->dispatch('open-modal', 'show-issues');
+        } catch (\Throwable $th) {
+            $this->dispatch('error', ['message' => 'Unable to view issue history']);
+        }
+    }
+
+    /**
+     * Show create student form modal
+     */
+    public function createStudent()
+    {
+        $this->dispatch('close-modal');
+
+        $this->resetValidation();
+        $this->resetExcept(['search', 'selectedPrograms']);
+
+        $this->action = 'storeStudent';
+        $this->dispatch('open-modal', 'create-student');
+    }
+
+    /**
+     * Show create card form modal
+     */
+    public function createCard(int $id)
     {
         $this->dispatch('close-modal');
 
@@ -246,18 +364,26 @@ class Students extends Component
         $this->resetExcept(['search', 'selectedPrograms']);
 
         if (!$id) {
-            $this->action = 'store';
+            $this->action = 'storeStudent';
 
             $this->dispatch('open-modal', 'create-student');
         } else {
+            try {
+                $this->init($id);
+
+                $this->currentStep = 1;
+            } catch (\Throwable $th) {
+                $this->dispatch('error', ['message' => 'Unable to issue RFID to selected student']);
+            }
+
             $this->dispatch('open-modal', 'create-card');
         }
     }
 
     /**
-     * Store new record
+     * Store new student
      */
-    public function store()
+    public function storeStudent()
     {
         $validated = $this->validate();
 
@@ -267,6 +393,34 @@ class Students extends Component
 
         $this->dispatch('success', ['message' => 'Student successfully added']);
 
+        $this->dispatch('close-modal');
+    }
+
+    /**
+     * Store new card
+     */
+    public function storeCard()
+    {
+        if (
+            isset($this->validatedCardFields['issuance_reason']) &&
+            isset($this->validatedCardFields['profile_photo']) &&
+            isset($this->validatedCardFields['rfid']) &&
+            isset($this->selectedStudent)
+        ) {
+            $profile_photo = $this->validatedCardFields['profile_photo']
+                ->store('photos', 'public');
+
+            Card::create([
+                'rfid' => $this->validatedCardFields['rfid'],
+                'student_id' => $this->selectedStudent->id,
+                'profile_photo' => $profile_photo,
+                'issuance_reason' => $this->validatedCardFields['issuance_reason'],
+                'expires_at' => now()->addYears(2),
+            ]);
+        }
+
+        $this->reset();
+        $this->dispatch('success', ['message' => 'RFID successfully issued to student']);
         $this->dispatch('close-modal');
     }
 

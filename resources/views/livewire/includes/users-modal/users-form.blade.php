@@ -6,6 +6,7 @@
         </div>
 
         <div class="flex flex-wrap pb-5">
+            
             {{-- Last Name --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
                 <x-input-label for="last_name" :required="true">

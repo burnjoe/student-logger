@@ -244,37 +244,21 @@
          <table>
             <thead>
                <tr>
-                  <th>Name</th>
+                  <th>Last Name</th>
+                  <th>First Name</th>
                   <th>Frequency of Visit</th>
                   <th>College</th>
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>Ferreras, Vince Austin R.</td>
-                  <td>7</td>
-                  <td>CCS</td>
-               </tr>
-               <tr>
-                  <td>Sabana, Joe Lawrence M.</td>
-                  <td>7</td>
-                  <td>CHAS</td>
-               </tr>
-               <tr>
-                  <td>Derla, Julius A.</td>
-                  <td>4</td>
-                  <td>COE</td>
-               </tr>
-               <tr>
-                  <td>Asenjo, Dan Dowee A.</td>
-                  <td>3</td>
-                  <td>CHAS</td>
-               </tr>
-               <tr>
-                  <td>De La Cruz, Juan K.</td>
-                  <td>2</td>
-                  <td>CCS</td>
-               </tr>
+               @foreach ($attendances as $attendance)
+                  <tr>
+                     <td>{{ $attendance['last_name'] }}</td>
+                     <td>{{ $attendance['first_name'] }}</td>
+                     <td>{{ $attendance['frequency'] }}</td>
+                     <td>{{ $attendance['college'] }}</td>
+                  </tr>
+               @endforeach
             </tbody>
          </table>
       </div>

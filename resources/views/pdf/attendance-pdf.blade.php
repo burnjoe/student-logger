@@ -130,7 +130,7 @@
          margin-top: 20px;
       }
    </style>
-   <title>Library Reports</title>
+   <title>Attendance Reports</title>
 </head>
 
 <body>

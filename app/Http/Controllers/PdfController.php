@@ -40,8 +40,23 @@ class PdfController extends Controller
     // Export Library PDF
     public function export_library_pdf()
     {
+        $attendances = Attendance::whereHas('post', function ($query) {
+            $query->where('id', 2);
+        })->get()->groupBy('student_name')->map(function ($attendance) {
+            return [
+                'last_name' => $attendance[0]->card->student->last_name,
+                'first_name' => $attendance[0]->card->student->first_name,
+                'frequency' => $attendance->sum('frequency_of_visit'),
+                'college' => $attendance[0]->card->student->college,
+            ];
+        })->sortByDesc('frequency')->take(5);
+
+        $data = [
+            'attendances' => $attendances,
+        ];
+
         $imageUrl = $this->getChartImageUrlForLibrary();
-        $pdf = \PDF::loadView('pdf.library-pdf', compact('imageUrl'));
+        $pdf = \PDF::loadView('pdf.library-pdf', $data, compact('imageUrl'));
         return $pdf->stream('Library-Reports.pdf');
     }
 
@@ -74,8 +89,23 @@ class PdfController extends Controller
     // Export Clinic PDF
     public function export_clinic_pdf()
     {
+        $attendances = Attendance::whereHas('post', function ($query) {
+            $query->where('id', 3);
+        })->get()->groupBy('student_name')->map(function ($attendance) {
+            return [
+                'last_name' => $attendance[0]->card->student->last_name,
+                'first_name' => $attendance[0]->card->student->first_name,
+                'frequency' => $attendance->sum('frequency_of_visit'),
+                'college' => $attendance[0]->card->student->college,
+            ];
+        })->sortByDesc('frequency')->take(5);
+
+        $data = [
+            'attendances' => $attendances,
+        ];
+
         $imageUrl = $this->getChartImageUrlForClinic();
-        $pdf = \PDF::loadView('pdf.clinic-pdf', compact('imageUrl'));
+        $pdf = \PDF::loadView('pdf.clinic-pdf', $data,  compact('imageUrl'));
         return $pdf->stream('Clinic-Reports.pdf');
     }
 

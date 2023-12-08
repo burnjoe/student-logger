@@ -174,15 +174,21 @@
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>2000541</td>
-                  <td>Ferreras</td>
-                  <td>Vince Austin</td>
-                  <td>Nov. 05, 2023</td>
-                  <td>05:05 PM</td>
-                  <td>10:05 PM</td>
-                  <td>Out</td>
-               </tr>
+               @foreach ($attendances as $attendance)
+                  <tr>
+                     <td>{{ $attendance->card->student->student_no }}</td>
+                     <td>{{ $attendance->card->student->last_name }}</td>
+                     <td>{{ $attendance->card->student->first_name }}</td>
+                     <td>{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('M. j, Y') }}</td>
+                     <td>{{ \Carbon\Carbon::parse($attendance->logged_in_at)->format('h:i A') }}</td>
+                     <td>
+                        @if ($attendance->logged_out_at)
+                           {{ \Carbon\Carbon::parse($attendance->logged_out_at)->format('h:i A') }}
+                        @endif
+                     </td>
+                     <td>{{ $attendance->status }}</td>
+                  </tr>
+               @endforeach
             </tbody>
          </table>
       </div>

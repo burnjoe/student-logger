@@ -1,16 +1,16 @@
 <div>
-    <x-card>
-        <header class="px-5 pt-4">
-            <h3 class="text-md font-medium">
+    <x-card padding="">
+        <header class="px-5 py-4 bg-green">
+            <h3 class="text-md font-medium font-semibold text-white">
                 {{ __('Change Password') }}
             </h3>
-
-            <p class="mt-1 text-sm ">
-                {{ __('Ensure your account is using a long, random password to stay secure.') }}
-            </p>
         </header>
+        
+        <p class="mt-1 text-sm px-11 pt-4">
+            {{ __('Ensure your account is using a long, random password to stay secure.') }}
+        </p>
 
-        <form wire:submit.prevent="update" class="mt-6 space-y-4 px-5 pb-4">
+        <form wire:submit.prevent="update" class="mt-6 space-y-4 px-11 pb-8">
             <div>
                 <x-input-label for="current_password">
                     <small class="font-normal text-darkGray text-xs">{{ __('Current Password') }}</small>

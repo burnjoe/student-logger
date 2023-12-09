@@ -10,15 +10,51 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class PdfController extends Controller
 {
     // Export Attendances PDF
-    public function export_attendance_pdf()
+    public function export_attendance_pdf(Request $request)
     {
+        $search = $request->input('search');
+        $selectedPosts = $request->input('selectedPosts');
+        $selectedStatuses = $request->input('selectedStatuses');
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+
+        $attendances = Attendance::query();
+
+        if ($search) {
+            $attendances->whereHas(
+                'card',
+                fn ($query) => $query->where('name', 'like', "%{$search}%")
+            )->orWhereHas(
+                'card.student',
+                fn ($query) => $query->where('name', 'like', "%{$search}%")
+            );
+        }
+
+        if ($selectedPosts) {
+            $attendances->whereHas(
+                'post',
+                fn ($query) => $query->whereIn('id', $selectedPosts)
+            );
+        }
+
+        if ($selectedStatuses) {
+            $attendances->whereIn('status', $selectedStatuses);
+        }
+
+        if ($startDate && $endDate) {
+            $attendances->whereBetween('logged_in_at', [$startDate . ' 00:00:00', $endDate . ' 23:59:59']);
+        }
+
         $data = [
-            'attendances' => Attendance::all(),
+            'attendances' => $attendances->get(),
+            'startDate' => $startDate, // Add this
+            'endDate' => $endDate, // Add this
         ];
 
         $pdf = Pdf::loadView('pdf.attendance-pdf', $data);
         return $pdf->stream('Attendance-Reports.pdf');
     }
+
 
     // Export Main Gate PDF
     public function export_maingate_pdf()

@@ -38,19 +38,19 @@ $statusColors = [
                             <x-input-label for="startDate">
                                 <small class="font-normal text-darkGray text-xs">Start Date</small>
                             </x-input-label>
-                            <x-input-text id="startDate" wire:model.live.debounce.300ms="startDate" name="startDate" type="date"
-                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('startDate')" />
+                            <x-input-text id="startdate" wire:model.live="startDate" name="startdate" type="date"
+                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('startdate')" />
                         </div>
                     </div>
 
                     {{-- End Date --}}
                     <div>
                         <div class="mt-4">
-                            <x-input-label for="endDate">
+                            <x-input-label for="enddate">
                                 <small class="font-normal text-darkGray text-xs">End Date</small>
                             </x-input-label>
-                            <x-input-text id="endDate" wire:model.live.debounce.300ms="endDate" name="endDate" type="date"
-                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('endDate')" />
+                            <x-input-text id="enddate" wire:model.live="endDate" name="enddate" type="date"
+                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('enddate')" />
                         </div>
                     </div>
 
@@ -58,11 +58,7 @@ $statusColors = [
 
                     {{-- Print --}}
                     <div class="flex justify-end items-center space-x-4">
-                        {{-- <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary"
-                            textSize="text-xs" class="flex space-x-2 items-center">
-                            Cancel
-                        </x-button> --}}
-                        <x-button href="{{ route('export_attendance_pdf') }}" btnType="success" element="a"
+                        <x-button href="{{ route('export_attendance_pdf', ['search' => $search, 'selectedPosts' => $selectedPosts, 'selectedStatuses' => $selectedStatuses, 'startDate' => $startDate, 'endDate' => $endDate]) }}" btnType="success" element="a"
                             textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                             <span>Print</span>
                         </x-button>

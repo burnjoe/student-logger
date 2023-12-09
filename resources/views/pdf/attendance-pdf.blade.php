@@ -155,8 +155,7 @@
    <div>
       <div class="title">
          <div class="page-title">ATTENDANCE REPORT</div>
-         <div>From <span class="start-date">Nov. 05, 2023</span> to <span class="end-date">Nov. 05, 2023</span></div>
-         {{-- <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div> --}}
+         <div>From <span class="start-date">{{ \Carbon\Carbon::parse($startDate)->format('M. j, Y') }}</span> to <span class="end-date">{{ \Carbon\Carbon::parse($endDate)->format('M. j, Y') }}</span></div>
       </div>
 
       {{-- from attendances module table --}}

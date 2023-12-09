@@ -17,7 +17,7 @@
         </div>
 
         <div class="w-full">
-            <div class="flex flex-wrap px-6 py-4">
+            <div class="flex flex-wrap px-11 py-6">
                 {{-- Sex --}}
                 <div class="w-full md:w-1/2">
                     <small class="font-normal text-darkGray text-xs">Sex</small>

@@ -15,6 +15,8 @@ class Attendances extends Component
     public $search = "";
     public $selectedPosts = [];
     public $selectedStatuses = [];
+    public $startDate = "";
+    public $endDate = "";
 
 
     public function render()
@@ -55,6 +57,11 @@ class Attendances extends Component
                     $this->selectedStatuses,
                     fn ($query) =>
                     $query->statusIn($this->selectedStatuses)
+                )
+                ->when(
+                    $this->startDate && $this->endDate,
+                    fn ($query) =>
+                    $query->whereBetween('logged_in_at', [$this->startDate . ' 00:00:00', $this->endDate . ' 23:59:59'])
                 )
                 ->orderBy('updated_at', 'desc')
                 ->paginate(15),

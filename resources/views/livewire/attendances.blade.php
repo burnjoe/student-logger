@@ -35,22 +35,22 @@ $statusColors = [
                     {{-- Start Date --}}
                     <div>
                         <div class="mt-4">
-                            <x-input-label for="startdate">
+                            <x-input-label for="startDate">
                                 <small class="font-normal text-darkGray text-xs">Start Date</small>
                             </x-input-label>
-                            <x-input-text id="startdate" wire:model="startdate" name="startdate" type="date"
-                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('startdate')" />
+                            <x-input-text id="startDate" wire:model.live.debounce.300ms="startDate" name="startDate" type="date"
+                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('startDate')" />
                         </div>
                     </div>
 
                     {{-- End Date --}}
                     <div>
                         <div class="mt-4">
-                            <x-input-label for="enddate">
+                            <x-input-label for="endDate">
                                 <small class="font-normal text-darkGray text-xs">End Date</small>
                             </x-input-label>
-                            <x-input-text id="enddate" wire:model="enddate" name="enddate" type="date"
-                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('enddate')" />
+                            <x-input-text id="endDate" wire:model.live.debounce.300ms="endDate" name="endDate" type="date"
+                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('endDate')" />
                         </div>
                     </div>
 

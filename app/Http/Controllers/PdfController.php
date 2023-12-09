@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfController extends Controller
@@ -47,26 +48,67 @@ class PdfController extends Controller
 
         $data = [
             'attendances' => $attendances->get(),
-            'startDate' => $startDate, // Add this
-            'endDate' => $endDate, // Add this
+            'startDate' => $startDate,
+            'endDate' => $endDate,
         ];
 
         $pdf = Pdf::loadView('pdf.attendance-pdf', $data);
         return $pdf->stream('Attendance-Reports.pdf');
     }
 
-
     // Export Main Gate PDF
-    public function export_maingate_pdf()
+    public function export_maingate_pdf(Request $request)
     {
-        $main_gate_post = Post::where('id', 1)->first();
+        $search = $request->input('search');
+        $selectedMonthYearMainGate = $request->input('selectedMonthYearMainGate');
+        $selectedStatuses = $request->input('selectedStatuses');
 
-        $attendances = Attendance::whereHas('post', function ($query) use ($main_gate_post) {
-            $query->where('id', $main_gate_post->id);
-        })->get();
+        $selectedDate = Carbon::parse($selectedMonthYearMainGate);
+        $selectedMonth = $selectedDate->format('F');
+        $selectedYear = $selectedDate->year;
+
+        $mainGateAttendances = Attendance::select('id', 'logged_in_at', 'logged_out_at', 'status', 'card_id', 'post_id')
+            ->with([
+                'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
+                'post' => fn ($query) => $query->select('id', 'name'),
+                'card.student' => fn ($query) => $query->select('id', 'student_no', 'last_name', 'first_name'),
+            ]);
+
+        if ($search) {
+            $mainGateAttendances->whereHas(
+                'card',
+                fn ($query) => $query->where('name', 'like', "%{$search}%")
+            )->orWhereHas(
+                'card.student',
+                fn ($query) => $query->where('name', 'like', "%{$search}%")
+            );
+        }
+
+        $mainGateAttendances->where('post_id', 1);
+
+        if ($selectedMonthYearMainGate) {
+            $selectedDate = Carbon::parse($selectedMonthYearMainGate);
+            $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
         
+            $mainGateAttendances->whereBetween(
+                'logged_in_at',
+                [
+                    $selectedDate->startOfMonth(),
+                    $endDate
+                ]
+            );
+        }
+
+        if ($selectedStatuses) {
+            $mainGateAttendances->whereIn('status', $selectedStatuses);
+        }
+
+        $mainGateAttendances = $mainGateAttendances->get();
+
         $data = [
-            'attendances' => $attendances,
+            'mainGateAttendances' => $mainGateAttendances,
+            'selectedMonth' => $selectedMonth,
+            'selectedYear' => $selectedYear,
         ];
 
         $pdf = Pdf::loadView('pdf.main-gate-pdf', $data);

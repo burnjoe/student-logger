@@ -35,7 +35,7 @@ $statusColors = [
                     {{-- Start Date --}}
                     <div>
                         <div class="mt-4">
-                            <x-input-label for="startDate">
+                            <x-input-label for="startdate">
                                 <small class="font-normal text-darkGray text-xs">Start Date</small>
                             </x-input-label>
                             <x-input-text id="startdate" wire:model.live="startDate" name="startdate" type="date"

@@ -82,8 +82,8 @@
          font-size: 14px;
       }
 
-      .start-date,
-      .end-date {
+      .month,
+      .year {
          text-decoration: underline;
       }
 
@@ -155,8 +155,7 @@
    <div>
       <div class="title">
          <div class="page-title">MAIN GATE REPORT</div>
-         {{-- <div>From <span class="start-date">Nov. 05, 2023</span> to <span class="end-date">Nov. 05, 2023</span></div> --}}
-         <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $selectedMonth }}</span>, Year: <span class="year">{{ $selectedYear }}</span></div>
       </div>
 
       {{-- only in post main gate --}}
@@ -174,7 +173,7 @@
                </tr>
             </thead>
             <tbody>
-               @foreach ($attendances as $attendance)
+               @foreach ($mainGateAttendances as $attendance)
                   <tr>
                      <td>{{ $attendance->card->student->student_no }}</td>
                      <td>{{ $attendance->card->student->last_name }}</td>

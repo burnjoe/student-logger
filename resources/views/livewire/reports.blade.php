@@ -1,9 +1,9 @@
 @php
-$statusColors = [
-'IN' => 'orange',
-'OUT' => 'green',
-'MISSED' => 'red',
-]
+   $statusColors = [
+       'IN' => 'orange',
+       'OUT' => 'green',
+       'MISSED' => 'red',
+   ];
 @endphp
 
 <div>
@@ -36,51 +36,24 @@ $statusColors = [
                <div class="flex flex-col">
                   {{-- Filter --}}
                   <div class="flex flex-col">
-                     {{-- Month --}}
-                     <div class="flex flex-col mb-3">
-                        <small for="selectMonth" class="font-normal text-darkGray pb-2.5" style="font-size: 80%;">Select
-                           a month</small>
-
-                        <select name="semester" id="selectMonth" class="">
-                           <option value="1" selected>January</option>
-                           <option value="2">February</option>
-                           <option value="3">March</option>
-                           <option value="4">April</option>
-                           <option value="5">May</option>
-                           <option value="6">June</option>
-                           <option value="7">July</option>
-                           <option value="8">August</option>
-                           <option value="9">September</option>
-                           <option value="10">October</option>
-                           <option value="11">November</option>
-                           <option value="12">December</option>
-                        </select>
-                     </div>
-                     {{-- AY Semester --}}
-                     <div class="flex flex-col mb-3">
-                        <small for="selectSemester" class="font-normal text-darkGray pb-2.5" style="font-size: 80%;">
-                           Select a semester
-                        </small>
-
-                        <select name="semester" id="selectSemester">
-                           <option selected>First Semester A.Y 2023-2024</option>
-                           <option value="1">Second Semester A.Y 2023-2024</option>
-                           <option value="2">First Semester A.Y 2022-2023</option>
-                           <option value="3">Second Semester A.Y 2022-2023</option>
-                           <option value="1">Second Semester A.Y 2021-2022</option>
-                           <option value="2">First Semester A.Y 2021-2022</option>
-                           <option value="3">Second Semester A.Y 2020-2021</option>
-                           <option value="2">First Semester A.Y 2020-2021</option>
-                        </select>
+                     {{-- Filter Month & Year --}}
+                     <div class="flex flex-col w-2/5">
+                        <x-input-label for="selectMonthYearMainGate">
+                           <small class="font-normal text-darkGray text-xs">Select a month & year</small>
+                        </x-input-label>
+                        <x-input-text id="selectMonthYearMainGate" wire:model.live.defer="selectMonthYearMainGate" name="selectMonthYearMainGate" type="month"
+                           class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearMainGate')" />
                      </div>
                      {{-- Search --}}
-                     @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
+                     @include('livewire.includes.search', [
+                         'placeholder' => 'Search by student no. or name',
+                     ])
                   </div>
                </div>
             </div>
          </div>
 
-         <div class="">
+         <div>
             <div class="flex flex-row justify-between">
                <div class="flex items-center">
                   <span class="text-1rem font-semibold">Main Gate Report</span>
@@ -109,7 +82,7 @@ $statusColors = [
                @endslot
 
                @slot('data')
-                  @foreach ($attendances as $attendance)
+                  @foreach ($mainGateAttendances as $attendance)
                      <tr wire:key="{{ $attendance->id }}"
                         class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
                         <td class="px-6 py-4">{{ $attendance->card->student->student_no }}</td>
@@ -134,7 +107,7 @@ $statusColors = [
                @endslot
             </x-table>
 
-            @if ($attendances->total() == 0)
+            @if ($mainGateAttendances->total() == 0)
                <div class="flex justify-center py-6">
                   @if (empty($search))
                      No records found.
@@ -146,21 +119,21 @@ $statusColors = [
 
             {{-- Pagination Links --}}
             <div class="mt-4">
-               {{ $attendances->links() }}
+               {{ $mainGateAttendances->links() }}
             </div>
          </div>
       </div>
    </div>
-   {{-- @push('scripts')
+   @push('scripts')
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
          new Chart(document.getElementById('campusChart').getContext('2d'), {
             type: 'pie',
             data: {
-               labels: @json($data->keys()),
+               labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
                datasets: [{
                   label: ' # of Students',
-                  data: @json($data->values()),
+                  data: [10, 20, 30, 5, 9, 12, 9],
                   backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
                      'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                   ],
@@ -169,7 +142,7 @@ $statusColors = [
             }
          });
       </script>
-   @endpush --}}
+   @endpush
    {{-- @endcan --}}
 
    {{-- Library --}}
@@ -199,48 +172,17 @@ $statusColors = [
                </div>
 
                <div class="flex flex-col">
-                  {{-- Filter --}}
-                  <div class="flex flex-col">
-                     {{-- Month --}}
-                     <div class="flex flex-col mb-3">
-                        <small for="selectMonth" class="font-normal text-darkGray pb-2.5" style="font-size: 80%;">Select
-                           a month</small>
-
-                        <select name="semester" id="selectMonth" class="">
-                           <option value="1" selected>January</option>
-                           <option value="2">February</option>
-                           <option value="3">March</option>
-                           <option value="4">April</option>
-                           <option value="5">May</option>
-                           <option value="6">June</option>
-                           <option value="7">July</option>
-                           <option value="8">August</option>
-                           <option value="9">September</option>
-                           <option value="10">October</option>
-                           <option value="11">November</option>
-                           <option value="12">December</option>
-                        </select>
-                     </div>
-                     {{-- AY Semester --}}
-                     <div class="flex flex-col mb-3">
-                        <small for="selectSemester" class="font-normal text-darkGray pb-2.5" style="font-size: 80%;">
-                           Select a semester
-                        </small>
-
-                        <select name="semester" id="selectSemester">
-                           <option selected>First Semester A.Y 2023-2024</option>
-                           <option value="1">Second Semester A.Y 2023-2024</option>
-                           <option value="2">First Semester A.Y 2022-2023</option>
-                           <option value="3">Second Semester A.Y 2022-2023</option>
-                           <option value="1">Second Semester A.Y 2021-2022</option>
-                           <option value="2">First Semester A.Y 2021-2022</option>
-                           <option value="3">Second Semester A.Y 2020-2021</option>
-                           <option value="2">First Semester A.Y 2020-2021</option>
-                        </select>
-                     </div>
+                  {{-- Filter Month & Year --}}
+                  <div class="flex flex-col w-full md:w-1/2">
+                     <x-input-label for="selectMonthYearLibrary">
+                        <small class="font-normal text-darkGray text-xs">Select a month & year</small>
+                     </x-input-label>
+                     <x-input-text id="selectMonthYearLibrary" wire:model.live.defer="selectMonthYearLibrary"
+                        name="selectMonthYearLibrary" type="month" class="w-full mt-1 bg-lightGray"
+                        :messages="$errors->get('selectMonthYearLibrary')" />
                   </div>
 
-                  <div class="flex flex-row justify-between">
+                  <div class="flex flex-row justify-between mt-4">
                      <div class="flex items-center">
                         <span class="text-1rem font-semibold">Top Users in Library</span>
                      </div>
@@ -255,46 +197,24 @@ $statusColors = [
                      </div>
                   </div>
 
-                  <x-table class="mt-4">
+                  <x-table class="mt-4 z-0">
                      @slot('head')
-                        <th class="px-6 py-4">Name</th>
+                        <th class="px-6 py-4">Last Name</th>
+                        <th class="px-6 py-4">First Name</th>
                         <th class="px-6 py-4">Frequency of Visit</th>
-                        <th class="px-6 py-4">College</th>
+                        {{-- <th class="px-6 py-4">College</th> --}}
                      @endslot
 
                      @slot('data')
-                        {{-- @foreach ($students as $student) --}}
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        {{-- @endforeach --}}
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
+                        @foreach ($libraryAttendances as $attendance)
+                           <tr wire:key="{{ $attendance->id }}"
+                              class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
+                              <td class="px-6 py-4">{{ $attendance->card->student->last_name }}</td>
+                              <td class="px-6 py-4">{{ $attendance->card->student->first_name }}</td>
+                              <td class="px-6 py-4">{{ $attendance->frequency }}</td>
+                              {{-- <td class="px-6 py-4">{{ $attendance->card->student->college->name }}</td> --}}
+                           </tr>
+                        @endforeach
                      @endslot
                   </x-table>
                </div>
@@ -352,48 +272,16 @@ $statusColors = [
                </div>
 
                <div class="flex flex-col">
-                  {{-- Filter --}}
-                  <div class="flex flex-col">
-                     {{-- Month --}}
-                     <div class="flex flex-col mb-3">
-                        <small for="selectMonth" class="font-normal text-darkGray pb-2"
-                           style="font-size: 80%;">Select
-                           a month</small>
-
-                        <select name="semester" id="selectMonth">
-                           <option value="1" selected>January</option>
-                           <option value="2">February</option>
-                           <option value="3">March</option>
-                           <option value="4">April</option>
-                           <option value="5">May</option>
-                           <option value="6">June</option>
-                           <option value="7">July</option>
-                           <option value="8">August</option>
-                           <option value="9">September</option>
-                           <option value="10">October</option>
-                           <option value="11">November</option>
-                           <option value="12">December</option>
-                        </select>
-                     </div>
-                     {{-- AY Semester --}}
-                     <div class="flex flex-col mb-3">
-                        <small for="selectSemester" class="font-normal text-darkGray pb-2" style="font-size: 80%;">
-                           Select a semester
-                        </small>
-
-                        <select name="semester" id="selectSemester">
-                           <option selected>First Semester A.Y 2023-2024</option>
-                           <option value="1">Second Semester A.Y 2023-2024</option>
-                           <option value="2">First Semester A.Y 2022-2023</option>
-                           <option value="3">Second Semester A.Y 2022-2023</option>
-                           <option value="1">Second Semester A.Y 2021-2022</option>
-                           <option value="2">First Semester A.Y 2021-2022</option>
-                           <option value="3">Second Semester A.Y 2020-2021</option>
-                           <option value="2">First Semester A.Y 2020-2021</option>
-                        </select>
-                     </div>
+                  {{-- Filter Month & Year --}}
+                  <div class="flex flex-col w-full md:w-1/2">
+                     <x-input-label for="selectMonthYearClinic">
+                        <small class="font-normal text-darkGray text-xs">Select a month & year</small>
+                     </x-input-label>
+                     <x-input-text id="selectMonthYearClinic" wire:model.live.defer="selectMonthYearClinic" name=""
+                        type="month" class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearClinic')" />
                   </div>
-                  <div class="flex flex-row justify-between">
+
+                  <div class="flex flex-row justify-between mt-4">
                      <div class="flex items-center">
                         <span class="text-1rem font-bold ">Top Users in Clinic</span>
                      </div>
@@ -410,44 +298,22 @@ $statusColors = [
 
                   <x-table class="mt-4">
                      @slot('head')
-                        <th class="px-6 py-4">Name</th>
+                        <th class="px-6 py-4">Last Name</th>
+                        <th class="px-6 py-4">First Name</th>
                         <th class="px-6 py-4">Frequency of Visit</th>
-                        <th class="px-6 py-4">College</th>
+                        {{-- <th class="px-6 py-4">College</th> --}}
                      @endslot
 
                      @slot('data')
-                        {{-- @foreach ($students as $student) --}}
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">2</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        {{-- @endforeach --}}
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
-                        <tr wire:key=""
-                           class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
-                           <td class="px-6 py-4">Ferreras, Vince Austin R.</td>
-                           <td class="px-6 py-4">11</td>
-                           <td class="px-6 py-4">CCS</td>
-                        </tr>
+                        @foreach ($clinicAttendances as $attendance)
+                           <tr wire:key="{{ $attendance->id }}"
+                              class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
+                              <td class="px-6 py-4">{{ $attendance->card->student->last_name }}</td>
+                              <td class="px-6 py-4">{{ $attendance->card->student->first_name }}</td>
+                              <td class="px-6 py-4">{{ $attendance->frequency }}</td>
+                              {{-- <td class="px-6 py-4">{{ $attendance->card->student->college->name }}</td> --}}
+                           </tr>
+                        @endforeach
                      @endslot
                   </x-table>
                </div>
@@ -477,4 +343,3 @@ $statusColors = [
       </script>
    @endpush
    {{-- @endcan --}}
-</div>

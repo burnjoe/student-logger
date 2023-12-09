@@ -41,7 +41,7 @@
                 </div>
 
                 <div>
-                    <span class="relative z-0 inline-flex rounded-md shadow-sm">
+                    <span class="relative z-0 inline-flex rounded-md shadow-md">
                         <span>
                             {{-- Previous Page Link --}}
                             @if ($paginator->onFirstPage())

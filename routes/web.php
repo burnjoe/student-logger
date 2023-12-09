@@ -8,10 +8,11 @@ use App\Livewire\Attendances;
 use App\Livewire\AttendanceLogger;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\PdfController;
 use App\Livewire\Accounts;
 use App\Livewire\AccountsArchive;
+use App\Livewire\ChangePassword;
+use App\Livewire\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::get('/', function () {
 
 // Authenticated Users
 Route::middleware('auth')->group(function () {
-    // Dashboard Module
+    // Dashboard
     Route::get('dashboard', Dashboard::class)
         ->name('dashboard');
 
@@ -59,7 +60,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view users')
         ->name('accounts');
 
-    // Reports Module
+    // Reports
     Route::get('reports', Reports::class)
         ->middleware('can:generate reports')
         ->name('reports');
@@ -86,20 +87,18 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view archives')
         ->name('archive-users');
 
-    // Attendance Logger Module
+    // Attendance Logger
     Route::get('attendance-logger', AttendanceLogger::class)
         ->middleware('password.confirm')
         ->name('attendance-logger');
 
-    // Profile Module
-    Route::get('profile', [UserController::class, 'edit'])
-        ->name('profile.edit');
+    // Profile
+    Route::get('profile', Profile::class)
+        ->name('profile');
 
-    Route::patch('profile', [UserController::class, 'update'])
-        ->name('profile.update');
-
-    Route::delete('profile', [UserController::class, 'destroy'])
-        ->name('profile.destroy');
+    // Change Password
+    Route::get('change-password', ChangePassword::class)
+        ->name('change-password');
 });
 
 

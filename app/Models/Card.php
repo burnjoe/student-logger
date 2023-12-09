@@ -29,7 +29,6 @@ class Card extends Model
     protected $fillable = [
         'rfid',
         'profile_photo',
-        'signature',
         'issuance_reason',
         'expires_at',
         'student_id',
@@ -43,7 +42,7 @@ class Card extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['rfid', 'profile_photo', 'signature', 'issuance_reason', 'expires_at'])
+            ->logOnly(['rfid', 'issuance_reason', 'expires_at', 'status'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->useLogName('Card')
@@ -53,15 +52,15 @@ class Card extends Model
 
                 switch ($eventName) {
                     case 'created':
-                        return "Added New Card: \"" . ($attributes['rfid'] . ' ' . $attributes['rfid']) . "\"";
+                        return "Issued New Card to Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'updated':
-                        return "Updated Card: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Updated Card of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'deleted':
-                        return "Archived Card: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Archived Card of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'restored':
-                        return "Restored Card: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Restored Card of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'forceDeleted':
-                        return "Deleted Card Permanently: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Deleted Card Permanently of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     default:
                         break;
                 }

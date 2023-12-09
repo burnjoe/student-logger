@@ -47,6 +47,7 @@
             "showDuration": "300",
             "hideDuration": "800",
             "closeButton": true,
+            "progressBar": true,
             "positionClass": "toast-bottom-left",
         }
         

@@ -7,7 +7,7 @@
             <!-- Profile Picture -->
             <img class="object-cover object-center h-52 w-52 rounded-full border border-2 border-gray my-4 mx-auto"
                     alt="Profile Picture"
-                    src="{{ asset('storage'.$profile_photo) }}" alt="Profile Photo">
+                    src="{{ Storage::url($profile_photo) }}" alt="Profile Photo">
         </div>
 
         <div class="w-full md:w-3/4">

@@ -46,8 +46,7 @@
         {{-- Profile Picture Wrapper --}}
         <div class="w-full text-center">
             <img class="object-cover object-center h-52 w-52 rounded-full border border-2 border-gray my-4 mx-auto"
-                alt="Profile Picture"
-                src="{{ $profile_photo ? $profile_photo->temporaryUrl() : asset('img/user_icon.png') }}" alt="">
+                alt="Profile Picture" src="{{ $temporaryUrl ? $temporaryUrl : asset('img/user_icon.png') }}">
 
             <p class="text-darkGray text-lg font-semibold">{{ $first_name.' '.($middle_name ?
                 strtoupper(substr($middle_name, 0, 1)).'.' : '').' '.$last_name }}</p>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\AuditLog;
+use App\Livewire\AuditLogs;
 use App\Livewire\Reports;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
         ->name('export_attendance_pdf');
 
     // Audit Log
-    Route::get('audit-log', AuditLog::class)
+    Route::get('audit-log', AuditLogs::class)
         ->middleware('can:view audit logs')
         ->name('audit-log');
 

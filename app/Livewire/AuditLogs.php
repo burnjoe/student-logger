@@ -2,14 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\Employee;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\View;
 use Spatie\Activitylog\Models\Activity;
 
-class AuditLog extends Component
+class AuditLogs extends Component
 {
     use WithPagination;
 
@@ -27,7 +26,7 @@ class AuditLog extends Component
     {
         View::share('page', 'audit_log');
 
-        return view('livewire.audit-log', [
+        return view('livewire.audit-logs', [
             'logs' => Activity::with([
                 'causer',
                 'causer.employee' =>

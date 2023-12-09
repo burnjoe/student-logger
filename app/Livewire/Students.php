@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Card;
 use App\Models\College;
 use App\Models\Student;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -50,6 +51,7 @@ class Students extends Component
     public $currentStep = 1;
 
     public $validatedCardFields = [];
+    public $temporaryUrl;
 
     /**
      * Validation rules
@@ -112,13 +114,14 @@ class Students extends Component
             );
         } else if ($this->currentStep == 2) {
             $this->validatedCardFields += $this->validate(
-                ['profile_photo' => 'required|image|max:2048'],
+                ['profile_photo' => 'required|mimes:png,jpg,jpeg|max:2048'],
                 [
                     'profile_photo.mimes' => 'The :attribute must be in JPEG, PNG, or JPG format.',
                     'profile_photo.max' => 'The :attribute file size must not exceed 2MB.',
                 ],
                 ['profile_photo' => 'ID picture']
             );
+            $this->temporaryUrl = $this->profile_photo->temporaryUrl();
         } else if ($this->currentStep == 3) {
             // $this->validate(
             //     ['contact_person_id' => 'required|exists:family_members,id'],
@@ -179,6 +182,14 @@ class Students extends Component
             'colleges' => College::orderBy('name')
                 ->get(),
         ]);
+    }
+
+    /**
+     * On update of profile photo field
+     */
+    public function updatedProfilePhoto()
+    {
+        $this->validateData();
     }
 
     /**

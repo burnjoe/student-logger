@@ -16,7 +16,7 @@ class StudentCardSeeder extends Seeder
     public function run(): void
     {
         // Creates student and card records
-        Card::factory(8)->create();
+        // Card::factory(8)->create();
 
         $student = Student::create([
             'student_no' => 2000294,
@@ -34,9 +34,13 @@ class StudentCardSeeder extends Seeder
             'account_type' => 'Cabuyeño',
         ]);
 
-        Card::factory()->create([
+        Card::create([
             'rfid' => '0515641249',
             'student_id' => $student->id,
+            'profile_photo' => asset('img/user_icon.png'),
+            'issuance_reason' => 'First Issue',
+            'expires_at' => now()->addYears(2),
+            'status' => 'ACTIVE',
         ]);
 
         $student = Student::create([
@@ -55,9 +59,13 @@ class StudentCardSeeder extends Seeder
             'account_type' => 'Cabuyeño',
         ]);
 
-        Card::factory()->create([
+        Card::create([
             'rfid' => '3448217731',
             'student_id' => $student->id,
+            'profile_photo' => asset('img/user_icon.png'),
+            'issuance_reason' => 'First Issue',
+            'expires_at' => now()->addYears(2),
+            'status' => 'ACTIVE',
         ]);
 
         $student = Student::create([
@@ -76,9 +84,13 @@ class StudentCardSeeder extends Seeder
             'account_type' => 'Cabuyeño',
         ]);
 
-        Card::factory()->create([
-            'rfid' => 3444330823,
+        Card::create([
+            'rfid' => '3444330823',
             'student_id' => $student->id,
+            'profile_photo' => asset('img/user_icon.png'),
+            'issuance_reason' => 'First Issue',
+            'expires_at' => now()->addYears(2),
+            'status' => 'ACTIVE',
         ]);
     }
 }

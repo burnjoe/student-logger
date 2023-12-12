@@ -26,8 +26,8 @@ class Reports extends Component
     public function mount()
     {
         $this->selectMonthYearMainGate = now()->format('Y-m');
-        $this->selectMonthYearLibrary = now()->subMonth()->format('Y-m');
-        $this->selectMonthYearClinic = now()->subMonth()->format('Y-m');
+        $this->selectMonthYearLibrary = now()->format('Y-m');
+        $this->selectMonthYearClinic = now()->format('Y-m');
     }
 
     protected $rules = [
@@ -105,55 +105,111 @@ class Reports extends Component
             ->orderBy('updated_at', 'desc')
             ->paginate(15);
 
-            
-
-        if ($this->selectMonthYearLibrary) {
-            $selectedDate = Carbon::createFromFormat('Y-m', $this->selectMonthYearLibrary);
-            $startDateLibrary = $selectedDate->startOfMonth();
-            $endDateLibrary = $selectedDate->endOfMonth();
-        } else {
-            $startDateLibrary = Carbon::now()->startOfMonth();
-            $endDateLibrary = Carbon::now()->endOfMonth();
-        }
-
-        $libraryAttendances = Attendance::select('card_id', DB::raw('count(*) as frequency'))
-            ->with([
-                'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
-                'card.student' => fn ($query) => $query->select('id', 'student_no', 'last_name', 'first_name'),
-                // 'card.student.college' => fn ($query) => $query->select('id', 'name'),
-            ])
+    
+        
+        $libraryVisitCounts = Attendance::select('card_id', DB::raw('count(*) as total'))
             ->where('post_id', 2)
-            ->whereBetween('logged_in_at', [$startDateLibrary, $endDateLibrary])
+            ->when(
+                $this->selectMonthYearLibrary,
+                function ($query) {
+                    $selectedDate = Carbon::parse($this->selectMonthYearLibrary);
+                    $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+                    
+                    return $query->whereBetween(
+                        'updated_at',
+                        [
+                            $selectedDate->startOfMonth(),
+                            $endDate
+                        ]
+                    );
+                }
+            )
             ->groupBy('card_id')
-            ->orderBy('frequency', 'desc')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->get()
+            ->pluck('total', 'card_id');
+
+        $libraryAttendances = Attendance::select('card_id', DB::raw('count(*) as total'))
+            ->with([
+                'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
+                'post' => fn ($query) => $query->select('id', 'name'),
+                'card.student' => fn ($query) => $query->select('id', 'last_name', 'first_name'),
+            ])
+            ->whereIn('card_id', array_keys($libraryVisitCounts->toArray()))
+            ->where('post_id', 2)
+            ->when(
+                $this->selectMonthYearLibrary,
+                function ($query) {
+                    $selectedDate = Carbon::parse($this->selectMonthYearLibrary);
+                    $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+                    
+                    return $query->whereBetween(
+                        'updated_at',
+                        [
+                            $selectedDate->startOfMonth(),
+                            $endDate
+                        ]
+                    );
+                }
+            )
+            ->groupBy('card_id')
+            ->orderBy('total', 'desc')
             ->take(5)
             ->get();
 
             
         
-
-        if ($this->selectMonthYearClinic) {
-            $selectedDate = Carbon::createFromFormat('Y-m', $this->selectMonthYearClinic);
-            $startDateClinic = $selectedDate->startOfMonth();
-            $endDateClinic = $selectedDate->endOfMonth();
-        } else {
-            $startDateClinic = Carbon::now()->startOfMonth();
-            $endDateClinic = Carbon::now()->endOfMonth();
-        }
-
-        $clinicAttendances = Attendance::select('card_id', DB::raw('count(*) as frequency'))
+        $clinicVisitCounts = Attendance::select('card_id', DB::raw('count(*) as total'))
+            ->where('post_id', 3)
+            ->when(
+                $this->selectMonthYearClinic,
+                function ($query) {
+                    $selectedDate = Carbon::parse($this->selectMonthYearClinic);
+                    $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+                    
+                    return $query->whereBetween(
+                        'updated_at',
+                        [
+                            $selectedDate->startOfMonth(),
+                            $endDate
+                        ]
+                    );
+                }
+            )
+            ->groupBy('card_id')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->get()
+            ->pluck('total', 'card_id');
+            
+        $clinicAttendances = Attendance::select('card_id', DB::raw('count(*) as total'))
             ->with([
                 'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
-                'card.student' => fn ($query) => $query->select('id', 'student_no', 'last_name', 'first_name', 'college_id'),
-                // 'card.student.college' => fn ($query) => $query->select('id', 'name'),
+                'post' => fn ($query) => $query->select('id', 'name'),
+                'card.student' => fn ($query) => $query->select('id', 'last_name', 'first_name'),
             ])
+            ->whereIn('card_id', array_keys($clinicVisitCounts->toArray()))
             ->where('post_id', 3)
-            ->whereBetween('logged_in_at', [$startDateClinic, $endDateClinic])
+            ->when(
+                $this->selectMonthYearClinic,
+                function ($query) {
+                    $selectedDate = Carbon::parse($this->selectMonthYearClinic);
+                    $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+            
+                    return $query->whereBetween(
+                        'updated_at',
+                        [
+                            $selectedDate->startOfMonth(),
+                            $endDate
+                        ]
+                    );
+                }
+            )
             ->groupBy('card_id')
-            ->orderBy('frequency', 'desc')
+            ->orderBy('total', 'desc')
             ->take(5)
             ->get();
-        
         
             
         $posts = Post::all();
@@ -162,7 +218,9 @@ class Reports extends Component
             'statusCounts' => $statusCounts,
             'mainGateAttendances' => $mainGateAttendances,
             'libraryAttendances' => $libraryAttendances,
+            'libraryVisitCounts' => $libraryVisitCounts,
             'clinicAttendances' => $clinicAttendances,
+            'clinicVisitCounts' => $clinicVisitCounts,
             'posts' => $posts,
         ]);
     }

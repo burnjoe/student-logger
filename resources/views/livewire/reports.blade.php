@@ -51,7 +51,7 @@
                </div>
             </div>
          </div>
-         
+
          {{-- Table --}}
          <div>
             <div class="flex flex-row justify-between">
@@ -150,7 +150,9 @@
                labels: ['IN', 'OUT', 'MISSED'],
                datasets: [{
                   label: ' # of Students',
-                  data: ['{{ $statusCounts["IN"] ?? 0 }}', '{{ $statusCounts["OUT"] ?? 0 }}', '{{ $statusCounts["MISSED"] ?? 0 }}'],
+                  data: ['{{ $statusCounts['IN'] ?? 0 }}', '{{ $statusCounts['OUT'] ?? 0 }}',
+                     '{{ $statusCounts['MISSED'] ?? 0 }}'
+                  ],
                   backgroundColor: ['orange', 'green', 'red'],
                   hoverOffset: 4
                }]
@@ -226,12 +228,17 @@
                               class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
                               <td class="px-6 py-4">{{ $attendance->card->student->last_name }}</td>
                               <td class="px-6 py-4">{{ $attendance->card->student->first_name }}</td>
-                              <td class="px-6 py-4">{{ $attendance->frequency }}</td>
+                              <td class="px-6 py-4">{{ $libraryVisitCounts[$attendance->card_id] ?? 0 }}</td>
                               {{-- <td class="px-6 py-4">{{ $attendance->card->student->college->name }}</td> --}}
                            </tr>
                         @endforeach
                      @endslot
                   </x-table>
+                  @if ($libraryAttendances->count() == 0)
+                     <div class="flex justify-center py-6">
+                        No records found.
+                     </div>
+                  @endif
                </div>
             </div>
          </div>
@@ -293,7 +300,7 @@
                         <small class="font-normal text-darkGray text-xs">Select a month & year</small>
                      </x-input-label>
                      <x-input-text id="selectMonthYearClinic" wire:model.live.defer="selectMonthYearClinic"
-                        name="" type="month" class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearClinic')" />
+                        name="selectMonthYearClinic" type="month" class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearClinic')" />
                   </div>
 
                   <div class="flex flex-row justify-between mt-4">
@@ -325,12 +332,17 @@
                               class="text-sm border-b border-lightGray transition-all hover:bg-veryLightGreen">
                               <td class="px-6 py-4">{{ $attendance->card->student->last_name }}</td>
                               <td class="px-6 py-4">{{ $attendance->card->student->first_name }}</td>
-                              <td class="px-6 py-4">{{ $attendance->frequency }}</td>
+                              <td class="px-6 py-4">{{ $clinicVisitCounts[$attendance->card_id] ?? 0 }}</td>
                               {{-- <td class="px-6 py-4">{{ $attendance->card->student->college->name }}</td> --}}
                            </tr>
                         @endforeach
                      @endslot
                   </x-table>
+                  @if ($clinicAttendances->count() == 0)
+                     <div class="flex justify-center py-6">
+                        No records found.
+                     </div>
+                  @endif
                </div>
             </div>
          </div>

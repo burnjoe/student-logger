@@ -18,9 +18,9 @@ class Dashboard extends Component
         $today = Carbon::today();
 
         $this->attendanceStatusData = [
-            'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
-            'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
-            'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
+            'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
+            'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
+            'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
         ];
     }
 

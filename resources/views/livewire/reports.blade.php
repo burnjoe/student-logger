@@ -51,7 +51,8 @@
                </div>
             </div>
          </div>
-
+         
+         {{-- Table --}}
          <div>
             <div class="flex flex-row justify-between">
                <div class="flex items-center">

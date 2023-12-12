@@ -206,7 +206,7 @@
 
                      {{-- Print --}}
                      <div class="flex">
-                        <x-button href="{{ route('export_library_pdf') }}" onclick="generatePDF()" element="a"
+                        <x-button href="{{ route('export_library_pdf', ['monthYear' => $selectMonthYearLibrary]) }}" onclick="generatePDF()" element="a"
                            btnType="primary" textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                            <i class="fa-solid fa-print"></i>
                            <span>Print</span>
@@ -310,7 +310,7 @@
 
                      {{-- Print --}}
                      <div class="flex">
-                        <x-button href="{{ route('export_clinic_pdf') }}" element="a" btnType="primary"
+                        <x-button href="{{ route('export_clinic_pdf', ['monthYear' => $selectMonthYearClinic]) }}" element="a" btnType="primary"
                            textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                            <i class="fa-solid fa-print"></i>
                            <span>Print</span>

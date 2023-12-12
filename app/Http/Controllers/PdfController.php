@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class PdfController extends Controller
 {
@@ -116,21 +117,35 @@ class PdfController extends Controller
     }
 
     // Export Library PDF
-    public function export_library_pdf()
+    public function export_library_pdf(Request $request)
     {
-        $attendances = Attendance::whereHas('post', function ($query) {
-            $query->where('id', 2);
-        })->get()->groupBy('student_name')->map(function ($attendance) {
-            return [
-                'last_name' => $attendance[0]->card->student->last_name,
-                'first_name' => $attendance[0]->card->student->first_name,
-                'frequency' => $attendance->sum('frequency_of_visit'),
-                'college' => $attendance[0]->card->student->college,
-            ];
-        })->sortByDesc('frequency')->take(5);
+        $monthYear = $request->query('monthYear', now()->format('Y-m'));
+        $selectedDate = Carbon::parse($monthYear);
+        $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+
+        $attendances = Attendance::select('card_id', DB::raw('count(*) as total'))
+            ->with([
+                'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
+                'post' => fn ($query) => $query->select('id', 'name'),
+                'card.student' => fn ($query) => $query->select('id', 'last_name', 'first_name'),
+            ])
+            ->where('post_id', 2)
+            ->whereBetween(
+                'updated_at',
+                [
+                    $selectedDate->startOfMonth(),
+                    $endDate
+                ]
+            )
+            ->groupBy('card_id')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->get();
 
         $data = [
             'attendances' => $attendances,
+            'month' => $selectedDate->format('F'), 
+            'year' => $selectedDate->format('Y'),
         ];
 
         $imageUrl = $this->getChartImageUrlForLibrary();
@@ -165,25 +180,39 @@ class PdfController extends Controller
     }
 
     // Export Clinic PDF
-    public function export_clinic_pdf()
+    public function export_clinic_pdf(Request $request)
     {
-        $attendances = Attendance::whereHas('post', function ($query) {
-            $query->where('id', 3);
-        })->get()->groupBy('student_name')->map(function ($attendance) {
-            return [
-                'last_name' => $attendance[0]->card->student->last_name,
-                'first_name' => $attendance[0]->card->student->first_name,
-                'frequency' => $attendance->sum('frequency_of_visit'),
-                'college' => $attendance[0]->card->student->college,
-            ];
-        })->sortByDesc('frequency')->take(5);
+        $monthYear = $request->query('monthYear', now()->format('Y-m'));
+        $selectedDate = Carbon::parse($monthYear);
+        $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+
+        $attendances = Attendance::select('card_id', DB::raw('count(*) as total'))
+            ->with([
+                'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
+                'post' => fn ($query) => $query->select('id', 'name'),
+                'card.student' => fn ($query) => $query->select('id', 'last_name', 'first_name'),
+            ])
+            ->where('post_id', 3)
+            ->whereBetween(
+                'updated_at',
+                [
+                    $selectedDate->startOfMonth(),
+                    $endDate
+                ]
+            )
+            ->groupBy('card_id')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->get();
 
         $data = [
             'attendances' => $attendances,
+            'month' => $selectedDate->format('F'), // Month name
+            'year' => $selectedDate->format('Y'), // Year
         ];
 
         $imageUrl = $this->getChartImageUrlForClinic();
-        $pdf = \PDF::loadView('pdf.clinic-pdf', $data,  compact('imageUrl'));
+        $pdf = \PDF::loadView('pdf.clinic-pdf', $data, compact('imageUrl'));
         return $pdf->stream('Clinic-Reports.pdf');
     }
 

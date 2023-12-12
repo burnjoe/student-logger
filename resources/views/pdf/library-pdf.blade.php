@@ -89,6 +89,11 @@
          font-size: 14px;
       }
 
+      .month,
+      .year {
+         text-decoration: underline;
+      }
+
       /* Chart */
       .chart {
          text-align: center;
@@ -168,8 +173,7 @@
    <div>
       <div class="title">
          <div class="page-title">STUDENTS LIBRARY ATTENDANCE</div>
-         <div><span class="month">NOVEMBER</span></div>
-         <div><span class="semester">1ST SEMESTER AY 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $month }}</span>,  Year: <span class="year">{{ $year }}</span></div>
       </div>
 
       <div class="chart">
@@ -236,8 +240,7 @@
    <div>
       <div class="title">
          <div class="page-title">TOP USERS IN LIBRARY</div>
-         <div><span class="month">NOVEMBER</span></div>
-         <div><span class="semester">1ST SEMESTER AY 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $month }}</span>,  Year: <span class="year">{{ $year }}</span></div>
       </div>
 
       <div class="table">
@@ -247,16 +250,16 @@
                   <th>Last Name</th>
                   <th>First Name</th>
                   <th>Frequency of Visit</th>
-                  <th>College</th>
+                  {{-- <th>College</th> --}}
                </tr>
             </thead>
             <tbody>
                @foreach ($attendances as $attendance)
                   <tr>
-                     <td>{{ $attendance['last_name'] }}</td>
-                     <td>{{ $attendance['first_name'] }}</td>
-                     <td>{{ $attendance['frequency'] }}</td>
-                     <td>{{ $attendance['college'] }}</td>
+                     <td>{{ $attendance->card->student->last_name }}</td>
+                     <td>{{ $attendance->card->student->first_name }}</td>
+                     <td>{{ $attendance->total }}</td>
+                     {{-- <td>college</td> --}}
                   </tr>
                @endforeach
             </tbody>

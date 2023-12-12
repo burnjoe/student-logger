@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\View;
 
 class Dashboard extends Component
 {
-    public $attendanceData = [];
+    public $attendanceStatusData = [];
 
     public function mount()
     {
         $mainGatePostId = Post::where('name', 'Main Gate')->first()->id;
         $today = Carbon::today();
 
-        $this->attendanceData = [
+        $this->attendanceStatusData = [
             'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
             'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
             'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
@@ -30,7 +30,7 @@ class Dashboard extends Component
         View::share('page', 'dashboard');
         
         return view('livewire.dashboard', [
-            'attendanceData' => $this->attendanceData,
+            'attendanceStatusData' => $this->attendanceStatusData,
         ]);
     }
 }

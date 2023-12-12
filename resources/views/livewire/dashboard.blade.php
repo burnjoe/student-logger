@@ -57,8 +57,7 @@
             labels: ['IN', 'OUT', 'MISSED'],
             datasets: [{
                label: ' # of Students',
-               // data: [5, 10, 3],
-               data: [@json($attendanceData['IN']), @json($attendanceData['OUT']), @json($attendanceData['MISSED'])],
+               data: [5, 10, 3],
                backgroundColor: ['orange', 'green', 'red'],
                hoverOffset: 4
             }]

@@ -56,20 +56,6 @@ class Reports extends Component
                 'post' => fn ($query) => $query->select('id', 'name'),
                 'card.student' => fn ($query) => $query->select('id', 'student_no', 'last_name', 'first_name'),
             ])
-            ->when(
-                $this->search,
-                fn ($query) =>
-                $query->whereHas(
-                    'card',
-                    fn ($subquery) =>
-                    $subquery->search($this->search)
-                )
-                ->orWhereHas(
-                    'card.student',
-                    fn ($subquery) =>
-                    $subquery->search($this->search)
-                )
-            )
             ->where('post_id', 1)
             ->when(
                 $this->selectedStatuses,

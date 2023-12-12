@@ -44,10 +44,6 @@
                         <x-input-text id="selectMonthYearMainGate" wire:model.live.defer="selectMonthYearMainGate" name="selectMonthYearMainGate" type="month"
                            class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearMainGate')" />
                      </div>
-                     {{-- Search --}}
-                     @include('livewire.includes.search', [
-                         'placeholder' => 'Search by student no. or name',
-                     ])
                   </div>
                </div>
             </div>
@@ -61,7 +57,7 @@
 
                {{-- Print --}}
                <div class="flex">
-                  <x-button href="{{ route('export_maingate_pdf') }}" element="a" btnType="primary"
+                  <x-button href="{{ route('export_maingate_pdf', ['selectedStatuses' => $selectedStatuses, 'selectedMonthYearMainGate' => $selectMonthYearMainGate]) }}" element="a" btnType="primary"
                      textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
                      <i class="fa-solid fa-print"></i>
                      <span>Print</span>
@@ -109,11 +105,7 @@
 
             @if ($mainGateAttendances->total() == 0)
                <div class="flex justify-center py-6">
-                  @if (empty($search))
-                     No records found.
-                  @else
-                     No records found for matching "{{ $search }}".
-                  @endif
+                  No records found.
                </div>
             @endif
 

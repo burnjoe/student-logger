@@ -125,6 +125,7 @@
    @push('scripts')
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
+         // Dept Chart
          new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
             type: 'pie',
             data: {
@@ -142,13 +143,14 @@
             }
          });
 
+         // Status Chart
          new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
             type: 'pie',
             data: {
                labels: ['IN', 'OUT', 'MISSED'],
                datasets: [{
                   label: ' # of Students',
-                  data: [5, 10, 3],
+                  data: ['{{ $statusCounts["IN"] ?? 0 }}', '{{ $statusCounts["OUT"] ?? 0 }}', '{{ $statusCounts["MISSED"] ?? 0 }}'],
                   backgroundColor: ['orange', 'green', 'red'],
                   hoverOffset: 4
                }]

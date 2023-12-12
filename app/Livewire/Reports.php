@@ -2,15 +2,15 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
+use App\Models\Post;
 use App\Models\College;
 use Livewire\Component;
-use Illuminate\Support\Facades\View;
-use Livewire\WithPagination;
 use App\Models\Attendance;
-use App\Models\Post;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use DB;
+use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 class Reports extends Component
 {
@@ -49,7 +49,32 @@ class Reports extends Component
         //     })->where('post_id', 1)->count();
         //     array_push($studentData, $count);
         // }
+        
+        // Status Chart for Main Gate of Campus
+        $statusCounts = Attendance::select('status', DB::raw('count(*) as total'))
+            ->where('post_id', 1)
+            ->when(
+                $this->selectMonthYearMainGate,
+                function ($query) {
+                    $selectedDate = Carbon::parse($this->selectMonthYearMainGate);
+                    $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+                    
+                    return $query->whereBetween(
+                        'logged_in_at',
+                        [
+                            $selectedDate->startOfMonth(),
+                            $endDate
+                        ]
+                    );
+                }
+            )
+            ->groupBy('status')
+            ->get()
+            ->pluck('total', 'status');
+ 
 
+            
+        // Table for Main Gate of Campus
         $mainGateAttendances = Attendance::select('id', 'logged_in_at', 'logged_out_at', 'status', 'card_id', 'post_id')
             ->with([
                 'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
@@ -134,6 +159,7 @@ class Reports extends Component
         $posts = Post::all();
 
         return view('livewire.reports', [
+            'statusCounts' => $statusCounts,
             'mainGateAttendances' => $mainGateAttendances,
             'libraryAttendances' => $libraryAttendances,
             'clinicAttendances' => $clinicAttendances,

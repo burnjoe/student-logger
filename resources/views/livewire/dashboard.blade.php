@@ -58,6 +58,7 @@
 
       // Status Chart
       var data = [@json($attendanceStatusData['IN']), @json($attendanceStatusData['OUT']), @json($attendanceStatusData['MISSED'])];
+      
       if (data.reduce((a, b) => a + b, 0) === 0) {
          document.getElementById('noStatusData').style.display = 'block';
          document.getElementById('campusStatusChart').style.display = 'none';

@@ -123,9 +123,11 @@
             type: 'pie',
             data: {
                labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
+               // labels: @ json($data->keys()),
                datasets: [{
                   label: ' # of Students',
                   data: [10, 20, 30, 5, 9, 12, 9],
+                  // data: @ json($data->values())
                   backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
                      'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
                   ],

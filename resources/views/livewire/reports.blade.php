@@ -20,7 +20,12 @@
             {{-- Left Side --}}
             <div class="md:w-1/3 flex flex-col items-center">
                <span class="text-1rem font-semibold">Number of Students per Dept. in the Campus</span>
-               <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
+               <canvas id="campusDeptChart" style="max-width: 400px; max-height: 400px;"></canvas>
+            </div>
+            {{-- Middle --}}
+            <div class="md:w-1/3 flex flex-col items-center">
+               <span class="text-1rem font-semibold">Number of Students per Status in the Campus</span>
+               <canvas id="campusStatusChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right Side --}}
             <div class="w-full md:w-3/4">
@@ -33,17 +38,15 @@
                   </p>
                </div>
 
-               <div class="flex flex-col">
-                  {{-- Filter --}}
-                  <div class="flex flex-col">
-                     {{-- Filter Month & Year --}}
-                     <div class="flex flex-col w-2/5">
-                        <x-input-label for="selectMonthYearMainGate">
-                           <small class="font-normal text-darkGray text-xs">Select a month & year</small>
-                        </x-input-label>
-                        <x-input-text id="selectMonthYearMainGate" wire:model.live.defer="selectMonthYearMainGate" name="selectMonthYearMainGate" type="month"
-                           class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearMainGate')" />
-                     </div>
+               <div class="flex flex-col w-2/5 md:w-full lg:w-1/2">
+                  {{-- Filter Month & Year --}}
+                  <div class="flex flex-col ">
+                     <x-input-label for="selectMonthYearMainGate">
+                        <small class="font-normal text-darkGray text-xs">Select a month & year</small>
+                     </x-input-label>
+                     <x-input-text id="selectMonthYearMainGate" wire:model.live.defer="selectMonthYearMainGate"
+                        name="selectMonthYearMainGate" type="month" class="w-full mt-1 bg-lightGray"
+                        :messages="$errors->get('selectMonthYearMainGate')" />
                   </div>
                </div>
             </div>
@@ -57,8 +60,10 @@
 
                {{-- Print --}}
                <div class="flex">
-                  <x-button href="{{ route('export_maingate_pdf', ['selectedStatuses' => $selectedStatuses, 'selectedMonthYearMainGate' => $selectMonthYearMainGate]) }}" element="a" btnType="primary"
-                     textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
+                  <x-button
+                     href="{{ route('export_maingate_pdf', ['selectedStatuses' => $selectedStatuses, 'selectedMonthYearMainGate' => $selectMonthYearMainGate]) }}"
+                     element="a" btnType="primary" textSize="text-xs" class="flex space-x-2 items-center"
+                     target="_blank">
                      <i class="fa-solid fa-print"></i>
                      <span>Print</span>
                   </x-button>
@@ -119,7 +124,7 @@
    @push('scripts')
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
-         new Chart(document.getElementById('campusChart').getContext('2d'), {
+         new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
             type: 'pie',
             data: {
                labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
@@ -134,6 +139,19 @@
                   hoverOffset: 4
                }]
             }
+         });
+
+         new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+               labels: ['IN', 'OUT', 'MISSED'],
+               datasets: [{
+                  label: ' # of Students',
+                  data: [5, 10, 3],
+                  backgroundColor: ['orange', 'green', 'red'],
+                  hoverOffset: 4
+               }]
+            },
          });
       </script>
    @endpush
@@ -152,7 +170,7 @@
             {{-- Left Side --}}
             <div class="md:w-1/3 flex flex-col items-center">
                <span class="text-1rem font-semibold">Number of Students per Dept. in the Library</span>
-               <canvas id="libraryChart" style="max-width: 400px; max-height: 400px;"></canvas>
+               <canvas id="libraryDeptChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right side --}}
             <div class="w-full md:w-3/4">
@@ -221,7 +239,7 @@
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
          // Library Chart
-         new Chart(document.getElementById('libraryChart').getContext('2d'), {
+         new Chart(document.getElementById('libraryDeptChart').getContext('2d'), {
             type: 'pie',
             data: {
                labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
@@ -252,7 +270,7 @@
             {{-- Left Side --}}
             <div class="md:w-1/3 flex flex-col items-center">
                <span class="text-1rem font-semibold">Number of Students per Dept. in the Clinic</span>
-               <canvas id="clinicChart" style="max-width: 400px; max-height: 400px;"></canvas>
+               <canvas id="clinicDeptChart" style="max-width: 400px; max-height: 400px;"></canvas>
             </div>
             {{-- Right Side --}}
             <div class="w-full md:w-3/4">
@@ -271,8 +289,8 @@
                      <x-input-label for="selectMonthYearClinic">
                         <small class="font-normal text-darkGray text-xs">Select a month & year</small>
                      </x-input-label>
-                     <x-input-text id="selectMonthYearClinic" wire:model.live.defer="selectMonthYearClinic" name=""
-                        type="month" class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearClinic')" />
+                     <x-input-text id="selectMonthYearClinic" wire:model.live.defer="selectMonthYearClinic"
+                        name="" type="month" class="w-full mt-1 bg-lightGray" :messages="$errors->get('selectMonthYearClinic')" />
                   </div>
 
                   <div class="flex flex-row justify-between mt-4">
@@ -320,7 +338,7 @@
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
          // Clinic Chart
-         new Chart(document.getElementById('clinicChart').getContext('2d'), {
+         new Chart(document.getElementById('clinicDeptChart').getContext('2d'), {
             type: 'pie',
             data: {
                labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],

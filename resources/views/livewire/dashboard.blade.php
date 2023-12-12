@@ -27,6 +27,9 @@
       <x-card>
          <div class="flex flex-col items-center">
             <span class="text-1rem font-semibold">Number of Students per Status</span>
+            <div id="noStatusData" class="flex justify-center py-6">
+               No records found.
+           </div>
             <canvas id="campusStatusChart" style="max-width: 400px; max-height: 400px;"></canvas>
          </div>
       </x-card>
@@ -37,7 +40,9 @@
    {{-- chart.js --}}
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-   <script>new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
+   <script>
+      // Dept Chart
+      new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
          type: 'pie',
          data: {
             labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
@@ -51,18 +56,26 @@
          },
       });
 
-      new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
-         type: 'pie',
-         data: {
-            labels: ['IN', 'OUT', 'MISSED'],
-            datasets: [{
-               label: ' # of Students',
-               // data: [5, 10, 3],
-               data: [@json($attendanceData['IN']), @json($attendanceData['OUT']), @json($attendanceData['MISSED'])],
-               backgroundColor: ['orange', 'green', 'red'],
-               hoverOffset: 4
-            }]
-         },
-      });
+      // Status Chart
+      var data = [@json($attendanceData['IN']), @json($attendanceData['OUT']), @json($attendanceData['MISSED'])];
+      if (data.reduce((a, b) => a + b, 0) === 0) {
+         document.getElementById('noStatusData').style.display = 'block';
+         document.getElementById('campusStatusChart').style.display = 'none';
+      } else {
+         document.getElementById('noStatusData').style.display = 'none';
+         document.getElementById('campusStatusChart').style.display = 'block';
+         new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+               labels: ['IN', 'OUT', 'MISSED'],
+               datasets: [{
+                  label: ' # of Students',
+                  data: data,
+                  backgroundColor: ['orange', 'green', 'red'],
+                  hoverOffset: 4
+               }]
+            },
+         });
+      }
    </script>
 @endpush

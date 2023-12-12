@@ -2,9 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Models\Attendance;
+use Carbon\Carbon;
 use App\Models\Post;
 use Livewire\Component;
+use App\Models\Attendance;
 use Illuminate\Support\Facades\View;
 
 class Dashboard extends Component
@@ -14,11 +15,12 @@ class Dashboard extends Component
     public function mount()
     {
         $mainGatePostId = Post::where('name', 'Main Gate')->first()->id;
+        $today = Carbon::today();
 
         $this->attendanceData = [
-            'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->count(),
-            'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->count(),
-            'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->count(),
+            'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
+            'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
+            'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('created_at', $today)->count(),
         ];
     }
 

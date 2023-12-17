@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('college_id')
                 ->constrained()
-                ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes();

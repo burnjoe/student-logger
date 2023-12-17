@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CollegeSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(FamilyMemberSeeder::class);
-        $this->call(StudentCardSeeder::class);
+        $this->call(StudentSeeder::class);
         $this->call(AttendanceSeeder::class);
         $this->call(EmployeeSeeder::class);
         $this->call(PermissionSeeder::class);

@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
         // Calls out other seeder
         $this->call(CollegeSeeder::class);
         $this->call(PostSeeder::class);
+        $this->call(FamilyMemberSeeder::class);
         $this->call(StudentCardSeeder::class);
         $this->call(AttendanceSeeder::class);
         $this->call(EmployeeSeeder::class);
-        $this->call(FamilyMemberSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);

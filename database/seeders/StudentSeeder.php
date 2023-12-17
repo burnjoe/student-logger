@@ -504,11 +504,13 @@ class StudentSeeder extends Seeder
 
             $father = FamilyMember::factory()->create([
                 'last_name' => $student->last_name,
+                'first_name' => fake()->firstNameMale(),
                 'relationship' => 'Father',
             ]);
 
             $mother = FamilyMember::factory()->create([
                 'last_name' => $student->last_name,
+                'first_name' => fake()->firstNameMale(),
                 'relationship' => 'Mother',
             ]);
 

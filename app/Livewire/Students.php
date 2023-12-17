@@ -32,6 +32,22 @@ class Students extends Component
     public $email;
     public $account_type;
 
+    public $father_last_name;
+    public $father_first_name;
+    public $father_occupation;
+    public $father_phone;
+
+    public $mother_first_name;
+    public $mother_last_name;
+    public $mother_occupation;
+    public $mother_phone;
+
+    public $guardian_first_name;
+    public $guardian_last_name;
+    public $guardian_specified_relationship;
+    public $guardian_occupation;
+    public $guardian_phone;
+
     public Student $selectedStudent;
 
     // Card
@@ -229,7 +245,8 @@ class Students extends Component
         try {
             switch ($type) {
                 case 'student':
-                    $this->selectedStudent = Student::find($id);
+                    $this->selectedStudent = Student::with(['family_members'])
+                        ->find($id);
 
                     $this->student_id = $this->selectedStudent->id;
                     $this->student_no = $this->selectedStudent->student_no;
@@ -245,6 +262,26 @@ class Students extends Component
                     $this->phone = $this->selectedStudent->phone;
                     $this->email = $this->selectedStudent->email;
                     $this->account_type = $this->selectedStudent->account_type;
+
+                    $father = $this->selectedStudent->family_members->where('relationship', 'Father')->first();
+                    $mother = $this->selectedStudent->family_members->where('relationship', 'Mother')->first();
+                    $guardian = $this->selectedStudent->family_members->where('relationship', 'Guardian')->first();
+                    
+                    $this->father_last_name = $father->last_name;
+                    $this->father_first_name = $father->first_name;
+                    $this->father_occupation = $father->occupation;
+                    $this->father_phone = $father->phone;
+
+                    $this->mother_last_name = $mother->last_name;
+                    $this->mother_first_name = $mother->first_name;
+                    $this->mother_occupation = $mother->occupation;
+                    $this->mother_phone = $mother->phone;
+
+                    $this->guardian_last_name = $guardian->last_name;
+                    $this->guardian_first_name = $guardian->first_name;
+                    $this->guardian_specified_relationship = $guardian->specified_relationship;
+                    $this->guardian_occupation = $guardian->occupation;
+                    $this->guardian_phone = $guardian->phone;
                     break;
                 case 'card':
                     $this->selectedStudent = Student::select(

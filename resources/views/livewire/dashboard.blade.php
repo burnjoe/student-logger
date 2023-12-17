@@ -6,7 +6,16 @@
    </x-card>
 
    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      <x-card>
+      <x-card class="mt-4">
+         <p class="text-1rem font-semibold">
+            Total Number of Students:
+         </p>
+         <p class="text-6xl text-veryDarkGray font-bold">
+            {{ $totalStudents }}
+         </p>
+      </x-card>
+
+      <x-card class="mt-4">
          <p class="text-1rem font-semibold">
             Live Student Population Count:
          </p>
@@ -14,23 +23,37 @@
             {{ $liveCount }}
          </p>
       </x-card>
+   </div>
 
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
       {{-- pie chart per department --}}
       <x-card>
-         <div class="flex flex-col items-center">
+         <div class="flex flex-col items-center mt-2">
             <span class="text-1rem font-semibold">Number of Students per Dept.</span>
-            <canvas id="campusChart" style="max-width: 400px; max-height: 400px;"></canvas>
+            <canvas id="campusDeptChart" style="max-width: 400px; max-height: 400px;"></canvas>
+         </div>
+      </x-card>
+
+      {{-- pie chart per status --}}
+      <x-card>
+         <div class="flex flex-col items-center">
+            <span class="text-1rem font-semibold">Number of Students per Status</span>
+            <div id="noStatusData" class="flex justify-center py-6">
+               No records found.
+            </div>
+            <canvas id="campusStatusChart" style="max-width: 400px; max-height: 400px;"></canvas>
          </div>
       </x-card>
    </div>
 </div>
 
 @push('scripts')
-   {{-- chart.js --}}
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{-- chart.js --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-   <script>
-      new Chart(document.getElementById('campusChart').getContext('2d'), {
+<script>
+   // Dept Chart
+      new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
          type: 'pie',
          data: {
             labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
@@ -43,5 +66,28 @@
             }]
          },
       });
-   </script>
+
+      // Status Chart
+      var data = [@json($attendanceStatusData['IN']), @json($attendanceStatusData['OUT']), @json($attendanceStatusData['MISSED'])];
+      
+      if (data.reduce((a, b) => a + b, 0) === 0) {
+         document.getElementById('noStatusData').style.display = 'block';
+         document.getElementById('campusStatusChart').style.display = 'none';
+      } else {
+         document.getElementById('noStatusData').style.display = 'none';
+         document.getElementById('campusStatusChart').style.display = 'block';
+         new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+               labels: ['IN', 'OUT', 'MISSED'],
+               datasets: [{
+                  label: ' # of Students',
+                  data: data,
+                  backgroundColor: ['orange', 'green', 'red'],
+                  hoverOffset: 4
+               }]
+            },
+         });
+      }
+</script>
 @endpush

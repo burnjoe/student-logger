@@ -89,6 +89,11 @@
          font-size: 14px;
       }
 
+      .month,
+      .year {
+         text-decoration: underline;
+      }
+
       /* Chart */
       .chart {
          text-align: center;
@@ -168,8 +173,7 @@
    <div>
       <div class="title">
          <div class="page-title">STUDENTS LIBRARY ATTENDANCE</div>
-         <div><span class="month">NOVEMBER</span></div>
-         <div><span class="semester">1ST SEMESTER AY 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $month }}</span>,  Year: <span class="year">{{ $year }}</span></div>
       </div>
 
       <div class="chart">
@@ -236,45 +240,28 @@
    <div>
       <div class="title">
          <div class="page-title">TOP USERS IN LIBRARY</div>
-         <div><span class="month">NOVEMBER</span></div>
-         <div><span class="semester">1ST SEMESTER AY 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $month }}</span>,  Year: <span class="year">{{ $year }}</span></div>
       </div>
 
       <div class="table">
          <table>
             <thead>
                <tr>
-                  <th>Name</th>
+                  <th>Last Name</th>
+                  <th>First Name</th>
                   <th>Frequency of Visit</th>
-                  <th>College</th>
+                  {{-- <th>College</th> --}}
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>Ferreras, Vince Austin R.</td>
-                  <td>7</td>
-                  <td>CCS</td>
-               </tr>
-               <tr>
-                  <td>Sabana, Joe Lawrence M.</td>
-                  <td>7</td>
-                  <td>CHAS</td>
-               </tr>
-               <tr>
-                  <td>Derla, Julius A.</td>
-                  <td>4</td>
-                  <td>COE</td>
-               </tr>
-               <tr>
-                  <td>Asenjo, Dan Dowee A.</td>
-                  <td>3</td>
-                  <td>CHAS</td>
-               </tr>
-               <tr>
-                  <td>De La Cruz, Juan K.</td>
-                  <td>2</td>
-                  <td>CCS</td>
-               </tr>
+               @foreach ($attendances as $attendance)
+                  <tr>
+                     <td>{{ $attendance->card->student->last_name }}</td>
+                     <td>{{ $attendance->card->student->first_name }}</td>
+                     <td>{{ $attendance->total }}</td>
+                     {{-- <td>college</td> --}}
+                  </tr>
+               @endforeach
             </tbody>
          </table>
       </div>

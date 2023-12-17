@@ -8,9 +8,9 @@
         }
     };
     sidebarToggle = () => { sidebarOpen = !sidebarOpen; }
-}"
-   @click.away="closeSidebar($event)"
-   class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative">
+}" @click.away="closeSidebar($event)"
+   class="absolute w-60 flex-col flex-none bg-white h-full drop-shadow-lg overflow-x-hidden overflow-y-auto transition-all z-20 lg:relative"
+   style="height: -webkit-fill-available">
    <div :class="{ 'pb-8': !sidebarOpen }" class="sticky top-0 bg-white pt-1 pb-12 z-10">
       <div x-show="sidebarOpen" class="flex flex-row justify-between">
          <div class="mt-5 mx-6 w-40">
@@ -18,7 +18,8 @@
          </div>
 
          {{-- close button --}}
-         <button x-cloak x-show="sidebarOpen" @click="sidebarOpen = !sidebarOpen; $dispatch('close-accordion');" class="mt-4 mx-6 lg:hidden">
+         <button x-cloak x-show="sidebarOpen" @click="sidebarOpen = !sidebarOpen; $dispatch('close-accordion');"
+            class="mt-4 mx-6 lg:hidden">
             <i class="fa-solid fa-x"></i>
          </button>
       </div>
@@ -30,11 +31,11 @@
 
    <div x-show="sidebarOpen" class="bg-darkGray px-6 py-3 text-white flex flex-col space-y-2">
       <span>
-         <x-badge class="text-darkGray bg-lightGray" size="sm"
-            fontWeight="semibold">{{ ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
+         <x-badge class="text-darkGray bg-lightGray" size="sm" fontWeight="semibold">{{
+            ucwords(auth()->user()->getRoleNames()->first()) }}</x-badge>
       </span>
-      <span
-         class="text-sm">{{ auth()->user()->employee->first_name . ' ' . (auth()->user()->employee->middle_name ? auth()->user()->employee->middle_name[0] . '. ' : ' ') . auth()->user()->employee->last_name }}</span>
+      <span class="text-sm">{{ auth()->user()->employee->first_name . ' ' . (auth()->user()->employee->middle_name ?
+         auth()->user()->employee->middle_name[0] . '. ' : ' ') . auth()->user()->employee->last_name }}</span>
    </div>
 
    <nav class="flex flex-col mx-2 my-2 text-darkGray">
@@ -53,62 +54,62 @@
 
       {{-- Students --}}
       @can('view students')
-         <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Students"
-            @click="$dispatch('close-accordion')">
-            <div class="py-3 px-4 w-full flex space-x-4">
-               <span>
-                  <i class="w-4 fa-solid fa-user-graduate"></i>
-               </span>
-               <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-                  Students
-               </span>
-            </div>
-         </a>
+      <a href="{{ route('students') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Students"
+         @click="$dispatch('close-accordion')">
+         <div class="py-3 px-4 w-full flex space-x-4">
+            <span>
+               <i class="w-4 fa-solid fa-user-graduate"></i>
+            </span>
+            <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+               Students
+            </span>
+         </div>
+      </a>
       @endcan
 
       {{-- Attendances --}}
       @can('view attendances')
-         <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
-            @click="$dispatch('close-accordion')">
-            <div class="py-3 px-4 w-full flex space-x-4">
-               <span>
-                  <i class="w-4 fa-solid fa-clock fa-sm"></i>
-               </span>
-               <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-                  Attendances
-               </span>
-            </div>
-         </a>
+      <a href="{{ route('attendances') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Attendances"
+         @click="$dispatch('close-accordion')">
+         <div class="py-3 px-4 w-full flex space-x-4">
+            <span>
+               <i class="w-4 fa-solid fa-clock fa-sm"></i>
+            </span>
+            <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+               Attendances
+            </span>
+         </div>
+      </a>
       @endcan
 
       {{-- User Accounts --}}
       @can('view users')
-         <a href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts"
-            @click="$dispatch('close-accordion')">
-            <div class="py-3 px-4 w-full flex space-x-4">
-               <span>
-                  <i class="w-4 fa-solid fa-user-large fa-sm"></i>
-               </span>
-               <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-                  User Accounts
-               </span>
-            </div>
-         </a>
+      <a href="{{ route('accounts') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Accounts"
+         @click="$dispatch('close-accordion')">
+         <div class="py-3 px-4 w-full flex space-x-4">
+            <span>
+               <i class="w-4 fa-solid fa-user-large fa-sm"></i>
+            </span>
+            <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+               User Accounts
+            </span>
+         </div>
+      </a>
       @endcan
 
       {{-- Audit Log --}}
       @can('view audit logs')
-         <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
-            @click="$dispatch('close-accordion')">
-            <div class="py-3 px-4 w-full flex space-x-4">
-               <span>
-                  <i class="w-4 fa-solid fa-clipboard-list"></i>
-               </span>
-               <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
-                  Audit Log
-               </span>
-            </div>
-         </a>
+      <a href="{{ route('audit-log') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Audit Log"
+         @click="$dispatch('close-accordion')">
+         <div class="py-3 px-4 w-full flex space-x-4">
+            <span>
+               <i class="w-4 fa-solid fa-clipboard-list"></i>
+            </span>
+            <span x-show="sidebarOpen" class="w-full flex items-center text-sm">
+               Audit Log
+            </span>
+         </div>
+      </a>
       @endcan
 
       {{-- Reports --}}
@@ -128,39 +129,38 @@
 
       {{-- Archive --}}
       @can('view archives')
-         <x-accordion
-            @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'students-accordion');"
-            class="transition-all rounded-lg hover:bg-lightGray" name="archive-accordion">
-            <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
-               @slot('header')
-                  <div class="w-full flex space-x-4" title="Archive">
-                     <span>
-                        <i class="w-4 fa-solid fa-box-archive"></i>
-                     </span>
-                     <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
-                        Archive
-                     </div>
-                  </div>
-               @endslot
-               @slot('content')
-                  <a href="{{ route('archive-students') }}" title="Archived Students"
-                     @click="$dispatch('close-accordion')">
-                     <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                        <span class="w-full flex items-center text-sm">
-                           Archived Students
-                        </span>
-                     </div>
-                  </a>
-                  <a href="{{ route('archive-users') }}" title="Archived Accounts" @click="$dispatch('close-accordion')">
-                     <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
-                        <span class="w-full flex items-center text-sm">
-                           Archived Accounts
-                        </span>
-                     </div>
-                  </a>
-               @endslot
-            </x-accordion-item>
-         </x-accordion>
+      <x-accordion
+         @click="sidebarOpen = sidebarOpen == false ? true : sidebarOpen; $dispatch('close-other-accordion', 'students-accordion');"
+         class="transition-all rounded-lg hover:bg-lightGray" name="archive-accordion">
+         <x-accordion-item headerClasses="" contentClasses="bg-lightGray" :showIndicator="true">
+            @slot('header')
+            <div class="w-full flex space-x-4" title="Archive">
+               <span>
+                  <i class="w-4 fa-solid fa-box-archive"></i>
+               </span>
+               <div class="w-full flex justify-between items-center text-sm" x-show="sidebarOpen">
+                  Archive
+               </div>
+            </div>
+            @endslot
+            @slot('content')
+            <a href="{{ route('archive-students') }}" title="Archived Students" @click="$dispatch('close-accordion')">
+               <div class="w-full transition-all ps-12 pe-4 py-3 hover:bg-gray">
+                  <span class="w-full flex items-center text-sm">
+                     Archived Students
+                  </span>
+               </div>
+            </a>
+            <a href="{{ route('archive-users') }}" title="Archived Accounts" @click="$dispatch('close-accordion')">
+               <div class="w-full rounded-b-lg transition-all ps-12 pe-4 py-3 hover:bg-gray">
+                  <span class="w-full flex items-center text-sm">
+                     Archived Accounts
+                  </span>
+               </div>
+            </a>
+            @endslot
+         </x-accordion-item>
+      </x-accordion>
       @endcan
 
       <hr class="mx-4 my-2 text-gray">

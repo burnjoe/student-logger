@@ -130,7 +130,7 @@
          margin-top: 20px;
       }
    </style>
-   <title>Library Reports</title>
+   <title>Attendance Reports</title>
 </head>
 
 <body>
@@ -155,29 +155,25 @@
    <div>
       <div class="title">
          <div class="page-title">ATTENDANCE REPORT</div>
-         <div>From <span class="start-date">Nov. 05, 2023</span> to <span class="end-date">Nov. 05, 2023</span></div>
-         {{-- <div>Month: <span>January</span>, Semester: <span>First Semester A.Y 2023-2024</span></div> --}}
+         <div>From <span class="start-date">{{ \Carbon\Carbon::parse($startDate)->format('M. j, Y') }}</span> to <span class="end-date">{{ \Carbon\Carbon::parse($endDate)->format('M. j, Y') }}</span></div>
       </div>
 
       {{-- from attendances module table --}}
       <div class="table">
          <table>
-            @slot('head')
-               <thead>
-                  <tr>
-                     <th>Student No.</th>
-                     <th>Last Name</th>
-                     <th>First Name</th>
-                     <th>Date</th>
-                     <th>Log In</th>
-                     <th>Log Out</th>
-                     <th>Status</th>
-                     <th>Post</th>
-                  </tr>
-               </thead>
-            @endslot
-            
-            @slot('data')
+            <thead>
+               <tr>
+                  <th>Student No.</th>
+                  <th>Last Name</th>
+                  <th>First Name</th>
+                  <th>Date</th>
+                  <th>Log In</th>
+                  <th>Log Out</th>
+                  <th>Post</th>
+                  <th>Status</th>
+               </tr>
+            </thead>
+            <tbody>
                @foreach ($attendances as $attendance)
                   <tr>
                      <td>{{ $attendance->card->student->student_no }}</td>
@@ -194,19 +190,7 @@
                      <td>{{ $attendance->status }}</td>
                   </tr>
                @endforeach
-            @endslot
-            {{-- <tbody>
-               <tr>
-                  <td>2000541</td>
-                  <td>Ferreras</td>
-                  <td>Vince Austin</td>
-                  <td>Nov. 05, 2023</td>
-                  <td>05:05 PM</td>
-                  <td>10:05 PM</td>
-                  <td>Out</td>
-                  <td>Clinic</td>
-               </tr>
-            </tbody> --}}
+            </tbody>
          </table>
       </div>
    </div>

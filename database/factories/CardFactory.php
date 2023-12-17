@@ -19,11 +19,12 @@ class CardFactory extends Factory
     {
         return [
             'rfid' => strval(fake()->unique()->numberBetween(1000000000, 9999999999)),
-            'student_id' => (Student::factory()->create())->id,
-            'profile_photo' => asset('img/user_icon.png'),
+            'student_id' => null,
+            'profile_photo' => 'photos/user_icon.png',
             'issuance_reason' => 'First Issue',
             'expires_at' => now()->addYears(2),
             'status' => 'ACTIVE',
+            'contact_person_id' => null,
         ];
     }
 }

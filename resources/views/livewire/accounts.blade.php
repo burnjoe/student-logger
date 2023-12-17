@@ -103,7 +103,7 @@
 	@endcan
 
 	{{-- Delete Dialog --}}
-	@can('archive `users')
+	@can('archive users')
 	<x-modal wire:ignore.self name="delete-user" title="Delete User Account" maxWidth="lg" focusable>
 		@include('livewire.includes.confirm-form', [
 		'prompt' => 'Are you sure you want to delete this record?',

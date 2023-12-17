@@ -12,6 +12,7 @@
          margin: 1em 6em 1em 6em;
          size: letter;
       }
+
       body {
          margin: 5em 0;
       }
@@ -30,33 +31,39 @@
          position: fixed;
          top: 0;
          left: 0;
-	      right: 0;
+         right: 0;
       }
+
       #header .main-name {
          font-weight: bold;
          font-size: 25px;
          line-height: 90%;
          color: rgb(0, 51, 0);
       }
+
       #header .label-name {
          font-weight: medium;
          font-size: 12px;
       }
+
       #header .sub-name {
          font-weight: medium;
          font-size: 14px;
          line-height: 90%;
       }
+
       #header .office {
          font-weight: bolder;
          font-style: italic;
          font-size: 14px;
          line-height: 90%;
       }
+
       #header .address {
          line-height: 90%;
          font-size: 10px;
       }
+
       #header .logo {
          position: fixed;
          top: 0;
@@ -82,6 +89,11 @@
          font-size: 14px;
       }
 
+      .month,
+      .year {
+         text-decoration: underline;
+      }
+      
       /* Chart */
       .chart {
          text-align: center;
@@ -94,10 +106,12 @@
          margin-top: 30px;
          font-size: 13px;
       }
+
       table {
          border-collapse: collapse;
          margin: 0 auto;
       }
+
       table th,
       td {
          text-align: center;
@@ -120,12 +134,15 @@
          flex-direction: column;
          font-size: 12px;
       }
+
       .signature .name {
          font-weight: Bold;
       }
+
       .signature .rl {
          font-weight: Bold;
       }
+
       .signature .checked,
       .noted {
          margin-top: 20px;
@@ -156,8 +173,7 @@
    <div>
       <div class="title">
          <div class="page-title">STUDENTS CLINIC ATTENDANCE</div>
-         <div><span class="month">NOVEMBER</span></div>
-         <div><span class="semester">1ST SEMESTER AY 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $month }}</span>,  Year: <span class="year">{{ $year }}</span></div>
       </div>
 
       <div class="chart">
@@ -219,51 +235,34 @@
    </div>
 
    {{-- Page Break --}}
-   <hr/>
+   <hr />
 
    <!-- Second Page - Top Users -->
    <div>
       <div class="title">
          <div class="page-title">TOP USERS IN CLINC</div>
-         <div><span class="month">NOVEMBER</span></div>
-         <div><span class="semester">1ST SEMESTER AY 2023-2024</span></div>
+         <div>Month: <span class="month">{{ $month }}</span>,  Year: <span class="year">{{ $year }}</span></div>
       </div>
 
       <div class="table">
          <table>
             <thead>
                <tr>
-                  <th>Name</th>
+                  <th>Last Name</th>
+                  <th>First Name</th>
                   <th>Frequency of Visit</th>
-                  <th>College</th>
+                  {{-- <th>College</th> --}}
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>Ferreras, Vince Austin R.</td>
-                  <td>7</td>
-                  <td>CCS</td>
-               </tr>
-               <tr>
-                  <td>Sabana, Joe Lawrence M.</td>
-                  <td>7</td>
-                  <td>CHAS</td>
-               </tr>
-               <tr>
-                  <td>Derla, Julius A.</td>
-                  <td>4</td>
-                  <td>COE</td>
-               </tr>
-               <tr>
-                  <td>Asenjo, Dan Dowee A.</td>
-                  <td>3</td>
-                  <td>CHAS</td>
-               </tr>
-               <tr>
-                  <td>De La Cruz, Juan K.</td>
-                  <td>2</td>
-                  <td>CCS</td>
-               </tr>
+               @foreach ($attendances as $attendance)
+                  <tr>
+                     <td>{{ $attendance->card->student->last_name }}</td>
+                     <td>{{ $attendance->card->student->first_name }}</td>
+                     <td>{{ $attendance->total }}</td>
+                     {{-- <td>college</td> --}}
+                  </tr>
+               @endforeach
             </tbody>
          </table>
       </div>

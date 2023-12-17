@@ -10,7 +10,63 @@ $statusColors = [
     <div class="grid lg:grid-cols-2 gap-4 mt-4">
         @include('livewire.includes.search', ['placeholder' => 'Search by student no. or name'])
 
-        {{-- Paste here --}}
+        <div class="flex justify-between lg:justify-end items-center z-10">
+            {{-- Generate Report --}}
+            <div class="flex justify-end ps-2">
+                <x-dropdown align="right" menuWidth="100%" isFilter="true">
+                    @slot('trigger')
+                    <x-button btnType="success" class="flex space-x-2 items-center">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Generate Report</span>
+                    </x-button>
+                    @endslot
+                    @slot('content')
+                    {{-- Search label --}}
+                    <div class="w-48">
+                        <x-input-label for="searchby">
+                            <small class="font-normal text-darkGray text-xs">Search by</small>
+                        </x-input-label>
+                        <x-input-text id="searchby" wire:model.live.debounce.300ms="search" type="text" alignIcon="left"
+                            placeholder="Student no. or name" class="w-full mt-1">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </x-input-text>
+                    </div>
+
+                    {{-- Start Date --}}
+                    <div>
+                        <div class="mt-4">
+                            <x-input-label for="startdate">
+                                <small class="font-normal text-darkGray text-xs">Start Date</small>
+                            </x-input-label>
+                            <x-input-text id="startdate" wire:model.live="startDate" name="startdate" type="date"
+                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('startdate')" />
+                        </div>
+                    </div>
+
+                    {{-- End Date --}}
+                    <div>
+                        <div class="mt-4">
+                            <x-input-label for="enddate">
+                                <small class="font-normal text-darkGray text-xs">End Date</small>
+                            </x-input-label>
+                            <x-input-text id="enddate" wire:model.live="endDate" name="enddate" type="date"
+                                class="w-full mt-1 bg-lightGray" :messages="$errors->get('enddate')" />
+                        </div>
+                    </div>
+
+                    <hr class="mx-4 my-2 text-gray">
+
+                    {{-- Print --}}
+                    <div class="flex justify-end items-center space-x-4">
+                        <x-button href="{{ route('export_attendance_pdf', ['search' => $search, 'selectedPosts' => $selectedPosts, 'selectedStatuses' => $selectedStatuses, 'startDate' => $startDate, 'endDate' => $endDate]) }}" btnType="success" element="a"
+                            textSize="text-xs" class="flex space-x-2 items-center" target="_blank">
+                            <span>Print</span>
+                        </x-button>
+                    </div>
+                    @endslot
+                </x-dropdown>
+            </div>
+        </div>
     </div>
 
     {{-- Table --}}

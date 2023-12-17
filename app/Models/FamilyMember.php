@@ -14,8 +14,8 @@ class FamilyMember extends Model
     protected $fillable = [
         'last_name',
         'first_name',
-        'middle_name',
         'relationship',
+        'specified_relationship',
         'occupation',
         'phone'
     ];
@@ -39,5 +39,10 @@ class FamilyMember extends Model
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class);
+    }
+
+    public function card(): BelongsToMany
+    {
+        return $this->belongsToMany(Card::class);
     }
 }

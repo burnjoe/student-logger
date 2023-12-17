@@ -113,6 +113,7 @@
       @endcan
 
       {{-- Reports --}}
+      @can('generate reports')
       <a href="{{ route('reports') }}" class="rounded-lg transition-all hover:bg-lightGray" title="Reports"
          @click="$dispatch('close-accordion')">
          <div class="py-3 px-4 w-full flex space-x-4">
@@ -124,6 +125,7 @@
             </span>
          </div>
       </a>
+      @endcan
 
       {{-- Archive --}}
       @can('view archives')

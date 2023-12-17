@@ -25,9 +25,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('family_members')
                 ->onDelete('cascade');
-
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 

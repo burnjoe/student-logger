@@ -13,13 +13,21 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id('id');
-            $table->bigInteger('rfid')->unique();
+            $table->string('rfid')->unique();
             $table->foreignId('student_id')
+                ->references('id')
+                ->on('students')
                 ->constrained()
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->string('profile_photo');
-            $table->string('signature')->nullable();
+            $table->enum('issuance_reason', ['First Issue', 'Renewal', 'Reissue for Lost ID']);
+            $table->enum('status', ['ACTIVE', 'INACTIVE']);
+            $table->foreignId('contact_person_id')
+                ->references('id')
+                ->on('family_members')
+                ->constrained()
+                ->restrictOnDelete();
             $table->timestamp('expires_at');
             $table->timestamps();
             $table->softDeletes();

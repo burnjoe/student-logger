@@ -5,17 +5,17 @@ namespace App\Livewire;
 use App\Models\Card;
 use Livewire\Component;
 use App\Models\Attendance;
-use App\Models\Post;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Layout;
-use Illuminate\Support\Facades\View;
 
 class AttendanceLogger extends Component
 {
     public $rfid;
     public $full_name;
+    public $program;
     public $profile_photo;
-    public $signature;
+    public $enrolled;
     public $expires_at;
 
     public $card;
@@ -28,7 +28,11 @@ class AttendanceLogger extends Component
     #[Layout('layouts.logger')]
     public function render()
     {
-        return view('livewire.attendance-logger');
+        return view('livewire.attendance-logger', [
+            'liveCount' => Attendance::where('status', 'IN')
+                ->where(\DB::raw('DATE(updated_at)'), Carbon::today())
+                ->count()
+        ]);
     }
 
     /**
@@ -83,6 +87,14 @@ class AttendanceLogger extends Component
             } else {
                 $this->login();
             }
+
+            $this->full_name = strtoupper($this->card->student->last_name . ', ' .
+                $this->card->student->first_name . ' ' .
+                ($this->card->student->middle_name ?
+                    substr($this->card->student->middle_name, 0, 1) . '.' : ''));
+            $this->profile_photo = $this->card->profile_photo;
+            $this->program = 'BSCS';
+            $this->enrolled = 'ENROLLED';
         } catch (\Throwable $th) {
             $this->dispatch('error', ['message' => 'Invalid ID.']);
         }
@@ -119,7 +131,7 @@ class AttendanceLogger extends Component
     /**
      * Mark remaining logs of IN status with MISSED
      */
-    private function markMissed()
+    private function markAllMissed()
     {
         $this->attendance->update([
             'status' => 'MISSED',

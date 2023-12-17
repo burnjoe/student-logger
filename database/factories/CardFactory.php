@@ -17,15 +17,14 @@ class CardFactory extends Factory
      */
     public function definition(): array
     {
-        // Generate a random student ID
-        $studentId = (Student::factory()->create())->id;
-
         return [
-            'rfid' => fake()->unique()->numberBetween(1000000000, 9999999999),
-            'student_id' => $studentId,
-            'profile_photo' => asset('img/id_picture.png'),
-            'signature' => asset('img/id_picture.png'),
+            'rfid' => strval(fake()->unique()->numberBetween(1000000000, 9999999999)),
+            'student_id' => null,
+            'profile_photo' => 'photos/user_icon.png',
+            'issuance_reason' => 'First Issue',
             'expires_at' => now()->addYears(2),
+            'status' => 'ACTIVE',
+            'contact_person_id' => null,
         ];
     }
 }

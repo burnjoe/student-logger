@@ -21,6 +21,7 @@ class Attendances extends Component
 
     public function render()
     {
+        session()->forget('auth.password_confirmed_at');
         View::share('page', 'attendances');
 
         return view('livewire.attendances', [

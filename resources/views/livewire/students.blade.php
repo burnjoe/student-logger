@@ -5,7 +5,7 @@
         <div class="flex justify-between lg:justify-end items-center">
             @can('create students')
             <div class="flex justify-end ps-2">
-                <x-button wire:click.prevent="create" btnType="success" class="flex space-x-2 items-center">
+                <x-button wire:click.prevent="createStudent" btnType="success" class="flex space-x-2 items-center">
                     <i class="fa-solid fa-plus"></i>
                     <span>Add New Student</span>
                 </x-button>
@@ -34,7 +34,7 @@
             <td class="px-6 py-4">Program</td>
             <td class="px-6 py-4 text-md flex space-x-4">
                 @can('view students')
-                <x-button wire:click.prevent="show({{ $student->id }})" btnType="success" textSize="text-xs">
+                <x-button wire:click.prevent="showStudent({{ $student->id }})" btnType="success" textSize="text-xs">
                     View
                 </x-button>
                 @endcan
@@ -60,19 +60,19 @@
                         @endslot
                         @slot('content')
                         @can('issue rfids')
-                        <x-dropdown-item wire:click.prevent="create({{ $student->id }})" fontSize="text-xs"
+                        <x-dropdown-item wire:click.prevent="createCard({{ $student->id }})" fontSize="text-xs"
                             element="button">
                             Issue New RFID
                         </x-dropdown-item>
                         @endcan
                         @can('view rfids')
-                        <x-dropdown-item wire:click.prevent="show({{ $student->id }}, 'card' )" fontSize="text-xs"
+                        <x-dropdown-item wire:click.prevent="showCard({{ $student->id }})" fontSize="text-xs"
                             element="button">
                             View Current RFID
                         </x-dropdown-item>
                         @endcan
                         @can('view issues')
-                        <x-dropdown-item wire:click.prevent="show({{ $student->id }}, 'history')" fontSize="text-xs"
+                        <x-dropdown-item wire:click.prevent="showIssues({{ $student->id }})" fontSize="text-xs"
                             element="button">
                             View Issue History
                         </x-dropdown-item>

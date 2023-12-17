@@ -1,7 +1,6 @@
 <?php
 
-use App\Events\PlaygroundEvent;
-use App\Livewire\AuditLog;
+use App\Livewire\AuditLogs;
 use App\Livewire\Reports;
 use App\Livewire\Students;
 use App\Livewire\Dashboard;
@@ -9,10 +8,11 @@ use App\Livewire\Attendances;
 use App\Livewire\AttendanceLogger;
 use App\Livewire\StudentsArchive;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\PdfController;
 use App\Livewire\Accounts;
 use App\Livewire\AccountsArchive;
+use App\Livewire\ChangePassword;
+use App\Livewire\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +25,6 @@ use App\Livewire\AccountsArchive;
 |
 */
 
-Route::get('/ws', function () {
-    return view('websocket');
-});
-
-Route::get('/playground', function () {
-    event(new PlaygroundEvent());
-});
-
 // Root
 Route::get('/', function () {
     return redirect()->route('login');
@@ -40,7 +32,7 @@ Route::get('/', function () {
 
 // Authenticated Users
 Route::middleware('auth')->group(function () {
-    // Dashboard Module
+    // Dashboard
     Route::get('dashboard', Dashboard::class)
         ->name('dashboard');
 
@@ -59,7 +51,7 @@ Route::middleware('auth')->group(function () {
         ->name('export_attendance_pdf');
 
     // Audit Log
-    Route::get('audit-log', AuditLog::class)
+    Route::get('audit-log', AuditLogs::class)
         ->middleware('can:view audit logs')
         ->name('audit-log');
 
@@ -68,46 +60,48 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:view users')
         ->name('accounts');
 
-    // Reports Module
+    // Reports
     Route::get('reports', Reports::class)
+        ->middleware('can:generate reports')
         ->name('reports');
 
     Route::get('library-reports-pdf', [PdfController::class, 'export_library_pdf'])
+        ->middleware('can:generate reports')
         ->name('export_library_pdf');
 
     Route::get('clinic-reports-pdf', [PdfController::class, 'export_clinic_pdf'])
+        ->middleware('can:generate reports')
         ->name('export_clinic_pdf');
 
     Route::get('main-gate-reports-pdf', [PdfController::class, 'export_maingate_pdf'])
+        ->middleware('can:generate reports')
         ->name('export_maingate_pdf');
 
     // Archive Students
     Route::get('archive/students', StudentsArchive::class)
         ->middleware('can:view archives')
         ->name('archive-students');
-    
+
     // Archive Accounts
     Route::get('archive/accounts', AccountsArchive::class)
         ->middleware('can:view archives')
         ->name('archive-users');
 
-    // Attendance Logger Module
+    // Attendance Logger
     Route::get('attendance-logger', AttendanceLogger::class)
         ->middleware('password.confirm')
         ->name('attendance-logger');
 
-    // Profile Module
-    Route::get('profile', [UserController::class, 'edit'])
-        ->name('profile.edit');
+    // Profile
+    Route::get('profile', Profile::class)
+        ->name('profile');
 
-    Route::patch('profile', [UserController::class, 'update'])
-        ->name('profile.update');
-
-    Route::delete('profile', [UserController::class, 'destroy'])
-        ->name('profile.destroy');
+    // Change Password
+    Route::get('change-password', ChangePassword::class)
+        ->name('change-password');
 });
 
 
 
 // includes the auth.php in routes
-require __DIR__. '/auth.php';
+require __DIR__ . '/auth.php';

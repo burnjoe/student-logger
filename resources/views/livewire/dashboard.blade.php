@@ -17,7 +17,13 @@
    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
       {{-- pie chart per department --}}
       <x-card>
-         <div class="flex flex-col items-center">
+         <p class="text-1rem font-semibold">
+            Live Student Population Count:
+         </p>
+         <p class="text-6xl text-veryDarkGray font-bold">
+            {{ $liveCount }}
+         </p>
+         <div class="flex flex-col items-center mt-2">
             <span class="text-1rem font-semibold">Number of Students per Dept.</span>
             <canvas id="campusDeptChart" style="max-width: 400px; max-height: 400px;"></canvas>
          </div>

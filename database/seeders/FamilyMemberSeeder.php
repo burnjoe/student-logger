@@ -14,11 +14,28 @@ class FamilyMemberSeeder extends Seeder
     public function run(): void
     {
         FamilyMember::create([
-            'last_name' => 'Dela Cruz',
-            'first_name' => 'Juan',
+            'last_name' => 'Derla',
+            'first_name' => 'Rey',
             'relationship' => 'Father',
-            'occupation' => 'Deceased',
-            'phone' => '9217751256'
+            'occupation' => 'Engineer',
+            'phone' => '9217751251'
+        ]);
+
+        FamilyMember::create([
+            'last_name' => 'Derla',
+            'first_name' => 'Rea',
+            'relationship' => 'Mother',
+            'occupation' => 'House Wife',
+            'phone' => '9217751252'
+        ]);
+
+        FamilyMember::create([
+            'last_name' => 'Derla',
+            'first_name' => 'Rea',
+            'relationship' => 'Guardian',
+            'specified_relationship' => 'Mother',
+            'occupation' => 'House Wife',
+            'phone' => '9217751252'
         ]);
     }
 }

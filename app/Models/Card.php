@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -28,8 +29,11 @@ class Card extends Model
     protected $fillable = [
         'rfid',
         'profile_photo',
-        'signature',
+        'issuance_reason',
         'expires_at',
+        'student_id',
+        'status',
+        'contact_person_id',
     ];
 
 
@@ -39,7 +43,7 @@ class Card extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable()
+            ->logOnly(['rfid', 'issuance_reason', 'expires_at', 'status'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->useLogName('Card')
@@ -49,15 +53,15 @@ class Card extends Model
 
                 switch ($eventName) {
                     case 'created':
-                        return "Added New Card: \"" . ($attributes['rfid'] . ' ' . $attributes['rfid']) . "\"";
+                        return "Issued New RFID to Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'updated':
-                        return "Updated Card: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Updated RFID of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'deleted':
-                        return "Archived Card: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Archived RFID Record of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'restored':
-                        return "Restored Card: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Restored RFID Record of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'forceDeleted':
-                        return "Deleted Card Permanently: \"" . ($old['rfid'] . ' ' . $old['rfid']) . "\"";
+                        return "Deleted RFID Record Permanently of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     default:
                         break;
                 }
@@ -83,5 +87,9 @@ class Card extends Model
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function contact_person(): HasOne {
+        return $this->hasOne(FamilyMember::class, 'id', 'contact_person_id');
     }
 }

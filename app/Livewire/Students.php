@@ -4,14 +4,17 @@ namespace App\Livewire;
 
 use App\Models\Card;
 use App\Models\College;
+use App\Models\FamilyMember;
 use App\Models\Student;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\View;
 
 class Students extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     // Student
     public $student_id;
@@ -29,19 +32,41 @@ class Students extends Component
     public $email;
     public $account_type;
 
-    public Student $selectedStudent;
+    public $father_last_name;
+    public $father_first_name;
+    public $father_occupation;
+    public $father_phone;
+
+    public $mother_first_name;
+    public $mother_last_name;
+    public $mother_occupation;
+    public $mother_phone;
+
+    public $guardian_first_name;
+    public $guardian_last_name;
+    public $guardian_specified_relationship;
+    public $guardian_phone;
+
+    public $selectedStudent;
 
     // Card
     public $card_id;
     public $rfid;
     public $profile_photo;
+    public $contact_person_id;
+    public $issuance_reason;
 
-    public Card $selectedCard;
+    public $selectedCard;
 
     public $search = "";
     public $selectedPrograms = [];
     public $action;
 
+    public $totalSteps = 5;
+    public $currentStep = 1;
+
+    public $validatedCardFields = [];
+    public $temporaryUrl;
 
     /**
      * Validation rules
@@ -59,9 +84,21 @@ class Students extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->student_id,
+            'phone' => 'required|regex:/^9\d{9}$/',
             'email' => 'required|email|unique:students,email,' . $this->student_id,
             'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
+            'father_last_name' => 'required|min:2|max:50',
+            'father_first_name' => 'required|min:2|max:50',
+            'father_occupation' => 'required|min:2|max:50',
+            'father_phone' => $this->father_phone == '' ? '' : 'regex:/^9\d{9}$/',
+            'mother_last_name' => 'required|min:2|max:50',
+            'mother_first_name' => 'required|min:2|max:50',
+            'mother_occupation' => 'required|min:2|max:50',
+            'mother_phone' => $this->mother_phone == '' ? '' : 'regex:/^9\d{9}$/',
+            'guardian_last_name' => 'required|min:2|max:50',
+            'guardian_first_name' => 'required|min:2|max:50',
+            'guardian_specified_relationship' => 'required|min:2|max:50',
+            'guardian_phone' => 'required|regex:/^9\d{9}$/',
         ];
     }
 
@@ -74,6 +111,9 @@ class Students extends Component
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
             'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'father_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'mother_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'guardian_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
         ];
     }
 
@@ -88,7 +128,81 @@ class Students extends Component
             'birthplace' => 'place of birth',
             'phone' => 'phone number',
             'email' => 'email address',
+            'father_last_name' => 'father\'s last name',
+            'father_first_name' => 'father\'s first name',
+            'father_occupation' => 'father\'s occupation',
+            'father_phone' => 'father\'s phone number',
+            'mother_last_name' => 'mother\'s last name',
+            'mother_first_name' => 'mother\'s first name',
+            'mother_occupation' => 'mother\'s occupation',
+            'mother_phone' => 'mother\'s phone number',
+            'guardian_last_name' => 'guardian\'s last name',
+            'guardian_first_name' => 'guardian\'s first name',
+            'guardian_specified_relationship' => 'relation to guardian',
+            'guardian_phone' => 'guardian\'s phone number',
         ];
+    }
+
+    /**
+     * Validation for multiform
+     */
+    public function validateData()
+    {
+        if ($this->currentStep == 1) {
+            $this->validatedCardFields = $this->validate(
+                ['issuance_reason' => 'required|in:First Issue,Renewal,Reissue for Lost ID'],
+                [],
+                ['issuance_reason' => 'ID issuance reason']
+            );
+        } else if ($this->currentStep == 2) {
+            $this->validatedCardFields += $this->validate(
+                ['profile_photo' => 'required|file|mimes:png,jpg|max:2048'],
+                [
+                    'profile_photo.mimes' => 'The :attribute must be in PNG or JPG format.',
+                    'profile_photo.max' => 'The :attribute file size must not exceed 2MB.',
+                ],
+                ['profile_photo' => 'ID picture']
+            );
+            $this->temporaryUrl = $this->profile_photo->temporaryUrl();
+        } else if ($this->currentStep == 3) {
+            $this->validatedCardFields += $this->validate(
+                ['contact_person_id' => 'required|exists:family_members,id'],
+                [],
+                ['contact_person_id' => 'emergency contact person']
+            );
+        } else if ($this->currentStep == 4) {
+            $this->validateRfid($this->rfid);
+        }
+    }
+
+    /**
+     * Action when rfid property is 
+     */
+    #[On('validateRfid')]
+    public function validateRfid($rfid)
+    {
+        if ($this->currentStep === 4) {
+            $this->rfid = $rfid;
+
+            try {
+                $this->validatedCardFields += $this->validate(
+                    ['rfid' => 'required|unique:cards,rfid,' . $this->card_id]
+                );
+                $this->currentStep++;
+            } catch (\Throwable $th) {
+                $this->dispatch('error', ['message' => 'The RFID is already registered']);
+                $this->rfid = null;
+            }
+        }
+    }
+
+    /**
+     * Initializes some properties
+     */
+    public function mount()
+    {
+        $this->currentStep = 1;
+        $this->totalSteps = 5;
     }
 
     /**
@@ -96,6 +210,7 @@ class Students extends Component
      */
     public function render()
     {
+        session()->forget('auth.password_confirmed_at');
         View::share('page', 'students');
 
         return view('livewire.students', [
@@ -113,14 +228,52 @@ class Students extends Component
     }
 
     /**
+     * On update of profile photo field
+     */
+    public function updatedProfilePhoto()
+    {
+        $this->validateData();
+    }
+
+    /**
+     * Proceed to next step in multiform
+     */
+    public function nextStep()
+    {
+        $this->resetErrorBag();
+        $this->validateData();
+
+        $this->currentStep++;
+
+        if ($this->currentStep > $this->totalSteps) {
+            $this->currentStep = $this->totalSteps;
+        }
+    }
+
+    /**
+     * Proceed to previous step in multiform
+     */
+    public function prevStep()
+    {
+        $this->resetErrorBag();
+
+        $this->currentStep--;
+
+        if ($this->currentStep < 1) {
+            $this->currentStep = 1;
+        }
+    }
+
+    /**
      *  Initialize attributes
      */
-    public function init(int $id, $type = "student")
+    private function init(int $id, $type = "student")
     {
         try {
             switch ($type) {
                 case 'student':
-                    $this->selectedStudent = Student::find($id);
+                    $this->selectedStudent = Student::with(['family_members'])
+                        ->find($id);
 
                     $this->student_id = $this->selectedStudent->id;
                     $this->student_no = $this->selectedStudent->student_no;
@@ -136,6 +289,25 @@ class Students extends Component
                     $this->phone = $this->selectedStudent->phone;
                     $this->email = $this->selectedStudent->email;
                     $this->account_type = $this->selectedStudent->account_type;
+
+                    $father = $this->selectedStudent->family_members->where('relationship', 'Father')->first();
+                    $mother = $this->selectedStudent->family_members->where('relationship', 'Mother')->first();
+                    $guardian = $this->selectedStudent->family_members->where('relationship', 'Guardian')->first();
+
+                    $this->father_last_name = $father->last_name;
+                    $this->father_first_name = $father->first_name;
+                    $this->father_occupation = $father->occupation;
+                    $this->father_phone = $father->phone;
+
+                    $this->mother_last_name = $mother->last_name;
+                    $this->mother_first_name = $mother->first_name;
+                    $this->mother_occupation = $mother->occupation;
+                    $this->mother_phone = $mother->phone;
+
+                    $this->guardian_last_name = $guardian->last_name;
+                    $this->guardian_first_name = $guardian->first_name;
+                    $this->guardian_specified_relationship = $guardian->specified_relationship;
+                    $this->guardian_phone = $guardian->phone;
                     break;
                 case 'card':
                     $this->selectedStudent = Student::select(
@@ -152,25 +324,14 @@ class Students extends Component
                             fn ($query) =>
                             $query->orderBy('id', 'desc')
                                 ->first(),
+                            'cards.contact_person'
                         ])
                         ->find($id);
 
                     $this->selectedCard = $this->selectedStudent->cards->first();
-
-                    $this->student_no = $this->selectedStudent->student_no;
-                    $this->last_name = $this->selectedStudent->last_name;
-                    $this->first_name = $this->selectedStudent->first_name;
-                    $this->middle_name = $this->selectedStudent->middle_name;
-                    // program
-                    $this->birthdate = $this->selectedStudent->birthdate;
-                    $this->address = $this->selectedStudent->address;
-                    $this->rfid = $this->selectedCard->rfid;
-                    $this->profile_photo = $this->selectedCard->profile_photo;
-                    // emergency contact person
-                    // contact number
-
+                    $this->selectedCard->exists();
                     break;
-                case 'history':
+                case 'issues':
                     $this->selectedStudent = Student::select(
                         'id',
                         'student_no',
@@ -183,7 +344,6 @@ class Students extends Component
                             $query->orderBy('id', 'desc')
                         ])
                         ->find($id);
-
                     break;
                 default:
                     break;
@@ -194,79 +354,167 @@ class Students extends Component
     }
 
     /**
-     * Show selected record in modal
+     * Show selected student in modal
      */
-    public function show(int $id, $type = "student")
+    public function showStudent(int $id)
     {
         $this->dispatch('close-modal');
-
         $this->resetExcept(['search', 'selectedPrograms']);
 
         try {
-            $this->init($id, $type);
-
-            switch ($type) {
-                case 'student':
-                    $this->dispatch('open-modal', 'show-student');
-                    break;
-                case 'card':
-                    $this->dispatch('open-modal', 'show-card');
-                    break;
-                case 'history':
-                    $this->dispatch('open-modal', 'show-issues');
-                    break;
-                default:
-                    break;
-            }
+            $this->init($id);
+            $this->dispatch('open-modal', 'show-student');
         } catch (\Throwable $th) {
-            switch ($type) {
-                case 'student':
-                    $this->dispatch('error', ['message' => 'Unable to view student']);
-                    break;
-                case 'card':
-                    $this->dispatch('info', ['message' => 'Student does not have an existing RFID']);
-                    break;
-                case 'history':
-                    $this->dispatch('error', ['message' => 'Unable to view issue history']);
-                    break;
-                default:
-                    break;
-            }
+            $this->dispatch('error', ['message' => 'Unable to view student']);
         }
     }
 
     /**
-     * Show create form modal
+     * Show selected card in modal
      */
-    public function create(int $id = null)
+    public function showCard(int $id)
+    {
+        $this->dispatch('close-modal');
+        $this->resetExcept(['search', 'selectedPrograms']);
+
+        try {
+            $this->init($id, 'card');
+            $this->dispatch('open-modal', 'show-card');
+        } catch (\Throwable $th) {
+            $this->dispatch('info', ['message' => 'Student does not have an existing RFID']);
+        }
+    }
+
+    /**
+     * Show selected card's issue history
+     */
+    public function showIssues(int $id)
+    {
+        $this->dispatch('close-modal');
+        $this->resetExcept(['search', 'selectedPrograms']);
+
+        try {
+            $this->init($id, 'issues');
+            $this->dispatch('open-modal', 'show-issues');
+        } catch (\Throwable $th) {
+            $this->dispatch('error', ['message' => 'Unable to view issue history']);
+        }
+    }
+
+    /**
+     * Show create student form modal
+     */
+    public function createStudent()
     {
         $this->dispatch('close-modal');
 
         $this->resetValidation();
         $this->resetExcept(['search', 'selectedPrograms']);
 
-        if (!$id) {
-            $this->action = 'store';
+        $this->action = 'storeStudent';
+        $this->dispatch('open-modal', 'create-student');
+    }
 
-            $this->dispatch('open-modal', 'create-student');
-        } else {
+    /**
+     * Show create card form modal
+     */
+    public function createCard(int $id)
+    {
+        $this->dispatch('close-modal');
+
+        $this->resetValidation();
+        $this->resetExcept(['search', 'selectedPrograms']);
+
+        try {
+            $this->selectedStudent = Student::with([
+                'cards' => fn ($query) => $query->orderBy('id', 'desc')->first(),
+                'family_members' => fn ($query) => $query->whereNot('phone', null),
+            ])
+                ->find($id);
+
+            $this->currentStep = 1;
             $this->dispatch('open-modal', 'create-card');
+        } catch (\Throwable $th) {
+            $this->dispatch('error', ['message' => 'Unable to issue RFID to selected student']);
         }
     }
 
     /**
-     * Store new record
+     * Store new student
      */
-    public function store()
+    public function storeStudent()
     {
         $validated = $this->validate();
 
-        Student::create($validated);
+        $student = Student::create($validated);
+
+        $father = FamilyMember::create([
+            'last_name' => $validated['father_last_name'],
+            'first_name' => $validated['father_first_name'],
+            'relationship' => 'Father',
+            'occupation' => $validated['father_occupation'],
+            'phone' => !empty($validated['father_phone']) ? $validated['father_phone'] : null,
+        ]);
+
+        $mother = FamilyMember::create([
+            'last_name' => $validated['mother_last_name'],
+            'first_name' => $validated['mother_first_name'],
+            'relationship' => 'Mother',
+            'occupation' => $validated['mother_occupation'],
+            'phone' => !empty($validated['mother_phone']) ? $validated['mother_phone'] : null,
+        ]);
+
+        $guardian = FamilyMember::create([
+            'last_name' => $validated['guardian_last_name'],
+            'first_name' => $validated['guardian_first_name'],
+            'relationship' => 'Guardian',
+            'specified_relationship' => $validated['guardian_specified_relationship'],
+            'phone' => $validated['guardian_phone'],
+        ]);
+
+        $student->family_members()->attach([$father->id, $mother->id, $guardian->id]);
 
         $this->reset();
 
         $this->dispatch('success', ['message' => 'Student successfully added']);
 
+        $this->dispatch('close-modal');
+    }
+
+    /**
+     * Store new card
+     */
+    public function storeCard()
+    {
+        if (
+            isset($this->validatedCardFields['issuance_reason']) &&
+            isset($this->validatedCardFields['profile_photo']) &&
+            isset($this->validatedCardFields['rfid']) &&
+            isset($this->validatedCardFields['contact_person_id']) &&
+            isset($this->selectedStudent)
+        ) {
+            $profile_photo = $this->validatedCardFields['profile_photo']
+                ->store('photos', 'public');
+
+            if(!$this->selectedStudent->cards->isEmpty()) {
+                $this->selectedStudent->cards->first()->update([
+                    'status' => 'INACTIVE',
+                ]);
+            }
+
+            Card::create([
+                'rfid' => $this->validatedCardFields['rfid'],
+                'student_id' => $this->selectedStudent->id,
+                'profile_photo' => $profile_photo,
+                'issuance_reason' => $this->validatedCardFields['issuance_reason'],
+                'expires_at' => now()->addYears(2),
+                'status' => 'ACTIVE',
+                'contact_person_id' => $this->validatedCardFields['contact_person_id'],
+            ]);
+        }
+
+        $this->reset();
+        $this->dispatch('success', ['message' => 'RFID successfully issued to student']);
         $this->dispatch('close-modal');
     }
 
@@ -297,6 +545,27 @@ class Students extends Component
         $validated = $this->validate();
 
         $this->selectedStudent->update($validated);
+
+        $this->selectedStudent->family_members->where('relationship', 'Father')->first()->update([
+            'last_name' => $validated['father_last_name'],
+            'first_name' => $validated['father_first_name'],
+            'occupation' => $validated['father_occupation'],
+            'phone' => !empty($validated['father_phone']) ? $validated['father_phone'] : null,
+        ]);
+
+        $this->selectedStudent->family_members->where('relationship', 'Mother')->first()->update([
+            'last_name' => $validated['mother_last_name'],
+            'first_name' => $validated['mother_first_name'],
+            'occupation' => $validated['mother_occupation'],
+            'phone' => !empty($validated['mother_phone']) ? $validated['mother_phone'] : null,
+        ]);
+
+        $this->selectedStudent->family_members->where('relationship', 'Guardian')->first()->update([
+            'last_name' => $validated['guardian_last_name'],
+            'first_name' => $validated['guardian_first_name'],
+            'specified_relationship' => $validated['guardian_specified_relationship'],
+            'phone' => $validated['guardian_phone'],
+        ]);
 
         $this->reset();
 

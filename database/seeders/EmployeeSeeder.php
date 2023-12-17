@@ -23,8 +23,8 @@ class EmployeeSeeder extends Seeder
         ]);
 
         Employee::create([
-            'last_name' => 'Derla',
-            'first_name' => 'Julius',
+            'last_name' => 'Dela Cruz',
+            'first_name' => 'Juan',
             'sex' => 'Male',
             'birthdate' => now(),
             'address' => 'Laguna',

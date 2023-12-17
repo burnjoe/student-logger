@@ -12,6 +12,7 @@ class Profile extends Component
      */
     public function render()
     {
+        session()->forget('auth.password_confirmed_at');
         View::share('page', 'profile');
 
         return view('livewire.profile', [

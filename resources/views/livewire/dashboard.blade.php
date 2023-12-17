@@ -8,10 +8,10 @@
    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
       <x-card>
          <p class="text-1rem font-semibold">
-            Total Number of Students:
+            Live Student Population Count:
          </p>
          <p class="text-6xl text-veryDarkGray font-bold">
-            0
+            {{ $liveCount }}
          </p>
       </x-card>
 

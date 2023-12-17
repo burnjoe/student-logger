@@ -32,6 +32,7 @@ class Card extends Model
         'issuance_reason',
         'expires_at',
         'student_id',
+        'status',
         'contact_person_id',
     ];
 
@@ -52,15 +53,15 @@ class Card extends Model
 
                 switch ($eventName) {
                     case 'created':
-                        return "Issued New Card to Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
+                        return "Issued New RFID to Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'updated':
-                        return "Updated Card of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
+                        return "Updated RFID of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'deleted':
-                        return "Archived Card of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
+                        return "Archived RFID Record of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'restored':
-                        return "Restored Card of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
+                        return "Restored RFID Record of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     case 'forceDeleted':
-                        return "Deleted Card Permanently of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
+                        return "Deleted RFID Record Permanently of Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
                     default:
                         break;
                 }

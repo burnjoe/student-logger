@@ -261,23 +261,11 @@ class Students extends Component
                             fn ($query) =>
                             $query->orderBy('id', 'desc')
                                 ->first(),
+                            'cards.contact_person'
                         ])
                         ->find($id);
 
                     $this->selectedCard = $this->selectedStudent->cards->first();
-
-                    $this->student_no = $this->selectedStudent->student_no;
-                    $this->last_name = $this->selectedStudent->last_name;
-                    $this->first_name = $this->selectedStudent->first_name;
-                    $this->middle_name = $this->selectedStudent->middle_name;
-                    // program
-                    $this->birthdate = $this->selectedStudent->birthdate;
-                    $this->address = $this->selectedStudent->address;
-                    $this->rfid = $this->selectedCard->rfid;
-                    $this->profile_photo = $this->selectedCard->profile_photo;
-                    // emergency contact person
-                    // contact number
-
                     break;
                 case 'issues':
                     $this->selectedStudent = Student::select(
@@ -292,7 +280,6 @@ class Students extends Component
                             $query->orderBy('id', 'desc')
                         ])
                         ->find($id);
-
                     break;
                 default:
                     break;

@@ -6,7 +6,6 @@ use App\Models\Card;
 use App\Models\College;
 use App\Models\FamilyMember;
 use App\Models\Student;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -48,7 +47,7 @@ class Students extends Component
     public $guardian_specified_relationship;
     public $guardian_phone;
 
-    public Student $selectedStudent;
+    public $selectedStudent;
 
     // Card
     public $card_id;
@@ -57,7 +56,7 @@ class Students extends Component
     public $contact_person_id;
     public $issuance_reason;
 
-    public Card $selectedCard;
+    public $selectedCard;
 
     public $search = "";
     public $selectedPrograms = [];
@@ -91,11 +90,11 @@ class Students extends Component
             'father_last_name' => 'required|min:2|max:50',
             'father_first_name' => 'required|min:2|max:50',
             'father_occupation' => 'required|min:2|max:50',
-            'father_phone' => 'required|regex:/^9\d{9}$/',
+            'father_phone' => $this->father_phone == '' ? '' : 'regex:/^9\d{9}$/',
             'mother_last_name' => 'required|min:2|max:50',
             'mother_first_name' => 'required|min:2|max:50',
             'mother_occupation' => 'required|min:2|max:50',
-            'mother_phone' => 'required|regex:/^9\d{9}$/',
+            'mother_phone' => $this->mother_phone == '' ? '' : 'regex:/^9\d{9}$/',
             'guardian_last_name' => 'required|min:2|max:50',
             'guardian_first_name' => 'required|min:2|max:50',
             'guardian_specified_relationship' => 'required|min:2|max:50',
@@ -112,6 +111,9 @@ class Students extends Component
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
             'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'father_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'mother_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'guardian_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
         ];
     }
 
@@ -163,11 +165,11 @@ class Students extends Component
             );
             $this->temporaryUrl = $this->profile_photo->temporaryUrl();
         } else if ($this->currentStep == 3) {
-            // $this->validate(
-            //     ['contact_person_id' => 'required|exists:family_members,id'],
-            //     [],
-            //     ['contact_person_id' => 'emergency contact person']
-            // );
+            $this->validatedCardFields += $this->validate(
+                ['contact_person_id' => 'required|exists:family_members,id'],
+                [],
+                ['contact_person_id' => 'emergency contact person']
+            );
         } else if ($this->currentStep == 4) {
             $this->validateRfid($this->rfid);
         }
@@ -326,6 +328,7 @@ class Students extends Component
                         ->find($id);
 
                     $this->selectedCard = $this->selectedStudent->cards->first();
+                    $this->selectedCard->exists();
                     break;
                 case 'issues':
                     $this->selectedStudent = Student::select(
@@ -421,20 +424,17 @@ class Students extends Component
         $this->resetValidation();
         $this->resetExcept(['search', 'selectedPrograms']);
 
-        if (!$id) {
-            $this->action = 'storeStudent';
+        try {
+            $this->selectedStudent = Student::with([
+                'cards' => fn ($query) => $query->orderBy('id', 'desc')->first(),
+                'family_members' => fn ($query) => $query->whereNot('phone', null),
+            ])
+                ->find($id);
 
-            $this->dispatch('open-modal', 'create-student');
-        } else {
-            try {
-                $this->init($id);
-
-                $this->currentStep = 1;
-            } catch (\Throwable $th) {
-                $this->dispatch('error', ['message' => 'Unable to issue RFID to selected student']);
-            }
-
+            $this->currentStep = 1;
             $this->dispatch('open-modal', 'create-card');
+        } catch (\Throwable $th) {
+            $this->dispatch('error', ['message' => 'Unable to issue RFID to selected student']);
         }
     }
 
@@ -452,7 +452,7 @@ class Students extends Component
             'first_name' => $validated['father_first_name'],
             'relationship' => 'Father',
             'occupation' => $validated['father_occupation'],
-            'phone' => $validated['father_phone'],
+            'phone' => !empty($validated['father_phone']) ? $validated['father_phone'] : null,
         ]);
 
         $mother = FamilyMember::create([
@@ -460,7 +460,7 @@ class Students extends Component
             'first_name' => $validated['mother_first_name'],
             'relationship' => 'Mother',
             'occupation' => $validated['mother_occupation'],
-            'phone' => $validated['mother_phone'],
+            'phone' => !empty($validated['mother_phone']) ? $validated['mother_phone'] : null,
         ]);
 
         $guardian = FamilyMember::create([
@@ -489,10 +489,17 @@ class Students extends Component
             isset($this->validatedCardFields['issuance_reason']) &&
             isset($this->validatedCardFields['profile_photo']) &&
             isset($this->validatedCardFields['rfid']) &&
+            isset($this->validatedCardFields['contact_person_id']) &&
             isset($this->selectedStudent)
         ) {
             $profile_photo = $this->validatedCardFields['profile_photo']
                 ->store('photos', 'public');
+                
+            if(!$this->selectedStudent->cards->isEmpty()) {
+                $this->selectedStudent->cards->first()->update([
+                    'status' => 'INACTIVE',
+                ]);
+            }
 
             Card::create([
                 'rfid' => $this->validatedCardFields['rfid'],
@@ -500,6 +507,8 @@ class Students extends Component
                 'profile_photo' => $profile_photo,
                 'issuance_reason' => $this->validatedCardFields['issuance_reason'],
                 'expires_at' => now()->addYears(2),
+                'status' => 'ACTIVE',
+                'contact_person_id' => $this->validatedCardFields['contact_person_id'],
             ]);
         }
 
@@ -535,6 +544,27 @@ class Students extends Component
         $validated = $this->validate();
 
         $this->selectedStudent->update($validated);
+
+        $this->selectedStudent->family_members->where('relationship', 'Father')->first()->update([
+            'last_name' => $validated['father_last_name'],
+            'first_name' => $validated['father_first_name'],
+            'occupation' => $validated['father_occupation'],
+            'phone' => !empty($validated['father_phone']) ? $validated['father_phone'] : null,
+        ]);
+
+        $this->selectedStudent->family_members->where('relationship', 'Mother')->first()->update([
+            'last_name' => $validated['mother_last_name'],
+            'first_name' => $validated['mother_first_name'],
+            'occupation' => $validated['mother_occupation'],
+            'phone' => !empty($validated['mother_phone']) ? $validated['mother_phone'] : null,
+        ]);
+
+        $this->selectedStudent->family_members->where('relationship', 'Guardian')->first()->update([
+            'last_name' => $validated['guardian_last_name'],
+            'first_name' => $validated['guardian_first_name'],
+            'specified_relationship' => $validated['guardian_specified_relationship'],
+            'phone' => $validated['guardian_phone'],
+        ]);
 
         $this->reset();
 

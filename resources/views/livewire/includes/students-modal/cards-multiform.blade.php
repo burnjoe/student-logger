@@ -81,9 +81,9 @@
             <x-input-select id="contact_person_id" wire:model="contact_person_id" class="mt-1"
                 :messages="$errors->get('contact_person_id')">
                 <option selected hidden>Select Emergency Contact Person</option>
-                <option value="father">Father</option>
-                <option value="mother">Mother</option>
-                <option value="guardian">Guardian</option>
+                @foreach ($selectedStudent->family_members->where('phone', '!==', null) as $family_member)
+                <option value="{{$family_member->id}}">{{$family_member->relationship . ' - ' . $family_member->first_name . ' ' . $family_member->last_name}}</option>    
+                @endforeach
             </x-input-select>
             <x-input-error :messages="$errors->get('contact_person_id')" />
         </div>
@@ -138,13 +138,13 @@
                     {{-- Student Number --}}
                     <div class="w-full md:w-1/2">
                         <small class="font-normal text-darkGray text-xs">Student Number</small>
-                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $student_no }}</h6>
+                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->student_no }}</h6>
                     </div>
                     {{-- Student Name --}}
                     <div class="w-full md:w-1/2">
                         <small class="font-normal text-darkGray text-xs">Student</small>
-                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $first_name.' '.($middle_name ?
-                            strtoupper(substr($middle_name, 0, 1)).'.' : '').' '.$last_name }}</h6>
+                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->first_name.' '.($selectedStudent->middle_name ?
+                            strtoupper(substr($selectedStudent->middle_name, 0, 1)).'.' : '').' '.$selectedStudent->last_name }}</h6>
                     </div>
                     {{-- Program --}}
                     <div class="w-full md:w-1/2">
@@ -154,13 +154,13 @@
                     {{-- Date of Birth --}}
                     <div class="w-full md:w-1/2">
                         <small class="font-normal text-darkGray text-xs">Date of Birth</small>
-                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ Carbon\Carbon::parse($birthdate)->format('F
+                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ Carbon\Carbon::parse($selectedStudent->birthdate)->format('F
                             j, Y') }}</h6>
                     </div>
                     {{-- Address --}}
                     <div class="w-full">
                         <small class="font-normal text-darkGray text-xs">Address</small>
-                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $address }}</h6>
+                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->address }}</h6>
                     </div>
                     {{-- ID Expiration Date --}}
                     <div class="w-full md:w-1/2">
@@ -181,17 +181,21 @@
                     <span class="text-1rem font-bold">Emergency Contact</span>
                 </div>
 
+                @php
+                    $contact_person = $selectedStudent->family_members->where('id', $contact_person_id)->first();
+                @endphp
+
                 <div class="flex flex-wrap px-5 pt-2.5">
                     {{-- Contact Person --}}
                     <div class="w-full md:w-1/2">
                         <small class="font-normal text-darkGray text-xs">Emergency Contact Person
                             (Parent/Guardian)</small>
-                        <h6 class="text-1rem font-medium leading-5 mb-2">Dela Cruz, Juan</h6>
+                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ $contact_person->first_name . ' ' . $contact_person->last_name }}</h6>
                     </div>
                     {{-- Contact No --}}
                     <div class="w-full md:w-1/2">
                         <small class="font-normal text-darkGray text-xs">Contact Number</small>
-                        <h6 class="text-1rem font-medium leading-5 mb-2">09214152205</h6>
+                        <h6 class="text-1rem font-medium leading-5 mb-2">{{ '0'.$contact_person->phone }}</h6>
                     </div>
                 </div>
             </div>

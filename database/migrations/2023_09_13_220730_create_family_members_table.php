@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('relationship', ['Father', 'Mother', 'Guardian']);
             $table->string('specified_relationship')->nullable();
             $table->string('occupation')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

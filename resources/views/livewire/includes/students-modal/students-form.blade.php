@@ -185,12 +185,13 @@
             </div>
             {{-- Father's Phone Number --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
-                <x-input-label for="father_phone" :required="true">
+                <x-input-label for="father_phone">
                     <small class="font-normal text-darkGray text-xs">Father's Phone Number</small>
                 </x-input-label>
                 <x-input-text id="father_phone" wire:model="father_phone" type="text"
-                    placeholder="{{ __('Father\'s Phone Number') }}" class="mt-1"
-                    :messages="$errors->get('father_phone')" />
+                    class="mt-1 ps-12 flex items-center" alignIcon="left" :messages="$errors->get('father_phone')">
+                    <span>+63</span>
+                </x-input-text>
                 <x-input-error :messages="$errors->get('father_phone')" />
             </div>
         </div>
@@ -228,12 +229,13 @@
             </div>
             {{-- Mother's Phone Number --}}
             <div class="mt-4 w-full md:w-1/3 px-5">
-                <x-input-label for="mother_phone" :required="true">
+                <x-input-label for="mother_phone">
                     <small class="font-normal text-darkGray text-xs">Mother's Phone Number</small>
                 </x-input-label>
                 <x-input-text id="mother_phone" wire:model="mother_phone" type="text"
-                    placeholder="{{ __('Mother\'s Phone Number') }}" class="mt-1"
-                    :messages="$errors->get('mother_phone')" />
+                    class="mt-1 ps-12 flex items-center" alignIcon="left" :messages="$errors->get('mother_phone')">
+                    <span>+63</span>
+                </x-input-text>
                 <x-input-error :messages="$errors->get('mother_phone')" />
             </div>
         </div>
@@ -275,8 +277,9 @@
                     <small class="font-normal text-darkGray text-xs">Guardian's Phone Number</small>
                 </x-input-label>
                 <x-input-text id="guardian_phone" wire:model="guardian_phone" type="text"
-                    placeholder="{{ __('Guardian\'s Phone Number') }}" class="mt-1"
-                    :messages="$errors->get('guardian_phone')" />
+                    class="mt-1 ps-12 flex items-center" alignIcon="left" :messages="$errors->get('guardian_phone')">
+                    <span>+63</span>
+                </x-input-text>
                 <x-input-error :messages="$errors->get('guardian_phone')" />
             </div>
         </div>

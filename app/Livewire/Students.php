@@ -210,6 +210,7 @@ class Students extends Component
      */
     public function render()
     {
+        session()->forget('auth.password_confirmed_at');
         View::share('page', 'students');
 
         return view('livewire.students', [
@@ -494,7 +495,7 @@ class Students extends Component
         ) {
             $profile_photo = $this->validatedCardFields['profile_photo']
                 ->store('photos', 'public');
-                
+
             if(!$this->selectedStudent->cards->isEmpty()) {
                 $this->selectedStudent->cards->first()->update([
                     'status' => 'INACTIVE',

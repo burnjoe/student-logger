@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('family_members', function (Blueprint $table) {
             $table->id();
-            $table->string('last_name', 50);
-            $table->string('first_name', 50);
-            $table->string('middle_name', 50)->nullable();
-            $table->string('relationship', 25);
-            $table->string('occupation', 50);
-            $table->string('phone', 10)->unique();
+            $table->string('last_name');
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->enum('relationship', ['Father', 'Mother', 'Guardian']);
+            $table->string('specified_relationship')->nullable();
+            $table->string('occupation');
+            $table->string('phone');
             $table->timestamps();
             $table->softDeletes();
         });

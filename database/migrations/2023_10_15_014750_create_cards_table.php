@@ -23,12 +23,11 @@ return new class extends Migration
             $table->string('profile_photo');
             $table->enum('issuance_reason', ['First Issue', 'Renewal', 'Reissue for Lost ID']);
             $table->enum('status', ['ACTIVE', 'INACTIVE']);
-            // $table->foreignId('contact_person_id')
-            //     ->references('id')
-            //     ->on('family_members')
-            //     ->constrained()
-            //     ->restrictOnUpdate()
-            //     ->restrictOnDelete();
+            $table->foreignId('contact_person_id')
+                ->references('id')
+                ->on('family_members')
+                ->constrained()
+                ->restrictOnDelete();
             $table->timestamp('expires_at');
             $table->timestamps();
             $table->softDeletes();

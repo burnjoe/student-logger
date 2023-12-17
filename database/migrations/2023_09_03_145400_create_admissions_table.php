@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')
                 ->constrained()
-                ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->foreignId('program_id')
                 ->constrained()
-                ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->tinyInteger('level');
-            $table->timestamp('enrolled_at')->nullable();
+            $table->timestamp('enrolled_at');
             $table->timestamps();
             $table->softDeletes();
         });

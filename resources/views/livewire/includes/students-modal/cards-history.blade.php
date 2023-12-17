@@ -44,10 +44,11 @@
                 <td class="px-6 py-4">{{ $card->issuance_reason }}</td>
                 <td class="px-6 py-4">{{ \Carbon\Carbon::parse($card->expires_at)->format('M. j, Y') }}</td>
                 <td class="px-6 py-4">
-                    @if($card->expires_at < now()) <x-badge class="bg-red text-white">EXPIRED</x-badge>
-                        @else
-                        <x-badge class="bg-green text-white">ACTIVE</x-badge>
-                        @endif
+                    @if($card->status === 'ACTIVE') 
+                    <x-badge class="bg-green text-white">ACTIVE</x-badge>
+                    @else
+                    <x-badge class="bg-darkGray text-white">INACTIVE</x-badge>
+                    @endif
                 </td>
             </tr>
             @endforeach

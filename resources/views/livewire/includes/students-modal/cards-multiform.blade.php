@@ -61,7 +61,7 @@
                 placeholder="{{ __('ID Picture') }}" class="mt-1 bg-lightGray"
                 :messages="$errors->get('profile_photo')" />
             <x-input-error :messages="$errors->get('profile_photo')" />
-            <small class="text-xs text-darkGray">Allowed file types: png, jpg, jpeg | Maximum File Size: 2MB</small>
+            <small class="text-xs text-darkGray">Allowed file types: png, jpg | Maximum File Size: 2MB</small>
         </div>
     </div>
     @endif

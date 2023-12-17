@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Card;
 use App\Models\College;
+use App\Models\FamilyMember;
 use App\Models\Student;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -45,7 +46,6 @@ class Students extends Component
     public $guardian_first_name;
     public $guardian_last_name;
     public $guardian_specified_relationship;
-    public $guardian_occupation;
     public $guardian_phone;
 
     public Student $selectedStudent;
@@ -85,9 +85,21 @@ class Students extends Component
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|regex:/^9\d{9}$/|unique:students,phone,' . $this->student_id,
+            'phone' => 'required|regex:/^9\d{9}$/',
             'email' => 'required|email|unique:students,email,' . $this->student_id,
             'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
+            'father_last_name' => 'required|min:2|max:50',
+            'father_first_name' => 'required|min:2|max:50',
+            'father_occupation' => 'required|min:2|max:50',
+            'father_phone' => 'required|regex:/^9\d{9}$/',
+            'mother_last_name' => 'required|min:2|max:50',
+            'mother_first_name' => 'required|min:2|max:50',
+            'mother_occupation' => 'required|min:2|max:50',
+            'mother_phone' => 'required|regex:/^9\d{9}$/',
+            'guardian_last_name' => 'required|min:2|max:50',
+            'guardian_first_name' => 'required|min:2|max:50',
+            'guardian_specified_relationship' => 'required|min:2|max:50',
+            'guardian_phone' => 'required|regex:/^9\d{9}$/',
         ];
     }
 
@@ -114,6 +126,18 @@ class Students extends Component
             'birthplace' => 'place of birth',
             'phone' => 'phone number',
             'email' => 'email address',
+            'father_last_name' => 'father\'s last name',
+            'father_first_name' => 'father\'s first name',
+            'father_occupation' => 'father\'s occupation',
+            'father_phone' => 'father\'s phone number',
+            'mother_last_name' => 'mother\'s last name',
+            'mother_first_name' => 'mother\'s first name',
+            'mother_occupation' => 'mother\'s occupation',
+            'mother_phone' => 'mother\'s phone number',
+            'guardian_last_name' => 'guardian\'s last name',
+            'guardian_first_name' => 'guardian\'s first name',
+            'guardian_specified_relationship' => 'relation to guardian',
+            'guardian_phone' => 'guardian\'s phone number',
         ];
     }
 
@@ -130,9 +154,9 @@ class Students extends Component
             );
         } else if ($this->currentStep == 2) {
             $this->validatedCardFields += $this->validate(
-                ['profile_photo' => 'required|mimes:png,jpg,jpeg|max:2048'],
+                ['profile_photo' => 'required|file|mimes:png,jpg|max:2048'],
                 [
-                    'profile_photo.mimes' => 'The :attribute must be in JPEG, PNG, or JPG format.',
+                    'profile_photo.mimes' => 'The :attribute must be in PNG or JPG format.',
                     'profile_photo.max' => 'The :attribute file size must not exceed 2MB.',
                 ],
                 ['profile_photo' => 'ID picture']
@@ -266,7 +290,7 @@ class Students extends Component
                     $father = $this->selectedStudent->family_members->where('relationship', 'Father')->first();
                     $mother = $this->selectedStudent->family_members->where('relationship', 'Mother')->first();
                     $guardian = $this->selectedStudent->family_members->where('relationship', 'Guardian')->first();
-                    
+
                     $this->father_last_name = $father->last_name;
                     $this->father_first_name = $father->first_name;
                     $this->father_occupation = $father->occupation;
@@ -280,7 +304,6 @@ class Students extends Component
                     $this->guardian_last_name = $guardian->last_name;
                     $this->guardian_first_name = $guardian->first_name;
                     $this->guardian_specified_relationship = $guardian->specified_relationship;
-                    $this->guardian_occupation = $guardian->occupation;
                     $this->guardian_phone = $guardian->phone;
                     break;
                 case 'card':
@@ -422,7 +445,33 @@ class Students extends Component
     {
         $validated = $this->validate();
 
-        Student::create($validated);
+        $student = Student::create($validated);
+
+        $father = FamilyMember::create([
+            'last_name' => $validated['father_last_name'],
+            'first_name' => $validated['father_first_name'],
+            'relationship' => 'Father',
+            'occupation' => $validated['father_occupation'],
+            'phone' => $validated['father_phone'],
+        ]);
+
+        $mother = FamilyMember::create([
+            'last_name' => $validated['mother_last_name'],
+            'first_name' => $validated['mother_first_name'],
+            'relationship' => 'Mother',
+            'occupation' => $validated['mother_occupation'],
+            'phone' => $validated['mother_phone'],
+        ]);
+
+        $guardian = FamilyMember::create([
+            'last_name' => $validated['guardian_last_name'],
+            'first_name' => $validated['guardian_first_name'],
+            'relationship' => 'Guardian',
+            'specified_relationship' => $validated['guardian_specified_relationship'],
+            'phone' => $validated['guardian_phone'],
+        ]);
+
+        $student->family_members()->attach([$father->id, $mother->id, $guardian->id]);
 
         $this->reset();
 

@@ -89,6 +89,6 @@ class Card extends Model
     }
 
     public function contact_person(): HasOne {
-        return $this->hasOne(FamilyMember::class);
+        return $this->hasOne(FamilyMember::class, 'id', 'contact_person_id');
     }
 }

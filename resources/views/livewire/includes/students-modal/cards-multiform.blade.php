@@ -81,7 +81,7 @@
             <x-input-select id="contact_person_id" wire:model="contact_person_id" class="mt-1"
                 :messages="$errors->get('contact_person_id')">
                 <option selected hidden>Select Emergency Contact Person</option>
-                @foreach ($selectedStudent->family_members->whereEncrypted('phone', '!==', null) as $family_member)
+                @foreach ($selectedStudent->family_members()->whereEncrypted('phone', '!==', null) as $family_member)
                 <option value="{{$family_member->id}}">{{$family_member->relationship . ' - ' . $family_member->first_name . ' ' . $family_member->last_name}}</option>    
                 @endforeach
             </x-input-select>

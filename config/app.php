@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        ESolution\DBEncryption\Providers\DBEncryptionServiceProvider::class,
     ])->toArray(),
 
     /*

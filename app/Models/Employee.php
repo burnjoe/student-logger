@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use ESolution\DBEncryption\Traits\EncryptedAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Employee extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, SoftDeletes, LogsActivity, EncryptedAttribute;
 
     /**
      * Events only recorded in activity log
@@ -30,6 +31,14 @@ class Employee extends Model
         'middle_name',
         'sex',
         'birthdate',
+        'address',
+        'phone',
+    ];
+
+    protected $encryptable = [
+        'last_name',
+        'first_name',
+        'middle_name',
         'address',
         'phone',
     ];
@@ -74,12 +83,12 @@ class Employee extends Model
     {
         $subvalue = substr($value, 1);
 
-        $query->where('last_name', 'like', "%{$value}%")
-            ->orWhere('first_name', 'like', "%{$value}%")
-            ->orWhere('middle_name', 'like', "%{$value}%")
-            ->orWhere('sex', 'like', "%{$value}%")
-            ->orWhere('phone', 'like', "%{$value}%")
-            ->orWhere('phone', 'like', "%{$subvalue}%");
+        $query->whereEncrypted('last_name', 'like', "%{$value}%")
+            ->orWhereEncrypted('first_name', 'like', "%{$value}%")
+            ->orWhereEncrypted('middle_name', 'like', "%{$value}%")
+            ->orWhereEncrypted('sex', 'like', "%{$value}%")
+            ->orWhereEncrypted('phone', 'like', "%{$value}%")
+            ->orWhereEncrypted('phone', 'like', "%{$subvalue}%");
     }
 
     /**

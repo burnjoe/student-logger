@@ -43,7 +43,7 @@ class AttendanceLogger extends Component
     {
         try {
             // Retrieves card of rfid (OPTIMIZE THIS)
-            $this->card = Card::with(['student', 'attendances', 'attendances.post'])->where('rfid', $rfid)->first();
+            $this->card = Card::with(['student', 'attendances', 'attendances.post'])->whereEncrypted('rfid', $rfid)->first();
             $this->rfid = $rfid;
 
             // Retrieves last log (OPTIMIZE THIS)
@@ -53,8 +53,8 @@ class AttendanceLogger extends Component
             if ($this->attendance) {
                 if ($duration = now()->diff($this->attendance->updated_at)) {
                     // Last log is < 30s
-                    if ($duration->i == 0 && $duration->s < 30) {
-                        $this->dispatch('warning', ['message' => 'Please try again later. ' . (30 - $duration->s) . ' second(s) remaining.']);
+                    if ($duration->i == 0 && $duration->s < 5) {
+                        $this->dispatch('warning', ['message' => 'Please try again later. ' . (5 - $duration->s) . ' second(s) remaining.']);
                         return;
                     }
                 }

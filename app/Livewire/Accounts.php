@@ -90,7 +90,7 @@ class Accounts extends Component
             'sex' => 'required|in:Male,Female',
             'birthdate' => 'required|date|after_or_equal:1950-01-01|before_or_equal:today',
             'address' => 'required|min:3',
-            'phone' => 'required|regex:/^9\d{9}$/|unique:employees,phone,' . $this->employee_id,
+            'phone' => 'required|regex:/^9\d{9}$/|unique_encrypted:employees,phone,' . $this->employee_id,
             'role' => 'required|exists:roles,id',
         ];
     }
@@ -104,6 +104,7 @@ class Accounts extends Component
             'birthdate.after_or_equal' => 'The :attribute field must be a valid date.',
             'birthdate.before_or_equal' => 'The :attribute field must be a valid date.',
             'phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'phone.unique_encrypted' => 'The :attribute is already taken.'
         ];
     }
 

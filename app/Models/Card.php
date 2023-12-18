@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use ESolution\DBEncryption\Traits\EncryptedAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Spatie\Activitylog\LogOptions;
 
 class Card extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, SoftDeletes, LogsActivity, EncryptedAttribute;
 
     /**
      * Events only recorded in activity log
@@ -36,6 +37,10 @@ class Card extends Model
         'contact_person_id',
     ];
 
+    protected $encryptable = [
+        'rfid',
+        'profile_photo',
+    ];
 
     /**
      * Activity logs option
@@ -48,9 +53,6 @@ class Card extends Model
             ->dontSubmitEmptyLogs()
             ->useLogName('Card')
             ->setDescriptionForEvent(function (string $eventName) {
-                $attributes = $this->getDirty();
-                $old = $this->getAttributes();
-
                 switch ($eventName) {
                     case 'created':
                         return "Issued New RFID to Student: \"" . ($this->student->first_name . ' ' . $this->student->last_name) . "\"";
@@ -73,7 +75,7 @@ class Card extends Model
      */
     public function scopeSearch($query, $value)
     {
-        $query->where('rfid', 'like', "%{$value}%");
+        $query->whereEncrypted('rfid', 'like', "%{$value}%");
     }
 
     /**

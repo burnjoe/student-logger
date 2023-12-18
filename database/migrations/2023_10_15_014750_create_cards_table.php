@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id('id');
-            $table->string('rfid')->unique();
+            $table->text('rfid');
             $table->foreignId('student_id')
                 ->references('id')
                 ->on('students')
                 ->constrained()
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
-            $table->string('profile_photo');
+            $table->text('profile_photo');
             $table->enum('issuance_reason', ['First Issue', 'Renewal', 'Reissue for Lost ID']);
             $table->enum('status', ['ACTIVE', 'INACTIVE']);
             $table->foreignId('contact_person_id')

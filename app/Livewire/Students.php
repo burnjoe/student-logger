@@ -74,7 +74,7 @@ class Students extends Component
     public function rules()
     {
         return [
-            'student_no' => 'required|digits:7|unique:students,student_no,' . $this->student_id,
+            'student_no' => 'required|digits:7|unique_encrypted:students,student_no',
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
@@ -85,7 +85,7 @@ class Students extends Component
             'birthplace' => 'required|min:3',
             'address' => 'required|min:3',
             'phone' => 'required|regex:/^9\d{9}$/',
-            'email' => 'required|email|unique:students,email,' . $this->student_id,
+            'email' => 'required|email|unique_encrypted:students,email,' . $this->student_id,
             'account_type' => 'required|in:Cabuyeño,Non-Cabuyeño',
             'father_last_name' => 'required|min:2|max:50',
             'father_first_name' => 'required|min:2|max:50',
@@ -114,6 +114,8 @@ class Students extends Component
             'father_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
             'mother_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
             'guardian_phone.regex' => 'The :attribute must be in a valid format. (e.g. 921XXXXXXX)',
+            'student_no.unique_encrypted' => 'The :attribute already taken.',
+            'email.unique_encrypted' => 'The :attribute already taken.',
         ];
     }
 
@@ -186,7 +188,7 @@ class Students extends Component
 
             try {
                 $this->validatedCardFields += $this->validate(
-                    ['rfid' => 'required|unique:cards,rfid,' . $this->card_id]
+                    ['rfid' => 'required|unique_encrypted:cards,rfid,' . $this->card_id],
                 );
                 $this->currentStep++;
             } catch (\Throwable $th) {
@@ -428,7 +430,7 @@ class Students extends Component
         try {
             $this->selectedStudent = Student::with([
                 'cards' => fn ($query) => $query->orderBy('id', 'desc')->first(),
-                'family_members' => fn ($query) => $query->whereNot('phone', null),
+                'family_members' => fn ($query) => $query->whereEncrypted('phone', '!==', null),
             ])
                 ->find($id);
 
@@ -445,6 +447,8 @@ class Students extends Component
     public function storeStudent()
     {
         $validated = $this->validate();
+
+        dd($this->getErrorBag());
 
         $student = Student::create($validated);
 

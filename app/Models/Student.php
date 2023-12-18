@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use ESolution\DBEncryption\Traits\EncryptedAttribute;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, SoftDeletes, LogsActivity, EncryptedAttribute;
 
     /**
      * Events only recorded in activity log
@@ -41,6 +42,16 @@ class Student extends Model
         'account_type'
     ];
 
+    protected $encryptable = [
+        'student_no',
+        'last_name',
+        'first_name',
+        'middle_name',
+        'birthplace',
+        'address',
+        'phone',
+        'email',
+    ];
 
     /**
      * Activity logs option
@@ -78,9 +89,9 @@ class Student extends Model
      */
     public function scopeSearch($query, $value)
     {
-        $query->where('student_no', 'like', "%{$value}%")
-            ->orWhere('last_name', 'like', "%{$value}%")
-            ->orWhere('first_name', 'like', "%{$value}%");
+        $query->whereEncrypted('student_no', 'like', "%{$value}%")
+            ->orWhereEncrypted('last_name', 'like', "%{$value}%")
+            ->orWhereEncrypted('first_name', 'like', "%{$value}%");
     }
 
     /**

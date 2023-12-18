@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         // Roles
-        Role::create(['name' => 'admin'])
+        Role::create(['name' => 'super admin'])
             ->syncPermissions([
                 'view students',
                 'create students',
@@ -40,11 +40,28 @@ class RoleSeeder extends Seeder
                 'generate reports',
             ]);
 
+        Role::create(['name' => 'admin'])
+            ->syncPermissions([
+                'view students',
+                'create students',
+                'edit students',
+                'view rfids',
+                'issue rfids',
+                'view issues',
+                'view attendances',
+                'log attendances',
+                'view main gate reports',
+                'generate reports',
+            ]);
+
         Role::create(['name' => 'guard'])
             ->syncPermissions([
                 'view attendances',
                 'log attendances',
+                'view main gate reports',
+                'generate reports',
             ]);
+
         Role::create(['name' => 'librarian'])
             ->syncPermissions([
                 'view attendances',
@@ -52,10 +69,13 @@ class RoleSeeder extends Seeder
                 'view library reports',
                 'generate reports',
             ]);
+
         Role::create(['name' => 'nurse'])
             ->syncPermissions([
                 'view attendances',
                 'log attendances',
+                'view clinic reports',
+                'generate reports',
             ]);;
     }
 }

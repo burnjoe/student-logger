@@ -426,21 +426,6 @@ class StudentSeeder extends Seeder
                 'account_type' => 'Cabuyeño',
             ],
             [
-                'student_no' => 2011254,
-                'last_name' => 'Ferreras',
-                'first_name' => 'Vince Austin',
-                'middle_name' => 'Romero',
-                'sex' => 'Male',
-                'civil_status' => 'Single',
-                'nationality' => 'Filipino',
-                'birthdate' => Carbon::parse('2002-01-24'),
-                'birthplace' => 'Cabuyao, Laguna',
-                'address' => 'Mamatid, Cabuyao, Laguna',
-                'phone' => '9182371234',
-                'email' => 'ferrerasvinceaustin@gmail.com',
-                'account_type' => 'Cabuyeño',
-            ],
-            [
                 'student_no' => 2000364,
                 'last_name' => 'Sabana',
                 'first_name' => 'Joe Lawrence',
@@ -469,6 +454,21 @@ class StudentSeeder extends Seeder
                 'email' => 'bataraojoshua39@gmail.com',
                 'account_type' => 'Cabuyeño',
             ],
+            [
+                'student_no' => 2011254,
+                'last_name' => 'Ferreras',
+                'first_name' => 'Vince Austin',
+                'middle_name' => 'Romero',
+                'sex' => 'Male',
+                'civil_status' => 'Single',
+                'nationality' => 'Filipino',
+                'birthdate' => Carbon::parse('2002-01-24'),
+                'birthplace' => 'Cabuyao, Laguna',
+                'address' => 'Mamatid, Cabuyao, Laguna',
+                'phone' => '9182371234',
+                'email' => 'ferrerasvinceaustin@gmail.com',
+                'account_type' => 'Cabuyeño',
+            ],
         ];
 
         $student = Student::create([
@@ -490,7 +490,7 @@ class StudentSeeder extends Seeder
         Card::create([
             'rfid' => '0515641249',
             'student_id' => $student->id,
-            'profile_photo' => 'photos\1.Derla.png',
+            'profile_photo' => 'photos\UDudkw2WUjlyNnEgJNhRUcodq4rdDSqYMl0EbYv2.png',
             'issuance_reason' => 'First Issue',
             'expires_at' => now()->addYears(2),
             'contact_person_id' => 1,

@@ -22,9 +22,20 @@ class Attendances extends Component
 
     public function render()
     {
+        $posts = [
+            'admin' => [1],
+            'nurse' => [3],
+            'librarian' => [2],
+            'guard' => [1],
+        ];
+
+        if (auth()->user()->getRoleNames()->first() !== 'super admin') {
+            $this->selectedPosts += $posts[auth()->user()->getRoleNames()->first()];
+        }
+
         session()->forget('auth.password_confirmed_at');
         View::share('page', 'attendances');
-
+        
         return view('livewire.attendances', [
             'attendances' => Attendance::select('id', 'logged_in_at', 'logged_out_at', 'status', 'card_id', 'post_id')
                 ->with([

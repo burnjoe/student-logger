@@ -17,17 +17,13 @@ class EmployeeSeeder extends Seeder
             'last_name' => 'Sabana',
             'first_name' => 'Joe Lawrence',
             'sex' => 'Male',
-            'birthdate' => now(),
+            'birthdate' => '2002-11-25',
             'address' => 'Laguna',
             'phone' => '9212318882'
         ]);
 
-        Employee::create([
-            'last_name' => 'Dela Cruz',
-            'first_name' => 'Juan',
-            'sex' => 'Male',
-            'birthdate' => now(),
-            'address' => 'Laguna',
+        Employee::factory(4)->create([
+            'address' => 'Cabuyao, Laguna',
             'phone' => '9212448993'
         ]);
     }

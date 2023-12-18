@@ -23,13 +23,11 @@ class PdfController extends Controller
         $attendances = Attendance::query();
 
         if ($search) {
-            $attendances->whereHas(
-                'card',
-                fn ($query) => $query->where('name', 'like', "%{$search}%")
-            )->orWhereHas(
-                'card.student',
-                fn ($query) => $query->where('name', 'like', "%{$search}%")
-            );
+            $attendances->with('card')
+                ->orWhereHas(
+                    'card.student',
+                    fn ($query) => $query->search($search)
+                );
         }
 
         if ($selectedPosts) {

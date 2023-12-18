@@ -22,6 +22,24 @@ class AttendanceLogger extends Component
     public $card;
     public $attendance;
 
+    public $post;
+
+
+    /**
+     * Initializes attributes
+     */
+    public function mount()
+    {
+        $posts = [
+            'super admin' => 1,
+            'admin' => 1,
+            'nurse' => 3,
+            'librarian' => 2,
+            'guard' => 1,
+        ];
+
+        $this->post += $posts[auth()->user()->getRoleNames()->first()];
+    }
 
     /**
      * Render livewire view
@@ -114,7 +132,7 @@ class AttendanceLogger extends Component
             'card_id' => $this->card->id,
             'logged_in_at' => now(),
             'status' => 'IN',
-            'post_id' => 1,
+            'post_id' => $this->post,
         ]);
 
         $this->dispatch('success', ['message' => 'Successfully logged in.']);

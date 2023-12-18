@@ -8,7 +8,7 @@ $statusColors = [
 
 <div>
     {{-- Main Gate --}}
-    {{-- @can('view main gate reports') --}}
+    @can('view main gate reports')
     <div class="mx-auto my-6 bg-white rounded-lg overflow-hidden shadow-lg sm:w-full">
         {{-- Header --}}
         <div class="flex bg-green px-6 py-4">
@@ -161,10 +161,10 @@ $statusColors = [
          });
     </script>
     @endpush
-    {{-- @endcan --}}
+    @endcan
 
     {{-- Library --}}
-    {{-- @can('view library reports') --}}
+    @can('view library reports')
     <div class="mx-auto my-6 bg-white rounded-lg overflow-hidden shadow-lg sm:w-full">
         {{-- Header --}}
         <div class="flex bg-green px-6 py-4">
@@ -268,10 +268,10 @@ $statusColors = [
          });
     </script>
     @endpush
-    {{-- @endcan --}}
+    @endcan
 
     {{-- Clinic --}}
-    {{-- @can('view clinic reports') --}}
+    @can('view clinic reports')
     <div class="mx-auto my-6 bg-white rounded-lg overflow-hidden shadow-lg sm:w-full">
         {{-- Header --}}
         <div class="flex bg-green px-6 py-4">
@@ -375,5 +375,5 @@ $statusColors = [
          });
     </script>
     @endpush
-    {{-- @endcan --}}
+    @endcan
 </div>

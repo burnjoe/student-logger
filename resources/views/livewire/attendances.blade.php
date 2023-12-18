@@ -80,7 +80,12 @@ $statusColors = [
         <th class="px-6 py-4">Date</th>
         <th class="px-6 py-4">Log In</th>
         <th class="px-6 py-4">Log Out</th>
+        @hasrole('super admin')
         <th>@include('livewire.includes.filter-post')</th>
+        @endhasrole
+        @hasrole('admin|nurse|librarian|guard')
+        <th class="px-6 py-4">Post</th>
+        @endhasrole
         <th>@include('livewire.includes.filter-attendance-status')</th>
         @endslot
 
@@ -98,7 +103,12 @@ $statusColors = [
                 {{ \Carbon\Carbon::parse($attendance->logged_out_at)->format('h:i A') }}
                 @endif
             </td>
+            @hasrole('super admin')
             <td class="px-6 py-4">{{ $attendance->post->name }}</td>
+            @endhasrole
+            @hasrole('admin|nurse|librarian|guard')
+            <td class="px-6 py-4">{{ $attendance->post->name }}</td>
+            @endhasrole
             <td class="px-6 py-4">
                 <x-badge class="text-white bg-{{$statusColors[$attendance->status]}}" size="xs" fontWeight="semibold">
                     {{ $attendance->status }}

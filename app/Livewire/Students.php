@@ -324,7 +324,8 @@ class Students extends Component
                         ->with([
                             'cards' =>
                             fn ($query) =>
-                            $query->orderBy('id', 'desc')
+                            $query->where('status', 'ACTIVE')
+                                ->orderBy('id', 'desc')
                                 ->first(),
                             'cards.contact_person'
                         ])
@@ -429,8 +430,8 @@ class Students extends Component
 
         try {
             $this->selectedStudent = Student::with([
-                'cards' => fn ($query) => $query->orderBy('id', 'desc')->first(),
-                'family_members' => fn ($query) => $query->whereEncrypted('phone', '!==', null),
+                'cards' => fn ($query) => $query->where('status', 'ACTIVE')->orderBy('id', 'desc')->first(),
+                'family_members' => fn ($query) => $query->where('phone', '!==', null),
             ])
                 ->find($id);
 
@@ -447,8 +448,6 @@ class Students extends Component
     public function storeStudent()
     {
         $validated = $this->validate();
-
-        dd($this->getErrorBag());
 
         $student = Student::create($validated);
 
@@ -500,11 +499,12 @@ class Students extends Component
             $profile_photo = $this->validatedCardFields['profile_photo']
                 ->store('photos', 'public');
 
-            if(!$this->selectedStudent->cards->isEmpty()) {
-                $this->selectedStudent->cards->first()->update([
+            if($this->selectedStudent->cards->where('status', 'ACTIVE')->first()) {
+                $this->selectedStudent->cards->where('status', 'ACTIVE')->first()->update([
                     'status' => 'INACTIVE',
                 ]);
             }
+
 
             Card::create([
                 'rfid' => $this->validatedCardFields['rfid'],

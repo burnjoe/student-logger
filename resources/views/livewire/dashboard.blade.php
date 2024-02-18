@@ -1,11 +1,11 @@
 <div>
    <x-card>
-      <span class="text-1rem font-semibold">
+      <span class="text-xl font-semibold">
          {{ 'Welcome, ' . Auth::user()->employee->first_name . ' ' . Auth::user()->employee->last_name . '!' }}
       </span>
    </x-card>
 
-   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <x-card class="mt-4">
          <p class="text-1rem font-semibold">
             Total Number of Students:

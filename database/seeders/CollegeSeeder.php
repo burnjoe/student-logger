@@ -16,31 +16,31 @@ class CollegeSeeder extends Seeder
     {
         $names = [
             'College of Arts and Sciences' => [
-                'BS in Psychology',
+                ['BS in Psychology', 'BSP'],
             ],
             'College of Business, Accountancy, and Administration' => [
-                'BS in Accountancy',
-                'BS in Business Administration Major in Financial Management',
-                'BS in Business Administration Major in Marketing Management',
+                ['BS in Accountancy', "BSA"],
+                ['BS in Business Administration Major in Financial Management', "BSBA F"],
+                ['BS in Business Administration Major in Marketing Management', "BSBA M"],
             ],
             'College of Computing Studies' => [
-                'BS in Information Technology',
-                'BS in Computer Science',
+                ['BS in Information Technology', 'BSIT'],
+                ['BS in Computer Science', "BSCS"],
             ],
             'College of Education' => [
-                'BS in Elementary Education',
-                'BS in Secondary Education major in English',
-                'BS in Secondary Education major in Filipino',
-                'BS in Secondary Education major in Mathematics',
-                'BS in Secondary Education major in Social Studies',
+                ['BS in Elementary Education', "BSEE"],
+                ['BS in Secondary Education major in English', "BSSE E"],
+                ['BS in Secondary Education major in Filipino', "BSSE F"],
+                ['BS in Secondary Education major in Mathematics', "BSSE M"],
+                ['BS in Secondary Education major in Social Studies', "BSSE S"],
             ],
             'College of Engineering' => [
-                'BS in Computer Engineering',
-                'BS in Electronics Engineering',
-                'BS in Industrial Engineering',
+                ['BS in Computer Engineering', 'BSCpE'],
+                ['BS in Electronics Engineering', 'BSECE'],
+                ['BS in Industrial Engineering', 'BSIE'],
             ],
             'College of Health and Allied Science' => [
-                'BS in Nursing',
+                ['BS in Nursing', 'BSN'],
             ],
         ];
 
@@ -61,7 +61,8 @@ class CollegeSeeder extends Seeder
 
             foreach ($programs as $program) {
                 Program::create([
-                    'name' => $program,
+                    'name' => $program[0],
+                    'abbreviation' => $program[1],
                     'college_id' => $college->id,
                 ]);
             }

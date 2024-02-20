@@ -31,7 +31,7 @@
             <td class="px-6 py-4">{{ $student->student_no }}</td>
             <td class="px-6 py-4">{{ $student->last_name }}</td>
             <td class="px-6 py-4">{{ $student->first_name }}</td>
-            <td class="px-6 py-4">Program</td>
+            <td class="px-6 py-4">{{ $student->admissions->first()->program->abbreviation ?? "" }}</td>
             <td class="px-6 py-4 text-md flex space-x-4">
                 @can('view students')
                 <x-button wire:click.prevent="showStudent({{ $student->id }})" btnType="success" textSize="text-xs">

@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Admission;
 use App\Models\Card;
 use App\Models\College;
 use App\Models\FamilyMember;
+use App\Models\Program;
 use App\Models\Student;
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -68,13 +70,20 @@ class Students extends Component
     public $validatedCardFields = [];
     public $temporaryUrl;
 
+    public $programs;
+
+    public $college_id;
+    public $program_id;
+    public $level;
+    public $enrolled_at;
+
     /**
      * Validation rules
      */
     public function rules()
     {
         return [
-            'student_no' => 'required|digits:7|unique_encrypted:students,student_no',
+            'student_no' => 'required|digits:7|unique_encrypted:students,student_no,' . $this->student_id,
             'last_name' => 'required|min:2|max:50',
             'first_name' => 'required|min:2|max:50',
             'middle_name' => 'nullable|min:2|max:50',
@@ -99,6 +108,9 @@ class Students extends Component
             'guardian_first_name' => 'required|min:2|max:50',
             'guardian_specified_relationship' => 'required|min:2|max:50',
             'guardian_phone' => 'required|regex:/^9\d{9}$/',
+            'college_id' => 'required|exists:colleges,id',
+            'program_id' => 'required|exists:programs,id',
+            'level' => 'required|in:1,2,3,4,5',
         ];
     }
 
@@ -142,6 +154,8 @@ class Students extends Component
             'guardian_first_name' => 'guardian\'s first name',
             'guardian_specified_relationship' => 'relation to guardian',
             'guardian_phone' => 'guardian\'s phone number',
+            'college_id' => 'college',
+            'program_id' => 'program',
         ];
     }
 
@@ -174,6 +188,18 @@ class Students extends Component
             );
         } else if ($this->currentStep == 4) {
             $this->validateRfid($this->rfid);
+        }
+    }
+
+    /**
+     * Update some attributes when sex field is updated
+     */
+    public function updatedCollegeId()
+    {
+        try {
+            $this->programs = Program::where('college_id', $this->college_id)->get();
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 
@@ -217,12 +243,22 @@ class Students extends Component
 
         return view('livewire.students', [
             'students' => Student::select('id', 'student_no', 'last_name', 'first_name')
-                ->latest()
+                ->with([
+                    'admissions' => fn ($query) =>
+                    $query->orderBy('id', 'desc'),
+                    'admissions.program'
+                ])
                 ->when(
                     $this->search,
                     fn ($query) =>
                     $query->search($this->search)
                 )
+                ->when(
+                    $this->selectedPrograms,
+                    fn ($query) =>
+                    $query->programIn($this->selectedPrograms)
+                )
+                ->latest()
                 ->paginate(15),
             'colleges' => College::orderBy('name')
                 ->get(),
@@ -274,7 +310,14 @@ class Students extends Component
         try {
             switch ($type) {
                 case 'student':
-                    $this->selectedStudent = Student::with(['family_members'])
+                    $this->selectedStudent = Student::with([
+                        'family_members',
+                        'admissions' => fn ($query) =>
+                        $query->orderBy('id', 'desc')
+                            ->first(),
+                        'admissions.program',
+                        'admissions.program.college'
+                    ])
                         ->find($id);
 
                     $this->student_id = $this->selectedStudent->id;
@@ -310,6 +353,15 @@ class Students extends Component
                     $this->guardian_first_name = $guardian->first_name;
                     $this->guardian_specified_relationship = $guardian->specified_relationship;
                     $this->guardian_phone = $guardian->phone;
+
+                    $admission = $this->selectedStudent->admissions->first();
+                    $program = $this->selectedStudent->admissions->first()->program->first();
+                    $this->programs = Program::where('college_id', $program->college_id)->get();
+
+                    $this->college_id = $program->college_id;
+                    $this->program_id = $admission->program_id;
+                    $this->level = $admission->level;
+                    $this->enrolled_at = $admission->enrolled_at;
                     break;
                 case 'card':
                     $this->selectedStudent = Student::select(
@@ -327,7 +379,11 @@ class Students extends Component
                             $query->where('status', 'ACTIVE')
                                 ->orderBy('id', 'desc')
                                 ->first(),
-                            'cards.contact_person'
+                            'cards.contact_person',
+                            'admissions' => fn ($query) =>
+                            $query->orderBy('id', 'desc')
+                                ->first(),
+                            'admissions.program'
                         ])
                         ->find($id);
 
@@ -475,6 +531,12 @@ class Students extends Component
             'phone' => $validated['guardian_phone'],
         ]);
 
+        $student->admissions()->create([
+            'program_id' => $validated['program_id'],
+            'level' => $validated['level'],
+            'enrolled_at' => now(),
+        ]);
+
         $student->family_members()->attach([$father->id, $mother->id, $guardian->id]);
 
         $this->reset();
@@ -499,12 +561,11 @@ class Students extends Component
             $profile_photo = $this->validatedCardFields['profile_photo']
                 ->store('photos', 'public');
 
-            if($this->selectedStudent->cards->where('status', 'ACTIVE')->first()) {
+            if ($this->selectedStudent->cards->where('status', 'ACTIVE')->first()) {
                 $this->selectedStudent->cards->where('status', 'ACTIVE')->first()->update([
                     'status' => 'INACTIVE',
                 ]);
             }
-
 
             Card::create([
                 'rfid' => $this->validatedCardFields['rfid'],
@@ -569,6 +630,12 @@ class Students extends Component
             'first_name' => $validated['guardian_first_name'],
             'specified_relationship' => $validated['guardian_specified_relationship'],
             'phone' => $validated['guardian_phone'],
+        ]);
+
+        $this->selectedStudent->admissions()->create([
+            'program_id' => $validated['program_id'],
+            'level' => $validated['level'],
+            'enrolled_at' => now(),
         ]);
 
         $this->reset();

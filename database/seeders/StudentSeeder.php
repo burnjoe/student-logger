@@ -32,6 +32,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9924091282',
                 'email' => 'naparancecilio82@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2000301',
@@ -46,6 +47,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9421239511',
                 'email' => 'bolantecedric01@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2000084',
@@ -60,6 +62,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9421236666',
                 'email' => 'rodriguezraine84@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2002279',
@@ -74,6 +77,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'bernabepamela79@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2000631',
@@ -88,6 +92,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'balajadianicolle31@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2001286',
@@ -102,6 +107,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'cabangonjuliusodrefczar86@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '1800269',
@@ -116,6 +122,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'lucasmarjoriejade69@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '1800234',
@@ -130,6 +137,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'alvarezivanjester34@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2000565',
@@ -144,6 +152,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'saturnojodiira65@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2000079',
@@ -158,6 +167,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'escopetejoanamae79@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2000034',
@@ -172,6 +182,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'topaciojohnbryant34@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 12
             ],
             [
                 'student_no' => '2001134',
@@ -186,6 +197,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'osinsaojerome34@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 12
             ],
             [
                 'student_no' => '1800124',
@@ -200,6 +212,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'tasanleevincent24@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 12
             ],
             [
                 'student_no' => '2000109',
@@ -214,6 +227,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'pancholanzrafael09@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2001280',
@@ -228,6 +242,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'delmontejohndaniel80@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2002248',
@@ -242,6 +257,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'garbinryanjoy48@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2002264',
@@ -256,6 +272,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'bualjefferson64@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '2001202',
@@ -270,6 +287,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'yaneskhylematthew02@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => '1901233',
@@ -284,6 +302,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'endayacharlyn33@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 12
             ],
             [
                 'student_no' => '2001223',
@@ -298,6 +317,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'mansanajancarnmer23@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '2002111',
@@ -312,6 +332,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'pedrasamariquit11@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '2001231',
@@ -326,6 +347,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'jainalberto31@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '1900137',
@@ -340,6 +362,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'caspedomingo37@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '1802576',
@@ -354,6 +377,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'caspedomingo76@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '1801982',
@@ -368,6 +392,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'delrosarioangelo82@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '2002456',
@@ -382,6 +407,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'peñajoshua56@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '2001789',
@@ -396,6 +422,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'cantalejojohnlenard89@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '2000654',
@@ -410,6 +437,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'papajonas54@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => '1902562',
@@ -424,6 +452,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9426326666',
                 'email' => 'aguilarjohnchristopher62@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 5
             ],
             [
                 'student_no' => 2000364,
@@ -439,6 +468,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9213215231',
                 'email' => 'sabanajoelawrence64@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => 2000039,
@@ -453,6 +483,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9484719729',
                 'email' => 'bataraojoshua39@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
             [
                 'student_no' => 2011254,
@@ -468,6 +499,7 @@ class StudentSeeder extends Seeder
                 'phone' => '9182371234',
                 'email' => 'ferrerasvinceaustin@gmail.com',
                 'account_type' => 'Cabuyeño',
+                'program' => 6
             ],
         ];
 
@@ -487,6 +519,12 @@ class StudentSeeder extends Seeder
             'account_type' => 'Cabuyeño',
         ]);
 
+        $student->admissions()->create([
+            'program_id' => 6,
+            'level' => 4,
+            'enrolled_at' => now(),
+        ]);
+
         Card::create([
             'rfid' => '0515641249',
             'student_id' => $student->id,
@@ -500,7 +538,21 @@ class StudentSeeder extends Seeder
         $student->family_members()->attach([1, 2, 3]);
 
         for ($i = 0; $i < count($students); $i++) {
-            $student = Student::create($students[$i]);
+            $student = Student::create([
+                'student_no' => $students[$i]['student_no'],
+                'last_name' => $students[$i]['last_name'],
+                'first_name' => $students[$i]['first_name'],
+                'middle_name' => $students[$i]['middle_name'] ?? "",
+                'sex' => $students[$i]['sex'],
+                'civil_status' => $students[$i]['civil_status'],
+                'nationality' => $students[$i]['nationality'],
+                'birthdate' => $students[$i]['birthdate'],
+                'birthplace' => $students[$i]['birthplace'],
+                'address' => $students[$i]['address'],
+                'phone' => $students[$i]['phone'],
+                'email' => $students[$i]['email'],
+                'account_type' => $students[$i]['account_type'],
+            ]);
 
             $father = FamilyMember::factory()->create([
                 'last_name' => $student->last_name,
@@ -523,6 +575,12 @@ class StudentSeeder extends Seeder
             ]);
 
             $student->family_members()->attach([$father->id, $mother->id, $guardian->id]);
+
+            $student->admissions()->create([
+                'program_id' => $students[$i]["program"],
+                'level' => 4,
+                'enrolled_at' => now(),
+            ]);
 
             Card::factory()->create([
                 'student_id' => $student->id,

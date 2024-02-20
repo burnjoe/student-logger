@@ -284,6 +284,57 @@
             </div>
         </div>
 
+        <div class="px-5">
+            <span class="text-1rem font-bold">Enrolment Details</span>
+        </div>
+        <div class="flex flex-wrap pb-5">
+            {{-- College --}}
+            <div class="w-full md:w-1/2 px-5 mt-4">
+                <x-input-label for="college_id" :required="true">
+                    <small class="font-normal text-darkGray text-xs">College</small>
+                </x-input-label>
+                <x-input-select id="college_id" wire:model.live="college_id" class="mt-1"
+                    :messages="$errors->get('college_id')">
+                    <option selected hidden>College</option>
+                    @foreach ($colleges as $college)
+                    <option value="{{$college->id}}">{{ $college->name }}</option>
+                    @endforeach
+                </x-input-select>
+                <x-input-error :messages="$errors->get('college_id')" />
+            </div>
+            {{-- Program --}}
+            <div class="w-full md:w-1/2 px-5 mt-4">
+                <x-input-label for="program_id" :required="true">
+                    <small class="font-normal text-darkGray text-xs">Program</small>
+                </x-input-label>
+                <x-input-select id="program_id" wire:model.live="program_id" class="mt-1"
+                    :messages="$errors->get('program_id')">
+                    <option selected hidden>Program</option>
+                    @if($programs)
+                    @foreach ($programs as $program)
+                    <option value="{{$program->id}}">{{ $program->name }}</option>
+                    @endforeach
+                    @endif
+                </x-input-select>
+                <x-input-error :messages="$errors->get('program_id')" />
+            </div>
+            {{-- Level --}}
+            <div class="w-full md:w-1/2 px-5 mt-4">
+                <x-input-label for="level" :required="true">
+                    <small class="font-normal text-darkGray text-xs">Level</small>
+                </x-input-label>
+                <x-input-select id="level" wire:model="level" class="mt-1" :messages="$errors->get('level')">
+                    <option selected hidden>Level</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </x-input-select>
+                <x-input-error :messages="$errors->get('level')" />
+            </div>
+        </div>
+
         {{-- Submit --}}
         <div class="flex justify-end items-center space-x-4 mt-6 pe-5">
             <x-button x-on:click.prevent="$dispatch('close-modal')" btnType="secondary"

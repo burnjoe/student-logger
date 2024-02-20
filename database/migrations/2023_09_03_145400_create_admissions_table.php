@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('admissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')
+                ->references('id')
+                ->on('students')
                 ->constrained()
                 ->restrictOnDelete();
             $table->foreignId('program_id')
+                ->references('id')
+                ->on('programs')
                 ->constrained()
                 ->restrictOnDelete();
             $table->tinyInteger('level');

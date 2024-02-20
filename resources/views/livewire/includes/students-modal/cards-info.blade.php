@@ -28,7 +28,7 @@
                 {{-- Program --}}
                 <div class="w-full md:w-1/2">
                     <small class="font-normal text-darkGray text-xs">Program</small>
-                    <h6 class="text-1rem font-medium leading-5 mb-2">BSCS</h6>
+                    <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->admissions->first()->program->abbreviation ?? "" }}</h6>
                 </div>
                 {{-- Date of Birth --}}
                 <div class="w-full md:w-1/2">

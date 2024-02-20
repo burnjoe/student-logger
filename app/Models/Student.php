@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use ESolution\DBEncryption\Encrypter;
 use ESolution\DBEncryption\Traits\EncryptedAttribute;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -66,18 +67,20 @@ class Student extends Model
             ->setDescriptionForEvent(function (string $eventName) {
                 $attributes = $this->getDirty();
                 $old = $this->getAttributes();
+                $old_first_name = Encrypter::decrypt($old['first_name']);
+                $old_last_name = Encrypter::decrypt($old['last_name']);
 
                 switch ($eventName) {
                     case 'created':
                         return "Added New Student: \"" . ($attributes['first_name'] . ' ' . $attributes['last_name']) . "\"";
                     case 'updated':
-                        return "Updated Student: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                        return "Updated Student: \"" . ($old_first_name . ' ' . $old_last_name) . "\"";
                     case 'deleted':
-                        return "Archived Student: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                        return "Archived Student: \"" . ($old_first_name . ' ' . $old_last_name) . "\"";
                     case 'restored':
-                        return "Restored Student: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                        return "Restored Student: \"" . ($old_first_name . ' ' . $old_last_name) . "\"";
                     case 'forceDeleted':
-                        return "Deleted Student Permanently: \"" . ($old['first_name'] . ' ' . $old['last_name']) . "\"";
+                        return "Deleted Student Permanently: \"" . ($old_first_name . ' ' . $old_last_name) . "\"";
                     default:
                         break;
                 }
@@ -92,6 +95,16 @@ class Student extends Model
         $query->whereEncrypted('student_no', 'like', "%{$value}%")
             ->orWhereEncrypted('last_name', 'like', "%{$value}%")
             ->orWhereEncrypted('first_name', 'like', "%{$value}%");
+    }
+
+    public function scopeProgramIn($query, $array)
+    {
+        $query->whereHas(
+            'admissions.program',
+            function ($query) use ($array) {
+                $query->whereIn('id', $array);
+            }
+        );
     }
 
     /**

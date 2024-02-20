@@ -18,7 +18,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('students')
                 ->constrained()
-                ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->text('profile_photo');
             $table->enum('issuance_reason', ['First Issue', 'Renewal', 'Reissue for Lost ID']);

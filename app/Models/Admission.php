@@ -12,6 +12,8 @@ class Admission extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'student_id',
+        'program_id',
         'level',
         'enrolled_at'
     ];

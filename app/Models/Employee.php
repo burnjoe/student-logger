@@ -81,14 +81,14 @@ class Employee extends Model
      */
     public function scopeSearch($query, $value)
     {
-        $subvalue = substr($value, 1);
+        // $subvalue = substr($value, 1);
 
         $query->whereEncrypted('last_name', 'like', "%{$value}%")
             ->orWhereEncrypted('first_name', 'like', "%{$value}%")
             ->orWhereEncrypted('middle_name', 'like', "%{$value}%")
             ->orWhereEncrypted('sex', 'like', "%{$value}%")
-            ->orWhereEncrypted('phone', 'like', "%{$value}%")
-            ->orWhereEncrypted('phone', 'like', "%{$subvalue}%");
+            ->orWhereEncrypted('phone', 'like', "%{$value}%");
+            // ->orWhereEncrypted('phone', 'like', "%{$subvalue}%");
     }
 
     /**

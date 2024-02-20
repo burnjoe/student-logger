@@ -37,8 +37,8 @@ class AuditLogs extends Component
                 ->when(
                     $this->search,
                     fn ($query) =>
-                    $query->where('description', 'like', '%' . $this->search . '%')
-                        ->orWhereHas(
+                    $query->whereEncrypted('description', 'like', '%' . $this->search . '%')
+                        ->orWhereEncrypted(
                             'causer.employee',
                             fn ($subquery) =>
                             $subquery->search($this->search)

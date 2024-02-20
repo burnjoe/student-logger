@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('abbreviation');
             $table->foreignId('college_id')
                 ->constrained()
                 ->restrictOnDelete();

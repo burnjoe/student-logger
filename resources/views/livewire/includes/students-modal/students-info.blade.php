@@ -115,13 +115,13 @@
         </div>
     </div>
 
-    {{-- <div class="px-5">
+    <div class="px-5">
         <span class="text-1rem font-bold">Enrolment Details</span>
     </div>
     <div class="flex flex-wrap pb-5 px-5">
         <div class="w-full">
             <small class="font-normal text-darkGray text-xs">College</small>
-            <h6 class="text-1rem font-medium leading-5 mb-2">{{ $address }}</h6>
+            <h6 class="text-1rem font-medium leading-5 mb-2"></h6>
         </div>
 
         <div class="w-full md:w-1/2">
@@ -132,7 +132,7 @@
             <small class="font-normal text-darkGray text-xs">Year Level</small>
             <h6 class="text-1rem font-medium leading-5 mb-2">{{ $email }}</h6>
         </div>
-    </div> --}}
+    </div>
 
     {{-- Close button --}}
     <div class="flex justify-end items-center mt-4">

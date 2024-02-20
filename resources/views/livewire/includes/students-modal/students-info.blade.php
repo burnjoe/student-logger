@@ -119,19 +119,21 @@
         <span class="text-1rem font-bold">Enrolment Details</span>
     </div>
     <div class="flex flex-wrap pb-5 px-5">
+        @isset($selectedStudent)
         <div class="w-full">
             <small class="font-normal text-darkGray text-xs">College</small>
-            <h6 class="text-1rem font-medium leading-5 mb-2"></h6>
+            <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->admissions->first()->program->college->name }}</h6>
         </div>
 
         <div class="w-full md:w-1/2">
             <small class="font-normal text-darkGray text-xs">Program</small>
-            <h6 class="text-1rem font-medium leading-5 mb-2">{{ $phone }}</h6>
+            <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->admissions->first()->program->name }}</h6>
         </div>
         <div class="w-full md:w-1/2">
             <small class="font-normal text-darkGray text-xs">Year Level</small>
-            <h6 class="text-1rem font-medium leading-5 mb-2">{{ $email }}</h6>
+            <h6 class="text-1rem font-medium leading-5 mb-2">{{ $selectedStudent->admissions->first()->level }}</h6>
         </div>
+        @endisset
     </div>
 
     {{-- Close button --}}

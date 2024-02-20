@@ -62,7 +62,17 @@ class AttendanceLogger extends Component
     {
         try {
             // Retrieves card of rfid (OPTIMIZE THIS)
-            $this->card = Card::with(['student', 'attendances', 'attendances.post'])->whereEncrypted('rfid', $rfid)->first();
+            $this->card = Card::with([
+                'student',
+                'attendances',
+                'attendances.post',
+                'student.admissions' => fn ($query) =>
+                    $query->orderBy('id', 'desc')
+                        ->first(),
+                'student.admissions.program'
+            ])
+                ->whereEncrypted('rfid', $rfid)
+                ->first();
             $this->rfid = $rfid;
 
             if ($this->card->status === 'INACTIVE') {
@@ -70,7 +80,9 @@ class AttendanceLogger extends Component
             }
 
             // Retrieves last log (OPTIMIZE THIS)
-            $this->attendance = $this->card->attendances->sortByDesc('updated_at')->first();
+            $this->attendance = $this->card->attendances
+                ->sortByDesc('updated_at')
+                ->first();
 
             // Log attendance throttle
             if ($this->attendance) {
@@ -116,7 +128,7 @@ class AttendanceLogger extends Component
                 ($this->card->student->middle_name ?
                     substr($this->card->student->middle_name, 0, 1) . '.' : ''));
             $this->profile_photo = $this->card->profile_photo;
-            $this->program = 'BSCS';
+            $this->program = $this->card->student->admissions->first()->program->abbreviation;
             $this->enrolled = 'ENROLLED';
         } catch (\Throwable $th) {
             $this->dispatch('error', ['message' => 'Invalid ID.']);

@@ -34,7 +34,7 @@ class StudentFactory extends Factory
             'nationality' => 'Filipino',
             'birthdate' => fake()->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
             'birthplace' => fake()->city(),
-            'address' => fake()->address(),
+            'address' => fake()->city(),
             'phone' => $phone,
             'email' => fake()->unique()->email(),
             'account_type' => fake()->randomElement(['Cabuyeño', 'Non-Cabuyeño'])

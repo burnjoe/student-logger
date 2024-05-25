@@ -20,7 +20,7 @@ class CardFactory extends Factory
         return [
             'rfid' => strval(fake()->unique()->numberBetween(1000000000, 9999999999)),
             'student_id' => null,
-            'profile_photo' => 'photos/user_icon.png',
+            'profile_photo' => null,
             'issuance_reason' => 'First Issue',
             'expires_at' => now()->addYears(2),
             'status' => 'ACTIVE',

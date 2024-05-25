@@ -29,7 +29,7 @@ class EmployeeFactory extends Factory
             'middle_name' => fake()->randomElement([fake()->lastName(), null]),
             'sex' => fake()->randomElement(['Male', 'Female']),
             'birthdate' => fake()->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
-            'address' => fake()->address(),
+            'address' => fake()->city(),
             'phone' => $phone,
         ];
     }

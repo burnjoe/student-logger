@@ -238,7 +238,7 @@ class Accounts extends Component
             'status' => $validated['status'],
         ]);
 
-        $this->selectedUser->employee()->update([
+        $this->selectedUser->employee()->first()->update([
             'last_name' => $validated['last_name'],
             'first_name' => $validated['first_name'],
             'middle_name' => $validated['middle_name'],

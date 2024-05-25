@@ -23,8 +23,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         Employee::factory(4)->create([
-            'address' => 'Cabuyao, Laguna',
-            'phone' => '9212448993'
+            'address' => 'Cabuyao, Laguna'
         ]);
     }
 }

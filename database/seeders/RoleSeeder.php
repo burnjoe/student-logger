@@ -37,6 +37,7 @@ class RoleSeeder extends Seeder
                 'view archives',
                 'view main gate reports',
                 'view library reports',
+                'view clinic reports',
                 'generate reports',
             ]);
 

@@ -4,31 +4,15 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\Attendance;
+use App\Models\College;
 use App\Models\Student;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Facades\View;
 
 class Dashboard extends Component
 {
-    public $attendanceStatusData = [];
-
-
-    /**
-     * Initializes the attributes
-     */
-    public function mount()
-    {
-        $mainGatePostId = Post::where('name', 'Main Gate')->first()->id;
-        $today = Carbon::today();
-
-        $this->attendanceStatusData = [
-            'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
-            'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
-            'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
-        ];
-    }
-
     /**
      * Render livewire view
      */
@@ -37,12 +21,64 @@ class Dashboard extends Component
         session()->forget('auth.password_confirmed_at');
         View::share('page', 'dashboard');
 
+        // $mainGatePostId = Post::where('name', 'Main Gate')->first()->id;
+        // $today = Carbon::today();
+
+        // $attendanceStatusData = [
+        //     'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
+        //     'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
+        //     'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
+        // ];
+        
+        
+        $colleges = College::with(['programs.admissions' => function ($query) {
+            $query->latestForStudents()
+                ->count();
+        }])->get();
+
+        $collegeStudentCount = [];
+
+        foreach($colleges as $college) {
+            $studentCount = 0;
+
+            foreach($college->programs as $program) {
+                $studentCount += $program->admissions->count();
+            }
+
+            $collegeStudentCount['labels'][] = $college->abbreviation;
+            $collegeStudentCount['data'][] = $studentCount;
+        }
+
+
+        $userPermittedActions = auth()->user()->getPermissionsViaRoles()->pluck('name')->all();
+        $post_ids = [];
+
+        if (in_array('view main gate reports', $userPermittedActions)) {
+            $post_ids[] = 1;  // Main Gate
+        }
+        
+        if (in_array('view library reports', $userPermittedActions)) {
+            $post_ids[] = 2;  // Library
+        }
+        
+        if (in_array('view clinic reports', $userPermittedActions)) {
+            $post_ids[] = 3;  // Clinic
+        }
+
+        $statusStudentCount['labels'] = ['IN', 'OUT', 'MISSED'];
+        $statusStudentCount['data'] = [
+            Attendance::where('status', 'IN')->whereIn('post_id', $post_ids)->whereDate('updated_at', Carbon::today())->count(),
+            Attendance::where('status', 'OUT')->whereIn('post_id', $post_ids)->whereDate('updated_at', Carbon::today())->count(),
+            Attendance::where('status', 'MISSED')->whereIn('post_id', $post_ids)->whereDate('updated_at', Carbon::today())->count()
+        ];
+
         return view('livewire.dashboard', [
-            'attendanceStatusData' => $this->attendanceStatusData,
             'totalStudents' => Student::count(),
             'liveCount' => Attendance::where('status', 'IN')
-                ->where(\DB::raw('DATE(updated_at)'), Carbon::today())
-                ->count()
+                ->where(DB::raw('DATE(updated_at)'), Carbon::today())
+                ->count(),
+            'collegeStudentCount' => $collegeStudentCount,
+            'statusStudentCount' => $statusStudentCount,
         ]);
     }
 }

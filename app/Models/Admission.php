@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Admission extends Model
 {
@@ -26,6 +27,15 @@ class Admission extends Model
     {
         $query->where('level', 'like', "%{$value}%")
             ->orWhere('enrolled_at', 'like', "%{$value}%");
+    }
+
+    public function scopeLatestForStudents($query)
+    {
+        return $query->whereIn('id', function($query) {
+            $query->select(DB::raw('MAX(id)'))
+                  ->from('admissions')
+                  ->groupBy('student_id');
+        });
     }
 
     /**

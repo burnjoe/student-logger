@@ -82,6 +82,11 @@ Run the migration and seed
 php artisan migrate:fresh --seed
 ```
 
+Create symbolic link for storage
+```
+php artisan storage:link
+```
+
 
 ## ⚡ Running the Server
 

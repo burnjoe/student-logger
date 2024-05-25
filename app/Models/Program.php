@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Program extends Model
@@ -33,8 +33,8 @@ class Program extends Model
         return $this->belongsTo(College::class);
     }
 
-    public function admissions(): MorphMany
+    public function admissions(): HasMany
     {
-        return $this->morphMany(Admission::class, 'trackable');
+        return $this->hasMany(Admission::class);
     }
 }

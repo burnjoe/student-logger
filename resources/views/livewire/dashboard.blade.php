@@ -1,4 +1,9 @@
 <div>
+   <x-card class="flex items-center mb-4" padding="pl-6 sm:pl-16 md:pl-24 py-4" style="background-image: url('/img/ist_banner.png'); background-size: cover; background-position: top; height: 260px;">
+      <img class="object-cover object-left h-16 sm:h-24 md:h-28 w-100"
+                alt="iStudentTrack" src="{{ asset('img/ist_banner_content.png') }}">
+   </x-card>
+
    <x-card>
       <span class="text-xl font-semibold">
          {{ 'Welcome, ' . Auth::user()->employee->first_name . ' ' . Auth::user()->employee->last_name . '!' }}
@@ -44,13 +49,13 @@
       <x-card>
          <div class="flex flex-col items-center">
             <span class="text-1rem font-semibold">Number of Students per Status (Today)</span>
-            {{-- @if(array_sum($statusStudentCount['data']) > 0) --}}
+            @if(array_sum($statusStudentCount['data']) > 0)
                <canvas id="campusStatusChart" class="my-4" style="max-width: 400px; max-height: 400px;"></canvas>
-            {{-- @else
+            @else
                <div class="flex justify-center py-6">
                   No records found.
                </div>
-            @endif --}}
+            @endif
          </div>
       </x-card>
    </div>

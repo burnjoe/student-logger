@@ -10,8 +10,8 @@
       </span>
    </x-card>
 
-   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <x-card class="mt-4">
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <x-card>
          <p class="text-1rem font-semibold">
             Total Number of Students:
          </p>
@@ -20,7 +20,7 @@
          </p>
       </x-card>
 
-      <x-card class="mt-4">
+      <x-card>
          <p class="text-1rem font-semibold">
             Live Student Population Count:
          </p>

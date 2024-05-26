@@ -24,7 +24,6 @@ class AuditLogs extends Component
      */
     public function render()
     {
-        session()->forget('auth.password_confirmed_at');
         View::share('page', 'audit_log');
 
         return view('livewire.audit-logs', [

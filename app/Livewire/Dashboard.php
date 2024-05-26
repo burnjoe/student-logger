@@ -18,19 +18,8 @@ class Dashboard extends Component
      */
     public function render()
     {
-        session()->forget('auth.password_confirmed_at');
         View::share('page', 'dashboard');
 
-        // $mainGatePostId = Post::where('name', 'Main Gate')->first()->id;
-        // $today = Carbon::today();
-
-        // $attendanceStatusData = [
-        //     'IN' => Attendance::where('status', 'IN')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
-        //     'OUT' => Attendance::where('status', 'OUT')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
-        //     'MISSED' => Attendance::where('status', 'MISSED')->where('post_id', $mainGatePostId)->whereDate('updated_at', $today)->count(),
-        // ];
-        
-        
         $colleges = College::with(['programs.admissions' => function ($query) {
             $query->latestForStudents()
                 ->count();

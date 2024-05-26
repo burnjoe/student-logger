@@ -33,7 +33,6 @@ class Attendances extends Component
             $this->selectedPosts += $posts[auth()->user()->getRoleNames()->first()];
         }
 
-        session()->forget('auth.password_confirmed_at');
         View::share('page', 'attendances');
         
         return view('livewire.attendances', [

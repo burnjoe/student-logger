@@ -37,7 +37,6 @@ class Accounts extends Component
 
     public function render()
     {
-        session()->forget('auth.password_confirmed_at');
         View::share('page', 'accounts');
 
         return view('livewire.accounts', [

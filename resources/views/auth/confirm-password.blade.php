@@ -25,7 +25,7 @@
         </div>
     </form>
     {{-- Back Button --}}
-    <x-button btnType="secondary" element="a" :href="route('dashboard')" class="absolute top-8 left-8" rounded="rounded-md">
+    <x-button btnType="secondary" element="a" :href="url()->previous()" class="absolute top-8 left-8" rounded="rounded-md">
         <i class="fa-solid fa-arrow-left"></i>
     </x-button>
 </x-guest-layout>

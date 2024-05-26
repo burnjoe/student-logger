@@ -31,7 +31,7 @@ Route::get('/', function () {
 })->name('root');
 
 // Authenticated Users
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'password.confirm.forget', 'password.confirm'])->group(function () {
     // Dashboard
     Route::get('dashboard', Dashboard::class)
         ->name('dashboard');
@@ -89,7 +89,6 @@ Route::middleware('auth')->group(function () {
 
     // Attendance Logger
     Route::get('attendance-logger', AttendanceLogger::class)
-        ->middleware('password.confirm')
         ->name('attendance-logger');
 
     // Profile

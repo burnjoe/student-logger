@@ -238,7 +238,6 @@ class Students extends Component
      */
     public function render()
     {
-        session()->forget('auth.password_confirmed_at');
         View::share('page', 'students');
 
         return view('livewire.students', [

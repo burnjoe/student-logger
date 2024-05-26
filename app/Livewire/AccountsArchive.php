@@ -38,7 +38,6 @@ class AccountsArchive extends Component
      */
     public function render()
     {
-        session()->forget('auth.password_confirmed_at');
         View::share('page', 'archive');
 
         return view('livewire.accounts-archive', [

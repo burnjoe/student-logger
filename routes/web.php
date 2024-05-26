@@ -31,7 +31,7 @@ Route::get('/', function () {
 })->name('root');
 
 // Authenticated Users
-Route::middleware(['auth', 'password.confirm.forget', 'password.confirm'])->group(function () {
+Route::middleware(['auth', 'password.confirm.forget', 'password.confirm', 'prevent.cache'])->group(function () {
     // Dashboard
     Route::get('dashboard', Dashboard::class)
         ->name('dashboard');

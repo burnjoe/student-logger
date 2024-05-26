@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ForgetConfirmPassword
+class PreventBackHistory
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,13 @@ class ForgetConfirmPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Remove session key when exiting from attendance logger page
-        if (url()->previous() === route('attendance-logger') && url()->current() !== route('attendance-logger')) {
-            session()->forget('auth.password_confirmed_at');
-        }
+        $response = $next($request);
+        
+        // Add headers to prevent caching
+        $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
 
-        return $next($request);
+        return $response;
     }
 }

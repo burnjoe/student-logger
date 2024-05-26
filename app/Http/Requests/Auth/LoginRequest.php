@@ -50,6 +50,7 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+        session()->put('auth.password_confirmed_at', time());
     }
 
     /**

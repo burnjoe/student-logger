@@ -528,7 +528,7 @@ class StudentSeeder extends Seeder
         Card::create([
             'rfid' => '0515641249',
             'student_id' => $student->id,
-            'profile_photo' => 'photos\UDudkw2WUjlyNnEgJNhRUcodq4rdDSqYMl0EbYv2.png',
+            'profile_photo' => null,
             'issuance_reason' => 'First Issue',
             'expires_at' => now()->addYears(2),
             'contact_person_id' => 1,

@@ -71,7 +71,7 @@
 
    // College Department Chart
    new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
-      type: 'pie',
+      type: 'doughnut',
       data: {
          labels: colleges.labels,
          datasets: [{
@@ -92,7 +92,7 @@
 
    // Status Chart
    new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
-      type: 'pie',
+      type: 'doughnut',
       data: {
          labels: statuses.labels,
          datasets: [{

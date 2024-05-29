@@ -19,16 +19,16 @@ $statusColors = [
             <div class="flex flex-col md:flex-row gap-4 pb-6">
                 {{-- Left Side --}}
                 <div class="md:w-1/3 flex flex-col items-center">
-                    <span class="text-1rem font-semibold">Number of Students per Dept. in the Campus</span>
+                    <span class="text-1rem font-semibold">Number of Students per College Department</span>
                     <canvas id="campusDeptChart" style="max-width: 400px; max-height: 400px;"></canvas>
                 </div>
                 {{-- Middle --}}
                 <div class="md:w-1/3 flex flex-col items-center">
-                    <span class="text-1rem font-semibold">Number of Students per Status in the Campus</span>
+                    <span class="text-1rem font-semibold">Number of Students per Status</span>
                     <canvas id="campusStatusChart" style="max-width: 400px; max-height: 400px;"></canvas>
                 </div>
                 {{-- Right Side --}}
-                <div class="w-full md:w-3/4">
+                <div class="md:w-1/3 w-full">
                     <div class="flex flex-col mb-3">
                         <p class="text-1rem font-semibold">
                             Total Number Students
@@ -123,45 +123,56 @@ $statusColors = [
             </div>
         </div>
     </div>
+
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Dept Chart
-         new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
-            type: 'pie',
-            data: {
-               labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
-               // labels: @ json($data->keys()),
-               datasets: [{
-                  label: ' # of Students',
-                  data: [10, 20, 30, 5, 9, 12, 9],
-                  // data: @ json($data->values())
-                  backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
-                     'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
-                  ],
-                  hoverOffset: 4
-               }]
-            }
-         });
 
-         // Status Chart
-         new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
-            type: 'pie',
-            data: {
-               labels: ['IN', 'OUT', 'MISSED'],
-               datasets: [{
-                  label: ' # of Students',
-                  data: ['{{ $statusCounts['IN'] ?? 0 }}', '{{ $statusCounts['OUT'] ?? 0 }}',
-                     '{{ $statusCounts['MISSED'] ?? 0 }}'
-                  ],
-                  backgroundColor: ['orange', 'green', 'red'],
-                  hoverOffset: 4
-               }]
-            },
-         });
+    <script>
+        var colleges = @json($collegeStudentCount);
+        var statuses = @json($statusStudentCount);
+
+        function updateCharts() {
+            // College Department Chart
+            new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(colleges),
+                    datasets: [{
+                        label: ' # of Students',
+                        data: Object.values(colleges),
+                        backgroundColor: ['rgb(153, 0, 0)', 'rgb(255, 205, 86)', 'rgb(255, 128, 0)', 'rgb(0, 102, 204)',
+                            'rgb(255, 102, 102)', 'rgb(0, 153, 0)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                }
+            });
+
+            // Status Chart
+            new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(statuses),
+                    datasets: [{
+                        label: ' # of Students',
+                        data: Object.values(statuses),
+                        backgroundColor: ['orange', 'green', 'red'],
+                        hoverOffset: 4
+                    }]
+                }
+            });
+        }
+
+        updateCharts();
+
+        Livewire.hook('element.updated', (el, component) => {
+            updateCharts();
+        });
     </script>
     @endpush
     @endcan
+
+
 
     {{-- Library --}}
     @can('view library reports')
@@ -253,7 +264,7 @@ $statusColors = [
     <script>
         // Library Chart
          new Chart(document.getElementById('libraryDeptChart').getContext('2d'), {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
                datasets: [{
@@ -360,7 +371,7 @@ $statusColors = [
     <script>
         // Clinic Chart
          new Chart(document.getElementById('clinicDeptChart').getContext('2d'), {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                labels: ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'],
                datasets: [{
@@ -376,4 +387,6 @@ $statusColors = [
     </script>
     @endpush
     @endcan
+
+
 </div>

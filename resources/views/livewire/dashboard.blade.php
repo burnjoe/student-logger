@@ -49,7 +49,7 @@
       <x-card>
          <div class="flex flex-col items-center">
             <span class="text-1rem font-semibold">Number of Students per Status (Today)</span>
-            @if(array_sum($statusStudentCount['data']) > 0)
+            @if($statusStudentCount->sum() > 0)
                <canvas id="campusStatusChart" class="my-4" style="max-width: 400px; max-height: 400px;"></canvas>
             @else
                <div class="flex justify-center py-6">
@@ -73,10 +73,10 @@
    new Chart(document.getElementById('campusDeptChart').getContext('2d'), {
       type: 'doughnut',
       data: {
-         labels: colleges.labels,
+         labels: Object.keys(colleges),
          datasets: [{
             label: ' # of Students',
-            data: colleges.data,
+            data: Object.values(colleges),
             backgroundColor: [
                'rgb(153, 0, 0)', 
                'rgb(255, 205, 86)', 
@@ -94,10 +94,10 @@
    new Chart(document.getElementById('campusStatusChart').getContext('2d'), {
       type: 'doughnut',
       data: {
-         labels: statuses.labels,
+         labels: Object.keys(statuses),
          datasets: [{
             label: ' # of Students',
-            data: statuses.data,
+            data: Object.values(statuses),
             backgroundColor: ['rgb(250,99,65)', 'rgb(25,134,85)', 'rgb(244,55,92)'],
             hoverOffset: 4
          }]

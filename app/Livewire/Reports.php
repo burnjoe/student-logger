@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Post;
-use App\Models\College;
 use Livewire\Component;
 use App\Models\Attendance;
+use App\Models\College;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,9 @@ class Reports extends Component
     public $selectMonthYearMainGate = null;
     public $selectMonthYearLibrary = null;
     public $selectMonthYearClinic = null;
-    
+
+    public $statusStudentCount;
+
     // Display default value
     public function mount()
     {
@@ -39,26 +41,30 @@ class Reports extends Component
     public function render(Request $request)
     {
         View::share('page', 'reports');
-        
-        // $colleges = ['CAS', 'CBAA', 'CCS', 'COED', 'COE', 'CHAS'];
-        // $studentData = [];
 
-        // foreach ($colleges as $college) {
-        //     $count = Attendance::whereHas('card.student', function ($query) use ($college) {
-        //         $query->where('college_id', $college);
-        //     })->where('post_id', 1)->count();
-        //     array_push($studentData, $count);
-        // }
-        
-        // Status Chart for Main Gate of Campus
-        $statusCounts = Attendance::select('status', DB::raw('count(*) as total'))
+        // Number of students per college department (Main Gate Reports)
+        $collegeStudentCount = College::with(['programs.admissions' => function ($query) {
+            $query->latestForStudents();
+        }])
+            ->get()
+            ->mapWithKeys(function ($college) {
+                $studentCount = $college->programs->sum(function ($program) {
+                    return $program->admissions->count();
+                });
+
+                return [$college->abbreviation => $studentCount];
+            });
+
+
+        // Number of students per status (Main Gate Reports)
+        $this->statusStudentCount = Attendance::select('status', DB::raw('count(*) as count'))
             ->where('post_id', 1)
             ->when(
                 $this->selectMonthYearMainGate,
                 function ($query) {
                     $selectedDate = Carbon::parse($this->selectMonthYearMainGate);
                     $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
-                    
+
                     return $query->whereBetween(
                         'logged_in_at',
                         [
@@ -70,11 +76,16 @@ class Reports extends Component
             )
             ->groupBy('status')
             ->get()
-            ->pluck('total', 'status');
- 
+            ->pluck('count', 'status');
 
-            
-        // Table for Main Gate of Campus
+        $this->statusStudentCount = collect([
+            'IN' => 0,
+            'OUT' => 0,
+            'MISSED' => 0,
+        ])->merge($this->statusStudentCount);
+
+
+        // Student entry and exit logs (Main Gate Reports)
         $mainGateAttendances = Attendance::select('id', 'logged_in_at', 'logged_out_at', 'status', 'card_id', 'post_id')
             ->with([
                 'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
@@ -92,21 +103,26 @@ class Reports extends Component
                 function ($query) {
                     $selectedDate = Carbon::parse($this->selectMonthYearMainGate);
                     $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
-                    
+
                     return $query->whereBetween(
                         'logged_in_at',
                         [
-                            $selectedDate->startOfMonth(),
+                            $selectedDate,
                             $endDate
                         ]
                     );
                 }
             )
             ->orderBy('updated_at', 'desc')
-            ->paginate(15);
+            ->paginate(5);
 
-    
-        
+
+
+
+
+
+
+
         $libraryVisitCounts = Attendance::select('card_id', DB::raw('count(*) as total'))
             ->where('post_id', 2)
             ->when(
@@ -114,7 +130,7 @@ class Reports extends Component
                 function ($query) {
                     $selectedDate = Carbon::parse($this->selectMonthYearLibrary);
                     $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
-                    
+
                     return $query->whereBetween(
                         'updated_at',
                         [
@@ -143,7 +159,7 @@ class Reports extends Component
                 function ($query) {
                     $selectedDate = Carbon::parse($this->selectMonthYearLibrary);
                     $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
-                    
+
                     return $query->whereBetween(
                         'updated_at',
                         [
@@ -158,8 +174,8 @@ class Reports extends Component
             ->take(5)
             ->get();
 
-            
-        
+
+
         $clinicVisitCounts = Attendance::select('card_id', DB::raw('count(*) as total'))
             ->where('post_id', 3)
             ->when(
@@ -167,7 +183,7 @@ class Reports extends Component
                 function ($query) {
                     $selectedDate = Carbon::parse($this->selectMonthYearClinic);
                     $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
-                    
+
                     return $query->whereBetween(
                         'updated_at',
                         [
@@ -182,7 +198,7 @@ class Reports extends Component
             ->take(5)
             ->get()
             ->pluck('total', 'card_id');
-            
+
         $clinicAttendances = Attendance::select('card_id', DB::raw('count(*) as total'))
             ->with([
                 'card' => fn ($query) => $query->select('id', 'profile_photo', 'student_id'),
@@ -196,7 +212,7 @@ class Reports extends Component
                 function ($query) {
                     $selectedDate = Carbon::parse($this->selectMonthYearClinic);
                     $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
-            
+
                     return $query->whereBetween(
                         'updated_at',
                         [
@@ -210,12 +226,16 @@ class Reports extends Component
             ->orderBy('total', 'desc')
             ->take(5)
             ->get();
-        
-            
+
         $posts = Post::all();
 
+
+
+
+
         return view('livewire.reports', [
-            'statusCounts' => $statusCounts,
+            'collegeStudentCount' => $collegeStudentCount,
+            'statusStudentCount' => $this->statusStudentCount,
             'mainGateAttendances' => $mainGateAttendances,
             'libraryAttendances' => $libraryAttendances,
             'libraryVisitCounts' => $libraryVisitCounts,
@@ -223,5 +243,39 @@ class Reports extends Component
             'clinicVisitCounts' => $clinicVisitCounts,
             'posts' => $posts,
         ]);
+    }
+
+    /**
+     * Update college student count for main gate chart
+     */
+    function updatedSelectMonthYearMainGate()
+    {
+        // Number of students per status (Main Gate Reports)
+        $this->statusStudentCount = Attendance::select('status', DB::raw('count(*) as count'))
+            ->where('post_id', 1)
+            ->when(
+                $this->selectMonthYearMainGate,
+                function ($query) {
+                    $selectedDate = Carbon::parse($this->selectMonthYearMainGate);
+                    $endDate = $selectedDate->isSameMonth(Carbon::now()) ? Carbon::now() : $selectedDate->copy()->endOfMonth();
+
+                    return $query->whereBetween(
+                        'logged_in_at',
+                        [
+                            $selectedDate->startOfMonth(),
+                            $endDate
+                        ]
+                    );
+                }
+            )
+            ->groupBy('status')
+            ->get()
+            ->pluck('count', 'status');
+
+        $this->statusStudentCount = collect([
+            'IN' => 0,
+            'OUT' => 0,
+            'MISSED' => 0,
+        ])->merge($this->statusStudentCount);
     }
 }

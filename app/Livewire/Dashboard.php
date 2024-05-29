@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\Post;
 use App\Models\Attendance;
 use App\Models\College;
 use App\Models\Student;
@@ -20,24 +19,18 @@ class Dashboard extends Component
     {
         View::share('page', 'dashboard');
 
-        $colleges = College::with(['programs.admissions' => function ($query) {
-            $query->latestForStudents()
-                ->count();
-        }])->get();
+        $collegeStudentCount = College::with(['programs.admissions' => function ($query) {
+            $query->latestForStudents();
+        }])
+            ->get()
+            ->mapWithKeys(function ($college) {
+                $studentCount = $college->programs->sum(function ($program) {
+                    return $program->admissions->count();
+                });
 
-        $collegeStudentCount = [];
-
-        foreach($colleges as $college) {
-            $studentCount = 0;
-
-            foreach($college->programs as $program) {
-                $studentCount += $program->admissions->count();
-            }
-
-            $collegeStudentCount['labels'][] = $college->abbreviation;
-            $collegeStudentCount['data'][] = $studentCount;
-        }
-
+                return [$college->abbreviation => $studentCount];
+            })
+            ->toArray();
 
         $userPermittedActions = auth()->user()->getPermissionsViaRoles()->pluck('name')->all();
         $post_ids = [];
@@ -54,12 +47,19 @@ class Dashboard extends Component
             $post_ids[] = 3;  // Clinic
         }
 
-        $statusStudentCount['labels'] = ['IN', 'OUT', 'MISSED'];
-        $statusStudentCount['data'] = [
-            Attendance::where('status', 'IN')->whereIn('post_id', $post_ids)->whereDate('updated_at', Carbon::today())->count(),
-            Attendance::where('status', 'OUT')->whereIn('post_id', $post_ids)->whereDate('updated_at', Carbon::today())->count(),
-            Attendance::where('status', 'MISSED')->whereIn('post_id', $post_ids)->whereDate('updated_at', Carbon::today())->count()
-        ];
+        $statusStudentCount = Attendance::select('status', DB::raw('count(*) as count'))
+            ->whereIn('post_id', $post_ids)
+            ->whereDate('updated_at', Carbon::today())
+            ->groupBy('status')
+            ->get()
+            ->pluck('count', 'status');
+
+        $statusStudentCount = collect([
+            'IN' => 0,
+            'OUT' => 0,
+            'MISSED' => 0,
+        ])->merge($statusStudentCount);
+
 
         return view('livewire.dashboard', [
             'totalStudents' => Student::count(),
